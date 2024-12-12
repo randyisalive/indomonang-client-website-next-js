@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const NavbarItems = () => {
   const navbar_data = [
@@ -30,6 +31,8 @@ const NavbarItems = () => {
 
   const [items, setItems] = useState(navbar_data);
 
+  const router = useRouter();
+
   const handleItems = (id) => {
     setItems((prev) =>
       prev.map((x) =>
@@ -48,9 +51,9 @@ const NavbarItems = () => {
           style={
             item.dropdown
               ? { borderBottom: "3px solid #1062fe" }
-              : { border: "0px" }
+              : { borderBottom: "3px solid #ffffff" }
           }
-          className="flex border-b-2 items-center mt-5 p-3 relative gap-2"
+          className="flex items-center  p-3 pb-2 pt-0 relative gap-2"
         >
           <motion.span
             style={item.dropdown ? { color: "#1062FE" } : { color: "#000" }}
@@ -89,10 +92,13 @@ const NavbarItems = () => {
                         ) : (
                           <motion.div
                             key={`ct-${index}`}
-                            className="w-fit"
+                            className="w-full"
                             style={{ cursor: "pointer" }}
                             whileHover={{ color: "#1062FE", x: 10 }}
-                            onClick={() => handleItems(item.id)}
+                            onClick={() => {
+                              handleItems(item.id);
+                              router.push(content.link);
+                            }}
                           >
                             <div className="py-3 px-3 w-full font-bold ">
                               <Link href={content.link}>{content.text}</Link>

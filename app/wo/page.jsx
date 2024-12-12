@@ -1,7 +1,7 @@
 import React from "react";
 
-const page = () => {
-  return <div>page</div>;
+const WOList = () => {
+  return <div className="flex w-full bg-yellow-500 p-3 flex-1">WOList</div>;
 };
 
-export default page;
+export default WOList;
