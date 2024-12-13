@@ -1,0 +1,19 @@
+.login-background {
+  background: rgb(22, 49, 114);
+  background: -moz-linear-gradient(
+    183deg,
+    rgba(22, 49, 114, 1) 50%,
+    rgba(30, 86, 160, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    183deg,
+    rgba(22, 49, 114, 1) 50%,
+    rgba(30, 86, 160, 1) 100%
+  );
+  background: linear-gradient(
+    183deg,
+    rgba(22, 49, 114, 1) 50%,
+    rgba(30, 86, 160, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#163172",endColorstr="#1e56a0",GradientType=1);
+}

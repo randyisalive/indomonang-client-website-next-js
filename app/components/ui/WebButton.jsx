@@ -6,12 +6,19 @@ const WebButton = ({
   title = "Submit",
   onClickFunction = () => {},
   className = {},
+  def = false,
+  styles = {},
 }) => {
   return (
     <motion.button
       onClick={onClickFunction}
-      whileHover={{ backgroundColor: "#2563eb", color: "#ffffff" }}
-      className={`border font-bold px-3 py-2 text-xs rounded-md ${className}`}
+      whileHover={{ opacity: 0.88 }}
+      style={styles}
+      className={
+        !def
+          ? `border font-bold px-3 py-2 text-xs rounded-md ${className}`
+          : className
+      }
     >
       {title}
     </motion.button>
