@@ -24,7 +24,18 @@ const NavbarItems = () => {
         { id: 3, text: "Pesan Addons", link: "" },
       ],
     },
-    { id: 2, title: "Billing", dropdown: false, content: [] },
+    {
+      id: 2,
+      title: "Billing",
+      dropdown: false,
+      content: [
+        { id: 4, text: "Billing List", link: "/wo" },
+        { id: 4, text: "Invoices", link: "/wo" },
+        { id: 5, text: "", link: "", line: true },
+        { id: 6, text: "Pesan Layanan Saya", link: "" },
+        { id: 7, text: "Pesan Addons", link: "" },
+      ],
+    },
     { id: 3, title: "Dukungan", dropdown: false, content: [] },
     { id: 4, title: "Buat Tiket", dropdown: false, content: [] },
   ];

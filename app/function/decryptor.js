@@ -1,4 +1,3 @@
-"use client";
 import bcrypt from "bcryptjs";
 import CryptoJS from "crypto-js";
 

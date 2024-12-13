@@ -1,27 +1,41 @@
 import React from "react";
 import HomeCard from "./components/home/HomeCard";
 import WebButton from "./components/ui/WebButton";
+import DataTable from "./components/ui/DataTable";
+import ProfileCard from "./components/home/ProfileCard";
+import HomeList from "./components/home/HomeList";
 
 const HomeTemplate = () => {
+  const card_data = [
+    { id: 0, icon: "pi pi-times", count: "2", sub: "Layanan", link: "" },
+    { id: 1, icon: "pi pi-times", count: "1", sub: "Domain", link: "" },
+    {
+      id: 2,
+      icon: "pi pi-times",
+      count: "0",
+      sub: "Unpaid Invoices",
+      link: "",
+    },
+    { id: 3, icon: "pi pi-times", count: "0", sub: "", link: "" },
+  ];
   return (
     <div className="flex flex-col w-full mx-auto pt-7  sm:px-6, lg:px-0 max-w-screen-xl">
       <header className="text-5xl font-bold">My Dashboard</header>
       <div className="mt-6 flex gap-3">
         <div className="w-1/4">
-          <div className="border rounded-lg p-3 flex gap-3 flex-col">
-            <span className="text-xl font-light">#17977 indomonangjadi</span>
-            <p className="text-sm text-gray-500">
-              Ike indomonang Jl. Mampang Prapt. No.55, RT.2/RW.2, Kel. Duren
-              Tiga, Kec. Pancoran Jakarta Selatan, Jakarta, 12760 Indonesia
-            </p>
-            <div className="mt-3 flex gap-3 w-full">
-              <WebButton title="Edit" />
-              <WebButton title="Keluar" />
-            </div>
-          </div>
+          <ProfileCard />
+          <div className="flex flex-col gap-3 mt-5"></div>
+          <HomeList />
         </div>
-        <div className="w-3/4 flex gap-3 flex-wrap justify-evenly ">
-          <HomeCard />
+        <div className="w-3/4 flex flex-col gap-8 min-h-96">
+          <div className="w-full  flex gap-3 flex-wrap justify-evenly ">
+            {card_data.map((item) => {
+              return <HomeCard key={`${item.id}`} item={item} />;
+            })}
+          </div>
+          <div className="w-full  p-2 overflow-x-auto">
+            <DataTable />
+          </div>
         </div>
       </div>
     </div>

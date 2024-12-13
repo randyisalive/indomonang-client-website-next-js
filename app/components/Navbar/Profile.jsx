@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 
 function Profile({ Logout = () => {}, keys = "", image = {} }) {
   const [clicked, setClicked] = useState(false);
+  const [decryptedRole, setDecryptedRole] = useState("");
   const router = useRouter();
   const items = [
     {
@@ -17,7 +18,6 @@ function Profile({ Logout = () => {}, keys = "", image = {} }) {
       },
       permission: ["Admin", "Client", "Developer", ""],
     },
-
     {
       permission: ["Admin", "Client", "Developer", ""],
       separator: true,
@@ -46,6 +46,16 @@ function Profile({ Logout = () => {}, keys = "", image = {} }) {
     };
   }, [ref]);
 
+  useEffect(() => {
+    // Check if running in a browser environment
+    if (typeof window !== "undefined") {
+      const role = localStorage.getItem("role");
+      if (role) {
+        setDecryptedRole(decryptMessage(role, keys));
+      }
+    }
+  }, [keys]);
+
   return (
     <motion.div
       ref={ref}
@@ -56,7 +66,7 @@ function Profile({ Logout = () => {}, keys = "", image = {} }) {
     >
       <motion.div
         whileHover={{ backgroundColor: "#e5e7eb" }}
-        className="d-flex w-100 px-2 rounded-5 align-items-center py-2"
+        className="flex w-full px-2 rounded-xl items-center py-2"
         onClick={() => setClicked(!clicked)}
         style={{
           backgroundColor: "#ffffff",
@@ -66,7 +76,7 @@ function Profile({ Logout = () => {}, keys = "", image = {} }) {
         }}
       >
         <Avatar
-          className="rounded-8"
+          className="rounded-xl"
           icon="pi pi-user"
           size="medium"
           style={{ backgroundColor: "white" }}
@@ -86,7 +96,7 @@ function Profile({ Logout = () => {}, keys = "", image = {} }) {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="w-100 rounded-3 card py-2"
+              className="w-full shadow-md rounded-2xl p-2 bg-white"
               style={{
                 position: "absolute",
                 top: 60,
@@ -96,16 +106,11 @@ function Profile({ Logout = () => {}, keys = "", image = {} }) {
               }}
             >
               {items.map((x, index) => {
-                if (
-                  x.permission.includes(
-                    decryptMessage(localStorage.getItem("role"), keys)
-                  )
-                ) {
+                if (x.permission.includes(decryptedRole)) {
                   return (
-                    <>
+                    <React.Fragment key={index}>
                       <motion.div
-                        key={index}
-                        className="d-flex align-items-center gap-2 pb-1 px-2 pt-1"
+                        className="flex items-center gap-2 p-2 px-0 rounded-xl"
                         whileHover={
                           !x.separator ? { backgroundColor: "#E5E7EB" } : {}
                         }
@@ -121,15 +126,15 @@ function Profile({ Logout = () => {}, keys = "", image = {} }) {
                         }
                       >
                         {x.separator ? (
-                          <div className="my-2 w-100 border-bottom"></div>
+                          <div className=" w-full border border-b-0"></div>
                         ) : (
                           <>
-                            <i className={x.icon}></i>
+                            <i className={`${x.icon} px-3 p-2`}></i>
                             <p>{x.label}</p>
                           </>
                         )}
                       </motion.div>
-                    </>
+                    </React.Fragment>
                   );
                 }
               })}
