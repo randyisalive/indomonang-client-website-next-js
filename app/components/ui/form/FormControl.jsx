@@ -8,7 +8,7 @@ import useLoginData from "@/app/hooks/useLoginData";
 
 const FormControl = ({ children, title = "", className = {} }) => {
   // form api
-  const { handleForm, form } = useLoginData();
+  const { handleForm, form, handleLogin, users } = useLoginData();
   return (
     <div className={`border h-fit ${className}`}>
       <section>
@@ -42,6 +42,7 @@ const FormControl = ({ children, title = "", className = {} }) => {
           title="Login"
           className={`p-3 text-white font-bold rounded-sm`}
           def={true}
+          onClickFunction={handleLogin}
         />
       </section>
       <section id="footer" className="m-1  py-4  border-t text-sm text-center">

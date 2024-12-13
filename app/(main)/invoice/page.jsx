@@ -1,5 +1,5 @@
+import TableComponent from "@/app/components/ui/TableComponent";
 import React from "react";
-import TableComponent from "../components/ui/TableComponent";
 
 const invoicePage = () => {
   const th_array = [

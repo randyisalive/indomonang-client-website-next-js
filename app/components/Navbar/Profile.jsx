@@ -5,10 +5,17 @@ import { AnimatePresence, motion } from "framer-motion";
 import { decryptMessage } from "@/app/function/decryptor";
 import { useRouter } from "next/navigation";
 
-function Profile({ Logout = () => {}, keys = "", image = {} }) {
+function Profile({ keys = "", image = {} }) {
   const [clicked, setClicked] = useState(false);
   const [decryptedRole, setDecryptedRole] = useState("");
   const router = useRouter();
+
+  // logout function
+  const Logout = () => {
+    localStorage.removeItem("authToken");
+    router.push("/login");
+  };
+
   const items = [
     {
       label: "My Account",
@@ -27,8 +34,7 @@ function Profile({ Logout = () => {}, keys = "", image = {} }) {
       permission: ["Admin", "Client", "Developer", ""],
       icon: "pi pi-sign-out",
       command: () => {
-        //Logout();
-        router.push("/login");
+        Logout();
       },
     },
   ];

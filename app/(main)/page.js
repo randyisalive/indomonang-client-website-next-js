@@ -22,8 +22,9 @@ export default function Home() {
       <div className="mt-6 flex gap-3">
         <div className="w-1/4">
           <ProfileCard />
-          <div className="flex flex-col gap-3 mt-5"></div>
-          <HomeList />
+          <div className="flex flex-col gap-3 mt-5">
+            <HomeList />
+          </div>
         </div>
         <div className="w-3/4 flex flex-col gap-8 min-h-96">
           <div className="w-full  flex gap-3 flex-wrap justify-evenly ">
