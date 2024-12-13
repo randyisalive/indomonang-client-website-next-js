@@ -1,11 +1,9 @@
-import React from "react";
-import HomeCard from "./components/home/HomeCard";
-import WebButton from "./components/ui/WebButton";
-import DataTable from "./components/ui/DataTable";
-import ProfileCard from "./components/home/ProfileCard";
-import HomeList from "./components/home/HomeList";
+import HomeCard from "../components/home/HomeCard";
+import HomeList from "../components/home/HomeList";
+import ProfileCard from "../components/home/ProfileCard";
+import DataTable from "../components/ui/DataTable";
 
-const HomeTemplate = () => {
+export default function Home() {
   const card_data = [
     { id: 0, icon: "pi pi-times", count: "2", sub: "Layanan", link: "" },
     { id: 1, icon: "pi pi-times", count: "1", sub: "Domain", link: "" },
@@ -40,6 +38,4 @@ const HomeTemplate = () => {
       </div>
     </div>
   );
-};
-
-export default HomeTemplate;
+}

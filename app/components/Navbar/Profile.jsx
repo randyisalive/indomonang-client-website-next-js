@@ -27,7 +27,8 @@ function Profile({ Logout = () => {}, keys = "", image = {} }) {
       permission: ["Admin", "Client", "Developer", ""],
       icon: "pi pi-sign-out",
       command: () => {
-        Logout();
+        //Logout();
+        router.push("/auth/login");
       },
     },
   ];

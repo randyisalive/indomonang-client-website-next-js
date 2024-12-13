@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -29,8 +29,8 @@ const NavbarItems = () => {
       title: "Billing",
       dropdown: false,
       content: [
-        { id: 4, text: "Billing List", link: "/wo" },
-        { id: 4, text: "Invoices", link: "/wo" },
+        { id: 4, text: "Billing List", link: "/billing" },
+        { id: 4, text: "Invoices", link: "/invoice" },
         { id: 5, text: "", link: "", line: true },
         { id: 6, text: "Pesan Layanan Saya", link: "" },
         { id: 7, text: "Pesan Addons", link: "" },
@@ -54,6 +54,22 @@ const NavbarItems = () => {
     );
   };
 
+  // click outside event
+  const cardRef = useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (cardRef.current && !cardRef.current.contains(e.target)) {
+        setItems((prev) => prev.map((x) => ({ ...x, dropdown: false })));
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
       {items.map((item) => (
@@ -64,7 +80,7 @@ const NavbarItems = () => {
               ? { borderBottom: "3px solid #1062fe" }
               : { borderBottom: "3px solid #ffffff" }
           }
-          className="flex items-center  p-3 pb-2 pt-0 relative gap-2"
+          className="flex items-center z-10 p-3 pb-2 pt-0 relative gap-2"
         >
           <motion.span
             style={item.dropdown ? { color: "#1062FE" } : { color: "#000" }}
@@ -94,6 +110,7 @@ const NavbarItems = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
+                    ref={cardRef}
                     className="absolute w-64 text-xs top-full bg-white border rounded-lg mt-3"
                   >
                     {item.content.map((content, index) => (
