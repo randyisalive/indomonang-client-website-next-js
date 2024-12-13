@@ -1,4 +1,5 @@
 import React from "react";
+import SettingSpan from "./account/components/SettingSpan";
 
 const AdminLayout = ({ children }) => {
   return (
@@ -12,8 +13,8 @@ const AdminLayout = ({ children }) => {
       <div className="flex h-screen">
         <div className="w-1/3 hidden md:flex flex-col p-24 pe-0">
           <div className="flex flex-col gap-1 p-5 border-e-2 w-full">
-            <span className=" font-bold text-5xl mb-5">Settings</span>
-            <ul className="flex flex-col gap-3">
+            <SettingSpan />
+            <ul className="flex flex-col gap-3 ms-5">
               <li className="border-4 rounded-full p-3 w-fit">
                 Public profile
               </li>
