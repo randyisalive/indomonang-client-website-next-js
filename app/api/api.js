@@ -100,15 +100,84 @@ const api = () => {
         console.error(e);
       }
     };
+    const getCompanyById = async (user_id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 154,
+        select_fields: "2630",
+        filters: { id: user_id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
     return {
       getUserByEmail,
       insertLoginToken,
       getLoginTokenByUser,
       getAllLoginToken,
+      getCompanyById,
     };
   };
 
-  return { CustomerAccountApi, DecryptionKeyApi };
+  const WOApi = () => {
+    const getWoByUserId = async (company_id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 36,
+        filters: { 314: company_id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    return { getWoByUserId };
+  };
+
+  const ExtraMethodsApi = () => {
+    const getGlobalListValueById = async (id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "get_global_list_choices",
+        list_id: 16,
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    return { getGlobalListValueById };
+  };
+
+  const CustomerDatabasApi = () => {};
+
+  return { CustomerAccountApi, DecryptionKeyApi, WOApi, ExtraMethodsApi };
 };
 
 export default api;

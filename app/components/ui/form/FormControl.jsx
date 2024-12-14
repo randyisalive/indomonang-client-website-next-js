@@ -5,10 +5,13 @@ import Form from "./Form";
 import RadioButton from "./RadioButton";
 import WebButton from "../WebButton";
 import useLoginData from "@/app/hooks/useLoginData";
+import { Message } from "primereact/message";
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+import { AnimatePresence, motion } from "framer-motion";
 
 const FormControl = ({ children, title = "", className = {} }) => {
   // form api
-  const { handleForm, form, handleLogin, users } = useLoginData();
+  const { handleForm, form, handleLogin, users, isLoading } = useLoginData();
   return (
     <div className={`border h-fit ${className}`}>
       <section>
@@ -32,6 +35,23 @@ const FormControl = ({ children, title = "", className = {} }) => {
           onChange={handleForm}
           name="password"
         />
+        <AnimatePresence>
+          {isLoading === 2 ? (
+            <>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="w-full p-2 text-center"
+              >
+                <span className="">
+                  <Message text="Wrong Credentials" severity="error" />
+                </span>
+              </motion.div>
+            </>
+          ) : null}
+        </AnimatePresence>
+
         <RadioButton
           title="Remember Me"
           inputType={"checkbox"}
@@ -39,9 +59,16 @@ const FormControl = ({ children, title = "", className = {} }) => {
         />
         <WebButton
           styles={{ backgroundColor: "#1E56A0" }}
-          title="Login"
+          title={
+            isLoading === 1 ? (
+              <i className="pi pi-spin pi-spinner"></i>
+            ) : (
+              `Login`
+            )
+          }
           className={`p-3 text-white font-bold rounded-sm`}
           def={true}
+          disabled={isLoading === 1 ? true : false}
           onClickFunction={handleLogin}
         />
       </section>

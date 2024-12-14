@@ -1,17 +1,28 @@
 "use client";
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import SearchTerms from "@/app/function/SearchTerms";
 import SearchInput from "./form/SearchInput";
-import StatusBadge from "./tableComponent/StatusBadge";
+import BillingRows from "./tableComponent/BillingRows";
+import WORows from "./tableComponent/WORows";
 
-const TableComponent = ({ th_array = [], datas = [], rowsPerPage = 10 }) => {
+const TableComponent = ({
+  th_array = [],
+  datas = [],
+  TableType = "billing",
+}) => {
   const [search, setSearch] = useState("");
 
   const { dataToDisplay } = SearchTerms(datas, search, setSearch);
 
   // State for pagination
   const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const page_selection = [
+    { id: 1, value: 5 },
+    { id: 2, value: 10 },
+    { id: 3, value: 15 },
+    { id: 4, value: 20 },
+  ];
 
   // Calculate the index range for the current page
   const indexOfLastRow = currentPage * rowsPerPage;
@@ -26,9 +37,22 @@ const TableComponent = ({ th_array = [], datas = [], rowsPerPage = 10 }) => {
 
   return (
     <div className="flex flex-col w-full ">
-      <SearchInput name="search" search={search} setSearch={setSearch} />
+      <div className="flex gap-3">
+        <SearchInput name="search" search={search} setSearch={setSearch} />
+        <select
+          className="border-2 w-1 text-center"
+          onChange={(e) => setRowsPerPage(Number(e.target.value))}
+        >
+          {page_selection.map((item) => (
+            <option value={item.value} key={item.id}>
+              {item.value}
+            </option>
+          ))}
+        </select>
+      </div>
+
       <div className="overflow-x-auto">
-        <table className="min-w-full mt-3  shadow-md rounded-lg text-xs">
+        <table className="min-w-full mt-3 shadow-md rounded-lg text-xs">
           <thead className="text-white" style={{ backgroundColor: "#9c1c23" }}>
             <tr>
               {th_array.map((th, index) => (
@@ -40,36 +64,24 @@ const TableComponent = ({ th_array = [], datas = [], rowsPerPage = 10 }) => {
           </thead>
           <tbody>
             {currentRows.map((item, index) => (
-              <tr key={index} className="hover:bg-gray-100 bg-gray-50">
-                <td className="border px-4 py-2 text-center">
-                  {index + 1 + (currentPage - 1) * rowsPerPage}
-                </td>
-                <td className="border px-4 py-2 text-center">{item.ref_num}</td>
-                <td className="border px-4 py-2 w-full flex items-center justify-center">
-                  <StatusBadge
-                    title={item.status_name}
-                    bg_color="#1062FE"
-                    font_color="white"
+              <React.Fragment key={index}>
+                {TableType === "billing" && (
+                  <BillingRows
+                    index={index}
+                    item={item}
+                    currentPage={currentPage}
+                    rowsPerPage={rowsPerPage}
                   />
-                </td>
-                <td className="border px-4 py-2">{item.date}</td>
-                <td className="border px-4 py-2">{item.date_added}</td>
-                <td className="border px-4 py-2">{item[2470]}</td>
-                <td className="border px-4 py-2 text-center">
-                  <motion.span
-                    whileHover={{
-                      color: "#912534",
-                      textDecoration: "underline",
-                    }}
-                    className="cursor-pointer"
-                    onClick={() => {
-                      nav(`/app/${BTOA("tickets")}/${item.id}`);
-                    }}
-                  >
-                    View Details
-                  </motion.span>
-                </td>
-              </tr>
+                )}
+                {TableType === "wo" && (
+                  <WORows
+                    item={item}
+                    num={index}
+                    currentPage={currentPage}
+                    rowsPerPage={rowsPerPage}
+                  />
+                )}
+              </React.Fragment>
             ))}
           </tbody>
         </table>

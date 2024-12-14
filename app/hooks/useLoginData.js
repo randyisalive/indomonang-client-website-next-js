@@ -26,8 +26,10 @@ const useLoginData = () => {
 
   // user state
   const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(0);
   const getData = async () => {
     try {
+      setIsLoading(1);
       if (form.email != "") {
         const user_data = await getUserByEmail(form.email);
         if (user_data) {
@@ -52,7 +54,7 @@ const useLoginData = () => {
               //login
               localStorage.setItem("authToken", TokenUser[random_number][2734]);
               localStorage.setItem(
-                encryptMessage("id", keyDecrypt[0][2644]),
+                "id",
                 encryptMessage(id, keyDecrypt[0][2644])
               );
               const token = localStorage.getItem("authToken");
@@ -72,6 +74,8 @@ const useLoginData = () => {
                 console.log("Token empty");
               }
             }
+          } else {
+            setIsLoading(2);
           }
         } else {
           console.log("No User Found");
@@ -102,7 +106,7 @@ const useLoginData = () => {
     }
   }, [form, users]);
 
-  return { handleForm, form, handleLogin, users };
+  return { handleForm, form, handleLogin, users, isLoading };
 };
 
 export default useLoginData;

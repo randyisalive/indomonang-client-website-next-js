@@ -8,6 +8,7 @@ const WebButton = ({
   className = {},
   def = false,
   styles = {},
+  disabled = false,
 }) => {
   return (
     <motion.button
@@ -19,6 +20,7 @@ const WebButton = ({
           ? `border font-bold px-3 py-2 text-xs rounded-md ${className}`
           : className
       }
+      disabled={disabled}
     >
       {title}
     </motion.button>

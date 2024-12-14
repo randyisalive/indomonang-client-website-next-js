@@ -18,7 +18,12 @@ export default function Home() {
   ];
   return (
     <div className="flex flex-col w-full mx-auto pt-7  sm:px-6, lg:px-0 max-w-screen-xl">
-      <header className="text-5xl font-bold">My Dashboard</header>
+      <header className="text-5xl font-bold">
+        My Dashboard{" "}
+        <div className="text-xs text-gray-600 mt-3">
+          Portal Home / Client Area
+        </div>
+      </header>
       <div className="mt-6 flex gap-3">
         <div className="w-1/4">
           <ProfileCard />
