@@ -13,7 +13,16 @@ const WebButton = ({
   return (
     <motion.button
       onClick={onClickFunction}
-      whileHover={{ opacity: 0.88 }}
+      whileHover={
+        def
+          ? { opacity: 0.88 }
+          : {
+              opacity: 1,
+              backgroundColor: "#1062FE",
+              color: "#ffffff",
+              fontWeight: "300",
+            }
+      }
       style={styles}
       className={
         !def

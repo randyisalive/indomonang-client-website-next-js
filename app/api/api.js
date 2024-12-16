@@ -177,7 +177,80 @@ const api = () => {
 
   const CustomerDatabasApi = () => {};
 
-  return { CustomerAccountApi, DecryptionKeyApi, WOApi, ExtraMethodsApi };
+  const ProcessingListApi = () => {
+    const DownloadAttachments = async (item_id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "download_attachment",
+        entity_id: 101,
+        item_id: item_id,
+        field_id: 1651,
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    const getProcessingDataById = async (wo_id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 75,
+        select_fields: "1653,1006",
+        filters: { parent_item_id: wo_id, 1006: "229" },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    const getProcessingListDataById = async (parent_id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 101,
+        filters: { parent_item_id: parent_id, 1839: "495" },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    return {
+      DownloadAttachments,
+      getProcessingDataById,
+      getProcessingListDataById,
+    };
+  };
+
+  return {
+    CustomerAccountApi,
+    DecryptionKeyApi,
+    WOApi,
+    ExtraMethodsApi,
+    ProcessingListApi,
+  };
 };
 
 export default api;

@@ -4,11 +4,13 @@ import SearchTerms from "@/app/function/SearchTerms";
 import SearchInput from "./form/SearchInput";
 import BillingRows from "./tableComponent/BillingRows";
 import WORows from "./tableComponent/WORows";
+import JsonDisplay from "./JsonDisplay";
 
 const TableComponent = ({
   th_array = [],
   datas = [],
   TableType = "billing",
+  dialogOnChange = () => {},
 }) => {
   const [search, setSearch] = useState("");
 
@@ -52,7 +54,8 @@ const TableComponent = ({
       </div>
 
       <div className="overflow-x-auto">
-        <table className="min-w-full mt-3 shadow-md rounded-lg text-xs">
+        <JsonDisplay data={datas} />
+        <table className="min-w-full mt-3 shadow-md rounded-lg text-sm">
           <thead className="text-white" style={{ backgroundColor: "#9c1c23" }}>
             <tr>
               {th_array.map((th, index) => (
@@ -74,12 +77,15 @@ const TableComponent = ({
                   />
                 )}
                 {TableType === "wo" && (
-                  <WORows
-                    item={item}
-                    num={index}
-                    currentPage={currentPage}
-                    rowsPerPage={rowsPerPage}
-                  />
+                  <>
+                    <WORows
+                      item={item}
+                      num={index}
+                      currentPage={currentPage}
+                      rowsPerPage={rowsPerPage}
+                      handleWODialog={dialogOnChange}
+                    />
+                  </>
                 )}
               </React.Fragment>
             ))}

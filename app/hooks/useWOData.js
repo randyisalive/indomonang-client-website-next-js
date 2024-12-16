@@ -7,15 +7,13 @@ import EnquityStatusData from "../function/EnquityStatusData";
 
 const useWOData = () => {
   // api
-  const { WOApi, CustomerAccountApi, ExtraMethodsApi } = api();
+  const { WOApi, CustomerAccountApi } = api();
   const { getCompanyById } = CustomerAccountApi();
   const { getWoByUserId } = WOApi();
-  const { getGlobalListValueById } = ExtraMethodsApi();
   const { enquiry_data } = EnquityStatusData();
   // decrypt_key
-  const { decKey } = useDecryptionKeyData();
+  const { decKey, user_id } = useDecryptionKeyData();
   // user id
-  const user_id = decryptMessage(localStorage.getItem("id"), decKey);
   // get wo
   const [wo, setWO] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -27,20 +25,19 @@ const useWOData = () => {
           const company_id = await getCompanyById(user_id);
           if (company_id.length > 0) {
             const wo_data = await getWoByUserId(company_id[0]["2630_db_value"]);
-            console.log(wo_data);
             const datas = await Promise.all(
               wo_data.map(async (item) => {
-                //const status_name = await getGlobalListValueById("16"); // enquiry status
                 const status_name = enquiry_data.filter(
                   (x) => x.name === item[2138]
                 );
-                console.log("status Name", status_name);
                 return {
                   id: item.id,
                   ref_num: item[2134],
                   status: status_name[0],
                   service: item[674],
                   estimated_done: item[791],
+                  status_name: status_name[0].name,
+                  dialog_status: false,
                 };
               })
             );
@@ -55,7 +52,15 @@ const useWOData = () => {
     getData();
   }, [decKey]);
 
-  return { wo, isLoading };
+  const handleWODialog = (id = 0, dialogStatus = false) => {
+    setWO((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, dialog_status: dialogStatus } : item
+      )
+    );
+  };
+
+  return { wo, isLoading, handleWODialog };
 };
 
 export default useWOData;

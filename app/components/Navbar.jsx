@@ -2,6 +2,8 @@ import React from "react";
 import NavbarItems from "./Navbar/NavbarItems";
 import Profile from "./Navbar/Profile";
 import Link from "next/link";
+import WebButton from "./ui/WebButton";
+import DebugButton from "./Navbar/DebugButton";
 
 const Navbar = () => {
   return (
@@ -15,8 +17,10 @@ const Navbar = () => {
               width={200}
             />
           </Link>
-
-          <Profile />
+          <div className="flex gap-3 items-center">
+            <DebugButton />
+            <Profile />
+          </div>
         </div>
         <div className="flex gap-3">
           <NavbarItems />

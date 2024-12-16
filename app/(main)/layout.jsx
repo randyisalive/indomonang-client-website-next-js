@@ -5,10 +5,9 @@ import Footer from "../components/Footer";
 const layout = ({ children }) => {
   return (
     <>
-      <section className="md:px-6 lg:p-0">
+      <section className="md:px-6 lg:p-0 ">
         <Navbar />
-        <main className="flex-grow">{children}</main>
-        <Footer />
+        <main className=" min-h-full">{children}</main>
       </section>
     </>
   );
