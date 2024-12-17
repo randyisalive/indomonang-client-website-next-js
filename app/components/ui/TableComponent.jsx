@@ -19,7 +19,6 @@ const TableComponent = ({
   // State for pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const selectRef = useRef(null);
   const page_selection = [
     { id: 1, value: 5 },
     { id: 2, value: 10 },
@@ -46,7 +45,6 @@ const TableComponent = ({
         <select
           className="border-2 w-1 text-center"
           onChange={(e) => setRowsPerPage(Number(e.target.value))}
-          ref={selectRef}
         >
           {page_selection.map((item) => (
             <option
