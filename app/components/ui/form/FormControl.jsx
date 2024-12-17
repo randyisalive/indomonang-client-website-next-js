@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import Form from "./Form";
 import RadioButton from "./RadioButton";
 import WebButton from "../WebButton";
@@ -11,7 +11,9 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const FormControl = ({ children, title = "", className = {} }) => {
   // form api
-  const { handleForm, form, handleLogin, users, isLoading } = useLoginData();
+
+  const { handleForm, form, handleLogin, users, isLoading, handleKeyPress } =
+    useLoginData();
   return (
     <div className={`border h-fit ${className}`}>
       <section>
@@ -69,7 +71,9 @@ const FormControl = ({ children, title = "", className = {} }) => {
           className={`p-3 text-white font-bold rounded-sm`}
           def={true}
           disabled={isLoading === 1 ? true : false}
-          onClickFunction={handleLogin}
+          onClickFunction={() => {
+            handleLogin();
+          }}
         />
       </section>
       <section id="footer" className="m-1  py-4  border-t text-sm text-center">

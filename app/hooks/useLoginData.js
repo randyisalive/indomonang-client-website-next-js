@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import api from "../api/api";
 import { checkPassword, encryptMessage } from "../function/decryptor";
 import { useRouter } from "next/navigation";
+import { getLocalStorage } from "../function/getLocalStorage";
 
 const useLoginData = () => {
-  // api
   const { CustomerAccountApi, DecryptionKeyApi } = api();
   const {
     getUserByEmail,
@@ -15,63 +15,63 @@ const useLoginData = () => {
   } = CustomerAccountApi();
   const { getDecryptionKey } = DecryptionKeyApi();
 
-  // router
   const nav = useRouter();
   useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
+    const authToken = getLocalStorage("authToken");
     if (authToken) {
       nav.push("/");
     }
-  }, []);
+  }, [nav]);
 
-  // user state
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(0);
+  const [form, setForm] = useState({ email: "", password: "" });
+
+  const handleForm = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
   const getData = async () => {
     try {
       setIsLoading(1);
-      if (form.email != "") {
+      if (form.email) {
+        console.log("Fetching data for email:", form.email);
         const user_data = await getUserByEmail(form.email);
-        if (user_data) {
+        if (user_data && user_data.length > 0) {
           const id = user_data[0]["id"];
           const password = user_data[0][2615];
           const email = user_data[0][2616];
           const login_status = await checkPassword(form.password, password);
           if (login_status) {
             const keyDecrypt = await getDecryptionKey();
-            if (keyDecrypt[0][2644] != "") {
-              // insert to user token
+            if (keyDecrypt[0][2644] !== "") {
               const insertToken = await insertLoginToken(
                 id,
                 encryptMessage(keyDecrypt[0][2644], keyDecrypt[0][2644])
               );
-              // insert to user token
-              // veryfy token
               const TokenUser = await getLoginTokenByUser(id);
               const random_number = Math.floor(
-                Math.random() * (TokenUser.length - 0) + 0
+                Math.random() * TokenUser.length
               );
-              //login
               localStorage.setItem("authToken", TokenUser[random_number][2734]);
               localStorage.setItem(
                 "id",
                 encryptMessage(id, keyDecrypt[0][2644])
               );
               const token = localStorage.getItem("authToken");
-              console.log(token);
-              if (token != "") {
+              if (token) {
                 const all_token = await getAllLoginToken();
-                console.log(all_token);
                 const filtersAllToken = all_token.filter(
                   (item) => item[2734] === token
                 );
                 if (filtersAllToken.length > 0) {
                   nav.push("/");
                 } else {
-                  console.log("NO TOKEN");
+                  console.log("No matching token found");
                 }
               } else {
-                console.log("Token empty");
+                console.log("Token is empty");
               }
             }
           } else {
@@ -81,32 +81,34 @@ const useLoginData = () => {
           console.log("No User Found");
         }
       } else {
-        console.error("No Email in form!");
+        console.error("Email field is empty");
       }
     } catch (e) {
       console.error(e);
     }
   };
 
-  const [form, setForm] = useState({ email: "", password: "" });
-  const handleForm = (e) => {
-    const value = e.target.value;
-    setForm((prev) => ({ ...prev, [e.target.name]: value }));
-  };
-
-  const handleLogin = async () => {
-    const data = await getData();
-  };
-
-  // debug
   useEffect(() => {
-    if (localStorage.getItem("app-debug") === "true") {
-      const data = { form: form, users: users };
-      console.log(data);
+    const handleKeyPress = async (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault(); // Prevent default form submission
+        await getData();
+      }
+    };
+
+    document.addEventListener("keypress", handleKeyPress);
+    return () => {
+      document.removeEventListener("keypress", handleKeyPress);
+    };
+  }, [form]);
+
+  useEffect(() => {
+    if (getLocalStorage("app-debug") === "true") {
+      console.log({ form, users });
     }
   }, [form, users]);
 
-  return { handleForm, form, handleLogin, users, isLoading };
+  return { handleForm, form, handleLogin: getData, users, isLoading };
 };
 
 export default useLoginData;

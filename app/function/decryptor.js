@@ -22,10 +22,17 @@ export const checkPassword = async (password, hashedPassword) => {
 
 export const encryptMessage = (message, key) => {
   const encrypted = CryptoJS.AES.encrypt(message, key).toString();
+  console.log("Encrypted Message:", encrypted);
   return encrypted;
 };
+
 export const decryptMessage = (encryptedMessage, key) => {
-  const bytes = CryptoJS.AES.decrypt(encryptedMessage, key);
-  const decrypted = bytes.toString(CryptoJS.enc.Utf8);
-  return decrypted;
+  try {
+    const bytes = CryptoJS.AES.decrypt(encryptedMessage, key);
+    const decrypted = bytes.toString(CryptoJS.enc.Utf8);
+    return decrypted;
+  } catch (error) {
+    console.error("Error decrypting message:", error.message);
+    throw new Error("Malformed UTF-8 data");
+  }
 };

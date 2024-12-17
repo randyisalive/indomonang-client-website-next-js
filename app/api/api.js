@@ -120,12 +120,32 @@ const api = () => {
         console.error(e);
       }
     };
+    const getLoginTokenByToken = async (token) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 165,
+        filters: { 2734: token },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
     return {
       getUserByEmail,
       insertLoginToken,
       getLoginTokenByUser,
       getAllLoginToken,
       getCompanyById,
+      getLoginTokenByToken,
     };
   };
 
