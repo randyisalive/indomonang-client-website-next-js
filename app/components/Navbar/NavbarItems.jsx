@@ -20,8 +20,6 @@ const NavbarItems = () => {
       content: [
         { id: 0, text: "WO List", link: "/wo" },
         { id: 1, text: "", link: "", line: true },
-        { id: 2, text: "Pesan Layanan Saya", link: "" },
-        { id: 3, text: "Pesan Addons", link: "" },
       ],
     },
     {
@@ -36,7 +34,13 @@ const NavbarItems = () => {
         { id: 7, text: "Pesan Addons", link: "" },
       ],
     },
-    { id: 3, title: "Dukungan", dropdown: false, content: [] },
+    {
+      id: 3,
+      title: "Upload Documents",
+      link: "/upload",
+      dropdown: false,
+      content: [],
+    },
     { id: 4, title: "Buat Tiket", dropdown: false, content: [] },
   ];
 

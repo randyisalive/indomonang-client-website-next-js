@@ -26,7 +26,7 @@ const WORows = ({ item = {}, num = 0, currentPage = 0, rowsPerPage = 10 }) => {
           {num + 1 + (currentPage - 1) * rowsPerPage}
         </td>
         <td className="border px-4 py-2 text-center">{item.ref_num}</td>
-        <td className="border px-4 py-2 w-full flex items-center justify-center">
+        <td className="border px-4 py-2 text-center">
           <StatusBadge
             title={item.status.name}
             bg_color={item.status.bg_color}
