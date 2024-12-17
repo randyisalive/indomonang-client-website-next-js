@@ -50,7 +50,7 @@ const TableComponent = ({
             <option
               value={item.value}
               key={item.id}
-              selected={rowsPerPage === item.value}
+              defaultValue={rowsPerPage === item.value}
             >
               {item.value}
             </option>
