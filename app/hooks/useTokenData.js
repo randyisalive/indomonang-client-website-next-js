@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import api from "../api/api";
+import { getLocalStorage } from "../function/getLocalStorage";
 
 const useTokenData = () => {
   const { CustomerAccountApi } = api();
@@ -13,7 +14,7 @@ const useTokenData = () => {
 
   const verifyTokens = async () => {
     try {
-      const authToken = localStorage.getItem("authToken");
+      const authToken = getLocalStorage("authToken");
       const tokens = await getAllLoginToken();
       const filteredTokens = tokens.filter((item) => item[2734] === authToken);
       if (filteredTokens.length > 0) {

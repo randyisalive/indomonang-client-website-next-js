@@ -1,10 +1,10 @@
 "use client";
-import { Message } from "primereact/message";
 import React from "react";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
+import { getLocalStorage } from "@/app/function/getLocalStorage";
 
 const JsonDisplay = ({ data }) => {
-  const debugStatus = localStorage.getItem("app-debug");
+  const debugStatus = getLocalStorage("app-debug");
   if (debugStatus === "true") {
     return (
       <div className=" w-full flex flex-col justify-center items-center my-10">

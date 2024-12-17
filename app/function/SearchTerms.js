@@ -28,12 +28,6 @@ const SearchTerms = (
     setSearchTerm("");
   };
 
-  useEffect(() => {
-    if (localStorage.getItem("app-debug") == "true") {
-      console.log("SearchTerms: ", dataToDisplay);
-    }
-  }, [dataToDisplay]);
-
   return {
     searchTerm,
     filteredData,
