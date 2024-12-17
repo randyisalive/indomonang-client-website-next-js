@@ -1,7 +1,11 @@
+"use client";
 import React from "react";
 import WebButton from "../ui/WebButton";
+import useProfileCardData from "./hooks/useProfileCardData";
 
 const ProfileCard = () => {
+  const { customer } = useProfileCardData();
+
   return (
     <div className="border rounded-lg p-3 flex gap-3 flex-col w-52">
       <span className="text-xl font-light">#17977 indomonangjadi</span>

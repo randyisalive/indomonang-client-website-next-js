@@ -214,7 +214,28 @@ const api = () => {
     return { getGlobalListValueById };
   };
 
-  const CustomerDatabasApi = () => {};
+  const CustomerDatabasApi = () => {
+    const getCustomerDataById = async (id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 36,
+        filters: { id: id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    return { getCustomerDataById };
+  };
 
   const ProcessingListApi = () => {
     const DownloadAttachments = async (item_id) => {
@@ -431,6 +452,7 @@ const api = () => {
     ExtraMethodsApi,
     ProcessingListApi,
     RequiredDocumentApi,
+    CustomerDatabasApi,
   };
 };
 
