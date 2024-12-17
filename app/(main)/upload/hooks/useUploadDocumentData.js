@@ -10,6 +10,8 @@ const useUploadDocumentData = () => {
     getRequiredDocumentDataByRefNum,
     getRequiredDocumentDataChild,
     UploadeAttachments,
+    deleteAttachments,
+    updateAttachmentStatus,
   } = RequiredDocumentApi();
 
   // state data
@@ -115,6 +117,19 @@ const useUploadDocumentData = () => {
     }
   };
 
+  const deleteAttachmentBtn = async (id) => {
+    try {
+      const delete_data = await deleteAttachments(id, 2266);
+      if (delete_data) {
+        const status = await updateAttachmentStatus(0, id);
+        console.log(delete_data);
+        const data = await getWoBtn();
+        console.log(data);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
   return {
     woData,
     getWoBtn,
@@ -123,6 +138,7 @@ const useUploadDocumentData = () => {
     handleForm,
     requiredDocument,
     FilesUploadHandle,
+    deleteAttachmentBtn,
   };
 };
 

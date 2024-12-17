@@ -8,7 +8,7 @@ const layout = ({ children }) => {
       <WithAuth>
         <section className="md:px-6 lg:p-0 ">
           <Navbar />
-          <main className=" min-h-full overflow-x-hidden">{children}</main>
+          <main className=" min-h-full ">{children}</main>
         </section>
       </WithAuth>
     </>

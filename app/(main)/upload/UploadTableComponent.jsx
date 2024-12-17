@@ -18,6 +18,7 @@ const UploadTableComponent = () => {
     handleForm,
     requiredDocument,
     FilesUploadHandle,
+    deleteAttachmentBtn,
   } = useUploadDocumentData();
 
   const [dropdown, setDropdown] = useState(false);
@@ -27,7 +28,7 @@ const UploadTableComponent = () => {
 
   return (
     <React.Fragment>
-      <div className="mb-3 flex gap-3">
+      <div className="mb-3 mx-5 sm:m-0 flex gap-3">
         <SearchBarUpload ref={refForm} handleRef={handleForm} />
         <WebButton onClickFunction={() => getWoBtn()} />
       </div>
@@ -36,7 +37,7 @@ const UploadTableComponent = () => {
       <AnimatePresence>
         {woData.length > 0 && (
           <>
-            <div className="shadow-md my-10 ">
+            <div className="shadow-md mx-5 sm:mx-0 my-10 ">
               <motion.div
                 className="flex  p-3 justify-between items-center border borde-b-0"
                 style={{ backgroundColor: "#f3f4f6" }}
@@ -110,10 +111,12 @@ const UploadTableComponent = () => {
               </div>
             ) : (
               <RefTable
+                ref_num={refForm}
                 datas={requiredDocument.data}
                 item={requiredDocument.parent}
                 isLoading={requiredDocument.isLoading}
                 FileHandler={FilesUploadHandle}
+                deleteAttachmentBtn={deleteAttachmentBtn}
               />
             )}
           </>

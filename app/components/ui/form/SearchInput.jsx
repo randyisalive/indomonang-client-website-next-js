@@ -11,7 +11,7 @@ const SearchInput = ({ name = "", search = "", setSearch = () => {} }) => {
   };
 
   return (
-    <div className="relative flex items-center w-full">
+    <div className="relative flex items-center w-1/2 sm:w-full">
       <div className="flex left-0 absolute ms-3">
         <i className="pi pi-search"></i>
       </div>

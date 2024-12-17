@@ -394,12 +394,33 @@ const api = () => {
         console.error(e);
       }
     }
+    async function updateRequiredListStatus(refNum, field_2261_value = 2) {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "update",
+        entity_id: 127,
+        data: { field_2261: field_2261_value },
+        update_by_field: { field_2258: refNum },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data;
+      } catch (e) {
+        console.error(e);
+      }
+    }
     return {
       getRequiredDocumentDataByRefNum,
       getRequiredDocumentDataChild,
       UploadeAttachments,
       deleteAttachments,
       updateAttachmentStatus,
+      updateRequiredListStatus,
     };
   };
 

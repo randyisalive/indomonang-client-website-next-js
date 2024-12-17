@@ -3,7 +3,6 @@ import TableComponent from "@/app/components/ui/TableComponent";
 import useWOData from "@/app/hooks/useWOData";
 import React from "react";
 import { ProgressSpinner } from "primereact/progressspinner";
-import JsonDisplay from "@/app/components/ui/JsonDisplay";
 
 const WOTable = () => {
   const { wo, isLoading, handleWODialog } = useWOData();
@@ -17,7 +16,7 @@ const WOTable = () => {
   ];
 
   return (
-    <div className=" text-center h-screen">
+    <div className=" text-center  mx-5 sm:m-0 ">
       {isLoading ? (
         <div className="mt-5">
           <ProgressSpinner />

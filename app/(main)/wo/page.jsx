@@ -9,7 +9,7 @@ const WOList = () => {
         title="Your Orders"
         breadcrumbs="Portal Home / Your Orders"
       />
-      <div className="mt-5">
+      <div className="my-5">
         <WOTable />
       </div>
     </div>

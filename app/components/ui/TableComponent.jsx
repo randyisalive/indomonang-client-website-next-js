@@ -44,7 +44,7 @@ const TableComponent = ({
       <div className="flex gap-3">
         <SearchInput name="search" search={search} setSearch={setSearch} />
         <select
-          className="border-2 text-center w-1/12"
+          className="border-2 text-center w-2"
           onChange={(e) => setRowsPerPage(Number(e.target.value))}
           ref={selectRef}
         >
@@ -60,8 +60,8 @@ const TableComponent = ({
         </select>
       </div>
 
-      <div className="overflow-x-auto">
-        <JsonDisplay data={datas} />
+      <JsonDisplay data={datas} />
+      <div className="overflow-x-auto sm:overflow-hidden overflow-y-hidden ">
         <table className="min-w-full mt-3 shadow-md rounded-lg text-sm">
           <thead className="text-white" style={{ backgroundColor: "#9c1c23" }}>
             <tr>
@@ -98,29 +98,29 @@ const TableComponent = ({
             ))}
           </tbody>
         </table>
+        <nav className="mt-4 p-3">
+          <ul className="flex justify-center space-x-2">
+            {Array.from(
+              { length: Math.ceil(dataToDisplay.length / rowsPerPage) },
+              (_, index) => (
+                <li key={index}>
+                  <a
+                    href="#!"
+                    className={`px-3 py-1 border rounded-md ${
+                      index + 1 === currentPage
+                        ? "bg-blue-500 text-white"
+                        : "bg-white text-blue-500"
+                    }`}
+                    onClick={(e) => handleClick(e, index + 1)}
+                  >
+                    {index + 1}
+                  </a>
+                </li>
+              )
+            )}
+          </ul>
+        </nav>
       </div>
-      <nav className="mt-4">
-        <ul className="flex justify-center space-x-2">
-          {Array.from(
-            { length: Math.ceil(dataToDisplay.length / rowsPerPage) },
-            (_, index) => (
-              <li key={index}>
-                <a
-                  href="#!"
-                  className={`px-3 py-1 border rounded-md ${
-                    index + 1 === currentPage
-                      ? "bg-blue-500 text-white"
-                      : "bg-white text-blue-500"
-                  }`}
-                  onClick={(e) => handleClick(e, index + 1)}
-                >
-                  {index + 1}
-                </a>
-              </li>
-            )
-          )}
-        </ul>
-      </nav>
     </div>
   );
 };
