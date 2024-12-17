@@ -50,7 +50,7 @@ const useWOData = () => {
       }
     };
     getData();
-  }, [decKey]);
+  }, [decKey, user_id]);
 
   const handleWODialog = (id = 0, dialogStatus = false) => {
     setWO((prev) =>
