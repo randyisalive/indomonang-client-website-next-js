@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const NavbarItems = () => {
+const NavbarItems = ({ onClick = () => {} }) => {
   const navbar_data = [
     {
       id: 0,
@@ -93,7 +93,9 @@ const NavbarItems = () => {
             onClick={() => handleItems(item.id)}
           >
             {item.link ? (
-              <Link href={item.link}>{item.title}</Link>
+              <Link href={item.link} onClick={onClick}>
+                {item.title}
+              </Link>
             ) : (
               item.title
             )}
@@ -133,7 +135,9 @@ const NavbarItems = () => {
                             }}
                           >
                             <div className="py-3 px-3 w-full font-bold ">
-                              <Link href={content.link}>{content.text}</Link>
+                              <Link href={content.link} onClick={onClick}>
+                                {content.text}
+                              </Link>
                             </div>
                           </motion.div>
                         )}

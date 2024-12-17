@@ -2,8 +2,8 @@ import React from "react";
 import NavbarItems from "./Navbar/NavbarItems";
 import Profile from "./Navbar/Profile";
 import Link from "next/link";
-import WebButton from "./ui/WebButton";
 import DebugButton from "./Navbar/DebugButton";
+import SmallNavbar from "./Navbar/SmallNavbar";
 
 const Navbar = () => {
   return (
@@ -18,11 +18,15 @@ const Navbar = () => {
             />
           </Link>
           <div className="flex gap-3 items-center ">
-            <DebugButton />
-            <Profile />
+            <div className="hidden sm:block">
+              {" "}
+              <DebugButton />
+              <Profile />
+            </div>
+            <SmallNavbar />
           </div>
         </div>
-        <div className="flex gap-3 flex-wrap ">
+        <div className="hidden sm:flex gap-3 flex-wrap ">
           <NavbarItems />
         </div>
       </div>
