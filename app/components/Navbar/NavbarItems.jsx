@@ -84,7 +84,7 @@ const NavbarItems = () => {
               ? { borderBottom: "3px solid #1062fe" }
               : { borderBottom: "3px solid #ffffff" }
           }
-          className="flex items-center z-10 p-3 pb-2 pt-0 relative gap-2"
+          className="flex items-center  bg-white p-3 pb-2 pt-0 relative gap-2"
         >
           <motion.span
             style={item.dropdown ? { color: "#1062FE" } : { color: "#000" }}
@@ -115,7 +115,7 @@ const NavbarItems = () => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     ref={cardRef}
-                    className="absolute w-64 text-xs top-full bg-white border rounded-lg mt-3"
+                    className="absolute z-50 w-64 text-xs top-full bg-white border rounded-lg mt-3"
                   >
                     {item.content.map((content, index) => (
                       <React.Fragment key={index}>

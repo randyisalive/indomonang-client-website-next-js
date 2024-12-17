@@ -17,12 +17,12 @@ const Navbar = () => {
               width={200}
             />
           </Link>
-          <div className="flex gap-3 items-center">
+          <div className="flex gap-3 items-center ">
             <DebugButton />
             <Profile />
           </div>
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-3 flex-wrap ">
           <NavbarItems />
         </div>
       </div>

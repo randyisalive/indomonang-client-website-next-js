@@ -45,6 +45,10 @@ const RefTable = ({
     event.preventDefault();
     setCurrentPage(number);
   };
+
+  // status open uploaded
+  const openData = datas.filter((x) => x[2267] === "Open");
+  const uploadedData = datas.filter((x) => x[2267] === "Uploaded");
   return (
     <React.Fragment>
       {item && (
@@ -142,7 +146,11 @@ const RefTable = ({
           </nav>
         )}
       </div>
-      <SubmitDialog />
+      {openData.length === 0 ? (
+        <>
+          <SubmitDialog />
+        </>
+      ) : null}
     </React.Fragment>
   );
 };

@@ -13,6 +13,7 @@ const WebButton = ({
   return (
     <motion.button
       onClick={onClickFunction}
+      whileTap={{ scale: 0.889 }}
       whileHover={
         def
           ? { opacity: 0.88 }
