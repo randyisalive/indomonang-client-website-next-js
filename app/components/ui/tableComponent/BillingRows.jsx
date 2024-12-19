@@ -1,6 +1,8 @@
+"use client";
 import React from "react";
-import StatusBadge from "./StatusBadge";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { BTOA, ATOB } from "@/app/function/decryptor";
 
 const BillingRows = ({
   item = {},
@@ -13,27 +15,39 @@ const BillingRows = ({
       <td className="border px-4 py-2 text-center">
         {index + 1 + (currentPage - 1) * rowsPerPage}
       </td>
-      <td className="border px-4 py-2 text-center">{item.ref_num}</td>
-      <td className="border px-4 py-2 w-full flex items-center justify-center">
+      <td className="border px-4 py-2 text-center">
+        {item.transactions_number}
+      </td>
+      {/*  <td className="border px-4 py-2">
         <StatusBadge
-          title={item.status_name}
-          bg_color="#1062FE"
+          title={item.status_name.text}
+          bg_color={item.status_name.bg_color}
           font_color="white"
         />
+      </td> */}
+      <td className="border px-4 py-2 text-center">{item.date_of_payment}</td>
+      <td className="border px-4 py-2 text-end font-bold text-blue-600">
+        {item.amount_of_payment}
       </td>
-      <td className="border px-4 py-2">{item.date}</td>
-      <td className="border px-4 py-2">{item.date_added}</td>
-      <td className="border px-4 py-2">{item[2470]}</td>
+      <td className="border px-4 py-2 text-end text-green-600 font-bold">
+        {item.amount_paid}
+      </td>
+
+      {/*   <td className="border px-4 py-2 text-end text-red-500 font-bold">
+        {item.outstanding_balance}
+      </td> */}
       <td className="border px-4 py-2 text-center">
-        <motion.span
-          whileHover={{
-            color: "#912534",
-            textDecoration: "underline",
-          }}
-          className="cursor-pointer"
-        >
-          View Details
-        </motion.span>
+        <Link href={`/billing/${item.id}`}>
+          <motion.span
+            whileHover={{
+              color: "#912534",
+              textDecoration: "underline",
+            }}
+            className="cursor-pointer"
+          >
+            View Details
+          </motion.span>
+        </Link>
       </td>
     </tr>
   );

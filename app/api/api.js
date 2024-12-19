@@ -139,6 +139,76 @@ const api = () => {
         console.error(e);
       }
     };
+
+    const getAccountById = async (id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 154,
+        filters: { id: id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    const getProfilePictureById = async (id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "download_attachment",
+        entity_id: 154,
+        item_id: id,
+        field_id: 2637,
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    const updateAccountData = async (id, username, email, name, content) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "update",
+        entity_id: 154,
+        data: {
+          field_2614: username,
+          field_2616: email,
+          field_2637: [
+            {
+              name: name,
+              content: content,
+            },
+          ],
+        },
+        update_by_field: { id: id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
     return {
       getUserByEmail,
       insertLoginToken,
@@ -146,7 +216,33 @@ const api = () => {
       getAllLoginToken,
       getCompanyById,
       getLoginTokenByToken,
+      getAccountById,
+      getProfilePictureById,
+      updateAccountData,
     };
+  };
+
+  const CustomerAccountLastLoginDataApi = () => {
+    const getLastLoginAllByParentId = async (parent_id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 161,
+        filters: { parent_item_id: parent_id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    return { getLastLoginAllByParentId };
   };
 
   const WOApi = () => {
@@ -189,7 +285,28 @@ const api = () => {
       }
     };
 
-    return { getWoByUserId, getWoByRefNum };
+    const getRefNumByWoId = async (wo_id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 36,
+        select_fields: "2134",
+        filters: { id: wo_id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    return { getWoByUserId, getWoByRefNum, getRefNumByWoId };
   };
 
   const ExtraMethodsApi = () => {
@@ -445,6 +562,76 @@ const api = () => {
     };
   };
 
+  const GlobalListApi = (id) => {
+    const getGlobalListValue = async () => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "get_global_list_choices",
+        list_id: id,
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    return { getGlobalListValue };
+  };
+
+  const PaymentApi = () => {
+    const getPaymentByNoInvoice = async (invoice) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 110,
+        filters: { "1960_db_value": invoice },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    return { getPaymentByNoInvoice };
+  };
+
+  const InvoiceApi = () => {
+    const getInvoiceByWo = async (wo) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 108,
+        filters: { "1916_db_value": wo },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    return { getInvoiceByWo };
+  };
+
   return {
     CustomerAccountApi,
     DecryptionKeyApi,
@@ -453,6 +640,10 @@ const api = () => {
     ProcessingListApi,
     RequiredDocumentApi,
     CustomerDatabasApi,
+    GlobalListApi,
+    CustomerAccountLastLoginDataApi,
+    PaymentApi,
+    InvoiceApi,
   };
 };
 

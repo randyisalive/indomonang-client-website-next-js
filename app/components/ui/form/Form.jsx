@@ -9,6 +9,8 @@ const Form = ({
   placeholder = "default_placeholder",
   subtitle = "",
   onChange = () => {},
+  value = "",
+  disabled = false,
 }) => {
   const [eye, setEye] = useState(false);
   const handleEye = () => {
@@ -31,6 +33,8 @@ const Form = ({
           className="p-3 w-full rounded-sm border focus:outline-none focus:border-blue-800"
           placeholder={placeholder}
           onChange={onChange}
+          value={value}
+          disabled={disabled}
         />
         {type == "password" ? (
           <div className="absolute right-0 me-3">

@@ -11,6 +11,8 @@ const TableComponent = ({
   datas = [],
   TableType = "billing",
   dialogOnChange = () => {},
+  children,
+  footer = "",
 }) => {
   const [search, setSearch] = useState("");
 

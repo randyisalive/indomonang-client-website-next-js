@@ -36,3 +36,27 @@ export const decryptMessage = (encryptedMessage, key) => {
     throw new Error("Malformed UTF-8 data");
   }
 };
+
+export const safeATOB = (str, rounds = 10) => {
+  if (!validateBase64(str)) {
+    console.error("Invalid base64 string:", str);
+    return null;
+  }
+  return ATOB(str, rounds);
+};
+
+export const BTOA = (str = "", rounds = 10) => {
+  let encodedStr = str;
+  for (let i = 0; i < rounds; i++) {
+    encodedStr = btoa(encodedStr);
+  }
+  return encodedStr;
+};
+
+export const ATOB = (str = "", rounds = 10) => {
+  let decodedStr = str;
+  for (let i = 0; i < rounds; i++) {
+    decodedStr = atob(decodedStr);
+  }
+  return decodedStr;
+};

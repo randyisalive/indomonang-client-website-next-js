@@ -1,7 +1,7 @@
 import HeaderComponent from "@/app/components/ui/HeaderComponent";
 import React from "react";
-import SearchBarUpload from "./components/SearcBarUpload";
 import UploadTableComponent from "./UploadTableComponent";
+import CheckWOAuth from "./components/CheckWOAuth";
 
 const UploadPage = () => {
   return (
@@ -10,7 +10,6 @@ const UploadPage = () => {
         title="Upload Documents"
         breadcrumbs="Portal Home / Upload"
       />
-
       <div className="my-3">
         <UploadTableComponent />
       </div>

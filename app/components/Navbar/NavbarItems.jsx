@@ -134,11 +134,11 @@ const NavbarItems = ({ onClick = () => {} }) => {
                               router.push(content.link);
                             }}
                           >
-                            <div className="py-3 px-3 w-full font-bold ">
-                              <Link href={content.link} onClick={onClick}>
+                            <Link href={content.link} onClick={onClick}>
+                              <div className="py-3 px-3 w-full font-bold ">
                                 {content.text}
-                              </Link>
-                            </div>
+                              </div>
+                            </Link>
                           </motion.div>
                         )}
                       </React.Fragment>

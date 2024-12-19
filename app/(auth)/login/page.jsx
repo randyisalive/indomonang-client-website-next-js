@@ -1,7 +1,6 @@
 import React from "react";
 import "./login.css";
 import FormControl from "@/app/components/ui/form/FormControl";
-import Image from "next/image";
 
 const LoginPage = () => {
   return (

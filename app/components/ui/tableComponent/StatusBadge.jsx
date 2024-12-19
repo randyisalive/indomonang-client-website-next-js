@@ -1,13 +1,15 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 const StatusBadge = ({ title = "", bg_color = "", font_color = "" }) => {
   return (
-    <div
+    <motion.div
+      whileTap={{ scale: 0.889 }}
       className="px-3 py-1 font-bold rounded-xl w-fit shadow-md"
       style={{ backgroundColor: bg_color, color: font_color }}
     >
       {title}
-    </div>
+    </motion.div>
   );
 };
 

@@ -28,6 +28,7 @@ const FormControl = ({ children, title = "", className = {} }) => {
           placeholder="Enter email"
           type="email"
           onChange={handleForm}
+          value={form.email}
         />
         <Form
           title="Password"
@@ -36,6 +37,7 @@ const FormControl = ({ children, title = "", className = {} }) => {
           subtitle="Forgot?"
           onChange={handleForm}
           name="password"
+          value={form.password}
         />
         <AnimatePresence>
           {isLoading === 2 ? (
