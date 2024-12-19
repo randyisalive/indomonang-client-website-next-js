@@ -306,7 +306,27 @@ const api = () => {
       }
     };
 
-    return { getWoByUserId, getWoByRefNum, getRefNumByWoId };
+    const getWoById = async (id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 36,
+        filters: { id: id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    return { getWoByUserId, getWoByRefNum, getRefNumByWoId, getWoById };
   };
 
   const ExtraMethodsApi = () => {
@@ -605,7 +625,27 @@ const api = () => {
         console.error(e);
       }
     };
-    return { getPaymentByNoInvoice };
+
+    const getPaymentById = async (id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 110,
+        filters: { id: id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    return { getPaymentByNoInvoice, getPaymentById };
   };
 
   const InvoiceApi = () => {
@@ -629,7 +669,27 @@ const api = () => {
       }
     };
 
-    return { getInvoiceByWo };
+    const getInvoiceById = async (id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 108,
+        filters: { id: id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    return { getInvoiceByWo, getInvoiceById };
   };
 
   return {
