@@ -24,7 +24,7 @@ const BillingDetail = () => {
         <div className="text-sm">
           {billing.map((item) => {
             return (
-              <div key={item.id} className="overflow-x-auto w-1/2">
+              <div key={item.id} className="overflow-x-auto  sm:w-1/2">
                 <table className="min-w-fit w-full  mt-3 text-sm">
                   <thead
                     className="text-white"
@@ -96,7 +96,7 @@ const BillingDetail = () => {
           <div className="text-sm">
             {invoice.map((item) => {
               return (
-                <div key={item.id} className=" overflow-x-auto w-1/2">
+                <div key={item.id} className=" overflow-x-auto sm:w-1/2">
                   <table className="min-w-fit w-full mt-3 text-sm">
                     <thead
                       className="text-white"
@@ -149,7 +149,7 @@ const BillingDetail = () => {
             {wo.map((item) => {
               return (
                 <div key={item.id} className=" overflow-x-auto w-full">
-                  <table className="min-w-1/2 w-1/2 mt-3 text-sm">
+                  <table className="min-w-1/2 sm:w-1/2 mt-3 text-sm">
                     <thead
                       className="text-white"
                       style={{ backgroundColor: "#9c1c23" }}
