@@ -1,6 +1,6 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 
 const TicketNavigation = () => {
   const [page, setPage] = useState(0);
@@ -40,4 +40,12 @@ const TicketNavigation = () => {
   );
 };
 
-export default TicketNavigation;
+const TicketNavigationWithSuspense = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <TicketNavigation />
+    </Suspense>
+  );
+};
+
+export default TicketNavigationWithSuspense;
