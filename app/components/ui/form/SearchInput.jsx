@@ -2,7 +2,13 @@
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-const SearchInput = ({ name = "", search = "", setSearch = () => {} }) => {
+const SearchInput = ({
+  name = "",
+  search = "",
+  setSearch = () => {},
+  className = {},
+  placeholder = "Search",
+}) => {
   const clearSearch = () => {
     setSearch("");
   };
@@ -20,10 +26,10 @@ const SearchInput = ({ name = "", search = "", setSearch = () => {} }) => {
         name={name}
         onChange={(e) => handleSearch(e)}
         value={search}
-        placeholder="Search"
-        className="pl-10 py-2 border-2 focus:border-blue-500 focus:outline-none w-full"
+        placeholder={placeholder}
+        className={`pl-10 py-2 border-2 focus:border-blue-500 focus:outline-none w-full ${className}`}
       />
-      <div className="absolute text-xs gap-2 flex items-center right-0 me-3">
+      <div className="absolute  text-xs gap-2 flex items-center right-0 me-3">
         <AnimatePresence>
           {search.length > 0 ? (
             <motion.i

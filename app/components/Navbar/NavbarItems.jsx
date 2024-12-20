@@ -41,7 +41,13 @@ const NavbarItems = ({ onClick = () => {} }) => {
       dropdown: false,
       content: [],
     },
-    { id: 4, title: "Buat Tiket", dropdown: false, content: [] },
+    {
+      id: 4,
+      title: "Buat Tiket",
+      dropdown: false,
+      link: "/tickets/new",
+      content: [],
+    },
   ];
 
   const [items, setItems] = useState(navbar_data);

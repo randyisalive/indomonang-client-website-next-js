@@ -30,7 +30,7 @@ const Form = ({
         <input
           type={!eye ? type : "text"}
           name={name}
-          className="p-3 w-full rounded-sm border focus:outline-none focus:border-blue-800"
+          className="p-3 text-sm w-full  rounded-sm border focus:outline-none focus:border-blue-400"
           placeholder={placeholder}
           onChange={onChange}
           value={value}

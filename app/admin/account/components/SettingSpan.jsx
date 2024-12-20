@@ -7,8 +7,6 @@ import Link from "next/link";
 
 const SettingSpan = () => {
   const router = useRouter();
-  const { pathname } = router;
-  console.log(router);
   const nav_data = [
     {
       id: 0,
@@ -29,33 +27,38 @@ const SettingSpan = () => {
 
   return (
     <>
-      <motion.span
-        onClick={() => router.push("/")}
-        whileHover={`hover`}
-        className=" font-bold     text-5xl flex items-center gap-3 mb-5 cursor-pointer"
-      >
-        <motion.i
-          variants={{ hover: { x: -10 } }}
-          className="pi pi-angle-left text-2xl"
-        ></motion.i>
-        <motion.span variants={{ hover: { textDecoration: "underline" } }}>
-          Settings
+      <div className=" block ">
+        <motion.span
+          onClick={() => router.push("/")}
+          whileHover={`hover`}
+          className=" font-bold text-5xl flex items-center gap-3 mb-5 cursor-pointer"
+        >
+          <motion.i
+            variants={{ hover: { x: -10 } }}
+            className=" hidden lg:block pi pi-angle-left text-2xl"
+          ></motion.i>
+          <motion.span
+            className=" block ms-5 lg:ms-0"
+            variants={{ hover: { textDecoration: "underline" } }}
+          >
+            Settings
+          </motion.span>
         </motion.span>
-      </motion.span>
-      <ul className="flex flex-col gap-3 ms-5">
-        {nav_data.map((item) => {
-          return (
-            <Link key={item.id} href={item.link}>
-              <motion.li
-                whileTap={{ scale: 0.889 }}
-                className={` shadow-md border p-3 rounded-full w-fit cursor-pointer`}
-              >
-                {item.text}
-              </motion.li>
-            </Link>
-          );
-        })}
-      </ul>
+        <ul className="flex  w-full lg:w-0  lg:flex-col gap-3 ms-5">
+          {nav_data.map((item) => {
+            return (
+              <Link key={item.id} href={item.link}>
+                <motion.li
+                  whileTap={{ scale: 0.889 }}
+                  className={` shadow-md border p-3 rounded-full w-fit cursor-pointer`}
+                >
+                  {item.text}
+                </motion.li>
+              </Link>
+            );
+          })}
+        </ul>
+      </div>
     </>
   );
 };

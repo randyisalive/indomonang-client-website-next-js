@@ -22,6 +22,7 @@ const useActiveProductsData = () => {
         const wo_data = await getWoByUserId(account_data[0]["2630_db_value"]);
         console.log(account_data, wo_data);
         setActiveProducts(wo_data.slice(0, 3));
+        setIsLoading(1);
       }
     } catch (e) {
       console.error(e);

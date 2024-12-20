@@ -15,6 +15,7 @@ const useHomeCardContainerData = () => {
 
   // get data
   const [cardData, setCardData] = useState([]);
+  const [isLoading, setIsLoading] = useState(0);
   const getData = async () => {
     try {
       if (user_id) {
@@ -55,15 +56,13 @@ const useHomeCardContainerData = () => {
           },
           {
             id: 3,
-            count: finished_order,
-            sub: "Finish Orders",
-            link: "/your-orders",
+            count: 0,
+            sub: "View Tickets",
+            link: "/tickets",
           },
         ];
         setCardData(card_data);
-        console.log(invoice_data);
-        console.log(wo_data);
-        console.log(unpaid_invoices);
+        setIsLoading(1);
       }
     } catch (e) {
       console.error(e);
@@ -74,7 +73,7 @@ const useHomeCardContainerData = () => {
     getData();
   }, [user_id]);
 
-  return { cardData };
+  return { cardData, isLoading };
 };
 
 export default useHomeCardContainerData;

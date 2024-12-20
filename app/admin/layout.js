@@ -5,10 +5,7 @@ const AdminLayout = ({ children }) => {
   return (
     <>
       <div className="p-3 flex md:hidden justify-between">
-        <div> navbar mobile</div>
-        <div>
-          <i className="pi pi-bars text-xl"></i>
-        </div>
+        <SettingSpan />
       </div>
       <div className="flex h-screen">
         <div className="w-1/3 hidden md:flex flex-col p-24 pe-0">
