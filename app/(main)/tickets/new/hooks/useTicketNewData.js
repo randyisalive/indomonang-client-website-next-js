@@ -17,7 +17,7 @@ const useTicketNewData = () => {
     setUserId(user_id);
   }, [user_id]);
 
-  // check if wo avaliable by ref
+  // check if wo available by ref
   const [woData, setWoData] = useState([]);
   const getWoData = async () => {
     try {
@@ -45,7 +45,7 @@ const useTicketNewData = () => {
     name: "",
     category: "",
     details: "",
-    attachments: [{ filename: "", content: "", base_64: "" }],
+    attachments: [],
   });
 
   const handleForm = (e) => {
@@ -55,7 +55,33 @@ const useTicketNewData = () => {
     if (name === "details" && value.length > 120) {
       return;
     }
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const readFileAsBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve(reader.result.split(",")[1]);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const onUpload = (e) => {
+    const files = e.files;
+    const processFile = async (file) => {
+      const base64 = await readFileAsBase64(file);
+      return { filename: file.name, content: "", base_64: base64 };
+    };
+
+    Promise.all(files.map(processFile)).then((attachments) => {
+      setForm((prev) => ({
+        ...prev,
+        attachments: [...attachments],
+      }));
+    });
   };
 
   // debug
@@ -66,7 +92,7 @@ const useTicketNewData = () => {
     }
   }, [form, woData, userId]);
 
-  return { handleForm, form, woData, search, setSearch, getWoData };
+  return { handleForm, form, woData, search, setSearch, getWoData, onUpload };
 };
 
 export default useTicketNewData;
