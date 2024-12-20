@@ -26,7 +26,7 @@ export const encryptMessage = (message, key) => {
   return encrypted;
 };
 
-export const decryptMessage = (encryptedMessage, key) => {
+/* export const decryptMessage = (encryptedMessage, key) => {
   try {
     const bytes = CryptoJS.AES.decrypt(encryptedMessage, key);
     const decrypted = bytes.toString(CryptoJS.enc.Utf8);
@@ -34,6 +34,16 @@ export const decryptMessage = (encryptedMessage, key) => {
   } catch (error) {
     console.error("Error decrypting message:", error.message);
     throw new Error("Malformed UTF-8 data");
+  }
+}; */
+
+export const decryptMessage = (ciphertext, key) => {
+  try {
+    const bytes = CryptoJS.AES.decrypt(ciphertext, key);
+    const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+    return decryptedData;
+  } catch (error) {
+    throw new Error("Error decrypting message: " + error.message);
   }
 };
 

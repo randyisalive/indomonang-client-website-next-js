@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/api";
 import { decryptMessage } from "../function/decryptor";
+import { getLocalStorage } from "../function/getLocalStorage";
 
 const useDecryptionKeyData = () => {
   //api
@@ -20,7 +21,7 @@ const useDecryptionKeyData = () => {
           if (datas) {
             const dec_key = datas[0][2644];
             const user_id = decryptMessage(
-              localStorage.getItem("id"),
+              getLocalStorage("id"),
               datas[0][2644]
             );
             setDecKey(dec_key);
