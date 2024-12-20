@@ -1,7 +1,5 @@
 import React from "react";
 import SettingSpan from "./account/components/SettingSpan";
-import Link from "next/link";
-import { BTOA } from "../function/decryptor";
 
 const AdminLayout = ({ children }) => {
   return (
@@ -14,7 +12,7 @@ const AdminLayout = ({ children }) => {
       </div>
       <div className="flex h-screen">
         <div className="w-1/3 hidden md:flex flex-col p-24 pe-0">
-          <div className="flex flex-col gap-1 p-5 border-e-2 w-full">
+          <div className="flex  sticky top-20 flex-col gap-1 p-5 border-e-2 w-full">
             <SettingSpan />
           </div>
         </div>

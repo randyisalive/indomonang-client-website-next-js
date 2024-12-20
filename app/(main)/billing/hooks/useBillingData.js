@@ -14,6 +14,7 @@ const useBillingData = () => {
 
   // get data
   const [bills, setBills] = useState([]);
+  const [isLoading, setIsLoading] = useState(0);
   const getData = async () => {
     try {
       if (user_id != null) {
@@ -52,7 +53,7 @@ const useBillingData = () => {
           amount_paid: "",
           amount_of_payment: "",
         });
-        console.log(billing_data, invoice_ids);
+        setIsLoading(1);
       }
     } catch (e) {
       console.error(e);
@@ -62,7 +63,7 @@ const useBillingData = () => {
   useEffect(() => {
     getData();
   }, [user_id]);
-  return { bills };
+  return { bills, isLoading };
 };
 
 export default useBillingData;

@@ -1,28 +1,27 @@
-"use client";
 import api from "@/app/api/api";
 import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
 import React, { useEffect, useState } from "react";
 
-const useAccountSettingsData = () => {
+const useActiveProductsData = () => {
   // api
-  const { CustomerDatabasApi, CustomerAccountApi } = api();
+  const { CustomerAccountApi, WOApi } = api();
   const { getAccountById } = CustomerAccountApi();
-  const { getCustomerDataById } = CustomerDatabasApi();
+  const { getWoByUserId } = WOApi();
+
+  // dec key
+  const { user_id } = useDecryptionKeyData();
 
   // get data
-  const { user_id } = useDecryptionKeyData();
-  const [customer, setCustomer] = useState([]);
+  const [activeProduct, setActiveProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(0);
 
   const getData = async () => {
     try {
       if (user_id) {
         const account_data = await getAccountById(user_id);
-        const company_id = account_data[0]["2630_db_value"];
-        const company_data = await getCustomerDataById(company_id);
-        setCustomer(company_data[0]);
-        setIsLoading(1);
-      } else {
+        const wo_data = await getWoByUserId(account_data[0]["2630_db_value"]);
+        console.log(account_data, wo_data);
+        setActiveProducts(wo_data.slice(0, 3));
       }
     } catch (e) {
       console.error(e);
@@ -33,7 +32,7 @@ const useAccountSettingsData = () => {
     getData();
   }, [user_id]);
 
-  return { customer, isLoading };
+  return { activeProduct, isLoading };
 };
 
-export default useAccountSettingsData;
+export default useActiveProductsData;

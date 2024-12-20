@@ -32,7 +32,7 @@ const SettingSpan = () => {
       <motion.span
         onClick={() => router.push("/")}
         whileHover={`hover`}
-        className=" font-bold text-5xl flex items-center gap-3 mb-5 cursor-pointer"
+        className=" font-bold     text-5xl flex items-center gap-3 mb-5 cursor-pointer"
       >
         <motion.i
           variants={{ hover: { x: -10 } }}
@@ -45,13 +45,14 @@ const SettingSpan = () => {
       <ul className="flex flex-col gap-3 ms-5">
         {nav_data.map((item) => {
           return (
-            <motion.li
-              key={item.id}
-              whileTap={{ scale: 0.889 }}
-              className={` shadow-md border p-3 rounded-full w-fit cursor-pointer`}
-            >
-              <Link href={item.link}>{item.text}</Link>{" "}
-            </motion.li>
+            <Link key={item.id} href={item.link}>
+              <motion.li
+                whileTap={{ scale: 0.889 }}
+                className={` shadow-md border p-3 rounded-full w-fit cursor-pointer`}
+              >
+                {item.text}
+              </motion.li>
+            </Link>
           );
         })}
       </ul>

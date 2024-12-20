@@ -15,7 +15,7 @@ const HomeCard = ({ item = {} }) => {
       className="border  flex gap-3 flex-col w-44 h-44 rounded-lg cursor-pointer"
       onClick={() => nav.push(`${item.link}`)}
     >
-      <span className="w-full text-end p-2">
+      <span className="w-full text-end mt-3 p-2">
         <i className={`${item.icon}`}></i>
       </span>
       <div className="h-full gap-2 flex-col flex  items-center w-full text-end">

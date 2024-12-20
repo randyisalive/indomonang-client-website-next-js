@@ -21,7 +21,7 @@ function Profile({ keys = "", image = {} }) {
       label: "My Account",
       icon: "pi pi-cog",
       command: () => {
-        router.push("admin/account");
+        router.push("/admin/account");
       },
       permission: ["Admin", "Client", "Developer", ""],
     },

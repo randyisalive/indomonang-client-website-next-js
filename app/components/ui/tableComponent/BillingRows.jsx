@@ -18,13 +18,7 @@ const BillingRows = ({
       <td className="border px-4 py-2 text-center">
         {item.transactions_number}
       </td>
-      {/*  <td className="border px-4 py-2">
-        <StatusBadge
-          title={item.status_name.text}
-          bg_color={item.status_name.bg_color}
-          font_color="white"
-        />
-      </td> */}
+
       <td className="border px-4 py-2 text-center">{item.date_of_payment}</td>
       <td className="border px-4 py-2 text-end font-bold text-blue-600">
         {item.amount_of_payment}
@@ -33,9 +27,6 @@ const BillingRows = ({
         {item.amount_paid}
       </td>
 
-      {/*   <td className="border px-4 py-2 text-end text-red-500 font-bold">
-        {item.outstanding_balance}
-      </td> */}
       <td className="border px-4 py-2 text-center">
         <Link href={`/billing/${item.id}`}>
           <motion.span

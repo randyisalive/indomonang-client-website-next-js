@@ -357,7 +357,7 @@ const api = () => {
         username: "rendi",
         password: "rendi",
         action: "select",
-        entity_id: 36,
+        entity_id: 25,
         filters: { id: id },
       };
       try {

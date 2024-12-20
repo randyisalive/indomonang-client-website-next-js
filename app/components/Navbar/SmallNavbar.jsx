@@ -9,6 +9,7 @@ const SmallNavbar = () => {
   useEffect(() => {
     if (status) {
       document.body.style.overflow = "hidden";
+      document.body.style.height = "100%";
     } else {
       document.body.style.overflow = "auto";
     }
@@ -18,11 +19,10 @@ const SmallNavbar = () => {
     <div className="flex sm:hidden  ">
       <motion.i
         whileTap={{ scale: 0.889 }}
-        className="pi pi-bars text-xl cursor-pointer"
+        className="pi pi-bars text-2xl cursor-pointer"
         onClick={() => setStatus(!status)}
       ></motion.i>
       <AnimatePresence>
-        {" "}
         {status && (
           <>
             <div
@@ -36,19 +36,7 @@ const SmallNavbar = () => {
               className=" shadow-xl absolute z-50 bg-white w-1/2 h-full opacity-1 right-0 top-0"
             >
               <div className="p-3">
-                <motion.span
-                  className=" text-3xl flex items-center gap-3 font-bold "
-                  onClick={() => setStatus(false)}
-                >
-                  <motion.i
-                    initial={{ left: 0 }}
-                    animate={{ left: 10 }}
-                    className="pi pi-angle-left text-xl "
-                  ></motion.i>
-                  Navigation
-                </motion.span>
-                <div className="flex flex-col gap-5">
-                  <Profile />
+                <div className="flex flex-col gap-5 mt-10">
                   <NavbarItems onClick={() => setStatus(false)} />
                 </div>
               </div>

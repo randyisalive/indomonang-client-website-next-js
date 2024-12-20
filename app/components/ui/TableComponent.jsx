@@ -5,6 +5,7 @@ import SearchInput from "./form/SearchInput";
 import BillingRows from "./tableComponent/BillingRows";
 import WORows from "./tableComponent/WORows";
 import JsonDisplay from "./JsonDisplay";
+import { motion } from "framer-motion";
 
 const TableComponent = ({
   th_array = [],
@@ -42,7 +43,12 @@ const TableComponent = ({
   };
 
   return (
-    <div className="flex flex-col w-full ">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="flex flex-col w-full "
+    >
       <div className="flex gap-3">
         <SearchInput name="search" search={search} setSearch={setSearch} />
         <select
@@ -123,7 +129,7 @@ const TableComponent = ({
           </ul>
         </nav>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

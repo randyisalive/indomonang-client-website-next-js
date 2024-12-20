@@ -9,7 +9,7 @@ const Navbar = () => {
   return (
     <div className="flex flex-col gap-3 p-3 pb-0 border-b-2">
       <div className="flex flex-col w-full mx-auto  sm:px-6, lg:px-0 max-w-screen-xl">
-        <div className="flex justify-between w-full items-center mb-3">
+        <div className="flex my-5 mb-10 justify-between w-full items-center mb-3">
           <Link href={`/`}>
             <img
               src="https://indomonangjadi.com/wp-content/uploads/2023/11/Logo-Default.png"
@@ -18,11 +18,6 @@ const Navbar = () => {
             />
           </Link>
           <div className="flex gap-3 items-center ">
-            <div className="hidden sm:block">
-              {" "}
-              <DebugButton />
-              <Profile />
-            </div>
             <SmallNavbar />
           </div>
         </div>

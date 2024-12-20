@@ -16,6 +16,7 @@ function useAccountsData() {
   // get accounts
   const [accounts, setAccounts] = useState({});
   const [refresh, setRefresh] = useState(false);
+  const [isLoading, setIsLoading] = useState(0);
   useEffect(() => {
     const getData = async () => {
       try {
@@ -67,6 +68,7 @@ function useAccountsData() {
             };
           });
           setAccounts(data_list[0]);
+          setIsLoading(1);
         }
       } catch (e) {
         console.error(e);
@@ -161,6 +163,7 @@ function useAccountsData() {
     handleFormAccount,
     handleUploadPhoto,
     UpdateAccountBtn,
+    isLoading,
   };
 }
 

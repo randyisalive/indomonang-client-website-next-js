@@ -1,3 +1,4 @@
+import HeaderComponent from "@/app/components/ui/HeaderComponent";
 import TableComponent from "@/app/components/ui/TableComponent";
 import React from "react";
 
@@ -23,15 +24,13 @@ const invoicePage = () => {
   ];
   return (
     <div className="flex flex-col w-full mx-auto pt-7  sm:px-6, lg:px-0 max-w-screen-xl">
-      <div className="flex flex-col gap-3">
-        <span className="text-5xl font-bold">Invoices</span>
-
-        <ul className="flex gap-2 text-sm text-gray-600">
-          <li>Home</li>
-          <li>{`>`}</li>
-          <li>Invoices</li>
-        </ul>
-      </div>
+      <HeaderComponent
+        title="Invoices"
+        breadcrumbs_array={[
+          { id: 0, text: "Portal Home /", nav: "/" },
+          { id: 1, text: "Invoice", nav: "/invoice" },
+        ]}
+      />
       <div className="mt-5">
         <TableComponent th_array={th_array} datas={td_array} />
       </div>

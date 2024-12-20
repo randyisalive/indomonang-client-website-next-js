@@ -18,7 +18,7 @@ const NavbarItems = ({ onClick = () => {} }) => {
       title: "Layanan",
       dropdown: false,
       content: [
-        { id: 0, text: "WO List", link: "/wo" },
+        { id: 0, text: "WO List", link: "/your-orders" },
         { id: 1, text: "", link: "", line: true },
       ],
     },

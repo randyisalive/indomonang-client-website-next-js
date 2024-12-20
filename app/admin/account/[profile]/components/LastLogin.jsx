@@ -8,6 +8,7 @@ import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
 import { useParams } from "next/navigation";
 import { ProgressSpinner } from "primereact/progressspinner";
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const LastLogin = () => {
   const { profile } = useParams();
@@ -23,7 +24,7 @@ const LastLogin = () => {
 
     // get last login data
     const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
       const getData = async () => {
         try {
@@ -44,7 +45,7 @@ const LastLogin = () => {
               });
 
               setData(json_datas);
-              setIsLoading(true);
+              setIsLoading(false);
             }
           }
         } catch (e) {
@@ -79,8 +80,21 @@ const LastLogin = () => {
       event.preventDefault();
       setCurrentPage(number);
     };
+
+    if (isLoading) {
+      return (
+        <div className="flex justify-center items-center  h-full w-full">
+          <ProgressSpinner />
+        </div>
+      );
+    }
     return (
-      <div className="block ">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="block "
+      >
         <div className="flex gap-3">
           <SearchInput search={search} setSearch={setSearch} />
           <select
@@ -148,7 +162,7 @@ const LastLogin = () => {
             )}
           </ul>
         </nav>
-      </div>
+      </motion.div>
     );
   }
 };
