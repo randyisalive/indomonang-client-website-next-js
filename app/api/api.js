@@ -713,13 +713,13 @@ const api = () => {
       }
     };
 
-    const insertTickets = async () => {
+    const getTicketById = async (uuid) => {
       const json_data = {
         username: "rendi",
         password: "rendi",
         action: "select",
         entity_id: 141,
-        filters: { 2646: user_id },
+        filters: { 2469: uuid },
       };
       try {
         const response = await fetch(base_url, {
@@ -733,7 +733,122 @@ const api = () => {
       }
     };
 
-    return { TicketsApi };
+    const insertTickets = async (
+      ticket_id,
+      ref_num,
+      name,
+      email,
+      category,
+      ticket_detail,
+      user_id
+    ) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "insert",
+        entity_id: 141,
+        items: {
+          field_2469: ticket_id,
+          field_2466: ref_num,
+          field_2464: name,
+          field_2471: email,
+          field_2470: category,
+          field_2465: ticket_detail,
+          field_2646: user_id,
+        },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    const uploadAttachmentTickets = async (attachments, id) => {
+      const API_JSON = {
+        username: "rendi",
+        password: "rendi",
+        action: "update",
+        entity_id: 141,
+        data: {
+          field_2745: attachments,
+        },
+        update_by_field: {
+          id: id,
+        },
+      };
+
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(API_JSON),
+        });
+        const data = await response.json();
+        return data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    return {
+      insertTickets,
+      getTicketsByUserId,
+      uploadAttachmentTickets,
+      getTicketById,
+    };
+  };
+
+  const TicketsChatsApi = () => {
+    const getTicketsChatByTicketId = async (ticket_id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 157,
+        filters: { 2664: ticket_id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    const insertTicketsChat = async (uuid, ticket_id, text, role) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "insert",
+        entity_id: 157,
+        items: {
+          field_2654: uuid,
+          field_2746: role,
+          field_2664: ticket_id,
+          field_2653: text,
+        },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    return { getTicketsChatByTicketId, insertTicketsChat };
   };
 
   return {
@@ -748,6 +863,8 @@ const api = () => {
     CustomerAccountLastLoginDataApi,
     PaymentApi,
     InvoiceApi,
+    TicketsApi,
+    TicketsChatsApi,
   };
 };
 

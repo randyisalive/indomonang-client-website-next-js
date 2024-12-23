@@ -2,13 +2,20 @@
 import api from "@/app/api/api";
 import { getLocalStorage } from "@/app/function/getLocalStorage";
 import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const useTicketNewData = () => {
   // api
-  const { WOApi, CustomerAccountApi } = api();
+  const { WOApi, CustomerAccountApi, TicketsApi } = api();
   const { getAccountById } = CustomerAccountApi();
   const { getWoByRefNum } = WOApi();
+  const { getTicketsByUserId, insertTickets, uploadAttachmentTickets } =
+    TicketsApi();
+
+  // router
+  const router = useRouter();
 
   // dec key
   const { user_id } = useDecryptionKeyData();
@@ -38,6 +45,7 @@ const useTicketNewData = () => {
     }
   };
   const [search, setSearch] = useState("");
+  // check if wo available by ref
 
   // tickets state
   const [form, setForm] = useState({
@@ -84,6 +92,41 @@ const useTicketNewData = () => {
     });
   };
 
+  const SubmitTicket = async () => {
+    const { email, name, category, details, attachments } = form;
+    const uuid = uuidv4();
+
+    try {
+      const insert_ticket = await insertTickets(
+        uuid,
+        search,
+        name,
+        email,
+        category,
+        details,
+        userId
+      );
+      console.log(insert_ticket);
+      if (insert_ticket && form.attachments.length > 0) {
+        const id = insert_ticket.id;
+        const attachments = form.attachments.map((item) => {
+          return {
+            name: item.filename,
+            content: item.base_64,
+          };
+        });
+        const update_attachments = await uploadAttachmentTickets(
+          attachments,
+          id
+        );
+      }
+
+      window.location.reload();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   // debug
   useEffect(() => {
     if (getLocalStorage("app-debug") === "true") {
@@ -92,7 +135,16 @@ const useTicketNewData = () => {
     }
   }, [form, woData, userId]);
 
-  return { handleForm, form, woData, search, setSearch, getWoData, onUpload };
+  return {
+    handleForm,
+    form,
+    woData,
+    search,
+    setSearch,
+    getWoData,
+    onUpload,
+    SubmitTicket,
+  };
 };
 
 export default useTicketNewData;

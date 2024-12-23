@@ -50,7 +50,6 @@ const RefTable = ({
 
   // status open uploaded
   const openData = datas.filter((x) => x[2267] === "Open");
-  const uploadedData = datas.filter((x) => x[2267] === "Uploaded");
   return (
     <React.Fragment>
       {item && (
@@ -71,7 +70,7 @@ const RefTable = ({
           </motion.div>
         </div>
       )}
-      <div className="relative flex m-5 sm:m-0 overflow-x-auto  flex-col">
+      <div className="relative flex m-5 sm:m-0 overflow-x-auto shadow-lg  flex-col">
         {isLoading ? (
           <div className="absolute  left-1/2 top-1/2 z-50 transform -translate-x-1/2 -translate-y-1/2">
             <i className="pi pi-spinner pi-spin text-5xl"></i>
@@ -92,7 +91,7 @@ const RefTable = ({
               : "min-w-full shadow-md text-sm"
           }
         >
-          <thead className="text-white" style={{ backgroundColor: "#9c1c23" }}>
+          <thead style={{ backgroundColor: "#f3f4f6" }}>
             <tr>
               {th_array.map((th, index) => (
                 <th key={index} className="py-3 px-4 text-center border">

@@ -33,8 +33,7 @@ const UploadTableComponent = () => {
         <SearchBarUpload ref={refForm} handleRef={handleForm} />
         <WebButton onClickFunction={() => getWoBtn()} />
       </div>
-      <JsonDisplay data={woData} />
-      <JsonDisplay data={requiredDocument} />
+
       <CheckWOAuth woData={woData}>
         <AnimatePresence>
           {woData.length > 0 && (

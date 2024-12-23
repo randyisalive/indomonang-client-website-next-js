@@ -12,8 +12,16 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 import "./TicketsNew.css";
 
 const TicketPageNew = () => {
-  const { search, setSearch, woData, handleForm, form, getWoData, onUpload } =
-    useTicketNewData();
+  const {
+    search,
+    setSearch,
+    woData,
+    handleForm,
+    form,
+    getWoData,
+    onUpload,
+    SubmitTicket,
+  } = useTicketNewData();
   return (
     <div>
       <div className="flex gap-3 mx-5 lg:mx-0">
@@ -97,7 +105,10 @@ const TicketPageNew = () => {
               />
             </div>
             <div className="my-3 flex justify-center">
-              <WebButton title="Submit Ticket" />
+              <WebButton
+                title="Submit Ticket"
+                onClickFunction={() => SubmitTicket()}
+              />
             </div>
           </motion.div>
         )}

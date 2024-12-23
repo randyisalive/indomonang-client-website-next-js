@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useState, useEffect, Suspense } from "react";
 
@@ -26,15 +27,15 @@ const TicketNavigation = () => {
   return (
     <div className="flex mx-5 lg:mx-0 gap-3 text-sm my-4 border-b">
       {nav_data.map((item) => (
-        <span
+        <Link
           key={item.id}
-          onClick={() => router.push(`${item.nav}`)}
+          href={`/tickets/${item.nav}`}
           className={`${
             item.id === page ? "border-b-2 border-b-blue-600" : ""
           } font-bold cursor-pointer pb-1`}
         >
           {item.title}
-        </span>
+        </Link>
       ))}
     </div>
   );

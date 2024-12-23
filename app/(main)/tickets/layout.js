@@ -11,10 +11,7 @@ const layout = ({ children }) => {
 
   return (
     <MainContainer>
-      <HeaderComponent
-        title="Buat Tiket"
-        breadcrumbs_array={breadcrumbs_array}
-      />
+      <HeaderComponent title="Tiket" breadcrumbs_array={breadcrumbs_array} />
       <TicketNavigation />
 
       {children}
