@@ -833,6 +833,24 @@ const api = () => {
         console.error(e);
       }
     };
+    const getTicketsAll = async () => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 141,
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
 
     const getTicketById = async (uuid) => {
       const json_data = {
@@ -921,6 +939,7 @@ const api = () => {
       getTicketsByUserId,
       uploadAttachmentTickets,
       getTicketById,
+      getTicketsAll,
     };
   };
 
