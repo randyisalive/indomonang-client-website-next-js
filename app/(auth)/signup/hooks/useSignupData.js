@@ -28,6 +28,20 @@ const useSignupData = () => {
   };
   const SignupButton = async () => {
     setSignupLoading(1);
+    if (
+      form.company === "" ||
+      form.email === "" ||
+      form.password === "" ||
+      form.role === "" ||
+      form.username === ""
+    ) {
+      setSignupLoading(2);
+      setMessage("Empty Form Value!");
+      setTimeout(() => {
+        setSignupLoading(0);
+      }, 3000);
+      return;
+    }
     try {
       const emails = await getAllaccountsEmail();
       for (const item of emails) {

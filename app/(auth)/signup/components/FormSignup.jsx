@@ -56,7 +56,7 @@ const FormSignup = () => {
             className={`w-full lg:w-1/2`}
             title="Email *"
             value={form.email}
-            placeholder=""
+            placeholder="newmail@email.com"
             onChange={(e) => handleForm(e)}
           />
           <SelectForm
