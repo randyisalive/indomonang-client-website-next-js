@@ -30,7 +30,7 @@ const api = () => {
         password: "rendi",
         action: "select",
         entity_id: 154,
-        select_fields: "2616, 2614, 2615",
+        select_fields: "2616, 2614, 2615, 2628",
         filters: { 2616: email },
       };
       try {
@@ -291,6 +291,28 @@ const api = () => {
           field_2618: value,
         },
         update_by_field: { id: id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    const updateRecovery = async (email, value) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "update",
+        entity_id: 154,
+        data: {
+          field_2618: value,
+        },
+        update_by_field: { 2616: email },
       };
       try {
         const response = await fetch(base_url, {

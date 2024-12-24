@@ -5,10 +5,11 @@ import React, { useEffect, useState } from "react";
 
 const useHomeCardContainerData = () => {
   // api
-  const { WOApi, InvoiceApi, CustomerAccountApi } = api();
+  const { WOApi, InvoiceApi, CustomerAccountApi, TicketsApi } = api();
   const { getWoByUserId } = WOApi();
   const { getInvoiceByWo } = InvoiceApi();
   const { getAccountById } = CustomerAccountApi();
+  const { getTicketsByUserId } = TicketsApi();
 
   // decryption
   const { user_id } = useDecryptionKeyData();
@@ -35,6 +36,11 @@ const useHomeCardContainerData = () => {
         const unpaid_invoices = invoice_data.filter(
           (item) => item[1905] === "Open"
         ).length;
+        const tickets_data = await getTicketsByUserId(user_id);
+        console.log(tickets_data);
+        const tickets_filtered = tickets_data.map((item) =>
+          ["Open", "On Progress"].includes(item[2467])
+        ).length;
         const card_data = [
           {
             id: 0,
@@ -56,9 +62,9 @@ const useHomeCardContainerData = () => {
           },
           {
             id: 3,
-            count: 0,
+            count: tickets_filtered,
             sub: "View Tickets",
-            link: "/tickets",
+            link: "/tickets/list",
           },
         ];
         setCardData(card_data);

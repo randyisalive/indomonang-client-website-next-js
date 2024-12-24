@@ -1,5 +1,6 @@
 "use client";
 import useLoginData from "@/app/hooks/useLoginData";
+import Link from "next/link";
 import React, { useState } from "react";
 
 const Form = ({
@@ -8,6 +9,7 @@ const Form = ({
   name = "default_input_name",
   placeholder = "default_placeholder",
   subtitle = "",
+  subLink = "",
   onChange = () => {},
   value = "",
   disabled = false,
@@ -22,9 +24,12 @@ const Form = ({
       <div className="flex w-full justify-between">
         <span className="text-sm text-gray-600">{title}</span>
         {subtitle != "" ? (
-          <span className="text-blue-600 cursor-pointer text-sm hover:text-blue-700">
+          <Link
+            href={subLink}
+            className="text-blue-600 cursor-pointer text-sm hover:text-blue-700"
+          >
             {subtitle}
-          </span>
+          </Link>
         ) : null}
       </div>
       <div className="flex relative items-center">

@@ -7,13 +7,15 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import DebugButton from "../Navbar/DebugButton";
 import { Skeleton } from "primereact/skeleton";
+import JsonDisplay from "../ui/JsonDisplay";
+import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
 
 const ProfileCard = () => {
   const { customer, isLoading } = useProfileCardData();
-
+  const { role } = useDecryptionKeyData();
   const router = useRouter();
   const Logout = () => {
-    localStorage.removeItem("authToken");
+    localStorage.clear();
     router.push("/login");
   };
 
@@ -39,7 +41,7 @@ const ProfileCard = () => {
               <WebButton title="Edit" />
             </Link>
             <WebButton title="Keluar" onClickFunction={Logout} />
-            <DebugButton />
+            {role === "Admin" && <DebugButton />}
           </div>
         </>
       )}

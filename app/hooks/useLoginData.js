@@ -40,8 +40,10 @@ const useLoginData = () => {
         const user_data = await getUserByEmail(form.email);
         if (user_data && user_data.length > 0) {
           const id = user_data[0]["id"];
+          console.log(user_data);
           const password = user_data[0][2615];
           const email = user_data[0][2616];
+          const role = user_data[0][2628];
           const login_status = await checkPassword(form.password, password);
           if (login_status) {
             const keyDecrypt = await getDecryptionKey();
@@ -58,6 +60,10 @@ const useLoginData = () => {
               localStorage.setItem(
                 "id",
                 encryptMessage(id, keyDecrypt[0][2644])
+              );
+              localStorage.setItem(
+                "r",
+                encryptMessage(role, keyDecrypt[0][2644])
               );
               const token = localStorage.getItem("authToken");
               if (token) {

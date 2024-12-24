@@ -34,7 +34,7 @@ const FormControl = ({ children, title = "", className = {} }) => {
           title="Password"
           placeholder="Password"
           type="password"
-          subtitle="Forgot?"
+          subLink="/reset"
           onChange={handleForm}
           name="password"
           value={form.password}

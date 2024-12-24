@@ -12,6 +12,7 @@ const useDecryptionKeyData = () => {
   // get dec key
   const [decKey, setDecKey] = useState("");
   const [user_id, setUserId] = useState("");
+  const [role, setRole] = useState("");
 
   useEffect(() => {
     const getData = async () => {
@@ -24,8 +25,13 @@ const useDecryptionKeyData = () => {
               getLocalStorage("id"),
               datas[0][2644]
             );
+            const role_data = decryptMessage(
+              getLocalStorage("r"),
+              datas[0][2644]
+            );
             setDecKey(dec_key);
             setUserId(user_id);
+            setRole(role_data);
           }
         }
       } catch (e) {
@@ -45,7 +51,7 @@ const useDecryptionKeyData = () => {
     }
   }, []);
 
-  return { decKey, user_id };
+  return { decKey, user_id, role };
 };
 
 export default useDecryptionKeyData;
