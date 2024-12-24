@@ -11,7 +11,17 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      backgroundColor: {
+        mainBlue: "#163172",
+        secondaryBlue: "#1062fe",
+      },
+      textColor: {
+        mainBlue: "#163172",
+        secondaryBlue: "#1062fe",
+        tertiaryBlue: "#2a6bfe",
+      },
     },
   },
+
   plugins: [],
 };

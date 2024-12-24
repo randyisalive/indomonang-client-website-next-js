@@ -28,8 +28,8 @@ const WORows = ({ item = {}, num = 0, currentPage = 0, rowsPerPage = 10 }) => {
         <td className="border px-4 py-2 text-center">{item.ref_num}</td>
         <td className="border px-4 py-2 text-center">
           <StatusBadge
-            title={item.status.name}
-            bg_color={item.status.bg_color}
+            title={item.status?.name}
+            bg_color={item.status?.bg_color}
             font_color="white"
           />
         </td>

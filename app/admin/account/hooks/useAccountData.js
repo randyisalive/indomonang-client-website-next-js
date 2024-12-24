@@ -61,9 +61,9 @@ function useAccountsData() {
               lastLogin: userLastLogin.length > 0 ? userLastLogin : [],
               status_controller: item[2618],
               profile_picture: {
-                content: `data:image/jpg;base64,${profile_picture.content}`,
-                filename: profile_picture.filename,
-                content_base: profile_picture.content,
+                content: `data:image/jpg;base64,${profile_picture?.content}`,
+                filename: profile_picture?.filename,
+                content_base: profile_picture?.content,
               },
             };
           });

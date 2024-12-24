@@ -11,13 +11,14 @@ const Form = ({
   onChange = () => {},
   value = "",
   disabled = false,
+  className = {},
 }) => {
   const [eye, setEye] = useState(false);
   const handleEye = () => {
     setEye(!eye);
   };
   return (
-    <div className="flex flex-col gap-2 p-1">
+    <div className={`flex flex-col gap-2 p-1 ${className}`}>
       <div className="flex w-full justify-between">
         <span className="text-sm text-gray-600">{title}</span>
         {subtitle != "" ? (

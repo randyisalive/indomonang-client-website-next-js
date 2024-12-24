@@ -19,7 +19,9 @@ const useProfileCardData = () => {
       try {
         const user_data = await getCompanyById(user_id);
         if (user_data) {
-          const company_data = await getCustomerDataById(146);
+          const company_data = await getCustomerDataById(
+            user_data[0]["2630_db_value"]
+          );
           setCustomer(company_data[0]);
           setIsLoading(1);
           console.log(company_data[0]);

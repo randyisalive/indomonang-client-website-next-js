@@ -140,6 +140,26 @@ const api = () => {
       }
     };
 
+    const getAllaccountsEmail = async () => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 154,
+        select_fields: "2616",
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
     const getAccountById = async (id) => {
       const json_data = {
         username: "rendi",
@@ -208,6 +228,81 @@ const api = () => {
         console.error(e);
       }
     };
+    const insertCustomerAccount = async (
+      username,
+      password,
+      email,
+      company,
+      role
+    ) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "insert",
+        entity_id: 154,
+        items: {
+          field_2614: username,
+          field_2615: password,
+          field_2616: email,
+          field_2630: company,
+          field_2628: role,
+        },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    const getVerificationByEmail = async (email) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 154,
+        select_fields: "2619",
+        filters: { 2616: email },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    const updateAccountStatus = async (id, value) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "update",
+        entity_id: 154,
+        data: {
+          field_2618: value,
+        },
+        update_by_field: { id: id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
 
     return {
       getUserByEmail,
@@ -219,6 +314,10 @@ const api = () => {
       getAccountById,
       getProfilePictureById,
       updateAccountData,
+      getVerificationByEmail,
+      insertCustomerAccount,
+      getAllaccountsEmail,
+      updateAccountStatus,
     };
   };
 
@@ -803,6 +902,29 @@ const api = () => {
     };
   };
 
+  const CompanyDatabaseApi = () => {
+    const getAllCompany = async () => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 25,
+        select_fields: "228",
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    return { getAllCompany };
+  };
+
   const TicketsChatsApi = () => {
     const getTicketsChatByTicketId = async (ticket_id) => {
       const json_data = {
@@ -865,6 +987,7 @@ const api = () => {
     InvoiceApi,
     TicketsApi,
     TicketsChatsApi,
+    CompanyDatabaseApi,
   };
 };
 

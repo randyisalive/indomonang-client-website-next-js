@@ -35,7 +35,7 @@ const useWOData = () => {
                   status: status_name[0],
                   service: item[674],
                   estimated_done: item[791],
-                  status_name: status_name[0].name,
+                  status_name: status_name[0]?.name,
                   dialog_status: false,
                 };
               })
