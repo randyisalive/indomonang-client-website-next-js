@@ -386,6 +386,24 @@ const api = () => {
         console.error(e);
       }
     };
+    const getWoAll = async () => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 36,
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
     const getWoByRefNum = async (ref_num) => {
       const json_data = {
         username: "rendi",
@@ -447,7 +465,13 @@ const api = () => {
       }
     };
 
-    return { getWoByUserId, getWoByRefNum, getRefNumByWoId, getWoById };
+    return {
+      getWoByUserId,
+      getWoByRefNum,
+      getRefNumByWoId,
+      getWoById,
+      getWoAll,
+    };
   };
 
   const ExtraMethodsApi = () => {
@@ -746,6 +770,24 @@ const api = () => {
         console.error(e);
       }
     };
+    const getPaymentAll = async (invoice) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 110,
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
 
     const getPaymentById = async (id) => {
       const json_data = {
@@ -766,7 +808,7 @@ const api = () => {
         console.error(e);
       }
     };
-    return { getPaymentByNoInvoice, getPaymentById };
+    return { getPaymentByNoInvoice, getPaymentById, getPaymentAll };
   };
 
   const InvoiceApi = () => {
@@ -872,6 +914,27 @@ const api = () => {
       }
     };
 
+    const getAttachmentTicketsById = async (ticket_id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "download_attachment",
+        entity_id: 141,
+        item_id: ticket_id,
+        field_id: "2745",
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
     const insertTickets = async (
       ticket_id,
       ref_num,
@@ -895,6 +958,27 @@ const api = () => {
           field_2465: ticket_detail,
           field_2646: user_id,
         },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    const updateTicketStatus = async (ticket_id, value) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "update",
+        entity_id: 141,
+        data: { field_2468: value },
+        update_by_field: { id: ticket_id },
       };
       try {
         const response = await fetch(base_url, {
@@ -940,6 +1024,8 @@ const api = () => {
       uploadAttachmentTickets,
       getTicketById,
       getTicketsAll,
+      getAttachmentTicketsById,
+      updateTicketStatus,
     };
   };
 
@@ -987,7 +1073,7 @@ const api = () => {
       }
     };
 
-    const insertTicketsChat = async (uuid, ticket_id, text, role) => {
+    const insertTicketsChat = async (uuid, ticket_id, text, role, user_id) => {
       const json_data = {
         username: "rendi",
         password: "rendi",
@@ -998,6 +1084,7 @@ const api = () => {
           field_2746: role,
           field_2664: ticket_id,
           field_2653: text,
+          field_2767: user_id,
         },
       };
       try {

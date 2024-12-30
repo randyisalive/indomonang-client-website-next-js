@@ -8,10 +8,10 @@ const useWOData = () => {
   // api
   const { WOApi, CustomerAccountApi } = api();
   const { getCompanyById } = CustomerAccountApi();
-  const { getWoByUserId } = WOApi();
+  const { getWoByUserId, getWoAll } = WOApi();
   const { enquiry_data } = EnquityStatusData();
   // decrypt_key
-  const { decKey, user_id } = useDecryptionKeyData();
+  const { decKey, user_id, role } = useDecryptionKeyData();
   // user id
   // get wo
   const [wo, setWO] = useState([]);
@@ -23,7 +23,12 @@ const useWOData = () => {
         if (user_id) {
           const company_id = await getCompanyById(user_id);
           if (company_id.length > 0) {
-            const wo_data = await getWoByUserId(company_id[0]["2630_db_value"]);
+            let wo_data;
+            if (role === "Client") {
+              wo_data = await getWoByUserId(company_id[0]["2630_db_value"]);
+            } else {
+              wo_data = await getWoAll();
+            }
             const datas = await Promise.all(
               wo_data.map(async (item) => {
                 const status_name = enquiry_data.filter(
@@ -49,7 +54,7 @@ const useWOData = () => {
       }
     };
     getData();
-  }, [decKey, user_id]);
+  }, [decKey, user_id, role]);
 
   const handleWODialog = (id = 0, dialogStatus = false) => {
     setWO((prev) =>

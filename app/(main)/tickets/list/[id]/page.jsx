@@ -4,6 +4,8 @@ import React from "react";
 import useTicketDetailData from "./hooks/useTicketDetailData";
 
 import "primeicons/primeicons.css";
+import { AnimatePresence, motion } from "framer-motion";
+import TicketsChatsConvo from "./components/TicketsChatsConvo";
 
 const TicketDetail = () => {
   const {
@@ -15,6 +17,13 @@ const TicketDetail = () => {
     handleForm,
     form,
     handleKeyDown,
+    handleDownload,
+    role,
+    userImage,
+    getData,
+    isLoading,
+    updateTicket,
+    ticketStatus,
   } = useTicketDetailData();
 
   const chat_data = [
@@ -42,11 +51,18 @@ const TicketDetail = () => {
   return (
     <div className="flex text-sm flex-col  p-3 items-center">
       {ticket.ticket_data && (
-        <div className="w-1/2 bg-white shadow-lg rounded-lg p-3">
-          <span>
-            <StatusBadge title="Open" bg_color="green" font_color="white" />
-          </span>
-          <div className=" flex gap-2 my-5 border-b pb-5">
+        <div className="lg:w-1/2 bg-white shadow-lg rounded-lg p-3">
+          {ticket.ticket_status?.length > 0 ? (
+            <span>
+              <StatusBadge
+                title={ticket.ticket_status[0].text}
+                bg_color={ticket.ticket_status[0].bg_color}
+                font_color="white"
+              />
+            </span>
+          ) : null}
+
+          <div className=" flex gap-2 mt-5 mb-1 border-b pb-5">
             <div className="flex flex-col gap-2 w-2/3">
               <span className=" text-black font-bold">{category}</span>
               <span className=" text-gray-500">{ref}</span>
@@ -57,8 +73,9 @@ const TicketDetail = () => {
               <span className="text-xs text-gray-500">{date_added}</span>
             </div>
           </div>
-          <div className="flex gap-2 flex-col flex-wrap">
-            <div className="w-full block lg:flex  lg:gap-5">
+
+          <div className="gap-2 flex-col justify-center flex mt-3">
+            {/*  <div className="w-full block lg:flex  lg:gap-5">
               <div className=" rounded-lg my-3 lg:my-0 bg-gray-100 p-3   lg:w-1/2">
                 <span>Departure</span>
                 <div className="flex gap-1 flex-col">
@@ -96,58 +113,74 @@ const TicketDetail = () => {
                   <span className="text-gray-800">14 June, 2023</span>
                 </div>
               </div>
-            </div>
+            </div> */}
+            <AnimatePresence>
+              {ticket.attachments_total && (
+                <motion.div
+                  className=" flex justify-center  w-full"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <table className="rounded-lg text-sm">
+                    <thead
+                      className="text-white"
+                      style={{ backgroundColor: "#9c1c23" }}
+                    >
+                      <tr>
+                        <th className="py-3 px-4 text-center border">
+                          Tickets Attachment
+                        </th>
+                        <th className="py-3 px-4 text-center border">
+                          Download
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="border px-4 py-2 text-center">
+                          <ul className=" p-3 list-disc text-start flex flex-col gap-3">
+                            {ticket.attachments_total?.names?.map((item) => {
+                              return <li key={item}>{item}</li>;
+                            })}
+                          </ul>
+                        </td>
+                        <td className="border px-4 py-2 text-center">
+                          <span
+                            className=" hover:text-indomonangeRed cursor-pointer"
+                            onClick={() => {
+                              handleDownload(
+                                ticket.attachments.content,
+                                ticket.attachments.filename
+                              );
+                            }}
+                          >
+                            Download
+                          </span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       )}
-
-      <div className="my-5 shadow-lg rounded-xl w-full">
-        <div className="bg-gray-100 rounded-xl relative p-3">
-          {ticket.chats_data?.map((item) => {
-            return (
-              <div key={item.id} className=" text-lg flex gap-3 p-2">
-                <div className=" flex flex-col gap-3 justify-end">
-                  {item[2746] === "Client" && (
-                    <img
-                      src="/f6f6f6d6e4f01e56a0163172.png"
-                      className=" rounded-full"
-                      width={45}
-                      alt=""
-                    />
-                  )}
-                  {item[2746] === "Admin" && (
-                    <img
-                      src="https://cdn-icons-png.flaticon.com/512/9703/9703596.png"
-                      className=" rounded-full"
-                      width={45}
-                      alt=""
-                    />
-                  )}
-                </div>
-                <div className="bg-white text-sm p-3 w-full rounded-xl">
-                  {item[2653]}
-                </div>
-              </div>
-            );
-          })}
-
-          <div className=" bg-white text-lg flex p-2 px-3  mt-5 mb-0 items-center rounded-full shadow-lg">
-            <input
-              type="text"
-              name="text"
-              value={form.text}
-              placeholder="Type a message..."
-              onChange={(e) => handleForm(e)}
-              onKeyDown={handleKeyDown}
-              className=" w-full rounded-full p-2 focus:outline-none"
-            />
-            <i
-              className="pi pi-send text-lg"
-              onClick={() => SubmitMessage()}
-            ></i>
-          </div>
-        </div>
-      </div>
+      <TicketsChatsConvo
+        ticket={ticket}
+        form={form}
+        handleKeyDown={handleKeyDown}
+        handleForm={handleForm}
+        role={role}
+        userImage={userImage}
+        SubmitMessage={SubmitMessage}
+        refreshBtn={getData}
+        isLoading={isLoading}
+        updateTicket={updateTicket}
+        ticketStatus={ticketStatus}
+      />
     </div>
   );
 };

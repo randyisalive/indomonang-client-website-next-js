@@ -19,6 +19,7 @@ export default {
         mainBlue: "#163172",
         secondaryBlue: "#1062fe",
         tertiaryBlue: "#2a6bfe",
+        indomonangeRed: "#9c1c23",
       },
     },
   },
