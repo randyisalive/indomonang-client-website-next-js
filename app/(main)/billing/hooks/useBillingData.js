@@ -27,7 +27,7 @@ const useBillingData = () => {
 
         if (role === "Admin") {
           const billing_data = await getPaymentAll();
-          console.log(role);
+          console.log(billing_data);
 
           const datas = billing_data.map((item) => {
             return {
@@ -36,19 +36,14 @@ const useBillingData = () => {
               status_name: bill_status.filter((x) => x.text === item[2213])[0],
               date_of_payment: item[1954],
               amount_of_payment: item[2211],
-              amount_paid: item[1959],
               outstanding_balance: item[2216],
+              amount_of_payment_int: item[2139] ? item[2139] : 0,
+              outstanding_balance_int: item[2212] ? item[2212] : 0,
             };
           });
-          const outstanding_totals = billing_data.reduce(
-            (acc, item) => acc + item[2212],
-            0
-          );
+
           setBills({
             billing_data: datas,
-            outstanding_total: outstanding_totals,
-            amount_paid: "",
-            amount_of_payment: "",
           });
           setIsLoading(1);
           return;

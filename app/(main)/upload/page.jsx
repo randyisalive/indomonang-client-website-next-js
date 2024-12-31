@@ -1,7 +1,6 @@
 import HeaderComponent from "@/app/components/ui/HeaderComponent";
 import React from "react";
 import UploadTableComponent from "./UploadTableComponent";
-import CheckWOAuth from "./components/CheckWOAuth";
 
 const UploadPage = () => {
   return (

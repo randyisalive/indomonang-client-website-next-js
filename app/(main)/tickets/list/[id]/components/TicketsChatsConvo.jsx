@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
 
 const TicketsChatsConvo = ({
   ticket = [],
@@ -12,30 +13,27 @@ const TicketsChatsConvo = ({
   updateTicket = (ticket_id, value) => {},
   ticketStatus = [],
 }) => {
+  const { role } = useDecryptionKeyData();
   return (
     <div className={`my-5 px-10 lg:px-0 rounded-xl w-full relative `}>
-      <div className="bg-gray-100 rounded-xl relative p-3">
+      <div className="bg-gray-100 rounded-xl relative p-3 h-96 overflow-y-auto">
         <div className="w-full flex items-center gap-5 justify-between p-3">
           <div className="w-full">
-            <select
-              name=""
-              id=""
-              className="p-2 rounded-full shadow-sm w-full border"
-              onChange={(e) =>
-                updateTicket(ticket.ticket_data.id, e.target.value)
-              }
-            >
-              {ticketStatus.map((item) => {
-                return (
-                  <option
-                    key={item.text}
-                    value={item.text === ticket.ticket_data[2467]}
-                  >
-                    {item.text}
-                  </option>
-                );
-              })}
-            </select>
+            {role === "Client" && (
+              <select
+                name=""
+                id=""
+                className="p-2 rounded-full shadow-sm w-full border"
+                onChange={(e) =>
+                  updateTicket(ticket.ticket_data.id, e.target.value)
+                }
+              >
+                <option value="0">Open</option>
+
+                <option value="2">Closed</option>
+                <option value="3">Canceled</option>
+              </select>
+            )}
           </div>
           <div>
             <motion.i
@@ -62,18 +60,18 @@ const TicketsChatsConvo = ({
             </div>
           );
         })}
-        <div className=" bg-white text-lg flex p-2 px-3  mt-5 mb-0 items-center rounded-full shadow-lg">
-          <input
-            type="text"
-            name="text"
-            value={form.text}
-            placeholder="Type a message..."
-            onChange={(e) => handleForm(e)}
-            onKeyDown={handleKeyDown}
-            className=" w-full rounded-full p-2 focus:outline-none"
-          />
-          <i className="pi pi-send text-lg" onClick={() => SubmitMessage()}></i>
-        </div>
+      </div>
+      <div className=" bg-white text-lg flex p-2 px-3  mt-5 mb-0 items-center rounded-full shadow-lg">
+        <input
+          type="text"
+          name="text"
+          value={form.text}
+          placeholder="Type a message..."
+          onChange={(e) => handleForm(e)}
+          onKeyDown={handleKeyDown}
+          className=" w-full rounded-full p-2 focus:outline-none"
+        />
+        <i className="pi pi-send text-lg" onClick={() => SubmitMessage()}></i>
       </div>
     </div>
   );

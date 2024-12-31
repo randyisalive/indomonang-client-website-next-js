@@ -6,7 +6,13 @@ import WORowsDialog from "./WORows/WORowsDialog";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-const WORows = ({ item = {}, num = 0, currentPage = 0, rowsPerPage = 10 }) => {
+const WORows = ({
+  item = {},
+  num = 0,
+  currentPage = 0,
+  rowsPerPage = 10,
+  role = "",
+}) => {
   const [dialogStatus, setDialogStatus] = useState(item.dialog_status);
 
   const handleWODialog = () => {
@@ -25,6 +31,9 @@ const WORows = ({ item = {}, num = 0, currentPage = 0, rowsPerPage = 10 }) => {
         <td className="border px-4 py-2 text-center">
           {num + 1 + (currentPage - 1) * rowsPerPage}
         </td>
+        {role === "Admin" ? (
+          <td className="border px-4 py-2">{item.company}</td>
+        ) : null}
         <td className="border px-4 py-2 text-center">{item.ref_num}</td>
         <td className="border px-4 py-2 text-center">
           <StatusBadge

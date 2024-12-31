@@ -49,9 +49,9 @@ const TicketDetail = () => {
     },
   ];
   return (
-    <div className="flex text-sm flex-col  p-3 items-center">
+    <div className="block lg:flex text-sm gap-5  p-3 items-center">
       {ticket.ticket_data && (
-        <div className="lg:w-1/2 bg-white shadow-lg rounded-lg p-3">
+        <div className=" lg:w-1/2 bg-white shadow-lg rounded-lg p-3">
           {ticket.ticket_status?.length > 0 ? (
             <span>
               <StatusBadge
@@ -69,8 +69,9 @@ const TicketDetail = () => {
             </div>
             <div className=" items-end flex flex-col w-1/3 gap-2">
               <span className=" text-black font-bold">Time Elapsed</span>
-              <span className=" text-gray-500">11h 40m</span>
-              <span className="text-xs text-gray-500">{date_added}</span>
+              <span className=" text-gray-500">
+                Mr./Ms. {ticket.ticket_data[2464]}
+              </span>
             </div>
           </div>
 

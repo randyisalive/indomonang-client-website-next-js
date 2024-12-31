@@ -122,7 +122,7 @@ const useUploadDocumentData = () => {
       const delete_data = await deleteAttachments(id, 2266);
       if (delete_data) {
         const status = await updateAttachmentStatus(0, id);
-        console.log(delete_data);
+        console.log(status);
         const data = await getWoBtn();
         console.log(data);
       }

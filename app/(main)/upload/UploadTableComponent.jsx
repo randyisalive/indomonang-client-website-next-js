@@ -5,7 +5,6 @@ import useUploadDocumentData from "./hooks/useUploadDocumentData";
 import SearchBarUpload from "./components/SearcBarUpload";
 import WebButton from "@/app/components/ui/WebButton";
 import { AnimatePresence, motion } from "framer-motion";
-import JsonDisplay from "@/app/components/ui/JsonDisplay";
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import { ProgressSpinner } from "primereact/progressspinner";
 import CheckWOAuth from "./components/CheckWOAuth";

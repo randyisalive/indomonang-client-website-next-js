@@ -42,6 +42,7 @@ const useWOData = () => {
                   estimated_done: item[791],
                   status_name: status_name[0]?.name,
                   dialog_status: false,
+                  company: item[314],
                 };
               })
             );

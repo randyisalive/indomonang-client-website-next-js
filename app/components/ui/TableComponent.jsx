@@ -2,10 +2,11 @@
 import React, { useRef, useState } from "react";
 import SearchTerms from "@/app/function/SearchTerms";
 import SearchInput from "./form/SearchInput";
-import BillingRows from "./tableComponent/BillingRows";
+import BillingRows from "./tableComponent/Billing/BillingRows";
 import WORows from "./tableComponent/WORows";
 import JsonDisplay from "./JsonDisplay";
 import { motion } from "framer-motion";
+import BillingFooter from "./tableComponent/Billing/BillingFooter";
 
 const TableComponent = ({
   th_array = [],
@@ -14,6 +15,7 @@ const TableComponent = ({
   dialogOnChange = () => {},
   children,
   footer = "",
+  role = "Client",
 }) => {
   const [search, setSearch] = useState("");
 
@@ -99,12 +101,18 @@ const TableComponent = ({
                       currentPage={currentPage}
                       rowsPerPage={rowsPerPage}
                       handleWODialog={dialogOnChange}
+                      role={role}
                     />
                   </>
                 )}
               </React.Fragment>
             ))}
           </tbody>
+          <tfoot>
+            {TableType === "billing" && (
+              <BillingFooter currentRows={currentRows} />
+            )}
+          </tfoot>
         </table>
         <nav className="mt-4 p-3">
           <ul className="flex justify-center space-x-2">

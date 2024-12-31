@@ -13,7 +13,7 @@ const BillingTable = () => {
     "Transactions Number",
     "Date of Payment",
     "Amount of Payment",
-    "Amount Paid",
+    "Outstanding Payment",
     "Action",
   ];
 

@@ -18,22 +18,23 @@ const NavbarItems = ({ onClick = () => {} }) => {
       title: "Layanan",
       dropdown: false,
       content: [
-        { id: 0, text: "WO List", link: "/your-orders" },
-        { id: 1, text: "", link: "", line: true },
+        { id: 0, text: "Your Orders", link: "/your-orders" },
+        { id: 2, text: "Billing List", link: "/billing" },
+
+        { id: 3, text: "", link: "", line: true },
       ],
     },
-    {
+    /* {
       id: 2,
       title: "Billing",
       dropdown: false,
       content: [
         { id: 4, text: "Billing List", link: "/billing" },
-        { id: 4, text: "Invoices", link: "/invoice" },
+        // { id: 4, text: "Invoices", link: "/invoice" },
         { id: 5, text: "", link: "", line: true },
-        { id: 6, text: "Pesan Layanan Saya", link: "" },
-        { id: 7, text: "Pesan Addons", link: "" },
+        
       ],
-    },
+    }, */
     {
       id: 3,
       title: "Upload Documents",
