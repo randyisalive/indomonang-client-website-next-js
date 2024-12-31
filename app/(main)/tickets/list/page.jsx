@@ -8,13 +8,7 @@ import { motion } from "framer-motion";
 
 const TicketListPage = () => {
   const { tickets } = useTicketListData();
-  const th_array = [
-    "No",
-    "Reference Number",
-    "Category",
-    "Date Created",
-    "View Details",
-  ];
+  const th_array = ["Ticket ID", "Category", "Date Created", "View Details"];
   const [search, setSearch] = useState("");
 
   const { dataToDisplay } = SearchTerms(tickets, search, setSearch);
@@ -59,8 +53,7 @@ const TicketListPage = () => {
           {currentRows.map((item, index) => {
             return (
               <tr key={item[2469]}>
-                <td className="border px-4 py-2 text-center">{index + 1}</td>
-                <td className="border px-4 py-2 text-center">{item[2466]}</td>
+                <td className="border px-4 py-2 text-center">{item[2469]}</td>
                 <td className="border px-4 py-2 text-center"> {item[2470]}</td>
                 <td className="border px-4 py-2 text-center">
                   {item["date_added"]}
