@@ -101,7 +101,7 @@ const WORows = ({
           />
         </td>
         <td className="border px-4 py-2 text-center">
-          {statuses.some((status) => item.status.name.includes(status)) && (
+          {statuses.some((status) => item.status?.name.includes(status)) && (
             <motion.span
               whileHover={{ color: "#912534", textDecoration: "underline" }}
               className="cursor-pointer"
