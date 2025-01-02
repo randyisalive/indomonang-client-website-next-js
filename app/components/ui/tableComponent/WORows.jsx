@@ -74,7 +74,7 @@ const WORows = ({
             />
           ) : (
             <>
-              {item.status.name === "Finished" ? (
+              {item.status?.name === "Finished" ? (
                 <motion.p
                   onClick={() => handleWODialogRating()}
                   whileHover={{
