@@ -7,6 +7,8 @@ import WORows from "./tableComponent/WORows";
 import JsonDisplay from "./JsonDisplay";
 import { motion } from "framer-motion";
 import BillingFooter from "./tableComponent/Billing/BillingFooter";
+import WOFooter from "./tableComponent/WORows/WOFooter";
+import InvoiceRows from "@/app/(main)/invoice/components/InvoiceRows";
 
 const TableComponent = ({
   th_array = [],
@@ -16,6 +18,7 @@ const TableComponent = ({
   children,
   footer = "",
   role = "Client",
+  handleRating = () => {},
 }) => {
   const [search, setSearch] = useState("");
 
@@ -102,6 +105,19 @@ const TableComponent = ({
                       rowsPerPage={rowsPerPage}
                       handleWODialog={dialogOnChange}
                       role={role}
+                      handleRating={handleRating}
+                    />
+                  </>
+                )}{" "}
+                {TableType === "invoice" && (
+                  <>
+                    <InvoiceRows
+                      item={item}
+                      num={index}
+                      currentPage={currentPage}
+                      rowsPerPage={rowsPerPage}
+                      handleWODialog={dialogOnChange}
+                      role={role}
                     />
                   </>
                 )}
@@ -111,6 +127,9 @@ const TableComponent = ({
           <tfoot>
             {TableType === "billing" && (
               <BillingFooter currentRows={currentRows} />
+            )}
+            {TableType === "wo" && (
+              <WOFooter currentRows={currentRows} all_data={datas} />
             )}
           </tfoot>
         </table>

@@ -17,15 +17,24 @@ const useProcessingData = () => {
 
   // get processing data
   const [processing, setProcessing] = useState([]);
+  const [isLoading, setIsLoading] = useState(0);
   const getProcessing = async () => {
     try {
-      const processing_data = await getProcessingDataById(woId);
-      const processing_list_data = await getProcessingListDataById(
-        processing_data[0]["id"]
-      );
-      setProcessing(processing_list_data);
+      if (woId) {
+        const processing_data = await getProcessingDataById(woId);
+        const processing_list_data = await getProcessingListDataById(
+          processing_data[0]["id"]
+        );
+        setProcessing(processing_list_data);
+        if (processing_list_data.length > 0) {
+          setIsLoading(1);
+        } else {
+          throw new Error("No Data");
+        }
+      }
     } catch (e) {
       console.error(e);
+      setIsLoading(2);
     }
   };
 
@@ -65,7 +74,14 @@ const useProcessingData = () => {
       }, 3000);
     }
   };
-  return { processing, getProcessing, download_attachments, downloadStatus };
+  return {
+    processing,
+    getProcessing,
+    download_attachments,
+    downloadStatus,
+    woId,
+    isLoading,
+  };
 };
 
 export default useProcessingData;

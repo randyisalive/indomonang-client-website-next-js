@@ -19,7 +19,8 @@ const NavbarItems = ({ onClick = () => {} }) => {
       dropdown: false,
       content: [
         { id: 0, text: "Your Orders", link: "/your-orders" },
-        { id: 2, text: "Billing List", link: "/billing" },
+        { id: 2, text: "Billings List", link: "/billing" },
+        { id: 2, text: "Invoices List", link: "/invoice" },
 
         { id: 3, text: "", link: "", line: true },
       ],

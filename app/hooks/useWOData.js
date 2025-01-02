@@ -3,13 +3,18 @@ import { useEffect, useState } from "react";
 import api from "../api/api";
 import useDecryptionKeyData from "./useDecryptionKeyData";
 import EnquityStatusData from "../function/EnquityStatusData";
+import { useRouter } from "next/navigation";
 
 const useWOData = () => {
   // api
   const { WOApi, CustomerAccountApi } = api();
   const { getCompanyById } = CustomerAccountApi();
-  const { getWoByUserId, getWoAll } = WOApi();
+  const { getWoByUserId, getWoAll, updateWORating } = WOApi();
   const { enquiry_data } = EnquityStatusData();
+
+  // router
+  const router = useRouter();
+
   // decrypt_key
   const { decKey, user_id, role } = useDecryptionKeyData();
   // user id
@@ -42,7 +47,9 @@ const useWOData = () => {
                   estimated_done: item[791],
                   status_name: status_name[0]?.name,
                   dialog_status: false,
+                  dialog_status_rating: false,
                   company: item[314],
+                  rating: item[2631],
                 };
               })
             );
@@ -65,7 +72,18 @@ const useWOData = () => {
     );
   };
 
-  return { wo, isLoading, handleWODialog };
+  const handleRating = async (id, rating) => {
+    try {
+      const rating_data = await updateWORating(id, rating);
+      if (rating_data) {
+        window.location.href = "/your-orders";
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  return { wo, isLoading, handleWODialog, handleRating };
 };
 
 export default useWOData;

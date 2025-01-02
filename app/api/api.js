@@ -465,7 +465,31 @@ const api = () => {
       }
     };
 
+    const updateWORating = async (id, rating = 0) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "update",
+        entity_id: 36,
+        data: {
+          field_2631: rating,
+        },
+        update_by_field: { id: id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
     return {
+      updateWORating,
       getWoByUserId,
       getWoByRefNum,
       getRefNumByWoId,
@@ -547,7 +571,7 @@ const api = () => {
         action: "select",
         entity_id: 75,
         select_fields: "1653,1006",
-        filters: { parent_item_id: wo_id, 1006: "229" },
+        filters: { parent_item_id: wo_id, 1006: 229 },
       };
       try {
         const response = await fetch(base_url, {
@@ -566,7 +590,7 @@ const api = () => {
         password: "rendi",
         action: "select",
         entity_id: 101,
-        filters: { parent_item_id: parent_id, 1839: "495" },
+        filters: { parent_item_id: parent_id /* 1839: "495" */ },
       };
       try {
         const response = await fetch(base_url, {

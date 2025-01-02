@@ -6,7 +6,7 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
 
 const WOTable = () => {
-  const { wo, isLoading, handleWODialog } = useWOData();
+  const { wo, isLoading, handleWODialog, handleRating } = useWOData();
   const { role } = useDecryptionKeyData();
   const th_array = [
     "No",
@@ -15,6 +15,7 @@ const WOTable = () => {
     "Status",
     "Service",
     "Estimated Done",
+    "Rate Order",
     "Action",
   ].filter(Boolean);
 
@@ -31,6 +32,7 @@ const WOTable = () => {
           TableType="wo"
           role={role}
           dialogOnChange={handleWODialog}
+          handleRating={handleRating}
         />
       )}
     </div>

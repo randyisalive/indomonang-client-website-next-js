@@ -32,7 +32,11 @@ const invoicePage = () => {
         ]}
       />
       <div className="mt-5">
-        <TableComponent th_array={th_array} datas={td_array} />
+        <TableComponent
+          th_array={th_array}
+          datas={td_array}
+          TableType="invoice"
+        />
       </div>
     </div>
   );
