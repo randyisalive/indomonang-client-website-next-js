@@ -38,6 +38,7 @@ const useTicketNewData = () => {
           ...prev,
           email: account_data[0][2616],
           name: account_data[0][2614],
+          officer_pic: account_data[0]["created_by"],
         }));
       }
     } catch (e) {
@@ -51,10 +52,18 @@ const useTicketNewData = () => {
   const [form, setForm] = useState({
     email: "",
     name: "",
-    category: "",
+    category: "99",
     details: "",
     attachments: [],
+    priority: "633",
+    officer_pic: "",
   });
+  const ticket_priority = [
+    { id: 0, text: "Urgent", bg_color: "#ff0000", value: "633" },
+    { id: 3, text: "High", bg_color: "#FFEB3B", value: "634" },
+    { id: 1, text: "Medium", bg_color: "#FF9800", value: "635" },
+    { id: 2, text: "Low", bg_color: "#007BFF", value: "636" },
+  ];
 
   const handleForm = (e) => {
     const value = e.target.value;
@@ -93,7 +102,15 @@ const useTicketNewData = () => {
   };
 
   const SubmitTicket = async () => {
-    const { email, name, category, details, attachments } = form;
+    const {
+      email,
+      name,
+      category,
+      details,
+      attachments,
+      officer_pic,
+      priority,
+    } = form;
     const uuid = uuidv4();
 
     try {
@@ -104,7 +121,9 @@ const useTicketNewData = () => {
         email,
         category,
         details,
-        userId
+        userId,
+        officer_pic,
+        priority
       );
       console.log(insert_ticket);
       if (insert_ticket && form.attachments.length > 0) {
@@ -144,6 +163,7 @@ const useTicketNewData = () => {
     getWoData,
     onUpload,
     SubmitTicket,
+    ticket_priority,
   };
 };
 

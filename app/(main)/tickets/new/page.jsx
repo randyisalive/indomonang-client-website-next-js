@@ -21,6 +21,7 @@ const TicketPageNew = () => {
     getWoData,
     onUpload,
     SubmitTicket,
+    ticket_priority,
   } = useTicketNewData();
   return (
     <div>
@@ -33,8 +34,8 @@ const TicketPageNew = () => {
           placeholder="Reference Number"
         />
         <WebButton
-          title="Search"
-          className={`w-fit`}
+          title="Add Ticket"
+          className={`w-1/6`}
           onClickFunction={getWoData}
         />
       </div>
@@ -62,6 +63,24 @@ const TicketPageNew = () => {
               onChange={(e) => handleForm(e)}
               value={form.name}
             />
+            <div className=" w-full my-3 flex flex-col  p-1 gap-2">
+              <span className=" text-gray-500 text-sm">Priority</span>
+              <select
+                name="priority"
+                onChange={(e) => handleForm(e)}
+                id=""
+                className="border text-sm focus:outline-blue-600 w-full p-3"
+              >
+                {ticket_priority.map((item) => {
+                  return (
+                    <option key={item.id} value={item.value}>
+                      {item.text}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            {form.officer_pic}
             <div className=" w-full my-3 flex flex-col  p-1 gap-2">
               <span className=" text-gray-500 text-sm">Category</span>
               <select

@@ -5,10 +5,17 @@ import useTicketListData from "./hooks/useTicketListData";
 import SearchTerms from "@/app/function/SearchTerms";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 
 const TicketListPage = () => {
   const { tickets } = useTicketListData();
-  const th_array = ["Ticket ID", "Category", "Date Created", "View Details"];
+  const th_array = [
+    "Ticket ID",
+    "Priority",
+    "Category",
+    "Date Created",
+    "View Details",
+  ];
   const [search, setSearch] = useState("");
 
   const { dataToDisplay } = SearchTerms(tickets, search, setSearch);
@@ -54,6 +61,9 @@ const TicketListPage = () => {
             return (
               <tr key={item[2469]}>
                 <td className="border px-4 py-2 text-center">{item[2469]}</td>
+                <td className="border px-4 py-2 text-center">
+                  {item[2769] && <StatusBadge title={item[2769]} />}
+                </td>
                 <td className="border px-4 py-2 text-center"> {item[2470]}</td>
                 <td className="border px-4 py-2 text-center">
                   {item["date_added"]}

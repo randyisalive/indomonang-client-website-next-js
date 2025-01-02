@@ -966,7 +966,9 @@ const api = () => {
       email,
       category,
       ticket_detail,
-      user_id
+      user_id,
+      officer,
+      priority
     ) => {
       const json_data = {
         username: "rendi",
@@ -981,6 +983,8 @@ const api = () => {
           field_2470: category,
           field_2465: ticket_detail,
           field_2646: user_id,
+          field_2498: officer,
+          field_2769: priority,
         },
       };
       try {
