@@ -1,27 +1,9 @@
 import HeaderComponent from "@/app/components/ui/HeaderComponent";
 import TableComponent from "@/app/components/ui/TableComponent";
 import React from "react";
+import InvoiceTables from "./components/InvoiceTables";
 
 const invoicePage = () => {
-  const th_array = [
-    "No",
-    "Reference Number",
-    "Status",
-    "Date of Payment",
-    "Amount of Payment",
-    "Outstanding Balance",
-    "Action",
-  ];
-  const td_array = [
-    {
-      id: 0,
-      ref_num: "2DCGE",
-      status_name: "Open",
-      date: "Monday",
-      payment: "Rp. 10.000 -,",
-      outstanding: "Rp. 50.000 -,",
-    },
-  ];
   return (
     <div className="flex flex-col w-full mx-auto pt-7  sm:px-6, lg:px-0 max-w-screen-xl">
       <HeaderComponent
@@ -32,11 +14,7 @@ const invoicePage = () => {
         ]}
       />
       <div className="mt-5">
-        <TableComponent
-          th_array={th_array}
-          datas={td_array}
-          TableType="invoice"
-        />
+        <InvoiceTables />
       </div>
     </div>
   );

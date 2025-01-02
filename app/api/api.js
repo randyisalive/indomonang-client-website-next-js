@@ -842,7 +842,7 @@ const api = () => {
         password: "rendi",
         action: "select",
         entity_id: 108,
-        filters: { "1916_db_value": wo },
+        filters: { 1916: wo },
       };
       try {
         const response = await fetch(base_url, {
