@@ -10,6 +10,7 @@ import { FileUpload } from "primereact/fileupload";
 
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import "./TicketsNew.css";
+import useWOData from "@/app/hooks/useWOData";
 
 const TicketPageNew = () => {
   const {
@@ -23,6 +24,12 @@ const TicketPageNew = () => {
     SubmitTicket,
     ticket_priority,
   } = useTicketNewData();
+  const { wo } = useWOData();
+  const filtered_wo = wo.map((item) =>
+    item.ref_num != "" ? item.ref_num : "2DEFR"
+  );
+  console.log(filtered_wo);
+
   return (
     <div>
       <div className="flex gap-3 mx-5 lg:mx-0">
@@ -39,6 +46,20 @@ const TicketPageNew = () => {
           onClickFunction={getWoData}
         />
       </div>
+      <AnimatePresence mode="wait">
+        {wo.length > 0 && woData.length <= 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="text-xs text-gray-500 flex gap-1 my-1 mx-5 lg:mx-0"
+          >
+            <span> Ref Number: </span>
+            <div className="flex">{filtered_wo.splice(0, 3).join(", ")}</div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <AnimatePresence>
         {woData.length > 0 && (
           <motion.div
@@ -80,7 +101,6 @@ const TicketPageNew = () => {
                 })}
               </select>
             </div>
-            {form.officer_pic}
             <div className=" w-full my-3 flex flex-col  p-1 gap-2">
               <span className=" text-gray-500 text-sm">Category</span>
               <select
