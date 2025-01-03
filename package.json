@@ -12,6 +12,7 @@
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "crypto-js": "^4.2.0",
+    "emoji-picker-react": "^4.12.0",
     "framer-motion": "^11.13.5",
     "next": "15.1.0",
     "primeflex": "^3.3.1",

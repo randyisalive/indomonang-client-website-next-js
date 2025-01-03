@@ -10,11 +10,8 @@ const TicketNavigation = () => {
     { id: 1, title: "Tickets List", nav: "list" },
   ];
 
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const pathname = usePathname();
   const real_path = pathname.split("/")[2];
-  console.log(real_path);
 
   useEffect(() => {
     if (real_path === "new") {

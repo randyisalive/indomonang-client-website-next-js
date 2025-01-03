@@ -199,6 +199,26 @@ const api = () => {
         console.error(e);
       }
     };
+    const getAccountUsername = async (id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        select_fields: "2614",
+        entity_id: 154,
+        filters: { id: id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
     const updateAccountData = async (id, username, email, name, content) => {
       const json_data = {
         username: "rendi",
@@ -336,6 +356,7 @@ const api = () => {
       getAccountById,
       getProfilePictureById,
       updateAccountData,
+      getAccountUsername,
       getVerificationByEmail,
       insertCustomerAccount,
       getAllaccountsEmail,
@@ -1101,7 +1122,14 @@ const api = () => {
       }
     };
 
-    const insertTicketsChat = async (uuid, ticket_id, text, role, user_id) => {
+    const insertTicketsChat = async (
+      uuid,
+      ticket_id,
+      text,
+      role,
+      user_id,
+      attachments
+    ) => {
       const json_data = {
         username: "rendi",
         password: "rendi",
@@ -1113,6 +1141,7 @@ const api = () => {
           field_2664: ticket_id,
           field_2653: text,
           field_2767: user_id,
+          field_2771: attachments,
         },
       };
       try {
@@ -1126,7 +1155,29 @@ const api = () => {
         console.error(e);
       }
     };
-    return { getTicketsChatByTicketId, insertTicketsChat };
+
+    const getAttachmentById = async (id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "download_attachment",
+        entity_id: 157,
+        item_id: id,
+        field_id: 2771,
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    return { getTicketsChatByTicketId, insertTicketsChat, getAttachmentById };
   };
 
   return {

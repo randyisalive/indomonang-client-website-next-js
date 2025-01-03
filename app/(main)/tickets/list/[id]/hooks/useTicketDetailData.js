@@ -1,9 +1,12 @@
 "use client";
+import React, { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import WebButton from "@/app/components/ui/WebButton";
+import EmojiPicker from "emoji-picker-react";
 import api from "@/app/api/api";
 import { getLocalStorage } from "@/app/function/getLocalStorage";
 import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
 import { useParams, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
 import { v4 } from "uuid";
 
 const useTicketDetailData = () => {
@@ -17,8 +20,9 @@ const useTicketDetailData = () => {
   const { TicketsApi, TicketsChatsApi, CustomerAccountApi } = api();
   const { getTicketById, getAttachmentTicketsById, updateTicketStatus } =
     TicketsApi();
-  const { getTicketsChatByTicketId, insertTicketsChat } = TicketsChatsApi();
-  const { getProfilePictureById } = CustomerAccountApi();
+  const { getTicketsChatByTicketId, insertTicketsChat, getAttachmentById } =
+    TicketsChatsApi();
+  const { getProfilePictureById, getAccountUsername } = CustomerAccountApi();
 
   // decryption
   const { role, user_id } = useDecryptionKeyData();
@@ -35,13 +39,10 @@ const useTicketDetailData = () => {
     setIsLoading(1);
     try {
       const ticket_data = await getTicketById(id);
-      console.log(user_id);
       const account_image = await getProfilePictureById(user_id);
       if (account_image) {
         setUserImage(account_image);
-        console.log(account_image);
       }
-      console.log(ticket_data);
 
       setTicket((prev) => ({
         ...prev,
@@ -59,11 +60,15 @@ const useTicketDetailData = () => {
         const chats = await Promise.all(
           chat_data.map(async (item) => {
             const image = await getProfilePictureById(item[2767]);
+            const username = await getAccountUsername(user_id);
+            const attachment = await getAttachmentById(item.id);
             return {
               id: item.id,
               image: image,
               text: item[2653],
               role: item[2746],
+              name: username[0][2614],
+              attachment: attachment,
             };
           })
         );
@@ -101,20 +106,101 @@ const useTicketDetailData = () => {
   const handleForm = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
+  // submit message
+  const [attachments, setAttachments] = useState({ upload: [], data: [] });
+  const handleAttachments = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64Content = reader.result.split(",")[1]; // Base64 content
+        setAttachments((prev) => ({
+          ...prev,
+          upload: [
+            ...prev.upload,
+            {
+              name: file.name,
+              content: base64Content,
+            },
+          ],
+          data: [
+            ...prev.data,
+            {
+              name: file.name,
+              data: reader.result,
+              base64: base64Content,
+              delete: false,
+              filetype: file.type,
+            },
+          ],
+        }));
+      };
+      reader.onerror = (error) => {
+        console.error("Error reading file:", error);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const deleteAttachment = (index) => {
+    setAttachments((prev) => ({
+      ...prev,
+      upload: prev.upload.filter((_, i) => i !== index),
+      data: prev.data.filter((_, i) => i !== index),
+    }));
+  };
+
+  const handleMouseEnter = (index) => {
+    setAttachments((prev) => ({
+      ...prev,
+      data: prev.data.map((attachment, i) =>
+        i === index ? { ...attachment, delete: true } : attachment
+      ),
+    }));
+  };
+
+  const handleMouseLeave = (index) => {
+    setAttachments((prev) => ({
+      ...prev,
+      data: prev.data.map((attachment, i) =>
+        i === index ? { ...attachment, delete: false } : attachment
+      ),
+    }));
+  };
+
+  const handleRemoveAttachment = () => {
+    setAttachments({ upload: [], data: [] });
+  };
+
   const SubmitMessage = async () => {
     const uuid = v4();
     if (form.text === "") {
-      throw new Error("Empty text");
+      console.error("Empty text error");
+      return;
     }
 
     try {
+      console.log("Submitting message with the following data:");
+      console.log({
+        uuid,
+        ticket_id: ticket.ticket_data.id,
+        text: form.text,
+        role,
+        user_id,
+        attachments: attachments.upload,
+      });
+
       const submit_message = await insertTicketsChat(
         uuid,
         ticket.ticket_data.id,
         form.text,
         role,
-        user_id
+        user_id,
+        attachments.upload
       );
+
+      console.log("API response:", submit_message);
 
       if (submit_message) {
         setForm((prev) => ({ ...prev, text: "" }));
@@ -123,9 +209,12 @@ const useTicketDetailData = () => {
           top: document.body.scrollHeight,
           behavior: "smooth",
         });
+        console.log("Message submitted successfully");
+      } else {
+        throw new Error("Error while submitting message");
       }
     } catch (e) {
-      console.error(e);
+      console.error("An error occurred during message submission:", e);
     }
   };
 
@@ -153,9 +242,9 @@ const useTicketDetailData = () => {
   // debug
   useEffect(() => {
     if (getLocalStorage("app-debug") === "true") {
-      console.log(ticket, form);
+      console.log(ticket, form, attachments);
     }
-  }, [ticket, form]);
+  }, [ticket, form, attachments]);
 
   // download attachment zip
   const handleDownload = (base64Content = "", title = "download.zip") => {
@@ -190,6 +279,12 @@ const useTicketDetailData = () => {
     isLoading,
     updateTicket,
     ticketStatus,
+    handleAttachments,
+    deleteAttachment,
+    handleMouseEnter,
+    handleMouseLeave,
+    handleRemoveAttachment,
+    attachments,
   };
 };
 

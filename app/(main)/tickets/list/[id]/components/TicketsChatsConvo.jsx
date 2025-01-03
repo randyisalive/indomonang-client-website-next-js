@@ -2,6 +2,10 @@
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
+import WebButton from "@/app/components/ui/WebButton";
+import { truncateString } from "@/app/function/TruncateString";
+import TextAreaTicket from "./TextAreaTicket";
+import ReplyComponents from "./ReplyComponents";
 
 const TicketsChatsConvo = ({
   ticket = [],
@@ -10,69 +14,87 @@ const TicketsChatsConvo = ({
   handleForm = () => {},
   SubmitMessage = () => {},
   refreshBtn = () => {},
+  handleDownload = () => {},
   updateTicket = (ticket_id, value) => {},
   ticketStatus = [],
+  attachments = [],
+  handleAttachments = () => {},
+  deleteAttachment = () => {},
+  handleMouseEnter = () => {},
+  handleMouseLeave = () => {},
+  handleRemoveAttachment = () => {},
 }) => {
   const { role } = useDecryptionKeyData();
-  return (
-    <div className={`my-5 px-10 lg:px-0 rounded-xl w-full relative `}>
-      <div className="bg-gray-100 rounded-xl relative p-3 h-96 overflow-y-auto">
-        <div className="w-full flex items-center gap-5 justify-between p-3">
-          <div className="w-full">
-            {role === "Client" && (
-              <select
-                name=""
-                id=""
-                className="p-2 rounded-full shadow-sm w-full border"
-                onChange={(e) =>
-                  updateTicket(ticket.ticket_data.id, e.target.value)
-                }
-              >
-                <option value="0">Open</option>
 
-                <option value="2">Closed</option>
-                <option value="3">Canceled</option>
-              </select>
-            )}
-          </div>
-          <div>
-            <motion.i
-              whileTap={{ scale: 0.889 }}
-              className="pi pi-refresh text-xl"
-              onClick={() => refreshBtn()}
-            ></motion.i>
-          </div>
+  return (
+    <div className={`my-5  rounded-xl flex flex-col gap-10 w-full relative `}>
+      <div className="w-full">
+        {role === "Client" && (
+          <select
+            name=""
+            id=""
+            className="p-2 rounded-full shadow-sm w-full border"
+            onChange={(e) =>
+              updateTicket(ticket.ticket_data.id, e.target.value)
+            }
+          >
+            <option value="0">Open</option>
+
+            <option value="2">Closed</option>
+            <option value="3">Canceled</option>
+          </select>
+        )}
+      </div>
+      <div className="bg-white  border rounded-xl flex flex-col justify-between  p-3 h-fit gap-5 shadow-lg">
+        <div>
+          <span className=" text-lg font-bold">Ticket Description</span>
+          <p className="mt-2">{ticket.ticket_data[2465]}</p>
         </div>
-        {ticket.chats_data?.map((item) => {
-          return (
-            <div key={item.id} className=" text-lg flex gap-3 p-2">
-              <div className=" flex flex-col gap-3 justify-end">
-                <img
-                  src={`data:image/jpg;base64,${item.image?.content}`}
-                  className=" rounded-full"
-                  width={45}
-                  alt=""
+        <div className="gap-2 flex-col justify-center flex mt-3">
+          <AnimatePresence>
+            {ticket.attachments && (
+              <motion.div
+                className=" flex justify-center gap-3 flex-col w-fit"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <ul className="text-start flex flex-col gap-3">
+                  {ticket.attachments_total?.names?.map((item) => {
+                    return (
+                      <li key={item} className="flex gap-2 text-xs">
+                        <i className="pi pi-file"></i>
+                        <p> {truncateString(item, 45)}</p>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <WebButton
+                  title="Download Attachments"
+                  onClickFunction={() => {
+                    handleDownload(
+                      ticket.attachments.content,
+                      ticket.attachments.filename
+                    );
+                  }}
                 />
-              </div>
-              <div className="bg-white text-sm p-3 w-full rounded-xl">
-                {item.text}
-              </div>
-            </div>
-          );
-        })}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
-      <div className=" bg-white text-lg flex p-2 px-3  mt-5 mb-0 items-center rounded-full shadow-lg">
-        <input
-          type="text"
-          name="text"
-          value={form.text}
-          placeholder="Type a message..."
-          onChange={(e) => handleForm(e)}
-          onKeyDown={handleKeyDown}
-          className=" w-full rounded-full p-2 focus:outline-none"
-        />
-        <i className="pi pi-send text-lg" onClick={() => SubmitMessage()}></i>
-      </div>
+      <TextAreaTicket
+        SubmitMessage={SubmitMessage}
+        handleForm={handleForm}
+        handleAttachments={handleAttachments}
+        handleMouseEnter={handleMouseEnter}
+        handleMouseLeave={handleMouseLeave}
+        deleteAttachment={deleteAttachment}
+        attachments={attachments}
+        handleRemoveAttachment={handleRemoveAttachment}
+      />
+      <ReplyComponents ticket={ticket} handleDownload={handleDownload} />
     </div>
   );
 };
