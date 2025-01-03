@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import useTokenData from "@/app/hooks/useTokenData";
 import WebButton from "../ui/WebButton";
 
-const HomeCard = ({ item = {} }) => {
+const HomeCard = ({ item = {}, role = "" }) => {
   const nav = useRouter();
   return (
     <motion.div
@@ -19,7 +19,13 @@ const HomeCard = ({ item = {} }) => {
         <i className={`${item.icon}`}></i>
       </span>
       <div className="h-full gap-2 flex-col flex  items-center w-full text-end">
-        <p className="text-6xl text-blue-800">{item.count}</p>
+        <p
+          className={`text-6xl ${
+            role === "Admin" ? " text-red-500" : "text-blue-800"
+          } `}
+        >
+          {item.count}
+        </p>
         <p>{item.sub}</p>
       </div>
     </motion.div>

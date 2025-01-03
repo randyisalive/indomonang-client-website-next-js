@@ -27,6 +27,7 @@ const TicketDetail = () => {
     handleMouseEnter,
     handleMouseLeave,
     attachments,
+    errorMsg,
     handleRemoveAttachment,
   } = useTicketDetailData();
 
@@ -77,6 +78,7 @@ const TicketDetail = () => {
         deleteAttachment={deleteAttachment}
         handleRemoveAttachment={handleRemoveAttachment}
         attachments={attachments}
+        errorMsg={errorMsg}
       />
     </div>
   );

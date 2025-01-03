@@ -109,6 +109,7 @@ const useTicketDetailData = () => {
 
   // submit message
   const [attachments, setAttachments] = useState({ upload: [], data: [] });
+  const [errorMsg, setErrorMsg] = useState("");
   const handleAttachments = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -176,21 +177,12 @@ const useTicketDetailData = () => {
   const SubmitMessage = async () => {
     const uuid = v4();
     if (form.text === "") {
-      console.error("Empty text error");
-      return;
+      setErrorMsg("Empty text error");
+      setTimeout(() => setErrorMsg(""), 2000);
+      throw new Error("Empty text error");
     }
 
     try {
-      console.log("Submitting message with the following data:");
-      console.log({
-        uuid,
-        ticket_id: ticket.ticket_data.id,
-        text: form.text,
-        role,
-        user_id,
-        attachments: attachments.upload,
-      });
-
       const submit_message = await insertTicketsChat(
         uuid,
         ticket.ticket_data.id,
@@ -200,8 +192,6 @@ const useTicketDetailData = () => {
         attachments.upload
       );
 
-      console.log("API response:", submit_message);
-
       if (submit_message) {
         setForm((prev) => ({ ...prev, text: "" }));
         getData();
@@ -209,7 +199,7 @@ const useTicketDetailData = () => {
           top: document.body.scrollHeight,
           behavior: "smooth",
         });
-        console.log("Message submitted successfully");
+        window.location.reload();
       } else {
         throw new Error("Error while submitting message");
       }
@@ -285,6 +275,7 @@ const useTicketDetailData = () => {
     handleMouseLeave,
     handleRemoveAttachment,
     attachments,
+    errorMsg,
   };
 };
 

@@ -7,7 +7,7 @@ import { Skeleton } from "primereact/skeleton";
 import { AnimatePresence, motion } from "framer-motion";
 
 const HomeCardContainer = () => {
-  const { cardData, isLoading } = useHomeCardContainerData();
+  const { cardData, isLoading, role } = useHomeCardContainerData();
 
   return (
     <>
@@ -35,7 +35,7 @@ const HomeCardContainer = () => {
             className="w-full  justify-center  flex gap-3 flex-wrap sm:justify-evenly "
           >
             {cardData.map((item) => {
-              return <HomeCard key={`${item.id}`} item={item} />;
+              return <HomeCard key={`${item.id}`} item={item} role={role} />;
             })}
           </motion.div>
         )}

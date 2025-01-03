@@ -23,6 +23,7 @@ const TicketsChatsConvo = ({
   handleMouseEnter = () => {},
   handleMouseLeave = () => {},
   handleRemoveAttachment = () => {},
+  errorMsg = "",
 }) => {
   const { role } = useDecryptionKeyData();
 
@@ -93,6 +94,7 @@ const TicketsChatsConvo = ({
         deleteAttachment={deleteAttachment}
         attachments={attachments}
         handleRemoveAttachment={handleRemoveAttachment}
+        errorMsg={errorMsg}
       />
       <ReplyComponents ticket={ticket} handleDownload={handleDownload} />
     </div>

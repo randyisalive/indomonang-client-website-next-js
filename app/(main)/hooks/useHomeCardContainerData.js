@@ -6,13 +6,13 @@ import React, { useEffect, useState } from "react";
 const useHomeCardContainerData = () => {
   // api
   const { WOApi, InvoiceApi, CustomerAccountApi, TicketsApi } = api();
-  const { getWoByUserId } = WOApi();
+  const { getWoByUserId, getWoAll } = WOApi();
   const { getInvoiceByWo } = InvoiceApi();
   const { getAccountById } = CustomerAccountApi();
-  const { getTicketsByUserId } = TicketsApi();
+  const { getTicketsByUserId, getTicketsAll } = TicketsApi();
 
   // decryption
-  const { user_id } = useDecryptionKeyData();
+  const { user_id, role } = useDecryptionKeyData();
 
   // get data
   const [cardData, setCardData] = useState([]);
@@ -21,7 +21,12 @@ const useHomeCardContainerData = () => {
     try {
       if (user_id) {
         const account_data = await getAccountById(user_id);
-        const wo_data = await getWoByUserId(account_data[0]["2630_db_value"]);
+        let wo_data;
+        if (role === "Admin") {
+          wo_data = await getWoAll();
+        } else {
+          wo_data = await getWoByUserId(account_data[0]["2630_db_value"]);
+        }
         const finished_order = wo_data.filter(
           (item) => item[2138] === "Finished"
         ).length;
@@ -36,8 +41,12 @@ const useHomeCardContainerData = () => {
         const unpaid_invoices = invoice_data.filter(
           (item) => item[1905] === "Open"
         ).length;
-        const tickets_data = await getTicketsByUserId(user_id);
-        console.log(tickets_data);
+        let tickets_data;
+        if (role === "Admin") {
+          tickets_data = await getTicketsAll();
+        } else {
+          tickets_data = await getTicketsByUserId(user_id);
+        }
         const tickets_filtered = tickets_data.map((item) =>
           ["Open", "On Progress"].includes(item[2467])
         ).length;
@@ -79,7 +88,7 @@ const useHomeCardContainerData = () => {
     getData();
   }, [user_id]);
 
-  return { cardData, isLoading };
+  return { cardData, isLoading, role };
 };
 
 export default useHomeCardContainerData;

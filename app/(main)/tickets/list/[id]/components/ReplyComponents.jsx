@@ -24,22 +24,24 @@ const ReplyComponents = ({ ticket = [], handleDownload = () => {} }) => {
                     <div className="bg-white text-sm w-full ">
                       <p>{item.text}</p>
                     </div>
-                    <div className="flex gap-3 items-center text-xs">
-                      <div
-                        onClick={() =>
-                          handleDownload(
-                            item.attachment.content,
-                            item.attachment.filename
-                          )
-                        }
-                        className=" text-blue-500 flex items-center gap-2 cursor-pointer"
-                      >
-                        <i className="pi pi-folder"></i>
-                        <p className="  hover:underline ">
-                          {item.attachment.filename}
-                        </p>
+                    {item.attachment && (
+                      <div className="flex gap-3 items-center text-xs">
+                        <div
+                          onClick={() =>
+                            handleDownload(
+                              item.attachment?.content,
+                              item.attachment?.filename
+                            )
+                          }
+                          className=" text-blue-500 flex items-center gap-2 cursor-pointer"
+                        >
+                          <i className="pi pi-folder"></i>
+                          <p className="  hover:underline ">
+                            {item.attachment?.filename}
+                          </p>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 </div>
               </div>
