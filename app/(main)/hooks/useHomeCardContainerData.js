@@ -30,6 +30,7 @@ const useHomeCardContainerData = () => {
         const finished_order = wo_data.filter(
           (item) => item[2138] === "Finished"
         ).length;
+
         const wo_array = wo_data.map((item) => {
           return item.id;
         });
@@ -61,7 +62,7 @@ const useHomeCardContainerData = () => {
             id: 1,
             count: unpaid_invoices,
             sub: "Unpaid Invoices",
-            link: "/your-orders",
+            link: "/invoice",
           },
           {
             id: 2,

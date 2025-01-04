@@ -23,7 +23,7 @@ const Navbar = () => {
               <SmallNavbar />
             </div>
           </div>
-          <div className="hidden sm:flex gap-3 flex-wrap ">
+          <div className="hidden sm:flex gap-3 flex-wrap items-center">
             <NavbarItems />
           </div>
         </div>
