@@ -7,23 +7,14 @@ const InvoiceTables = () => {
   const { invoice } = useInvoiceData();
   const th_array = [
     "No",
-    "Reference Number",
+    "No. Invoice",
     "Status",
-    "Date of Payment",
-    "Amount of Payment",
-    "Outstanding Balance",
-    "Action",
+    "Due Date",
+    "Payment Terms",
+    "Amount",
   ];
-  const td_array = [
-    {
-      id: 0,
-      ref_num: "2DCGE",
-      status_name: "Open",
-      date: "Monday",
-      payment: "Rp. 10.000 -,",
-      outstanding: "Rp. 50.000 -,",
-    },
-  ];
+  console.log(invoice);
+
   return (
     <div>
       <TableComponent th_array={th_array} datas={invoice} TableType="invoice" />

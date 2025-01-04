@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import BillingFooter from "./tableComponent/Billing/BillingFooter";
 import WOFooter from "./tableComponent/WORows/WOFooter";
 import InvoiceRows from "@/app/(main)/invoice/components/InvoiceRows";
+import InvoiceFooter from "@/app/(main)/invoice/components/InvoiceFooter";
 
 const TableComponent = ({
   th_array = [],
@@ -108,7 +109,7 @@ const TableComponent = ({
                       handleRating={handleRating}
                     />
                   </>
-                )}{" "}
+                )}
                 {TableType === "invoice" && (
                   <>
                     <InvoiceRows
@@ -131,6 +132,7 @@ const TableComponent = ({
             {TableType === "wo" && (
               <WOFooter currentRows={currentRows} all_data={datas} />
             )}
+            {TableType === "invoice" && <InvoiceFooter all_data={datas} />}
           </tfoot>
         </table>
         <nav className="mt-4 p-3">
