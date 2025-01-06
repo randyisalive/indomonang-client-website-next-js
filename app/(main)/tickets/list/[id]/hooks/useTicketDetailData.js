@@ -67,8 +67,10 @@ const useTicketDetailData = () => {
               image: image,
               text: item[2653],
               role: item[2746],
+              company: username[0][2630],
               name: username[0][2614],
               attachment: attachment,
+              date: item["date_added"],
             };
           })
         );

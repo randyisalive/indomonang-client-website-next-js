@@ -19,7 +19,7 @@ const useInvoiceData = () => {
       if (user_id) {
         const account_data = await getAccountById(user_id);
         const company_id = account_data[0]["2630_db_value"];
-        if (role === "Client") {
+        if (role === "Admin") {
           const wo_data = await getWoAll();
           console.log(wo_data);
 

@@ -35,7 +35,7 @@ const CopyButton = ({ text = "" }) => {
       <Toast ref={toastRef} />
       <motion.i
         whileTap={{ scale: 0.889 }}
-        className="pi pi-copy mx-2 cursor-pointer"
+        className="pi pi-copy mx-2 cursor-pointer hover:text-blue-500"
         onClick={() => copyToClipboard(text)}
       ></motion.i>
     </>

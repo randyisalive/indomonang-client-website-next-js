@@ -6,6 +6,7 @@ import WebButton from "@/app/components/ui/WebButton";
 import { truncateString } from "@/app/function/TruncateString";
 import TextAreaTicket from "./TextAreaTicket";
 import ReplyComponents from "./ReplyComponents";
+import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 
 const TicketsChatsConvo = ({
   ticket = [],
@@ -28,7 +29,7 @@ const TicketsChatsConvo = ({
   const { role } = useDecryptionKeyData();
 
   return (
-    <div className={`my-5  rounded-xl flex flex-col gap-10 w-full relative `}>
+    <div className={`mb-5 rounded-xl flex flex-col gap-10 w-full relative `}>
       <div className="w-full">
         {role === "Client" && (
           <select
@@ -47,9 +48,29 @@ const TicketsChatsConvo = ({
         )}
       </div>
       <div className="bg-white  border rounded-xl flex flex-col justify-between  p-3 h-fit gap-5 shadow-lg">
-        <div>
-          <span className=" text-lg font-bold">Ticket Description</span>
-          <p className="mt-2">{ticket.ticket_data[2465]}</p>
+        <div className="flex flex-col h-100 justify-between">
+          <div className=" flex flex-col">
+            <div className=" flex gap-2 items-center mb-2">
+              <span className=" text-base font-bold text-gray-500 uppercase">
+                {ticket.ticket_data[2470]}
+              </span>{" "}
+              {ticket.ticket_status?.length > 0 ? (
+                <span>
+                  <StatusBadge
+                    title={ticket.ticket_status[0].text}
+                    bg_color={ticket.ticket_status[0].bg_color}
+                    font_color="white"
+                  />
+                </span>
+              ) : null}
+            </div>
+            <p className="mt-2 text-lg font-bold">{ticket.ticket_data[2465]}</p>{" "}
+          </div>
+          <div>
+            <span className=" text-xs text-gray-400">
+              {ticket.ticket_data["date_added"]} - {ticket.ticket_data[2464]}
+            </span>
+          </div>
         </div>
         <div className="gap-2 flex-col justify-center flex mt-3">
           <AnimatePresence>
@@ -96,7 +117,11 @@ const TicketsChatsConvo = ({
         handleRemoveAttachment={handleRemoveAttachment}
         errorMsg={errorMsg}
       />
-      <ReplyComponents ticket={ticket} handleDownload={handleDownload} />
+      <ReplyComponents
+        ticket={ticket}
+        handleDownload={handleDownload}
+        role={role}
+      />
     </div>
   );
 };

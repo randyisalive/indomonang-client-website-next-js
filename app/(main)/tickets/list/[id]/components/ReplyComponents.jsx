@@ -1,6 +1,10 @@
 import React from "react";
 
-const ReplyComponents = ({ ticket = [], handleDownload = () => {} }) => {
+const ReplyComponents = ({
+  ticket = [],
+  handleDownload = () => {},
+  role = "",
+}) => {
   return (
     <>
       {ticket.chats_data && (
@@ -9,14 +13,20 @@ const ReplyComponents = ({ ticket = [], handleDownload = () => {} }) => {
             return (
               <div key={item.id} className="flex gap-3 w-full">
                 <div className="w-1/6 text-center ">
-                  <div className=" flex flex-col justify-center items-center gap-3">
+                  <div className=" flex flex-col justify-center items-center gap-2">
                     <img
                       src={`data:image/jpg;base64,${item.image?.content}`}
                       className=" rounded-full border"
                       width={55}
                       alt="asda.jpg"
                     />
-                    <span className="w-fit">{item.name}</span>
+                    <span className="w-fit text-blue-500 font-bold hover:underline cursor-pointer">
+                      {item.name}
+                    </span>
+
+                    <span className="text-xs">
+                      {role === "Client" ? item.company : "Admin"}
+                    </span>
                   </div>
                 </div>
                 <div className="bg-white w-5/6 flex gap-3 border rounded-xl relative p-3  shadow-lg">
@@ -42,6 +52,7 @@ const ReplyComponents = ({ ticket = [], handleDownload = () => {} }) => {
                         </div>
                       </div>
                     )}
+                    <span className=" text-xs text-gray-400">{item.date}</span>
                   </div>
                 </div>
               </div>

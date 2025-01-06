@@ -24,9 +24,6 @@ const WORows = ({
 
   const handleWODialog = () => {
     setDialogStatus(!dialogStatus);
-    if (dialogStatus === true) {
-      router.push("/your-orders");
-    }
   };
 
   const handleWODialogRating = () => {
@@ -35,10 +32,10 @@ const WORows = ({
 
   const router = useRouter();
 
-  const handleClick = () => {
+  const handleClick = (wo_id) => {
     handleWODialog();
+    router.push(`?id=${wo_id}`);
   };
-  const statuses = ["Processing", "Finished"];
 
   return (
     <>
@@ -49,7 +46,14 @@ const WORows = ({
         {role === "Admin" ? (
           <td className="border px-4 py-2">{item.company}</td>
         ) : null}
-        <td className="border px-4 py-2 text-center">{item.ref_num}</td>
+        <td className="border px-4 py-2 text-center">
+          <span
+            onClick={() => handleClick(item.id)}
+            className=" text-blue-500 hover:underline cursor-pointer"
+          >
+            {item.ref_num}
+          </span>
+        </td>
         <td className="border px-4 py-2 text-center">
           <StatusBadge
             title={item.status?.name}
@@ -100,38 +104,14 @@ const WORows = ({
             handleRating={handleRating}
           />
         </td>
-        <td className="border px-4 py-2 text-center">
-          {statuses.some((status) => item.status?.name.includes(status)) && (
-            <motion.span
-              whileHover={{ color: "#912534", textDecoration: "underline" }}
-              className="cursor-pointer"
-              onClick={handleClick}
-            >
-              <Link
-                href={{
-                  pathname: router.pathname,
-                  query: { ...router.query, id: item.id },
-                }}
-                passHref
-                shallow
-                replace
-              >
-                View
-              </Link>
-            </motion.span>
-          )}
-
-          {dialogStatus && rating != 0 && (
-            <React.Fragment key={item.id}>
-              <WORowsDialog
-                visible={dialogStatus}
-                onHide={handleWODialog}
-                id={item.id}
-              />
-            </React.Fragment>
-          )}
-        </td>
       </tr>
+      {dialogStatus && (
+        <WORowsDialog
+          visible={dialogStatus}
+          onHide={handleWODialog}
+          id={item.id}
+        />
+      )}
     </>
   );
 };

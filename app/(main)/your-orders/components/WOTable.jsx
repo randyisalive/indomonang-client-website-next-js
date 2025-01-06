@@ -16,7 +16,6 @@ const WOTable = () => {
     "Service",
     "Estimated Done",
     "Rate Order",
-    "Action",
   ].filter(Boolean);
 
   return (

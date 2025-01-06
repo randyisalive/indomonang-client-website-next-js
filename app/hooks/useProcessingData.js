@@ -4,12 +4,15 @@ import { useSearchParams } from "next/navigation";
 
 const useProcessingData = () => {
   // api
-  const { ProcessingListApi } = api();
+  const { ProcessingListApi, WOApi, InvoiceApi, CourierApi } = api();
   const {
     DownloadAttachments,
     getProcessingDataById,
     getProcessingListDataById,
   } = ProcessingListApi();
+  const { getWoById } = WOApi();
+  const { getInvoiceByWo } = InvoiceApi();
+  const { getCourierByWO } = CourierApi();
 
   // params
   const searchParams = useSearchParams();
@@ -40,6 +43,42 @@ const useProcessingData = () => {
 
   useEffect(() => {
     getProcessing();
+  }, [woId]);
+
+  // get wo data
+  const [wo, setWo] = useState([]);
+  const getWO = async () => {
+    try {
+      if (woId) {
+        const wo_data = await getWoById(woId);
+
+        setWo(wo_data);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    getWO();
+  }, [woId]);
+
+  // fetch courier
+  const [courier, setCourier] = useState([]);
+  const getCourier = async () => {
+    try {
+      const courier_data = await getCourierByWO(woId);
+      if (courier_data) {
+        console.log(courier_data);
+        setCourier(courier_data);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    getCourier();
   }, [woId]);
 
   // download status
@@ -81,6 +120,8 @@ const useProcessingData = () => {
     downloadStatus,
     woId,
     isLoading,
+    wo,
+    courier,
   };
 };
 

@@ -32,19 +32,9 @@ const TicketDetail = () => {
   } = useTicketDetailData();
 
   return (
-    <div className="block text-sm gap-5  p-3 items-center">
-      {ticket.ticket_data && (
+    <div className="block text-sm gap-5 items-center">
+      {/*   {ticket.ticket_data && (
         <div className=" lg:w-1/2 bg-white shadow-lg rounded-lg p-3">
-          {ticket.ticket_status?.length > 0 ? (
-            <span>
-              <StatusBadge
-                title={ticket.ticket_status[0].text}
-                bg_color={ticket.ticket_status[0].bg_color}
-                font_color="white"
-              />
-            </span>
-          ) : null}
-
           <div className=" flex gap-2 mt-5 mb-1 border-b pb-5">
             <div className="flex flex-col gap-2 w-2/3">
               <span className=" text-black font-bold">{category}</span>
@@ -58,7 +48,7 @@ const TicketDetail = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
       <TicketsChatsConvo
         ticket={ticket}
         form={form}

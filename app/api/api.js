@@ -204,7 +204,7 @@ const api = () => {
         username: "rendi",
         password: "rendi",
         action: "select",
-        select_fields: "2614",
+        select_fields: "2614,2630",
         entity_id: 154,
         filters: { id: id },
       };
@@ -1180,6 +1180,51 @@ const api = () => {
     return { getTicketsChatByTicketId, insertTicketsChat, getAttachmentById };
   };
 
+  const CourierApi = () => {
+    const getCourierByWO = async (wo_id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 28,
+        filters: { 1778: wo_id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    return { getCourierByWO };
+  };
+
+  const CourierItemsApi = () => {
+    const getCourierItemsByParent = async (parent_item_id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 28,
+        filters: { parent_item_id: parent_item_id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+  };
+
   return {
     CustomerAccountApi,
     DecryptionKeyApi,
@@ -1194,6 +1239,7 @@ const api = () => {
     InvoiceApi,
     TicketsApi,
     TicketsChatsApi,
+    CourierApi,
     CompanyDatabaseApi,
   };
 };
