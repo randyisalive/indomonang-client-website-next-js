@@ -33,22 +33,6 @@ const TicketDetail = () => {
 
   return (
     <div className="block text-sm gap-5 items-center">
-      {/*   {ticket.ticket_data && (
-        <div className=" lg:w-1/2 bg-white shadow-lg rounded-lg p-3">
-          <div className=" flex gap-2 mt-5 mb-1 border-b pb-5">
-            <div className="flex flex-col gap-2 w-2/3">
-              <span className=" text-black font-bold">{category}</span>
-              <span className=" text-gray-500">{ref}</span>
-            </div>
-            <div className=" items-end flex flex-col w-1/3 gap-2">
-              <span className=" text-black font-bold">Time Elapsed</span>
-              <span className=" text-gray-500">
-                Mr./Ms. {ticket.ticket_data[2464]}
-              </span>
-            </div>
-          </div>
-        </div>
-      )} */}
       <TicketsChatsConvo
         ticket={ticket}
         form={form}

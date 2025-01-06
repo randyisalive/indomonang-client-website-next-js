@@ -46,13 +46,14 @@ const useProcessingData = () => {
   }, [woId]);
 
   // get wo data
-  const [wo, setWo] = useState([]);
+  const [wo, setWo] = useState({ wo: {}, invoice: {} });
   const getWO = async () => {
     try {
       if (woId) {
         const wo_data = await getWoById(woId);
-
-        setWo(wo_data);
+        const invoice_data = await getInvoiceByWo(woId);
+        setWo({ wo: wo_data, invoice: invoice_data });
+        console.log(wo_data[0], invoice_data[0]);
       }
     } catch (e) {
       console.error(e);

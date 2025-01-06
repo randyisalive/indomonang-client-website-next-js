@@ -9,8 +9,14 @@ import CopyButton from "../../CopyButton";
 import StatusBadge from "../StatusBadge";
 
 const WORowsDialog = ({ visible = false, onHide = () => {}, id = 0 }) => {
-  const { processing, download_attachments, downloadStatus, woId, courier } =
-    useProcessingData();
+  const {
+    processing,
+    download_attachments,
+    downloadStatus,
+    woId,
+    courier,
+    wo,
+  } = useProcessingData();
   const delivery_status = [
     { id: 0, text: "Open", bg_color: "#00C49A" },
     { id: 0, text: "On Delivery", bg_color: "#9cec5b" },
@@ -28,17 +34,21 @@ const WORowsDialog = ({ visible = false, onHide = () => {}, id = 0 }) => {
       key={id}
     >
       <div className="flex flex-col gap-1 mt-3 ">
-        <span className=" text-base font-bold">Invoices</span>
+        <span className=" text-base font-bold">Order Details</span>
         <table className="w-full text-xs">
           <tr>
             <td className=" text-gray-400">No. Invoice</td>
-            <td className=" text-end text-blue-500 cursor-pointer font-bold">
-              INV/20241228/MPL/4368333309
-            </td>
+            {wo.invoice.length > 0 && (
+              <td className=" text-end hover:underline text-blue-500 cursor-pointer font-bold">
+                {wo.invoice[0][1907]}
+              </td>
+            )}
           </tr>
           <tr>
             <td className=" text-gray-400">Order Date</td>
-            <td className=" text-end">28 Desember 2024, 19:01 WIB</td>
+            {wo.wo.length > 0 && (
+              <td className=" text-end">{wo.wo[0]["date_added"]}</td>
+            )}
           </tr>
         </table>
       </div>
@@ -140,7 +150,7 @@ const WORowsDialog = ({ visible = false, onHide = () => {}, id = 0 }) => {
         })}
       </div>
 
-      <div className="flex flex-col gap-1 mt-3 ">
+      {/*      <div className="flex flex-col gap-1 mt-3 ">
         <span className=" text-base font-bold">Payment Details</span>
         <table className="w-full text-xs" cellPadding={5}>
           <tr>
@@ -166,7 +176,7 @@ const WORowsDialog = ({ visible = false, onHide = () => {}, id = 0 }) => {
             <td>{courier.length > 0 && courier[0][1548]}</td>
           </tr>
         </table>
-      </div>
+      </div> */}
 
       {/*  <table className="min-w-full mt-3  rounded-lg text-sm">
         <thead className="text-white" style={{ backgroundColor: "#9c1c23" }}>
