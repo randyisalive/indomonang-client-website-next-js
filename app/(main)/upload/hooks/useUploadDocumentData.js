@@ -75,6 +75,7 @@ const useUploadDocumentData = () => {
               )[0],
             },
           });
+          console.log(req_document);
         }
       } else {
         console.log("RefForm is null");

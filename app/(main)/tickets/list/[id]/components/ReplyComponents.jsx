@@ -7,6 +7,7 @@ const ReplyComponents = ({
 }) => {
   return (
     <>
+      {console.log(ticket)}
       {ticket.chats_data && (
         <div className="flex flex-col gap-3">
           {ticket.chats_data?.map((item) => {
@@ -24,9 +25,7 @@ const ReplyComponents = ({
                       {item.name}
                     </span>
 
-                    <span className="text-xs">
-                      {role === "Client" ? item.company : "Admin"}
-                    </span>
+                    <span className="text-xs">{item.company}</span>
                   </div>
                 </div>
                 <div className="bg-white w-5/6 flex gap-3 border rounded-xl relative p-3  shadow-lg">

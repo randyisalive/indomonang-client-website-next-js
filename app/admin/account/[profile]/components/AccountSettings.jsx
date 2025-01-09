@@ -3,16 +3,17 @@ import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import { ATOB } from "@/app/function/decryptor";
 import { useParams } from "next/navigation";
 import React from "react";
-import useAccountSettingsData from "../hooks/useAccountSettingsData";
 import "./AccountSettings.css";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { motion } from "framer-motion";
 import CopyButton from "@/app/components/ui/CopyButton";
+import Link from "next/link";
+import { useAccountSettingContext } from "@/app/admin/context/AccountSettingContext";
 
 const AccountSettings = () => {
   const { profile } = useParams();
 
-  const { customer, isLoading } = useAccountSettingsData();
+  const { customer, isLoading } = useAccountSettingContext();
 
   const decrypt = ATOB(profile);
   if (decrypt === "account") {
@@ -37,7 +38,7 @@ const AccountSettings = () => {
         key={customer.id}
       >
         <span className=" text-3xl font-bold underline">Your Data</span>
-        <div className="overflow-x-auto w-full shadow-md">
+        <div className="overflow-x-auto w-full ">
           <table className="min-w-1/2 w-full mt-3  text-sm">
             <thead
               className="text-white"
@@ -80,7 +81,7 @@ const AccountSettings = () => {
             </tbody>
           </table>
         </div>
-        <div className="overflow-x-auto w-full shadow-md">
+        <div className="overflow-x-auto w-full ">
           <table className="min-w-1/2 w-full mt-3 text-sm">
             <thead
               className="text-white"
@@ -112,7 +113,6 @@ const AccountSettings = () => {
                 <td className="border px-4 py-2 ">
                   {customer[229]}
                   <i className=" ms-2 pi pi-copy"></i>
-                  <div></div>
                 </td>
               </tr>
             </tbody>
@@ -133,12 +133,28 @@ const AccountSettings = () => {
             <tbody>
               <tr>
                 <td className="border px-4 py-2 font-bold">
-                  Total Expatriate{" "}
+                  <Link
+                    href={`./Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Expatriate`}
+                  >
+                    <div className="flex items-center gap-1 w-fit  cursor-pointer hover:text-blue-500">
+                      <span>Total Expatriate </span>
+                      <i className="pi pi-angle-right w-fit"></i>
+                    </div>
+                  </Link>
                 </td>
                 <td className="border px-4 py-2 ">{customer[1506]}</td>
               </tr>
               <tr>
-                <td className="border px-4 py-2 font-bold">Total Dependent </td>
+                <td className="border px-4 py-2 font-bold">
+                  <Link
+                    href={`./Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Dependent`}
+                  >
+                    <div className="flex items-center gap-1 w-fit  cursor-pointer hover:text-blue-500">
+                      <span>Total Dependent </span>
+                      <i className="pi pi-angle-right w-fit"></i>
+                    </div>
+                  </Link>
+                </td>
                 <td className="border px-4 py-2 ">{customer[1507]}</td>
               </tr>
               <tr>

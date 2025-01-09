@@ -53,7 +53,6 @@ const useProcessingData = () => {
         const wo_data = await getWoById(woId);
         const invoice_data = await getInvoiceByWo(woId);
         setWo({ wo: wo_data, invoice: invoice_data });
-        console.log(wo_data[0], invoice_data[0]);
       }
     } catch (e) {
       console.error(e);
@@ -70,7 +69,6 @@ const useProcessingData = () => {
     try {
       const courier_data = await getCourierByWO(woId);
       if (courier_data) {
-        console.log(courier_data);
         setCourier(courier_data);
       }
     } catch (e) {
@@ -86,10 +84,9 @@ const useProcessingData = () => {
   const [downloadStatus, setDownloadStatus] = useState([
     { id: 0, content: "temp" },
   ]);
-  const download_attachments = async (id) => {
+  const download_attachments = async (id, title = "file") => {
     try {
       const filteredProcessing = processing.filter((x) => x.id === id);
-      console.log(filteredProcessing);
       const downloadData = await DownloadAttachments(id);
       setDownloadStatus(filteredProcessing);
       if (downloadData) {
@@ -97,9 +94,8 @@ const useProcessingData = () => {
         const dowloadLink = document.createElement("a");
         document.body.appendChild(dowloadLink);
         dowloadLink.href = linkSource;
-        dowloadLink.download = downloadData.filename;
+        dowloadLink.download = title;
         dowloadLink.click();
-        console.log(downloadData);
         setTimeout(() => {
           setDownloadStatus([{ id: 0, content: "temp" }]);
         }, 3000);

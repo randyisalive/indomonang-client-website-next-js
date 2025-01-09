@@ -5,9 +5,10 @@ import useActiveProductsData from "../hooks/useActiveProductsData";
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import { Skeleton } from "primereact/skeleton";
 import { enquiry_data } from "@/app/function/static_data";
+import { useActiveProductContext } from "@/app/Context/ActiveProductContext";
 
 const ActiveProducts = () => {
-  const { activeProduct, isLoading, role } = useActiveProductsData();
+  const { activeProduct, isLoading, role } = useActiveProductContext();
   return (
     <div>
       {isLoading === 0 ? (

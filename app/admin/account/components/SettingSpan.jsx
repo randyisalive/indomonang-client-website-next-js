@@ -15,7 +15,7 @@ const SettingSpan = () => {
     },
     {
       id: 1,
-      text: "Account Settings",
+      text: "Account Detail",
       link: `/admin/account/${BTOA("account")}`,
     },
     {

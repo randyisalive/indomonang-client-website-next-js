@@ -4,6 +4,7 @@ import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
+import { AccountProvider } from "./Context/AccountContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,7 +27,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.className} flex flex-col antialiased min-h-screen `}
       >
-        {children}
+        <AccountProvider> {children}</AccountProvider>
       </body>
     </html>
   );

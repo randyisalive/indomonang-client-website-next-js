@@ -18,3 +18,5 @@ export const invoice_data = [
   { id: 7, text: "Arrived to Client", bg_color: "#9C27B0" },
   { id: 8, text: "Closed", bg_color: "#BFC9CA" },
 ];
+
+export const expatriate_status_data = [{ id: 0 }];

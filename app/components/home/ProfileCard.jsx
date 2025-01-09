@@ -7,17 +7,18 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import DebugButton from "../Navbar/DebugButton";
 import { Skeleton } from "primereact/skeleton";
-import JsonDisplay from "../ui/JsonDisplay";
 import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
+import { useProfileCardContext } from "@/app/Context/ProfileCardContext";
 
 const ProfileCard = () => {
-  const { customer, isLoading } = useProfileCardData();
   const { role } = useDecryptionKeyData();
   const router = useRouter();
   const Logout = () => {
     localStorage.clear();
     router.push("/login");
   };
+
+  const { customer, isLoading } = useProfileCardContext();
 
   return (
     <div

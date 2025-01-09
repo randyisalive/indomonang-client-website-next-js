@@ -7,8 +7,15 @@ import { Timeline } from "primereact/timeline";
 
 import CopyButton from "../../CopyButton";
 import StatusBadge from "../StatusBadge";
+import WebButton from "../../WebButton";
+import { Rating } from "primereact/rating";
 
-const WORowsDialog = ({ visible = false, onHide = () => {}, id = 0 }) => {
+const WORowsDialog = ({
+  visible = false,
+  onHide = () => {},
+  id = 0,
+  rating = 0,
+}) => {
   const {
     processing,
     download_attachments,
@@ -19,9 +26,9 @@ const WORowsDialog = ({ visible = false, onHide = () => {}, id = 0 }) => {
   } = useProcessingData();
   const delivery_status = [
     { id: 0, text: "Open", bg_color: "#00C49A" },
-    { id: 0, text: "On Delivery", bg_color: "#9cec5b" },
-    { id: 0, text: "Closed", bg_color: "#BFC9CA" },
-    { id: 0, text: "Canceled", bg_color: "#B6244F" },
+    { id: 1, text: "On Delivery", bg_color: "#9cec5b" },
+    { id: 2, text: "Closed", bg_color: "#BFC9CA" },
+    { id: 3, text: "Canceled", bg_color: "#B6244F" },
   ];
 
   return (
@@ -39,8 +46,10 @@ const WORowsDialog = ({ visible = false, onHide = () => {}, id = 0 }) => {
           <tr>
             <td className=" text-gray-400">No. Invoice</td>
             {wo.invoice.length > 0 && (
-              <td className=" text-end hover:underline text-blue-500 cursor-pointer font-bold">
-                {wo.invoice[0][1907]}
+              <td className=" text-end flex justify-end  font-bold">
+                <div className=" w-fit hover:underline text-blue-500 cursor-pointer">
+                  {wo.invoice[0][1907]}
+                </div>
               </td>
             )}
           </tr>
@@ -48,6 +57,25 @@ const WORowsDialog = ({ visible = false, onHide = () => {}, id = 0 }) => {
             <td className=" text-gray-400">Order Date</td>
             {wo.wo.length > 0 && (
               <td className=" text-end">{wo.wo[0]["date_added"]}</td>
+            )}
+          </tr>
+          <tr>
+            <td className=" text-gray-400">Ratings</td>
+            {wo.wo.length > 0 && (
+              <td className=" flex justify-end">
+                <Rating
+                  cancel={false}
+                  value={wo.wo[0][2631]}
+                  className=" scale-90"
+                  readOnly
+                  pt={{
+                    onIcon: {
+                      className: "",
+                      style: { color: "#9A1C20" },
+                    },
+                  }}
+                />
+              </td>
             )}
           </tr>
         </table>
@@ -144,6 +172,44 @@ const WORowsDialog = ({ visible = false, onHide = () => {}, id = 0 }) => {
                     />
                   )}
                 </td>
+              </tr>
+            </table>
+          );
+        })}
+      </div>
+      <div className="flex flex-col gap-1 mt-3 ">
+        <span className=" text-base font-bold">Processed Documents</span>
+        {processing.map((item) => {
+          return (
+            <table className="w-full text-xs border-t mt-1" cellPadding={5}>
+              <tr>
+                <td className="w-2">Document</td>
+                <td className="w-0">:</td>
+                <td className="  ">
+                  <div
+                    onClick={() => {
+                      download_attachments(item.id, item[1649]);
+                    }}
+                    className="cursor-pointer w-fit  hover:underline text-blue-500 font-bold "
+                  >
+                    {item[1649]}
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td className="w-2">Start Date</td>
+                <td className="w-0">:</td>
+                <td>{item[2775] ? item[2775] : "-"}</td>
+              </tr>
+              <tr>
+                <td className="w-2">Expired Date</td>
+                <td className="w-0">:</td>
+                <td>{item[1650] ? item[1650] : "-"}</td>
+              </tr>
+              <tr>
+                <td className="w-2">Validity</td>
+                <td className="w-0">:</td>
+                <td>{item[2776]}</td>
               </tr>
             </table>
           );

@@ -2,12 +2,12 @@
 import HomeCard from "@/app/components/home/HomeCard";
 import React from "react";
 import useHomeCardContainerData from "../hooks/useHomeCardContainerData";
-import { ProgressSpinner } from "primereact/progressspinner";
 import { Skeleton } from "primereact/skeleton";
 import { AnimatePresence, motion } from "framer-motion";
+import { useHomeCardContainerContext } from "@/app/Context/HomeCardContainerContext";
 
 const HomeCardContainer = () => {
-  const { cardData, isLoading, role } = useHomeCardContainerData();
+  const { cardData, isLoading, role } = useHomeCardContainerContext();
 
   return (
     <>

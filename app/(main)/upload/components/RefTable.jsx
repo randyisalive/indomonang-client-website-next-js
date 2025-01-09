@@ -128,7 +128,7 @@ const RefTable = ({
                     ) : (
                       <>
                         <div className="relative flex w-full flex-col justify-center items-center ">
-                          <i className="pi pi-upload cursor-pointer text-xl"></i>
+                          <i className="pi pi-upload cursor-pointer text-xl "></i>
                           <input
                             type="file"
                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"

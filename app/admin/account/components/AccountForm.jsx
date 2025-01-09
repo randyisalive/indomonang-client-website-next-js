@@ -6,6 +6,7 @@ import useAccountsData from "../hooks/useAccountData";
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import WebButton from "@/app/components/ui/WebButton";
 import Form from "@/app/components/ui/form/Form";
+import { useAccountDataContext } from "../../context/AccountDataContext";
 
 const AccountForm = () => {
   const {
@@ -14,7 +15,7 @@ const AccountForm = () => {
     handleUploadPhoto,
     UpdateAccountBtn,
     isLoading,
-  } = useAccountsData();
+  } = useAccountDataContext();
 
   if (isLoading === 0) {
     return (

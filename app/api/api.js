@@ -563,6 +563,50 @@ const api = () => {
     };
     return { getCustomerDataById };
   };
+  const ExpatriateApi = () => {
+    const getExpatriateByParentId = async (parent_id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 78,
+        filters: { parent_item_id: parent_id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    return { getExpatriateByParentId };
+  };
+  const FamilyApi = () => {
+    const getFamilyByParentId = async (parent_id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 80,
+        filters: { parent_item_id: parent_id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    return { getFamilyByParentId };
+  };
 
   const ProcessingListApi = () => {
     const DownloadAttachments = async (item_id) => {
@@ -1241,6 +1285,8 @@ const api = () => {
     TicketsChatsApi,
     CourierApi,
     CompanyDatabaseApi,
+    ExpatriateApi,
+    FamilyApi,
   };
 };
 
