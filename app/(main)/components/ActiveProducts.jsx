@@ -39,6 +39,7 @@ const ActiveProducts = () => {
                   .map((i) => {
                     return (
                       <StatusBadge
+                        key={i}
                         title={i.text}
                         bg_color={i.bg_color}
                         font_color="white"

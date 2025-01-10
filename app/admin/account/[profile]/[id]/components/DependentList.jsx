@@ -45,7 +45,10 @@ const DependentList = () => {
               </td>
               <td className="border px-4 py-2 text-blue-500 hover:underline cursor-pointer">
                 <div>
-                  <Link href={`./Dependent/${item.id}`}> {item[1100]}</Link>
+                  <Link passHref href={`./Dependent/${item.id}`}>
+                    {" "}
+                    {item[1100]}
+                  </Link>
                 </div>
               </td>
               <td className="border px-4 py-2 ">{item[1101]}</td>

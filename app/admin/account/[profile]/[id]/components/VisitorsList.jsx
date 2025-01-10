@@ -4,7 +4,7 @@ import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import Link from "next/link";
 
 const VisitorsList = () => {
-  const th_array = ["Status", "Name", "Date of Birth", "Gender", "Nationality"];
+  const th_array = ["Status", "Name", "Gender", "Nationality"];
   const { visitors } = useVisitorsListContext();
   return (
     <table className="min-w-1/2 w-full mt-3 text-sm">
@@ -41,9 +41,9 @@ const VisitorsList = () => {
                   <Link href={`./Visitors/${item.id}`}> {item[1442]}</Link>
                 </div>
               </td>
-              <td className="border px-4 py-2 ">{item[1446]}</td>
-              <td className="border px-4 py-2 font-bold">{item[1443]}</td>
-              <td className="border px-4 py-2 font-bold">{item[1444]}</td>
+              <td className="border px-4 py-2 font-bold">{item[1085]}</td>
+              <td className="border px-4 py-2 font-bold">{item[1083]}</td>
+              <td className="border px-4 py-2 font-bold">{item[1084]}</td>
             </tr>
           );
         })}

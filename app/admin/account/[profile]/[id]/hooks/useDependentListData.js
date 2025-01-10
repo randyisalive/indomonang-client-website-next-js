@@ -14,9 +14,10 @@ const useDependentListData = () => {
   const [dependent, setDependent] = useState([]);
   const getData = async () => {
     try {
-      const family_data = await getFamilyByParentId(accounts.company_id);
-      console.log(family_data);
-      setDependent(family_data);
+      if (accounts.company_id) {
+        const family_data = await getFamilyByParentId(accounts.company_id);
+        setDependent(family_data);
+      }
     } catch (e) {
       console.error(e);
     }
@@ -24,7 +25,7 @@ const useDependentListData = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [accounts]);
 
   return { dependent };
 };
