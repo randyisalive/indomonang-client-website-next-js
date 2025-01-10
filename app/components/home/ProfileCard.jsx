@@ -7,11 +7,11 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import DebugButton from "../Navbar/DebugButton";
 import { Skeleton } from "primereact/skeleton";
-import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
 import { useProfileCardContext } from "@/app/Context/ProfileCardContext";
+import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 
 const ProfileCard = () => {
-  const { role } = useDecryptionKeyData();
+  const { role } = useAccountDataContext();
   const router = useRouter();
   const Logout = () => {
     localStorage.clear();
@@ -23,7 +23,7 @@ const ProfileCard = () => {
   return (
     <div
       className={`${
-        isLoading === 1 ? "border" : ""
+        isLoading === 1 ? "border w-full" : ""
       } rounded-lg p-3 px-2 flex gap-3 flex-col w-52`}
     >
       {isLoading === 0 ? (

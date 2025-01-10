@@ -12,7 +12,7 @@ function useAccountsData() {
     CustomerAccountApi();
 
   // user id
-  const { user_id } = useDecryptionKeyData();
+  const { user_id, role } = useDecryptionKeyData();
   // get accounts
   const [accounts, setAccounts] = useState({});
   const [refresh, setRefresh] = useState(false);
@@ -164,6 +164,7 @@ function useAccountsData() {
     handleUploadPhoto,
     UpdateAccountBtn,
     isLoading,
+    role,
   };
 }
 

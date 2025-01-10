@@ -1,4 +1,5 @@
 "use client";
+import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 import api from "@/app/api/api";
 import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
 import React, { useEffect, useState } from "react";
@@ -12,15 +13,15 @@ const useHomeCardContainerData = () => {
   const { getTicketsByUserId, getTicketsAll } = TicketsApi();
 
   // decryption
-  const { user_id, role } = useDecryptionKeyData();
+  const { accounts, role } = useAccountDataContext();
 
   // get data
   const [cardData, setCardData] = useState([]);
   const [isLoading, setIsLoading] = useState(0);
   const getData = async () => {
     try {
-      if (user_id) {
-        const account_data = await getAccountById(user_id);
+      if (accounts.id) {
+        const account_data = await getAccountById(accounts.id);
         let wo_data;
         if (role === "Admin") {
           wo_data = await getWoAll();
@@ -87,7 +88,7 @@ const useHomeCardContainerData = () => {
 
   useEffect(() => {
     getData();
-  }, [user_id]);
+  }, [accounts.id]);
 
   return { cardData, isLoading, role };
 };

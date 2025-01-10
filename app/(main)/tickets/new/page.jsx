@@ -11,6 +11,7 @@ import { FileUpload } from "primereact/fileupload";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import "./TicketsNew.css";
 import useWOData from "@/app/hooks/useWOData";
+import { useActiveProductContext } from "@/app/Context/ActiveProductContext";
 
 const TicketPageNew = () => {
   const {
@@ -25,10 +26,11 @@ const TicketPageNew = () => {
     ticket_priority,
   } = useTicketNewData();
   const { wo } = useWOData();
-  const filtered_wo = wo.map((item) =>
-    item.ref_num != "" ? item.ref_num : "2DEFR"
-  );
-  console.log(filtered_wo);
+
+  const { activeProduct } = useActiveProductContext();
+  const wo_data = activeProduct.map((item) => {
+    return { ref_num: item[2134] };
+  });
 
   return (
     <div>
@@ -47,17 +49,19 @@ const TicketPageNew = () => {
         />
       </div>
       <AnimatePresence mode="wait">
-        {wo.length > 0 && woData.length <= 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="text-xs text-gray-500 flex gap-1 my-1 mx-5 lg:mx-0"
-          >
-            <span> Ref Number: </span>
-            <div className="flex">{filtered_wo.splice(0, 3).join(", ")}</div>
-          </motion.div>
-        )}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="text-xs text-gray-500 flex gap-1 my-1 mx-5 lg:mx-0"
+        >
+          <span> Ref Number: </span>
+          <div className="flex">
+            {wo_data.map((item) => {
+              return item.ref_num + ", ";
+            })}
+          </div>
+        </motion.div>
       </AnimatePresence>
 
       <AnimatePresence>

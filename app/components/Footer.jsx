@@ -2,8 +2,8 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="flex flex-col justify-end p-2  mt-7  ">
-      <span className=" w-full bg-red-50">Footer</span>
+    <footer className="flex text-gray-500 text-sm flex-col justify-end px-32 py-3">
+      Copyright © 2025 IDCloudHost. All Rights Reserved.
     </footer>
   );
 };

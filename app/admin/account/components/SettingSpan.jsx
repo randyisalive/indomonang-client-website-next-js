@@ -47,10 +47,10 @@ const SettingSpan = () => {
         <ul className="flex  w-full lg:w-0  lg:flex-col gap-3 ms-5">
           {nav_data.map((item) => {
             return (
-              <Link key={item.id} href={item.link}>
+              <Link key={item.id} className=" w-fit" href={item.link} passHref>
                 <motion.li
                   whileTap={{ scale: 0.889 }}
-                  className={` shadow-md border p-3 rounded-full w-fit cursor-pointer`}
+                  className={` shadow-md hover:text-blue-500 border p-3 rounded-full w-fit cursor-pointer`}
                 >
                   {item.text}
                 </motion.li>

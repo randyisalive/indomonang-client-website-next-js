@@ -13,7 +13,7 @@ const DataTable = ({ datas = [], text = "", children }) => {
           onClick={() => setIsOpen(!isOpen)}
           className="bg-gray-100 border-b cursor-pointer flex p-2 py-3 items-center rounded-t-lg justify-between"
         >
-          <span className="font-bold">{text}</span>
+          <span className="font-bold text-lg">{text}</span>
           <motion.i
             initial={{ rotate: 0 }}
             animate={isOpen ? { rotate: 90 } : { rotate: 0 }}
@@ -26,13 +26,7 @@ const DataTable = ({ datas = [], text = "", children }) => {
           exit={{ height: 0 }}
           className="flex flex-col gap-2 overflow-y-hidden"
         >
-          {datas.length > 0 ? (
-            <>{children}</>
-          ) : (
-            <div className="w-full text-sm p-2 border-b h-52 flex justify-center items-center">
-              No {text}
-            </div>
-          )}
+          {children}
         </motion.div>
       </div>
     </>

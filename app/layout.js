@@ -5,6 +5,8 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
 import { AccountProvider } from "./Context/AccountContext";
+import { AccountDataProvider } from "./admin/context/AccountDataContext";
+import Footer from "./components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +29,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.className} flex flex-col antialiased min-h-screen `}
       >
-        <AccountProvider> {children}</AccountProvider>
+        <AccountDataProvider> {children}</AccountDataProvider>
       </body>
     </html>
   );

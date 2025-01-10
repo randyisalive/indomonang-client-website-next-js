@@ -119,11 +119,17 @@ const FormSignup = () => {
         </div>
         <footer className="mt-3 border-t text-center text-sm text-gray-700 p-3">
           Already registered with us?
-          <Link className=" text-tertiaryBlue mx-1" href={`/login`}>
+          <Link
+            className=" text-tertiaryBlue hover:underline cursor-pointer mx-1"
+            href={`/login`}
+          >
             Sign In
           </Link>
           Or
-          <Link href={`/reset`} className=" text-tertiaryBlue mx-1">
+          <Link
+            href={`/reset`}
+            className=" text-tertiaryBlue hover:underline mx-1"
+          >
             Reset Password
           </Link>
         </footer>

@@ -1,4 +1,5 @@
 "use client";
+import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 import api from "@/app/api/api";
 import { getLocalStorage } from "@/app/function/getLocalStorage";
 import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
@@ -18,11 +19,11 @@ const useTicketNewData = () => {
   const router = useRouter();
 
   // dec key
-  const { user_id } = useDecryptionKeyData();
+  const { accounts, role } = useAccountDataContext();
   const [userId, setUserId] = useState(0);
   useEffect(() => {
-    setUserId(user_id);
-  }, [user_id]);
+    setUserId(accounts.id);
+  }, [accounts.id]);
 
   // check if wo available by ref
   const [woData, setWoData] = useState([]);

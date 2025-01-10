@@ -56,11 +56,6 @@ const FormControl = ({ children, title = "", className = {} }) => {
           ) : null}
         </AnimatePresence>
 
-        <RadioButton
-          title="Remember Me"
-          inputType={"checkbox"}
-          name="remember"
-        />
         <WebButton
           styles={{ backgroundColor: "#1E56A0" }}
           title={
@@ -81,8 +76,11 @@ const FormControl = ({ children, title = "", className = {} }) => {
       <section id="footer" className="m-1  py-4  border-t text-sm text-center">
         <span className="text-gray-600">
           Not a member yet?
-          <Link className="text-blue-600 hover:text-blue-700" href={`/signup`}>
-            &nbsp; Create a New Account
+          <Link
+            className="text-blue-500 px-1  hover:underline"
+            href={`/signup`}
+          >
+            Create a New Account
           </Link>
         </span>
       </section>

@@ -1290,6 +1290,28 @@ const api = () => {
       }
     };
   };
+  const RecentNewsApi = () => {
+    const getRecentNewsAll = async (limit = 3) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 169,
+        limit: limit,
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    return { getRecentNewsAll };
+  };
 
   return {
     CustomerAccountApi,
@@ -1310,6 +1332,7 @@ const api = () => {
     ExpatriateApi,
     FamilyApi,
     VisitorsApi,
+    RecentNewsApi,
   };
 };
 

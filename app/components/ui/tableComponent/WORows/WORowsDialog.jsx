@@ -80,27 +80,7 @@ const WORowsDialog = ({
           </tr>
         </table>
       </div>
-      {/* <div className="flex flex-col gap-1 mt-3 ">
-        <span className=" text-base font-bold">Order List</span>
-        <div className=" text-xs flex flex-col gap-2">
-          {wo.length > 0 ? (
-            <>
-              <span className=" mt-1 font-bold">{wo[0][674]}</span>
-              <span className=" text-green-500">
-                {wo[0][997] ? (
-                  wo[0][997]
-                ) : (
-                  <span className=" text-red-500">"Price Not Set"</span>
-                )}
-              </span>
-            </>
-          ) : (
-            <>
-              <Skeleton width="200px" /> <Skeleton width="100px" />
-            </>
-          )}
-        </div>
-      </div> */}
+
       <div className="flex flex-col gap-1 mt-3 ">
         <span className=" text-base font-bold">Delivery Info</span>
         {courier.map((item) => {
@@ -177,44 +157,53 @@ const WORowsDialog = ({
           );
         })}
       </div>
-      <div className="flex flex-col gap-1 mt-3 ">
-        <span className=" text-base font-bold">Processed Documents</span>
-        {processing.map((item) => {
-          return (
-            <table className="w-full text-xs border-t mt-1" cellPadding={5}>
-              <tr>
-                <td className="w-2">Document</td>
-                <td className="w-0">:</td>
-                <td className="  ">
-                  <div
-                    onClick={() => {
-                      download_attachments(item.id, item[1649]);
-                    }}
-                    className="cursor-pointer w-fit  hover:underline text-blue-500 font-bold "
+      {wo.wo.length > 0 && (
+        <>
+          {wo.wo[0][311] === "Closed" && (
+            <div className="flex flex-col gap-1 mt-3 ">
+              <span className=" text-base font-bold">Processed Documents</span>
+              {processing.map((item) => {
+                return (
+                  <table
+                    className="w-full text-xs border-t mt-1"
+                    cellPadding={5}
                   >
-                    {item[1649]}
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td className="w-2">Start Date</td>
-                <td className="w-0">:</td>
-                <td>{item[2775] ? item[2775] : "-"}</td>
-              </tr>
-              <tr>
-                <td className="w-2">Expired Date</td>
-                <td className="w-0">:</td>
-                <td>{item[1650] ? item[1650] : "-"}</td>
-              </tr>
-              <tr>
-                <td className="w-2">Validity</td>
-                <td className="w-0">:</td>
-                <td>{item[2776]}</td>
-              </tr>
-            </table>
-          );
-        })}
-      </div>
+                    <tr>
+                      <td className="w-2">Document</td>
+                      <td className="w-0">:</td>
+                      <td className="  ">
+                        <div
+                          onClick={() => {
+                            download_attachments(item.id, item[1649]);
+                          }}
+                          className="cursor-pointer w-fit  hover:underline text-blue-500 font-bold "
+                        >
+                          {item[1649]}
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="w-2">Start Date</td>
+                      <td className="w-0">:</td>
+                      <td>{item[2775] ? item[2775] : "-"}</td>
+                    </tr>
+                    <tr>
+                      <td className="w-2">Expired Date</td>
+                      <td className="w-0">:</td>
+                      <td>{item[1650] ? item[1650] : "-"}</td>
+                    </tr>
+                    <tr>
+                      <td className="w-2">Validity</td>
+                      <td className="w-0">:</td>
+                      <td>{item[2776]}</td>
+                    </tr>
+                  </table>
+                );
+              })}
+            </div>
+          )}
+        </>
+      )}
 
       {/*      <div className="flex flex-col gap-1 mt-3 ">
         <span className=" text-base font-bold">Payment Details</span>
