@@ -1,7 +1,7 @@
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import React from "react";
 
-const MerpCard = ({ merpData = {} }) => {
+const SkttCard = ({ data = {} }) => {
   return (
     <table className="min-w-full mt-3 text-sm" cellPadding={5}>
       <tbody>
@@ -9,42 +9,45 @@ const MerpCard = ({ merpData = {} }) => {
           <td className="w-1/3">Status</td>
           <td>:</td>
           <td>
-            <StatusBadge title={merpData[1427]} />
+            <StatusBadge title={data.status} />
           </td>
         </tr>
         <tr>
-          <td className="w-1/3">No. MERP</td>
+          <td className="w-1/3">No. SKTT</td>
           <td>:</td>
-          <td>{merpData[1339]}</td>
+          <td>{data.num}</td>
         </tr>
         <tr>
           <td className="w-1/3">Issuing Place</td>
           <td>:</td>
-          <td>{merpData[1384]}</td>
+          <td>{data.issuingPlace}</td>
         </tr>
         <tr>
           <td className="w-1/3">Issuing Date</td>
           <td>:</td>
-          <td>{merpData[1340]}</td>
+          <td>{data.issuingDate}</td>
         </tr>
         <tr>
           <td className="w-1/3">Expired Date</td>
           <td>:</td>
-          <td>{merpData[1341]}</td>
+          <td>{data.expiredDate}</td>
         </tr>
         <tr>
           <td className="w-1/3">Remaining Days</td>
           <td>:</td>
           <td>
-            {merpData[1342]} | {merpData[1343]}
+            {data.remainingDays} | {data.ymd}
           </td>
         </tr>
         <tr>
-          <td className="w-1/3">Passport</td>
+          <td className="w-1/3">SKTT</td>
           <td>:</td>
           <td>
-            <label htmlFor="" className=" text-blue-500">
-              {merpData[2284]}
+            <label
+              htmlFor=""
+              className=" text-blue-500 cursor-pointer hover:underline"
+            >
+              {data.attachment}
             </label>
           </td>
         </tr>
@@ -53,4 +56,4 @@ const MerpCard = ({ merpData = {} }) => {
   );
 };
 
-export default MerpCard;
+export default SkttCard;

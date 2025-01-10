@@ -1,19 +1,17 @@
 import React from "react";
+import { useVisitorsListContext } from "../context/VisitorsListContext";
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import Link from "next/link";
-import { useExpatriateListContext } from "../context/ExpatriateListContext";
 
-const ExpatriateList = () => {
-  const th_array = ["Status", "Name", "Job Title", "Gender", "Nationality"];
-
-  const { expatriates } = useExpatriateListContext();
-
+const VisitorsList = () => {
+  const th_array = ["Status", "Name", "Date of Birth", "Gender", "Nationality"];
+  const { visitors } = useVisitorsListContext();
   return (
     <table className="min-w-1/2 w-full mt-3 text-sm">
       <thead className="text-white" style={{ backgroundColor: "#9c1c23" }}>
         <tr>
           <th className="text-start ps-6 text-base border" colSpan={6}>
-            Expatriate List
+            Visitors List
           </th>
         </tr>
         <tr className="border">
@@ -32,20 +30,20 @@ const ExpatriateList = () => {
       </thead>
 
       <tbody>
-        {expatriates.map((item) => {
+        {visitors.map((item) => {
           return (
             <tr key={item.id}>
               <td className="border px-4 py-2 font-bold">
-                <StatusBadge title={item[1289]} />
+                <StatusBadge title={item[1454]} />
               </td>
               <td className="border px-4 py-2 text-blue-500 hover:underline cursor-pointer">
                 <div>
-                  <Link href={`./Expatriate/${item.id}`}> {item[1082]}</Link>
+                  <Link href={`./Visitors/${item.id}`}> {item[1442]}</Link>
                 </div>
               </td>
-              <td className="border px-4 py-2 font-bold">{item[1085]}</td>
-              <td className="border px-4 py-2 font-bold">{item[1083]}</td>
-              <td className="border px-4 py-2 font-bold">{item[1084]}</td>
+              <td className="border px-4 py-2 ">{item[1446]}</td>
+              <td className="border px-4 py-2 font-bold">{item[1443]}</td>
+              <td className="border px-4 py-2 font-bold">{item[1444]}</td>
             </tr>
           );
         })}
@@ -54,4 +52,4 @@ const ExpatriateList = () => {
   );
 };
 
-export default ExpatriateList;
+export default VisitorsList;

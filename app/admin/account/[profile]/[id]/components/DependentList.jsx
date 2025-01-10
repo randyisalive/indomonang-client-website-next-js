@@ -25,6 +25,7 @@ const DependentList = () => {
           {th_array.map((item) => {
             return (
               <th
+                key={item}
                 className=" border text-start px-4 py-2  text-black"
                 style={{ backgroundColor: "#f3f4f6" }}
               >
@@ -38,7 +39,7 @@ const DependentList = () => {
       <tbody>
         {dependent.map((item) => {
           return (
-            <tr>
+            <tr key={item.id}>
               <td className="border px-4 py-2 font-bold">
                 <StatusBadge title={item[1390]} />
               </td>

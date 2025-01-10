@@ -14,6 +14,11 @@ const VisaCard = ({ visaData = {} }) => {
           </td>
         </tr>
         <tr>
+          <td className="w-1/3">Visa Type</td>
+          <td>:</td>
+          <td>{visaData.visaType}</td>
+        </tr>
+        <tr>
           <td className="w-1/3">No. Visa</td>
           <td>:</td>
           <td>{visaData.visaNumber}</td>

@@ -158,7 +158,16 @@ const AccountSettings = () => {
                 <td className="border px-4 py-2 ">{customer[1507]}</td>
               </tr>
               <tr>
-                <td className="border px-4 py-2 font-bold">Total Visitors </td>
+                <td className="border px-4 py-2 font-bold">
+                  <Link
+                    href={`./Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Visitors`}
+                  >
+                    <div className="flex items-center gap-1 w-fit  cursor-pointer hover:text-blue-500">
+                      <span>Total Visitors </span>
+                      <i className="pi pi-angle-right w-fit"></i>
+                    </div>
+                  </Link>
+                </td>
                 <td className="border px-4 py-2 ">{customer[1508]}</td>
               </tr>
               <tr>

@@ -2,18 +2,18 @@
 import { useParams } from "next/navigation";
 import { ExpatriateListProvider } from "./context/ExpatriateListContext";
 import { DependentListProvider } from "./context/DependentListContext";
+import { VisitorsListProvider } from "./context/VisitorsListContext";
 
 const ExpatDetailLayout = ({ children }) => {
   const { id } = useParams();
   return (
     <div>
       <main>
-        {id === "Expatriate" && (
-          <ExpatriateListProvider> {children}</ExpatriateListProvider>
-        )}
-        {id === "Dependent" && (
-          <DependentListProvider>{children}</DependentListProvider>
-        )}
+        <ExpatriateListProvider>
+          <DependentListProvider>
+            <VisitorsListProvider>{children}</VisitorsListProvider>
+          </DependentListProvider>
+        </ExpatriateListProvider>
       </main>
     </div>
   );

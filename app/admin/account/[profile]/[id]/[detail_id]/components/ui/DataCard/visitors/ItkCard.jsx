@@ -1,7 +1,7 @@
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import React from "react";
 
-const PassportCard = ({ passportData = {} }) => {
+const ItkCard = ({ data = {} }) => {
   return (
     <table className="min-w-full mt-3 text-sm" cellPadding={5}>
       <tbody>
@@ -9,34 +9,41 @@ const PassportCard = ({ passportData = {} }) => {
           <td className="w-1/3">Status</td>
           <td>:</td>
           <td>
-            <StatusBadge title={passportData[1427]} />
+            <StatusBadge title={data.status} />
           </td>
         </tr>
         <tr>
-          <td className="w-1/3">No. Passport</td>
+          <td className="w-1/3">No. ITK</td>
           <td>:</td>
-          <td>{passportData[1318]}</td>
+          <td>{data.num}</td>
         </tr>
+
         <tr>
           <td className="w-1/3">Issuing Date</td>
           <td>:</td>
-          <td>
-            <StatusBadge title="Active" />
-          </td>
+          <td>{data.issuingDate}</td>
         </tr>
         <tr>
           <td className="w-1/3">Expired Date</td>
           <td>:</td>
+          <td>{data.expiredDate}</td>
+        </tr>
+        <tr>
+          <td className="w-1/3">Remaining Days</td>
+          <td>:</td>
           <td>
-            <StatusBadge title="Active" />
+            {data.remainingDays} | {data.ymd}
           </td>
         </tr>
         <tr>
-          <td className="w-1/3">Passport</td>
+          <td className="w-1/3">ITK</td>
           <td>:</td>
           <td>
-            <label htmlFor="" className=" text-blue-500">
-              passport.pdf
+            <label
+              htmlFor=""
+              className=" text-blue-500 cursor-pointer hover:underline"
+            >
+              {data.attachment}
             </label>
           </td>
         </tr>
@@ -45,4 +52,4 @@ const PassportCard = ({ passportData = {} }) => {
   );
 };
 
-export default PassportCard;
+export default ItkCard;
