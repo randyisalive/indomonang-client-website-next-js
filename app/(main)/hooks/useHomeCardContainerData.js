@@ -47,7 +47,7 @@ const useHomeCardContainerData = () => {
         if (role === "Admin") {
           tickets_data = await getTicketsAll();
         } else {
-          tickets_data = await getTicketsByUserId(user_id);
+          tickets_data = await getTicketsByUserId(accounts.id);
         }
         const tickets_filtered = tickets_data.map((item) =>
           ["Open", "On Progress"].includes(item[2467])

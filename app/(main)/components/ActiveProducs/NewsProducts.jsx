@@ -22,11 +22,9 @@ const NewsProducts = () => {
             <span className="text-xs text-gray-400 font-bold flex gap-1 items-center">
               <i className="pi pi-clock text-xs "></i> {item[2798]}
             </span>
-            {role === "Admin" && (
-              <span className="text-xs text-gray-400 flex gap-1 items-center font-bold">
-                <i className="pi pi-user text-xs"></i> {item[2797]}
-              </span>
-            )}
+            <span className="text-xs text-gray-400 flex gap-1 items-center font-bold">
+              <i className="pi pi-user text-xs"></i> {item[2797]}
+            </span>
           </div>
 
           <div className="w-1/2"> {item[674]}</div>
