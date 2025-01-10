@@ -24,9 +24,6 @@ const useProfileCardData = () => {
           );
           setCustomer(company_data[0]);
           setIsLoading(1);
-          console.log(company_data[0]);
-        } else {
-          console.log("No Data");
         }
       } catch (e) {
         console.error(e);
