@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import StatusBadge from "./StatusBadge";
 import { motion } from "framer-motion";
 import WORowsDialog from "./WORows/WORowsDialog";
@@ -106,11 +106,13 @@ const WORows = ({
         </td>
       </tr>
       {dialogStatus && (
-        <WORowsDialog
-          visible={dialogStatus}
-          onHide={handleWODialog}
-          id={item.id}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <WORowsDialog
+            visible={dialogStatus}
+            onHide={handleWODialog}
+            id={item.id}
+          />
+        </Suspense>
       )}
     </>
   );
