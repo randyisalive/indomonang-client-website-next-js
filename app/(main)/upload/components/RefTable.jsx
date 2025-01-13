@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import SubmitDialog from "./SubmitDialog";
 import useUploadDocumentData from "../hooks/useUploadDocumentData";
+import { Message } from "primereact/message";
 
 const RefTable = ({
   datas = [],
@@ -52,7 +53,8 @@ const RefTable = ({
   const openData = datas.filter((x) => x[2267] === "Open");
   return (
     <React.Fragment>
-      {item && (
+      {console.log(item)}
+      {datas.length > 0 && (
         <div className="mx-5 sm:mx-0 w-1 sm:w-2  flex flex-col gap-2  text-sm mt-10 mb-3">
           <span className="font-bold text-sm">Completed Status:</span>
           <motion.div
@@ -70,7 +72,7 @@ const RefTable = ({
           </motion.div>
         </div>
       )}
-      <div className="relative flex m-5 sm:m-0 overflow-x-auto shadow-lg  flex-col">
+      <div className="relative flex m-5 sm:m-0 overflow-x-auto  flex-col">
         {isLoading ? (
           <div className="absolute  left-1/2 top-1/2 z-50 transform -translate-x-1/2 -translate-y-1/2">
             <i className="pi pi-spinner pi-spin text-5xl"></i>
@@ -84,65 +86,76 @@ const RefTable = ({
             className="pi pi-lock opacity-50 text-8xl absolute left-1/2 top-1/2 z-50 transform -translate-x-1/2 -translate-y-1/2"
           ></motion.i>
         ) : null}
-        <table
-          className={
-            isLoading || item.name === "Completed"
-              ? "min-w-full shadow-md  text-sm  cursor-not-allowed"
-              : "min-w-full shadow-md text-sm"
-          }
-        >
-          <thead style={{ backgroundColor: "#f3f4f6" }}>
-            <tr>
-              {th_array.map((th, index) => (
-                <th key={index} className="py-3 px-4 text-center border">
-                  {th}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {currentRows.map((i, index) => (
-              <React.Fragment key={index}>
-                <tr>
-                  <td className="border px-4 py-2 text-center">{index + 1}</td>
-                  <td className="border px-4 py-2 text-center">
-                    <StatusBadge
-                      title={`${i[2267]}`}
-                      font_color={i[2267] === "Uploaded" ? "" : "white"}
-                      bg_color={i[2267] === "Uploaded" ? "#BFC9CA" : "#00C49A"}
-                    />
-                  </td>
-                  <td className="border px-4 py-2 text-center">{i[2264]}</td>
-                  <td className="border px-4 py-2 text-center">{i[2265]}</td>
-                  <td className="border px-4 py-2 text-center">
-                    {i[2266] != "" ? (
-                      <div className="flex gap-2 items-center">
-                        <span className="w-full text-left">{i[2266]}</span>
-                        {item.name === "Generated" ? (
-                          <i
-                            className="pi pi-times cursor-pointer text-red-400"
-                            onClick={() => deleteAttachmentBtn(i.id)}
-                          ></i>
-                        ) : null}
-                      </div>
-                    ) : (
-                      <>
-                        <div className="relative flex w-full flex-col justify-center items-center ">
-                          <i className="pi pi-upload cursor-pointer text-xl "></i>
-                          <input
-                            type="file"
-                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                            onChange={(e) => FileHandler(e, i.id)}
-                          />
+        {datas.length > 0 && (
+          <table
+            className={
+              isLoading || item.name === "Completed"
+                ? "min-w-full shadow-md  text-sm  cursor-not-allowed"
+                : "min-w-full shadow-md text-sm"
+            }
+          >
+            <thead style={{ backgroundColor: "#f3f4f6" }}>
+              <tr>
+                {th_array.map((th, index) => (
+                  <th key={index} className="py-3 px-4 text-center border">
+                    {th}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {currentRows.map((i, index) => (
+                <React.Fragment key={index}>
+                  <tr>
+                    <td className="border px-4 py-2 text-center">
+                      {index + 1}
+                    </td>
+                    <td className="border px-4 py-2 text-center">
+                      <StatusBadge
+                        title={`${i[2267]}`}
+                        font_color={i[2267] === "Uploaded" ? "" : "white"}
+                        bg_color={
+                          i[2267] === "Uploaded" ? "#BFC9CA" : "#00C49A"
+                        }
+                      />
+                    </td>
+                    <td className="border px-4 py-2 text-center">{i[2264]}</td>
+                    <td className="border px-4 py-2 text-center">{i[2265]}</td>
+                    <td className="border px-4 py-2 text-center">
+                      {i[2266] != "" ? (
+                        <div className="flex gap-2 items-center">
+                          <span className="w-full text-left">{i[2266]}</span>
+                          {item.name === "Generated" ? (
+                            <i
+                              className="pi pi-times cursor-pointer text-red-400"
+                              onClick={() => deleteAttachmentBtn(i.id)}
+                            ></i>
+                          ) : null}
                         </div>
-                      </>
-                    )}
-                  </td>
-                </tr>
-              </React.Fragment>
-            ))}
-          </tbody>
-        </table>
+                      ) : (
+                        <>
+                          <div className="relative flex w-full flex-col justify-center items-center ">
+                            <i className="pi pi-upload cursor-pointer text-xl "></i>
+                            <input
+                              type="file"
+                              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                              onChange={(e) => FileHandler(e, i.id)}
+                            />
+                          </div>
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                </React.Fragment>
+              ))}
+            </tbody>
+          </table>
+        )}
+        {datas.length == 0 && (
+          <div className="flex w-1/3">
+            <Message text="Data not generated yet" severity="error" />
+          </div>
+        )}
       </div>
 
       {isLoading ? null : (

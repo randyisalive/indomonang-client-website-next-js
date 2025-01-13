@@ -49,6 +49,8 @@ const useWOData = () => {
                   company: item[314],
                   rating: item[2631],
                   date_added: item.date_added,
+                  applicant: item[316],
+                  city: item[1809],
                 };
               })
             );

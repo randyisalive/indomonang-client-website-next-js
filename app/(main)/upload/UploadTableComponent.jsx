@@ -8,16 +8,18 @@ import { AnimatePresence, motion } from "framer-motion";
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import { ProgressSpinner } from "primereact/progressspinner";
 import CheckWOAuth from "./components/CheckWOAuth";
+import { useWoContext } from "../your-orders/context/WoContext";
 
 const UploadTableComponent = () => {
   const {
-    woData,
+    wo,
     getWoBtn,
     refForm,
     setRefForm,
     handleForm,
     requiredDocument,
     FilesUploadHandle,
+    woData,
     deleteAttachmentBtn,
   } = useUploadDocumentData();
 
@@ -31,8 +33,22 @@ const UploadTableComponent = () => {
       <div className="mb-3 mx-5 sm:m-0 flex gap-3">
         <SearchBarUpload ref={refForm} handleRef={handleForm} />
         <WebButton onClickFunction={() => getWoBtn()} />
-      </div>
-
+      </div>{" "}
+      <AnimatePresence mode="wait">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="text-xs text-gray-500 flex gap-1 my-1 mx-5 lg:mx-0"
+        >
+          <span> Ref Number: </span>
+          <div className="flex">
+            {wo.map((item) => {
+              return item.ref_num + ", ";
+            })}
+          </div>
+        </motion.div>
+      </AnimatePresence>
       <CheckWOAuth woData={woData}>
         <AnimatePresence>
           {woData.length > 0 && (
@@ -47,6 +63,7 @@ const UploadTableComponent = () => {
                 </motion.div>
 
                 <table className="min-w-full  rounded-lg text-sm">
+                  {console.log(woData)}
                   <tbody>
                     {woData.map((item, index) => (
                       <React.Fragment key={index}>
@@ -55,7 +72,7 @@ const UploadTableComponent = () => {
                             Reference Number
                           </td>
                           <td className="border px-4 py-2  w-2/3">
-                            {item.refNum}
+                            {item.ref_num}
                           </td>
                         </tr>
                         <tr>
@@ -63,7 +80,7 @@ const UploadTableComponent = () => {
                             Name
                           </td>
                           <td className="border px-4 py-2  w-2/3">
-                            {item.name}
+                            {item.company}
                           </td>
                         </tr>
                         <tr>
@@ -79,7 +96,7 @@ const UploadTableComponent = () => {
                             Proses
                           </td>
                           <td className="border px-4 py-2 w-2/3">
-                            {item.process}
+                            {item.service}
                           </td>
                         </tr>
                         <tr>
@@ -97,8 +114,8 @@ const UploadTableComponent = () => {
                           <td className="border px-4 py-2 w-2/3">
                             <div className="w-1/12">
                               <StatusBadge
-                                title={item.status.title}
-                                bg_color={item.status.color}
+                                title={item.status?.name}
+                                bg_color={item.status?.bg_color}
                                 font_color="white"
                               />
                             </div>
