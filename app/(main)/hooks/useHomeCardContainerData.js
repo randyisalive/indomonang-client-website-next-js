@@ -85,9 +85,9 @@ const useHomeCardContainerData = () => {
 
   useEffect(() => {
     getData();
-  }, [accounts.id, wo]);
+  }, [accounts.id, wo, role]);
 
-  return { cardData, isLoading, role };
+  return { cardData, isLoading, role, accounts };
 };
 
 export default useHomeCardContainerData;

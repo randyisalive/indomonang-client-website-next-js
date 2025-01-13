@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useHomeCardContainerContext } from "@/app/Context/HomeCardContainerContext";
 
 const HomeCardContainer = () => {
-  const { cardData, isLoading, role } = useHomeCardContainerContext();
+  const { cardData, isLoading, role, accounts } = useHomeCardContainerContext();
 
   return (
     <>

@@ -7,10 +7,12 @@ const HomeCardContainerContext = createContext();
 
 // Define a provider component
 export const HomeCardContainerProvider = ({ children }) => {
-  const { cardData, isLoading, role } = useHomeCardContainerData();
+  const { cardData, isLoading, role, accounts } = useHomeCardContainerData();
 
   return (
-    <HomeCardContainerContext.Provider value={{ cardData, isLoading, role }}>
+    <HomeCardContainerContext.Provider
+      value={{ cardData, isLoading, role, accounts }}
+    >
       {children}
     </HomeCardContainerContext.Provider>
   );

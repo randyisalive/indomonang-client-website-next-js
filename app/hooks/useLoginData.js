@@ -72,7 +72,8 @@ const useLoginData = () => {
                   (item) => item[2734] === token
                 );
                 if (filtersAllToken.length > 0) {
-                  nav.push("/");
+                  // nav.push("/");
+                  window.location.href = "/";
                 } else {
                   console.log("No matching token found");
                 }

@@ -12,6 +12,7 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 import "./TicketsNew.css";
 import useWOData from "@/app/hooks/useWOData";
 import { useActiveProductContext } from "@/app/Context/ActiveProductContext";
+import { useTicketContext } from "../context/TicketContext";
 
 const TicketPageNew = () => {
   const {
@@ -25,11 +26,10 @@ const TicketPageNew = () => {
     SubmitTicket,
     ticket_priority,
   } = useTicketNewData();
-  const { wo } = useWOData();
 
   const { activeProduct } = useActiveProductContext();
   const wo_data = activeProduct.map((item) => {
-    return { ref_num: item[2134] };
+    return { ref_num: item.ref_num };
   });
 
   return (

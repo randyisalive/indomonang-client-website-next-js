@@ -15,7 +15,8 @@ const ProfileCard = () => {
   const router = useRouter();
   const Logout = () => {
     localStorage.clear();
-    router.push("/login");
+    //router.push("/login");
+    window.location.href = "/login";
   };
 
   const { customer, isLoading } = useProfileCardContext();

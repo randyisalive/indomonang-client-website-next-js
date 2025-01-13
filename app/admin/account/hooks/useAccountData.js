@@ -75,7 +75,7 @@ function useAccountsData() {
       }
     };
     getData();
-  }, [refresh, user_id]);
+  }, [refresh, user_id, role]);
 
   // handle dialog
   const handleDialog = (item_id, status) => {

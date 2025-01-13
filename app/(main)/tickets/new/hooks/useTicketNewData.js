@@ -1,4 +1,5 @@
 "use client";
+import { useWoContext } from "@/app/(main)/your-orders/context/WoContext";
 import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 import api from "@/app/api/api";
 import { getLocalStorage } from "@/app/function/getLocalStorage";
@@ -20,26 +21,27 @@ const useTicketNewData = () => {
 
   // dec key
   const { accounts, role } = useAccountDataContext();
+  const { wo } = useWoContext();
   const [userId, setUserId] = useState(0);
   useEffect(() => {
     setUserId(accounts.id);
-  }, [accounts.id]);
+    console.log(accounts);
+    console.log(wo);
+  }, [accounts.id, wo]);
 
   // check if wo available by ref
   const [woData, setWoData] = useState([]);
   const getWoData = async () => {
     try {
-      const account_data = await getAccountById(userId);
-      const wo_data = await getWoByRefNum(search);
-      const wo_company = wo_data[0][314];
-      const account_company = account_data[0][2630];
+      const filtered_wo = wo.filter((item) => item.ref_num === search);
+      const wo_company = filtered_wo[0].company;
+      const account_company = accounts.company;
       if (wo_company === account_company) {
-        setWoData(wo_data);
+        setWoData(filtered_wo);
         setForm((prev) => ({
           ...prev,
-          email: account_data[0][2616],
-          name: account_data[0][2614],
-          officer_pic: account_data[0]["created_by"],
+          email: accounts.email,
+          name: accounts.username,
         }));
       }
     } catch (e) {
@@ -57,7 +59,6 @@ const useTicketNewData = () => {
     details: "",
     attachments: [],
     priority: "633",
-    officer_pic: "",
   });
   const ticket_priority = [
     { id: 0, text: "Urgent", bg_color: "#ff0000", value: "633" },
@@ -126,7 +127,6 @@ const useTicketNewData = () => {
         officer_pic,
         priority
       );
-      console.log(insert_ticket);
       if (insert_ticket && form.attachments.length > 0) {
         const id = insert_ticket.id;
         const attachments = form.attachments.map((item) => {
@@ -141,7 +141,7 @@ const useTicketNewData = () => {
         );
       }
 
-      window.location.reload();
+      window.location.href = "/tickets/list";
     } catch (e) {
       console.error(e);
     }
