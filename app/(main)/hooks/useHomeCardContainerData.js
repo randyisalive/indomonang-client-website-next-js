@@ -1,8 +1,8 @@
 "use client";
 import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 import api from "@/app/api/api";
-import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
 import React, { useEffect, useState } from "react";
+import { useWoContext } from "../your-orders/context/WoContext";
 
 const useHomeCardContainerData = () => {
   // api
@@ -14,6 +14,7 @@ const useHomeCardContainerData = () => {
 
   // decryption
   const { accounts, role } = useAccountDataContext();
+  const { wo } = useWoContext();
 
   // get data
   const [cardData, setCardData] = useState([]);
@@ -21,22 +22,18 @@ const useHomeCardContainerData = () => {
   const getData = async () => {
     try {
       if (accounts.id) {
-        const account_data = await getAccountById(accounts.id);
-        let wo_data;
-        if (role === "Admin") {
-          wo_data = await getWoAll();
-        } else {
-          wo_data = await getWoByUserId(account_data[0]["2630_db_value"]);
-        }
-        const finished_order = wo_data.filter(
-          (item) => item[2138] === "Finished"
+        console.log(wo);
+        const finished_order = wo.filter(
+          (item) => item.status?.name === "Finished"
         ).length;
 
-        const wo_array = wo_data.map((item) => {
+        const wo_array = wo.map((item) => {
           return item.id;
         });
-        const onGoingOrder = wo_data.filter((item) =>
-          ["Open", "Drafting", "Checking", "Processing"].includes(item[2138])
+        const onGoingOrder = wo.filter((item) =>
+          ["Open", "Drafting", "Checking", "Processing"].includes(
+            item.status?.name
+          )
         ).length;
 
         const invoice_data = await getInvoiceByWo(wo_array.join(","));
@@ -88,7 +85,7 @@ const useHomeCardContainerData = () => {
 
   useEffect(() => {
     getData();
-  }, [accounts.id]);
+  }, [accounts.id, wo]);
 
   return { cardData, isLoading, role };
 };

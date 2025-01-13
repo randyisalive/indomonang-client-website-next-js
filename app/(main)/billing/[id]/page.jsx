@@ -60,15 +60,7 @@ const BillingDetail = () => {
                           Transaction ID
                         </td>
                         <td className="border px-4 py-2 text-center">
-                          {item[2143]}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="border px-4 py-2 font-bold">
-                          Proof of Payment
-                        </td>
-                        <td className="border px-4 py-2 select-none text-center">
-                          <i className="pi pi-download"></i>
+                          {item.transactions_number}
                         </td>
                       </tr>
 
@@ -77,13 +69,15 @@ const BillingDetail = () => {
                           Amount Paid
                         </td>
                         <td className="border px-4 py-2 text-center text-green-600">
-                          {item[1959]}{" "}
+                          {item.amount_of_payment}
                         </td>
                       </tr>
                       <tr>
-                        <td className="border px-4  py-2 font-bold ">Left</td>
-                        <td className="border px-4 text-center  py-2 text-red-600">
-                          {item[2216]}
+                        <td className="border px-4  py-2 font-bold ">
+                          Date of Payment
+                        </td>
+                        <td className="border px-4 text-center  py-2 ">
+                          {item.date_of_payment}
                         </td>
                       </tr>
                       <tr>

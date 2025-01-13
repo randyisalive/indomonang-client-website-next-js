@@ -1,33 +1,37 @@
 import api from "@/app/api/api";
 import { useParams } from "next/navigation";
 import { use, useEffect, useState } from "react";
+import { useBillingContext } from "../../context/BillingContext";
 
 const useBillingDetailsData = () => {
   // api
   const { PaymentApi, InvoiceApi, WOApi } = api();
   const { id } = useParams();
-  const { getPaymentByNoInvoice, getPaymentById } = PaymentApi();
   const { getInvoiceById } = InvoiceApi();
   const { getWoById } = WOApi();
+
+  // billing context
+  const { bills } = useBillingContext();
   // get datas billing
   const [billing, setBilling] = useState([]);
   const [isLoading, setIsLoading] = useState(0);
   const getBillingData = async () => {
     try {
-      const payment_data = await getPaymentById(id);
-      setBilling(payment_data);
+      //const payment_data = await getPaymentById(bills_array.join(","));
+      const filtered_payment_data = bills.billing_data.filter(
+        (item) => item.id === id
+      );
+      setBilling(filtered_payment_data);
       setIsLoading(1);
       const invoice_data = await getInvoiceById(
-        payment_data[0]["1960_db_value"]
+        filtered_payment_data[0].invoices
       );
-      console.log(invoice_data);
       setInvoice(invoice_data);
       setIsLoading(2);
       const invoice_array = invoice_data.map((item) => {
         return item["1916_db_value"];
       });
       const wo_data = await getWoById(invoice_array.join(","));
-      console.log(payment_data, invoice_data, wo_data);
       setWo(wo_data);
       setIsLoading(3);
     } catch (e) {
@@ -37,7 +41,7 @@ const useBillingDetailsData = () => {
 
   useEffect(() => {
     getBillingData();
-  }, [id]);
+  }, [id, bills]);
   // get datas billing
 
   const [wo, setWo] = useState([]);

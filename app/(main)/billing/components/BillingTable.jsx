@@ -5,9 +5,10 @@ import useBillingData from "../hooks/useBillingData";
 import JsonDisplay from "@/app/components/ui/JsonDisplay";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { motion } from "framer-motion";
+import { useBillingContext } from "../context/BillingContext";
 
 const BillingTable = () => {
-  const { bills, isLoading } = useBillingData();
+  const { bills, isLoading } = useBillingContext();
   const th_array = [
     "No",
     "Transactions Number",

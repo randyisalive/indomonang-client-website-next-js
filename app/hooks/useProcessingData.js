@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/api";
 import { useSearchParams } from "next/navigation";
+import { useWoContext } from "../(main)/your-orders/context/WoContext";
 
 const useProcessingData = () => {
   // api
@@ -18,23 +19,37 @@ const useProcessingData = () => {
   const searchParams = useSearchParams();
   let woId = searchParams.get("id");
 
+  // wo context
+  const { wo } = useWoContext();
+
   // get processing data
   const [processing, setProcessing] = useState([]);
+  const [processingList, setProcessingList] = useState([]);
   const [isLoading, setIsLoading] = useState(0);
   const getProcessing = async () => {
+    setProcessing([]);
     try {
-      if (woId) {
-        const processing_data = await getProcessingDataById(woId);
-        const processing_list_data = await getProcessingListDataById(
-          processing_data[0]["id"]
-        );
-        setProcessing(processing_list_data);
-        if (processing_list_data.length > 0) {
+      const wo_ids = wo.map((item) => {
+        return item.id;
+      });
+      const processing_data = await getProcessingDataById(wo_ids.join(","));
+      console.log(processing_data);
+
+      const processing_array = processing_data.map((item) => {
+        return item.id;
+      });
+      console.log(processing_array); // processing parent
+      const processing_list_data = await getProcessingListDataById(
+        processing_array.join(",")
+      );
+
+      setProcessing(processing_data);
+      setProcessingList(processing_list_data);
+      /* if (processing_list_data.length > 0) {
           setIsLoading(1);
         } else {
           throw new Error("No Data");
-        }
-      }
+        } */
     } catch (e) {
       console.error(e);
       setIsLoading(2);
@@ -43,11 +58,31 @@ const useProcessingData = () => {
 
   useEffect(() => {
     getProcessing();
+  }, [wo]);
+
+  // filtered fetch processing data
+  const [processedData, setProcessedData] = useState([]);
+  useEffect(() => {
+    setProcessedData([]);
+    if (processing.length > 0) {
+      const filtered_processing = processing
+        .filter((item) => item.parent_item_id === woId)
+        .map((i) => i.id);
+      const filtered_documents = processingList.filter(
+        (item) => item.parent_item_id === filtered_processing[0]
+      );
+      console.log(filtered_processing);
+      console.log(filtered_documents);
+      setProcessedData({
+        parent: filtered_processing,
+        document: filtered_documents,
+      });
+    }
   }, [woId]);
 
   // get wo data
-  const [wo, setWo] = useState({ wo: {}, invoice: {} });
-  const getWO = async () => {
+  // const [wo, setWo] = useState({ wo: {}, invoice: {} });
+  /* const getWO = async () => {
     try {
       if (woId) {
         const wo_data = await getWoById(woId);
@@ -57,17 +92,20 @@ const useProcessingData = () => {
     } catch (e) {
       console.error(e);
     }
-  };
+  }; */
 
-  useEffect(() => {
+  /*  useEffect(() => {
     getWO();
-  }, [woId]);
+  }, [woId]); */
 
   // fetch courier
   const [courier, setCourier] = useState([]);
   const getCourier = async () => {
     try {
-      const courier_data = await getCourierByWO(woId);
+      const wo_ids = wo.map((item) => {
+        return item.id;
+      });
+      const courier_data = await getCourierByWO(wo_ids.join(","));
       if (courier_data) {
         setCourier(courier_data);
       }
@@ -78,6 +116,17 @@ const useProcessingData = () => {
 
   useEffect(() => {
     getCourier();
+  }, []);
+
+  // courier filtered data
+  const [filteredCourier, setFilteredCourier] = useState([]);
+  useEffect(() => {
+    const filtered_courier = courier.filter((item) => {
+      const values = item["1778_db_value"].split(",");
+      return values.includes(woId);
+    });
+    console.log("Filtered Courier: ", filtered_courier);
+    setFilteredCourier(filtered_courier);
   }, [woId]);
 
   // download status
@@ -115,10 +164,9 @@ const useProcessingData = () => {
     getProcessing,
     download_attachments,
     downloadStatus,
-    woId,
     isLoading,
-    wo,
-    courier,
+    processedData,
+    filteredCourier,
   };
 };
 

@@ -4,10 +4,17 @@ import useWOData from "@/app/hooks/useWOData";
 import React from "react";
 import { ProgressSpinner } from "primereact/progressspinner";
 import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
+import { useWoContext } from "../context/WoContext";
+import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
+import {
+  useWoDetailContext,
+  WoDetailProvider,
+} from "../context/WoDetailContext";
 
 const WOTable = () => {
-  const { wo, isLoading, handleWODialog, handleRating } = useWOData();
-  const { role } = useDecryptionKeyData();
+  const { wo, isLoading, handleWODialog, handleRating } = useWoContext();
+  const { role } = useAccountDataContext();
+  const { processing } = useWoDetailContext();
   const th_array = [
     "No",
     role === "Admin" ? "Company" : null,

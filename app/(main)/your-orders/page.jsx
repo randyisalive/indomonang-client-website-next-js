@@ -1,6 +1,7 @@
 import React from "react";
 import WOTable from "./components/WOTable";
 import HeaderComponent from "@/app/components/ui/HeaderComponent";
+import { WoDetailProvider } from "./context/WoDetailContext";
 
 const WOList = () => {
   return (
@@ -13,7 +14,9 @@ const WOList = () => {
         ]}
       />
       <div className="my-3">
-        <WOTable />
+        <WoDetailProvider>
+          <WOTable />
+        </WoDetailProvider>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 "use client";
+import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 import api from "@/app/api/api";
 import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
 import React, { useEffect, useState } from "react";
@@ -12,14 +13,14 @@ const useBillingData = () => {
   const { getPaymentByNoInvoice, getPaymentAll } = PaymentApi();
 
   // dec key
-  const { user_id, role } = useDecryptionKeyData();
+  const { accounts, role } = useAccountDataContext();
 
   // get data
   const [bills, setBills] = useState([]);
   const [isLoading, setIsLoading] = useState(0);
   const getData = async () => {
     try {
-      if (user_id != null) {
+      if (accounts.id != null) {
         const bill_status = [
           { id: 0, text: "Paid in Full", bg_color: "#8BC34A" },
           { id: 1, text: "Paid Partially", bg_color: "#F44336" },
@@ -27,7 +28,6 @@ const useBillingData = () => {
 
         if (role === "Admin") {
           const billing_data = await getPaymentAll();
-          console.log(billing_data);
 
           const datas = billing_data.map((item) => {
             return {
@@ -39,6 +39,7 @@ const useBillingData = () => {
               outstanding_balance: item[2216],
               amount_of_payment_int: item[2139] ? item[2139] : 0,
               outstanding_balance_int: item[2212] ? item[2212] : 0,
+              invoices: item["1960_db_value"],
             };
           });
 
@@ -48,7 +49,7 @@ const useBillingData = () => {
           setIsLoading(1);
           return;
         }
-        const user_data = await getAccountById(user_id);
+        const user_data = await getAccountById(accounts.id);
         const wo_data = await getWoByUserId(user_data[0]["2630_db_value"]);
         const wo_array = wo_data.map((item) => {
           return item.id;
@@ -86,7 +87,7 @@ const useBillingData = () => {
 
   useEffect(() => {
     getData();
-  }, [user_id, role]);
+  }, [accounts.id, role]);
   return { bills, isLoading };
 };
 

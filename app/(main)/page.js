@@ -2,7 +2,6 @@ import Footer from "../components/Footer";
 import HomeList from "../components/home/HomeList";
 import ProfileCard from "../components/home/ProfileCard";
 import HeaderComponent from "../components/ui/HeaderComponent";
-import { HomeCardContainerProvider } from "../Context/HomeCardContainerContext";
 import ActiveProducts from "./components/ActiveProducts";
 import HomeCardContainer from "./components/HomeCardContainer";
 

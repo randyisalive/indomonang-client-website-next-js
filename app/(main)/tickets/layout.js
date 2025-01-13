@@ -2,6 +2,7 @@ import React from "react";
 import MainContainer from "../MainContainer";
 import HeaderComponent from "@/app/components/ui/HeaderComponent";
 import TicketNavigation from "./components/TicketNavigation";
+import { TicketProvider } from "./context/TicketContext";
 
 const layout = ({ children }) => {
   const breadcrumbs_array = [
@@ -13,8 +14,7 @@ const layout = ({ children }) => {
     <MainContainer>
       <HeaderComponent title="Tiket" breadcrumbs_array={breadcrumbs_array} />
       <TicketNavigation />
-
-      {children}
+      <TicketProvider> {children}</TicketProvider>
     </MainContainer>
   );
 };

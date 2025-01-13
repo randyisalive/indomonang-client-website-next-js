@@ -9,6 +9,8 @@ import CopyButton from "../../CopyButton";
 import StatusBadge from "../StatusBadge";
 import WebButton from "../../WebButton";
 import { Rating } from "primereact/rating";
+import { useWoContext } from "@/app/(main)/your-orders/context/WoContext";
+import { useWoDetailContext } from "@/app/(main)/your-orders/context/WoDetailContext";
 
 const WORowsDialog = ({
   visible = false,
@@ -16,14 +18,16 @@ const WORowsDialog = ({
   id = 0,
   rating = 0,
 }) => {
+  const { wo } = useWoContext();
   const {
     processing,
+    getProcessing,
     download_attachments,
     downloadStatus,
-    woId,
-    courier,
-    wo,
-  } = useProcessingData();
+    isLoading,
+    processedData,
+    filteredCourier,
+  } = useWoDetailContext();
   const delivery_status = [
     { id: 0, text: "Open", bg_color: "#00C49A" },
     { id: 1, text: "On Delivery", bg_color: "#9cec5b" },
@@ -45,23 +49,23 @@ const WORowsDialog = ({
         <table className="w-full text-xs">
           <tr>
             <td className=" text-gray-400">No. Invoice</td>
-            {wo.invoice.length > 0 && (
+            {/*  {wo.invoice.length > 0 && (
               <td className=" text-end flex justify-end  font-bold">
                 <div className=" w-fit hover:underline text-blue-500 cursor-pointer">
                   {wo.invoice[0][1907]}
                 </div>
               </td>
-            )}
+            )} */}
           </tr>
           <tr>
             <td className=" text-gray-400">Order Date</td>
-            {wo.wo.length > 0 && (
+            {/*  {wo.wo.length > 0 && (
               <td className=" text-end">{wo.wo[0]["date_added"]}</td>
-            )}
+            )} */}
           </tr>
           <tr>
             <td className=" text-gray-400">Ratings</td>
-            {wo.wo.length > 0 && (
+            {/*  {wo.wo.length > 0 && (
               <td className=" flex justify-end">
                 <Rating
                   cancel={false}
@@ -76,14 +80,14 @@ const WORowsDialog = ({
                   }}
                 />
               </td>
-            )}
+            )} */}
           </tr>
         </table>
       </div>
 
       <div className="flex flex-col gap-1 mt-3 ">
         <span className=" text-base font-bold">Delivery Info</span>
-        {courier.map((item) => {
+        {filteredCourier.map((item) => {
           const filtered_status = delivery_status.filter(
             (x) => x.text === item[1547]
           );
@@ -157,12 +161,12 @@ const WORowsDialog = ({
           );
         })}
       </div>
-      {wo.wo.length > 0 && (
+      {processedData && (
         <>
-          {wo.wo[0][311] === "Closed" && (
+          {processedData.parent && (
             <div className="flex flex-col gap-1 mt-3 ">
               <span className=" text-base font-bold">Processed Documents</span>
-              {processing.map((item) => {
+              {processedData.document.map((item) => {
                 return (
                   <table
                     className="w-full text-xs border-t mt-1"

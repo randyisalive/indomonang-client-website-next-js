@@ -10,31 +10,19 @@ const OrderProducts = () => {
       {activeProduct.map((item) => (
         <div key={item.id} className="w-full items-center flex p-2 border-b">
           <div className="w-1/3 flex flex-col">
-            {item[2134]}
+            {item.ref_num}
             <span className="text-xs text-gray-400 font-bold">
-              Date Added: {item.date_added}
+              Date: {item.date_added}
             </span>
-            {role === "Admin" && (
-              <span className="text-xs text-gray-400 font-bold">
-                Created By: {item[309]}
-              </span>
-            )}
           </div>
           <div className="w-1/3">
-            {enquiry_data
-              .filter((x) => x.text === item[2138])
-              .map((i) => {
-                return (
-                  <StatusBadge
-                    key={i}
-                    title={i.text}
-                    bg_color={i.bg_color}
-                    font_color="white"
-                  />
-                );
-              })}
+            <StatusBadge
+              title={item.status?.name}
+              bg_color={item.status?.bg_color}
+              font_color="white"
+            />
           </div>
-          <div className="w-1/3"> {item[674]}</div>
+          <div className="w-1/3"> {item.service}</div>
         </div>
       ))}
     </>

@@ -1,10 +1,18 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import NumberFlow from "@number-flow/react";
 
 const HomeCard = ({ item = {}, role = "" }) => {
   const nav = useRouter();
+  const [count, setCount] = useState(Math.random() * 100);
+  const [prevCount, setPrevCount] = useState(item.count);
+
+  useEffect(() => {
+    setCount(item.count);
+  }, [item.count]);
+
   return (
     <motion.div
       whileHover={{ boxShadow: "0px 0px 10px 1px #9ca3af " }}
@@ -22,7 +30,7 @@ const HomeCard = ({ item = {}, role = "" }) => {
             role === "Admin" ? " text-red-500" : "text-blue-800"
           } `}
         >
-          {item.count}
+          <NumberFlow value={count} format={{ notation: "compact" }} />
         </p>
         <p>{item.sub}</p>
       </div>

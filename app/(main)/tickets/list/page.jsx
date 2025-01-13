@@ -6,9 +6,10 @@ import SearchTerms from "@/app/function/SearchTerms";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
+import { useTicketContext } from "../context/TicketContext";
 
 const TicketListPage = () => {
-  const { tickets } = useTicketListData();
+  const { tickets } = useTicketContext();
   const th_array = [
     "Ticket ID",
     "Status",

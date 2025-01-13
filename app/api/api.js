@@ -677,7 +677,7 @@ const api = () => {
         password: "rendi",
         action: "select",
         entity_id: 101,
-        filters: { parent_item_id: parent_id /* 1839: "495" */ },
+        filters: { parent_item_id: parent_id, 1839: "495" },
       };
       try {
         const response = await fetch(base_url, {

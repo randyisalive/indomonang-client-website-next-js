@@ -1,10 +1,10 @@
 "use client";
 import TableComponent from "@/app/components/ui/TableComponent";
 import React from "react";
-import useInvoiceData from "../hooks/useInvoiceData";
+import { useInvoiceContext } from "../context/InvoiceContext";
 
 const InvoiceTables = () => {
-  const { invoice } = useInvoiceData();
+  const { invoice } = useInvoiceContext();
   const th_array = [
     "No",
     "No. Invoice",

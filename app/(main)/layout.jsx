@@ -5,23 +5,32 @@ import { ProfileCardProvider } from "../Context/ProfileCardContext";
 import { HomeCardContainerProvider } from "../Context/HomeCardContainerContext";
 import { ActiveProductProvider } from "../Context/ActiveProductContext";
 import { RecentNewsProvider } from "../Context/RecentNewsContext";
+import { WoProvider } from "./your-orders/context/WoContext";
+import { BillingProvider } from "./billing/context/BillingContext";
+import { InvoiceProvider } from "./invoice/context/InvoiceContext";
 
 const layout = ({ children }) => {
   return (
     <>
       <WithAuth>
-        <ProfileCardProvider>
-          <HomeCardContainerProvider>
-            <ActiveProductProvider>
-              <RecentNewsProvider>
-                <section className="md:px-6 lg:p-0 ">
-                  <Navbar />
-                  <main className=" min-h-full ">{children}</main>
-                </section>
-              </RecentNewsProvider>
-            </ActiveProductProvider>
-          </HomeCardContainerProvider>
-        </ProfileCardProvider>
+        <WoProvider>
+          <ProfileCardProvider>
+            <HomeCardContainerProvider>
+              <ActiveProductProvider>
+                <RecentNewsProvider>
+                  <BillingProvider>
+                    <InvoiceProvider>
+                      <section className="md:px-6 lg:p-0 ">
+                        <Navbar />
+                        <main className=" min-h-full ">{children}</main>
+                      </section>
+                    </InvoiceProvider>
+                  </BillingProvider>
+                </RecentNewsProvider>
+              </ActiveProductProvider>
+            </HomeCardContainerProvider>
+          </ProfileCardProvider>
+        </WoProvider>
       </WithAuth>
     </>
   );

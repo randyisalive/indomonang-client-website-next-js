@@ -1,5 +1,4 @@
 import React from "react";
-import TableComponent from "../../components/ui/TableComponent";
 import BillingTable from "./components/BillingTable";
 import HeaderComponent from "@/app/components/ui/HeaderComponent";
 
