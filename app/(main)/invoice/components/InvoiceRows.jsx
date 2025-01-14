@@ -30,7 +30,7 @@ const InvoiceRows = ({
         />
       </td>
       <td className="border px-4 py-2 text-center">{item[1914]}</td>
-      <td className="border px-4 py-2 text-center">{item[1911]} Remainings</td>
+      <td className="border px-4 py-2 text-center">{item[1913]}</td>
       <td className="border px-4 py-2">
         <table className="table text-xs w-full">
           <tbody>
