@@ -5,7 +5,7 @@ import { useBillingContext } from "../../context/BillingContext";
 
 const useBillingDetailsData = () => {
   // api
-  const { PaymentApi, InvoiceApi, WOApi } = api();
+  const { InvoiceApi, WOApi } = api();
   const { id } = useParams();
   const { getInvoiceById } = InvoiceApi();
   const { getWoById } = WOApi();
@@ -26,6 +26,8 @@ const useBillingDetailsData = () => {
       const invoice_data = await getInvoiceById(
         filtered_payment_data[0].invoices
       );
+      console.log(invoice_data);
+      console.log(filtered_payment_data);
       setInvoice(invoice_data);
       setIsLoading(2);
       const invoice_array = invoice_data.map((item) => {

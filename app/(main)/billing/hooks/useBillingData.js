@@ -69,6 +69,7 @@ const useBillingData = () => {
             outstanding_balance: item[2216],
             amount_of_payment_int: item[2139] ? item[2139] : 0,
             outstanding_balance_int: item[2212] ? item[2212] : 0,
+            invoices: item["1960_db_value"],
           };
         });
         const outstanding_totals = billing_data.reduce(
