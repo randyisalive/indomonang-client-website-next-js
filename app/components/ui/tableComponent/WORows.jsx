@@ -24,6 +24,7 @@ const WORows = ({
 
   const handleWODialog = () => {
     setDialogStatus(!dialogStatus);
+    router.push("/your-orders");
   };
 
   const handleWODialogRating = () => {

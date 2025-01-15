@@ -25,6 +25,8 @@ const useActiveProductsData = () => {
         const wo_sort = wo.sort((a, b) => b[306] - a[306]);
         setActiveProducts(wo_sort.slice(0, 5));
         setIsLoading(1);
+      } else {
+        setIsLoading(1);
       }
     } catch (e) {
       console.error(e);

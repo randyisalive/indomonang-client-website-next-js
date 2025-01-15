@@ -38,7 +38,6 @@ const useProcessingData = () => {
       const processing_array = processing_data.map((item) => {
         return item.id;
       });
-      console.log(processing_array); // processing parent
       const processing_list_data = await getProcessingListDataById(
         processing_array.join(",")
       );
@@ -71,14 +70,13 @@ const useProcessingData = () => {
       const filtered_documents = processingList.filter(
         (item) => item.parent_item_id === filtered_processing[0]
       );
-      console.log(filtered_processing);
-      console.log(filtered_documents);
+
       setProcessedData({
         parent: filtered_processing,
         document: filtered_documents,
       });
     }
-  }, [woId]);
+  }, [woId, wo]);
 
   // get wo data
   // const [wo, setWo] = useState({ wo: {}, invoice: {} });
@@ -127,7 +125,7 @@ const useProcessingData = () => {
     });
     console.log("Filtered Courier: ", filtered_courier);
     setFilteredCourier(filtered_courier);
-  }, [woId]);
+  }, [woId, wo]);
 
   // download status
   const [downloadStatus, setDownloadStatus] = useState([

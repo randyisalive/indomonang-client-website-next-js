@@ -50,7 +50,7 @@ const BillingDetail = () => {
                           className="text-start ps-6 border text-base"
                           colSpan={2}
                         >
-                          {item[1955]}
+                          P-{item.id}
                         </th>
                       </tr>
                     </thead>
@@ -63,13 +63,24 @@ const BillingDetail = () => {
                           {item.transactions_number}
                         </td>
                       </tr>
-
+                      <tr>
+                        <td className="border px-4 py-2 font-bold">Status</td>
+                        <td className="border px-4 text-center py-2">
+                          <div className=" flex justify-center">
+                            <StatusBadge
+                              title={item.status_name?.text}
+                              bg_color={item.status_name?.bg_color}
+                              font_color="white"
+                            />
+                          </div>
+                        </td>
+                      </tr>
                       <tr>
                         <td className="border px-4 py-2 font-bold ">
-                          Amount Paid
+                          Sub Total
                         </td>
                         <td className="border px-4 py-2 text-center text-green-600">
-                          {item.amount_of_payment}
+                          {item.sub_total}
                         </td>
                       </tr>
                       <tr>
@@ -82,10 +93,19 @@ const BillingDetail = () => {
                       </tr>
                       <tr>
                         <td className="border px-4 py-2 font-bold">
-                          Amount Total
+                          Amount Need To Be Paid
                         </td>
                         <td className="border px-4 text-center py-2 text-blue-600">
-                          {item[2211]}
+                          {item.amount_of_payment}
+                          {console.log(item)}
+                        </td>
+                      </tr>{" "}
+                      <tr>
+                        <td className="border px-4 py-2 font-bold">
+                          Outstanding Payment{" "}
+                        </td>
+                        <td className="border px-4 text-center py-2 text-red-600">
+                          {item.outstanding_balance}
                         </td>
                       </tr>
                     </tbody>

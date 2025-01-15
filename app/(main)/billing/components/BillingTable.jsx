@@ -12,10 +12,12 @@ const BillingTable = () => {
   const th_array = [
     "No",
     "Transactions Number",
+    "Status",
+    "Invoice ID",
     "Date of Payment",
-    "Amount of Payment",
+    "Sub Total",
+    "Amount Need To Be Paid",
     "Outstanding Payment",
-    "Action",
   ];
 
   return (

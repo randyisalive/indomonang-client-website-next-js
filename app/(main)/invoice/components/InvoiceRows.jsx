@@ -1,8 +1,7 @@
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
-import { Rating } from "primereact/rating";
 import React from "react";
-import { motion } from "framer-motion";
 import { invoice_data } from "@/app/function/static_data";
+import { useInvoiceContext } from "../context/InvoiceContext";
 
 const InvoiceRows = ({
   item = {},
@@ -12,13 +11,18 @@ const InvoiceRows = ({
   role = "",
 }) => {
   const status_invoice = invoice_data.filter((x) => x.text === item[1905]);
+  const { handleDownloadInvoice } = useInvoiceContext();
+
   return (
     <tr key={item.id}>
       <td className="border px-4 py-2 text-center">
         {num + 1 + (currentPage - 1) * rowsPerPage}
       </td>
       <td className="border px-4 py-2 text-center ">
-        <span className=" w-fit text-blue-500 cursor-pointer hover:underline">
+        <span
+          className=" w-fit text-blue-500 cursor-pointer hover:underline"
+          onClick={() => handleDownloadInvoice(item.id)}
+        >
           {item[1907]}
         </span>
       </td>

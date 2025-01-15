@@ -55,12 +55,21 @@ const TicketPageNew = () => {
           exit={{ opacity: 0 }}
           className="text-xs text-gray-500 flex gap-1 my-1 mx-5 lg:mx-0"
         >
-          <span> Ref Number: </span>
-          <div className="flex">
-            {wo_data.map((item) => {
-              return item.ref_num + ", ";
-            })}
-          </div>
+          {wo_data.length > 0 ? (
+            <>
+              {" "}
+              <span> Ref Number: </span>
+              <div className="flex">
+                {wo_data.map((item) => {
+                  return item.ref_num + ", ";
+                })}
+              </div>
+            </>
+          ) : (
+            <p className=" text-red-500">
+              Order a service to get a reference number
+            </p>
+          )}
         </motion.div>
       </AnimatePresence>
 

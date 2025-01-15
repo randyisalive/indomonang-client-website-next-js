@@ -11,6 +11,7 @@ import WebButton from "../../WebButton";
 import { Rating } from "primereact/rating";
 import { useWoContext } from "@/app/(main)/your-orders/context/WoContext";
 import { useWoDetailContext } from "@/app/(main)/your-orders/context/WoDetailContext";
+import { useInvoiceContext } from "@/app/(main)/invoice/context/InvoiceContext";
 
 const WORowsDialog = ({
   visible = false,
@@ -28,12 +29,18 @@ const WORowsDialog = ({
     processedData,
     filteredCourier,
   } = useWoDetailContext();
+  const { invoice } = useInvoiceContext();
   const delivery_status = [
     { id: 0, text: "Open", bg_color: "#00C49A" },
     { id: 1, text: "On Delivery", bg_color: "#9cec5b" },
     { id: 2, text: "Closed", bg_color: "#BFC9CA" },
     { id: 3, text: "Canceled", bg_color: "#B6244F" },
   ];
+
+  const invoice_filtered = invoice.filter((item) =>
+    item["1916_db_value"].split(",").includes(id)
+  );
+  const wo_filtered = wo.filter((item) => item.id === id);
 
   return (
     <Dialog
@@ -49,27 +56,27 @@ const WORowsDialog = ({
         <table className="w-full text-xs">
           <tr>
             <td className=" text-gray-400">No. Invoice</td>
-            {/*  {wo.invoice.length > 0 && (
+            {invoice.length > 0 && (
               <td className=" text-end flex justify-end  font-bold">
                 <div className=" w-fit hover:underline text-blue-500 cursor-pointer">
-                  {wo.invoice[0][1907]}
+                  {invoice_filtered[0]?.[1907]}
                 </div>
               </td>
-            )} */}
+            )}
           </tr>
           <tr>
-            <td className=" text-gray-400">Order Date</td>
-            {/*  {wo.wo.length > 0 && (
-              <td className=" text-end">{wo.wo[0]["date_added"]}</td>
-            )} */}
+            <td className=" text-gray-400">Invoice Date</td>
+            {invoice.length > 0 && (
+              <td className=" text-end">{invoice_filtered[0]?.["1912"]}</td>
+            )}
           </tr>
           <tr>
             <td className=" text-gray-400">Ratings</td>
-            {/*  {wo.wo.length > 0 && (
+            {wo.length > 0 && (
               <td className=" flex justify-end">
                 <Rating
                   cancel={false}
-                  value={wo.wo[0][2631]}
+                  value={wo_filtered[0]?.rating}
                   className=" scale-90"
                   readOnly
                   pt={{
@@ -80,7 +87,7 @@ const WORowsDialog = ({
                   }}
                 />
               </td>
-            )} */}
+            )}
           </tr>
         </table>
       </div>

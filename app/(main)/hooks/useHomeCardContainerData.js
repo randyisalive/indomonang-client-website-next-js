@@ -37,8 +37,8 @@ const useHomeCardContainerData = () => {
         ).length;
 
         const invoice_data = await getInvoiceByWo(wo_array.join(","));
-        const unpaid_invoices = invoice_data.filter(
-          (item) => item[1905] === "Open"
+        const unpaid_invoices = invoice_data.filter((item) =>
+          ["Approved", "Delivered", "Arrived to Client"].includes(item[1905])
         ).length;
         let tickets_data;
         if (role === "Admin") {

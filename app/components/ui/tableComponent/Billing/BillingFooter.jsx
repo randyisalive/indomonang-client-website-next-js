@@ -2,23 +2,55 @@
 import React from "react";
 
 const BillingFooter = ({ currentRows = [] }) => {
-  const total_amount_payment = currentRows.reduce((accumulator, item) => {
-    return accumulator + parseInt(item.amount_of_payment_int);
-  }, 0);
-  const total_outstanding_balance = currentRows.reduce((accumulator, item) => {
-    return accumulator + parseInt(item.outstanding_balance_int);
-  }, 0);
+  // Filter rows to remove duplicates based on invoices
+  const filteredRowsOutstanding = currentRows.filter(
+    (item, index, self) =>
+      self.filter((t) => t.invoices === item.invoices) &&
+      item.payment_status?.text === "Open"
+  );
+  const filteredRowsAmountPayment = currentRows.filter(
+    (item, index, self) =>
+      index === self.findIndex((t) => t.invoices === item.invoices)
+  );
+  const open_status = currentRows.filter(
+    (item) => item.payment_status?.text === "Open"
+  );
+
+  // Calculate total amount of payment
+  const total_amount_payment = filteredRowsAmountPayment.reduce(
+    (accumulator, item) => {
+      return accumulator + parseInt(item.amount_of_payment_int);
+    },
+    0
+  );
+
+  // Calculate total outstanding balance
+  const total_outstanding_balance = filteredRowsOutstanding.reduce(
+    (accumulator, item, index, array) => {
+      if (item.payment_status?.text === "Rejected") {
+        return accumulator;
+      }
+      console.log("array:", array);
+
+      const previousItemValue =
+        index > 0 ? parseInt(array[index - 1].outstanding_balance_int) : 0;
+
+      const currentValue = parseInt(item.outstanding_balance_int);
+      return accumulator + (currentValue - previousItemValue);
+    },
+    0
+  );
+
   return (
     <>
       <tr>
-        <td colSpan={3} className="text-end border px-4 py-2"></td>
+        <td colSpan={6} className="text-end border px-4 py-2"></td>
         <td className="border px-4 py-2 text-end font-bold text-blue-600">
           Rp. {`${total_amount_payment.toLocaleString("id-ID")}`} ,-
         </td>
         <td className="border px-4 py-2 text-end font-bold text-red-600">
           Rp. {`${total_outstanding_balance.toLocaleString("id-ID")}`} ,-
         </td>
-        <td className="border px-4 py-2 bg-gray-100"></td>
       </tr>
     </>
   );

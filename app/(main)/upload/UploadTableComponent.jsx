@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import { ProgressSpinner } from "primereact/progressspinner";
 import CheckWOAuth from "./components/CheckWOAuth";
-import { useWoContext } from "../your-orders/context/WoContext";
+import { useActiveProductContext } from "@/app/Context/ActiveProductContext";
 
 const UploadTableComponent = () => {
   const {
@@ -23,6 +23,10 @@ const UploadTableComponent = () => {
     deleteAttachmentBtn,
   } = useUploadDocumentData();
 
+  const { activeProduct } = useActiveProductContext();
+  const wo_data = activeProduct.map((item) => {
+    return { ref_num: item.ref_num };
+  });
   const [dropdown, setDropdown] = useState(false);
   const handleDropdown = () => {
     setDropdown(!dropdown);
@@ -41,12 +45,21 @@ const UploadTableComponent = () => {
           exit={{ opacity: 0 }}
           className="text-xs text-gray-500 flex gap-1 my-1 mx-5 lg:mx-0"
         >
-          <span> Ref Number: </span>
-          <div className="flex">
-            {wo.map((item) => {
-              return item.ref_num + ", ";
-            })}
-          </div>
+          {wo_data.length > 0 ? (
+            <>
+              {" "}
+              <span> Ref Number: </span>
+              <div className="flex">
+                {wo_data.map((item) => {
+                  return item.ref_num + ", ";
+                })}
+              </div>
+            </>
+          ) : (
+            <p className=" text-red-500">
+              Order a service to get a reference number
+            </p>
+          )}
         </motion.div>
       </AnimatePresence>
       <CheckWOAuth woData={woData}>

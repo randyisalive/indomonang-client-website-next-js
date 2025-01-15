@@ -13,7 +13,6 @@ const InvoiceTables = () => {
     "Payment Terms",
     "Amount",
   ];
-  console.log(invoice);
 
   return (
     <div>
