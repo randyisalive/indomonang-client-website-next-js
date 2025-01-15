@@ -3,11 +3,17 @@ import React from "react";
 
 const BillingFooter = ({ currentRows = [] }) => {
   // Filter rows to remove duplicates based on invoices
-  const filteredRowsOutstanding = currentRows.filter(
-    (item, index, self) =>
-      self.filter((t) => t.invoices === item.invoices) &&
-      item.payment_status?.text === "Open"
-  );
+  const filteredRowsOutstanding = currentRows.filter((item, index, self) => {
+    // Check for the last occurrence of each invoice
+    const lastIndex = self
+      .map((t, idx) => (t.invoices === item.invoices ? idx : -1))
+      .filter((i) => i !== -1)
+      .pop();
+    return index === lastIndex && item.payment_status?.text === "Open";
+  });
+
+  console.log(filteredRowsOutstanding);
+
   const filteredRowsAmountPayment = currentRows.filter(
     (item, index, self) =>
       index === self.findIndex((t) => t.invoices === item.invoices)
@@ -36,7 +42,8 @@ const BillingFooter = ({ currentRows = [] }) => {
         index > 0 ? parseInt(array[index - 1].outstanding_balance_int) : 0;
 
       const currentValue = parseInt(item.outstanding_balance_int);
-      return accumulator + (currentValue - previousItemValue);
+      console.log(currentValue, previousItemValue);
+      return currentValue + previousItemValue;
     },
     0
   );
