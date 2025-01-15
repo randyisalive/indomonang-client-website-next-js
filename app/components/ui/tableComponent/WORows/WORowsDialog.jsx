@@ -12,6 +12,7 @@ import { Rating } from "primereact/rating";
 import { useWoContext } from "@/app/(main)/your-orders/context/WoContext";
 import { useWoDetailContext } from "@/app/(main)/your-orders/context/WoDetailContext";
 import { useInvoiceContext } from "@/app/(main)/invoice/context/InvoiceContext";
+import { Message } from "primereact/message";
 
 const WORowsDialog = ({
   visible = false,
@@ -168,7 +169,7 @@ const WORowsDialog = ({
           );
         })}
       </div>
-      {processedData && (
+      {processedData && wo_filtered[0]?.rating != 0 && (
         <>
           {processedData.parent && (
             <div className="flex flex-col gap-1 mt-3 ">
@@ -214,6 +215,11 @@ const WORowsDialog = ({
             </div>
           )}
         </>
+      )}
+      {wo_filtered[0].rating == 0 && (
+        <div className="my-3">
+          <Message text="Rate order first" severity="info" />
+        </div>
       )}
 
       {/*      <div className="flex flex-col gap-1 mt-3 ">
