@@ -9,7 +9,7 @@ const BillingFooter = ({ currentRows = [] }) => {
       .map((t, idx) => (t.invoices === item.invoices ? idx : -1))
       .filter((i) => i !== -1)
       .pop();
-    return index === lastIndex && item.payment_status?.text !== "Rejected";
+    return index === lastIndex && item.payment_status?.text === "Open";
   });
 
   console.log(filteredRowsOutstanding);
