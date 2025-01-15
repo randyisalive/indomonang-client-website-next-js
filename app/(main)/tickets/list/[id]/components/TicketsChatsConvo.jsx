@@ -7,6 +7,7 @@ import { truncateString } from "@/app/function/TruncateString";
 import TextAreaTicket from "./TextAreaTicket";
 import ReplyComponents from "./ReplyComponents";
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
+import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 
 const TicketsChatsConvo = ({
   ticket = [],
@@ -26,7 +27,7 @@ const TicketsChatsConvo = ({
   handleRemoveAttachment = () => {},
   errorMsg = "",
 }) => {
-  const { role } = useDecryptionKeyData();
+  const { role } = useAccountDataContext();
 
   return (
     <div className={`mb-5 rounded-xl flex flex-col gap-10 w-full relative `}>

@@ -8,6 +8,7 @@ import { getLocalStorage } from "@/app/function/getLocalStorage";
 import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
 import { useParams, useSearchParams } from "next/navigation";
 import { v4 } from "uuid";
+import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 
 const useTicketDetailData = () => {
   const { id } = useParams();
@@ -25,7 +26,7 @@ const useTicketDetailData = () => {
   const { getProfilePictureById, getAccountUsername } = CustomerAccountApi();
 
   // decryption
-  const { role, user_id } = useDecryptionKeyData();
+  const { role, accounts } = useAccountDataContext();
   const [isLoading, setIsLoading] = useState(0);
 
   // get data
@@ -39,7 +40,7 @@ const useTicketDetailData = () => {
     setIsLoading(1);
     try {
       const ticket_data = await getTicketById(id);
-      const account_image = await getProfilePictureById(user_id);
+      const account_image = await getProfilePictureById(accounts.id);
       if (account_image) {
         setUserImage(account_image);
       }
@@ -60,11 +61,12 @@ const useTicketDetailData = () => {
         const chats = await Promise.all(
           chat_data.map(async (item) => {
             const image = await getProfilePictureById(item[2767]);
-            const username = await getAccountUsername(user_id);
+            const username = await getAccountUsername(item[2767]);
             const attachment = await getAttachmentById(item.id);
             return {
               id: item.id,
               image: image,
+              user_id: item[2772],
               text: item[2653],
               role: item[2746],
               company: username[0][2630],
@@ -100,7 +102,7 @@ const useTicketDetailData = () => {
   const [userImage, setUserImage] = useState(null);
   useEffect(() => {
     getData();
-  }, [id, user_id]);
+  }, [id, accounts.id]);
 
   // ticket chat
 
@@ -190,7 +192,7 @@ const useTicketDetailData = () => {
         ticket.ticket_data.id,
         form.text,
         role,
-        user_id,
+        accounts.id,
         attachments.upload
       );
 
