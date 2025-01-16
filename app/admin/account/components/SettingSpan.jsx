@@ -29,7 +29,7 @@ const SettingSpan = () => {
     <>
       <div className=" block ">
         <motion.span
-          onClick={() => router.push("/")}
+          onClick={() => (window.location.href = "/")}
           whileHover={`hover`}
           className=" font-bold text-5xl flex items-center gap-3 mb-5 cursor-pointer"
         >
