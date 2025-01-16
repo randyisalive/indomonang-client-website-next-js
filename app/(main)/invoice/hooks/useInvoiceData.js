@@ -33,7 +33,6 @@ const useInvoiceData = () => {
         } else {
           if (company_id) {
             const wo_data = await getWoByUserId(company_id);
-            console.log(wo_data);
 
             let wo_array = [];
             for (const i of wo_data) {

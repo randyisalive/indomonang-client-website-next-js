@@ -14,14 +14,15 @@ import {
 const WOTable = () => {
   const { wo, isLoading, handleWODialog, handleRating } = useWoContext();
   const { role } = useAccountDataContext();
-  const { processing } = useWoDetailContext();
   const th_array = [
     "No",
     role === "Admin" ? "Company" : null,
     "Reference Number",
     "Status",
     "Service",
-    "Estimated Done",
+    "Applicant Name",
+    "Priority",
+    "City / Country",
     "Rate Order",
   ].filter(Boolean);
 

@@ -33,7 +33,7 @@ const BillingDetail = () => {
         >
           <div className="flex items-center gap-2">
             <i className="pi pi-receipt font-light text-xl"></i>
-            <span className="text-xl font-light m-0 p-0">Bills</span>
+            <span className="text-xl font-light m-0 p-0">Payment Detail</span>
           </div>
           <hr />
           <div className="text-sm">

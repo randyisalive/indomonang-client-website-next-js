@@ -8,15 +8,23 @@ const InvoiceTables = () => {
   const th_array = [
     "No",
     "No. Invoice",
-    "Status",
-    "Due Date",
-    "Payment Terms",
+    "Transaction ID",
+    "Date of Payment",
+
     "Amount",
   ];
 
+  const payment_history_data = invoice.filter((item) =>
+    ["Closed"].includes(item[1905])
+  );
+
   return (
     <div>
-      <TableComponent th_array={th_array} datas={invoice} TableType="invoice" />
+      <TableComponent
+        th_array={th_array}
+        datas={payment_history_data}
+        TableType="invoice"
+      />
     </div>
   );
 };

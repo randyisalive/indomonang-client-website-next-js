@@ -7,10 +7,10 @@ const invoicePage = () => {
   return (
     <div className="flex flex-col w-full mx-auto pt-7  sm:px-6, lg:px-0 max-w-screen-xl">
       <HeaderComponent
-        title="Invoices"
+        title="Payment History"
         breadcrumbs_array={[
           { id: 0, text: "Portal Home /", nav: "/" },
-          { id: 1, text: "Invoice", nav: "/invoice" },
+          { id: 1, text: "Payment History", nav: "/invoice" },
         ]}
       />
       <div className="mt-5">

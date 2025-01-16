@@ -1,12 +1,9 @@
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import React from "react";
+import { useInvoiceContext } from "../../invoice/context/InvoiceContext";
 import { invoice_data } from "@/app/function/static_data";
-import { useInvoiceContext } from "../context/InvoiceContext";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { useBillingContext } from "../../billing/context/BillingContext";
 
-const InvoiceRows = ({
+const InvoiceBillsRows = ({
   item = {},
   num = 0,
   currentPage = 0,
@@ -15,10 +12,6 @@ const InvoiceRows = ({
 }) => {
   const status_invoice = invoice_data.filter((x) => x.text === item[1905]);
   const { handleDownloadInvoice } = useInvoiceContext();
-  const payment_id = item[2839].split(" ").pop();
-  const payment_array = payment_id.split(",");
-  console.log(item);
-
   return (
     <tr key={item.id}>
       <td className="border px-4 py-2 text-center">
@@ -26,21 +19,23 @@ const InvoiceRows = ({
       </td>
       <td className="border px-4 py-2 text-center ">
         <span
-          className=" w-fit  cursor-pointer"
+          className=" w-fit text-blue-500 cursor-pointer hover:underline"
           onClick={() => handleDownloadInvoice(item.id)}
         >
           {item[1907]}
         </span>
       </td>
-      <td className="border px-4 py-2 text-center ">
-        <Link href={`/billing/${payment_array[0]}`}>
-          <motion.span className="cursor-pointer hover:underline text-blue-600">
-            {item[2838]}
-          </motion.span>
-        </Link>
+      <td className="border px-4 py-2 ">
+        <div className="w-full flex justify-center">
+          <StatusBadge
+            title={"Unpaid"}
+            bg_color={"#EAD94C"}
+            font_color="white"
+          />
+        </div>
       </td>
-
-      <td className="border px-4 py-2 text-center">{item[2837]}</td>
+      <td className="border px-4 py-2 text-center">{item[1914]}</td>
+      <td className="border px-4 py-2 text-center">{item[1913]}</td>
       <td className="border px-4 py-2">
         <table className="table text-xs w-full">
           <tbody>
@@ -65,4 +60,4 @@ const InvoiceRows = ({
   );
 };
 
-export default InvoiceRows;
+export default InvoiceBillsRows;

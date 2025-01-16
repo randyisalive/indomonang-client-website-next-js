@@ -57,9 +57,9 @@ const BillingFooter = ({ currentRows = [] }) => {
     <>
       <tr>
         <td colSpan={6} className="text-end border px-4 py-2"></td>
-        <td className="border px-4 py-2 text-end font-bold text-blue-600">
+        {/*  <td className="border px-4 py-2 text-end font-bold text-blue-600">
           Rp. {`${total_amount_payment.toLocaleString("id-ID")}`} ,-
-        </td>
+        </td> */}
         <td className="border px-4 py-2 text-end font-bold text-red-600">
           Rp. {`${total_outstanding_balance.toLocaleString("id-ID")}`} ,-
         </td>

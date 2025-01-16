@@ -2,18 +2,94 @@
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import { ATOB } from "@/app/function/decryptor";
 import { useParams } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import "./AccountSettings.css";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { motion } from "framer-motion";
 import CopyButton from "@/app/components/ui/CopyButton";
 import Link from "next/link";
 import { useAccountSettingContext } from "@/app/admin/context/AccountSettingContext";
+import EditButton from "@/app/components/ui/EditButton";
+import api from "@/app/api/api";
+import { InputMask } from "primereact/inputmask";
+import { Dialog } from "primereact/dialog";
+import { InputOtp } from "primereact/inputotp";
+import WebButton from "@/app/components/ui/WebButton";
 
 const AccountSettings = () => {
   const { profile } = useParams();
 
+  //api
+  const { CustomerDatabasApi } = api();
+  const {
+    updateCustomerDataById,
+    getEmailVerification,
+    insertEmailVerification,
+    verifiedEmail,
+  } = CustomerDatabasApi();
+
   const { customer, isLoading } = useAccountSettingContext();
+  const [form, setForm] = useState({
+    address: { val: customer[432], status: false },
+    company_name: { val: customer[228], status: false },
+    contact_person: { val: customer[466], status: false },
+    job_title: { val: customer[471], status: false },
+    email: { val: customer[229], status: false, dialog: false },
+    phone: { val: `+${customer[233]}`, status: false },
+  });
+  const [otp, setOtp] = useState({ val: "", otp: "", id: "" });
+
+  const formHandler = (e, bool) => {
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: { val: e.target.value, status: bool },
+    }));
+  };
+
+  const get_email_verification = async () => {
+    try {
+      const number = await getEmailVerification(customer.id);
+      const selected_number = number.filter(
+        (item) => item[2834] === form.email.val
+      );
+      console.log(selected_number);
+      if (selected_number) {
+        setOtp({
+          otp: selected_number[0][2833],
+          val: "",
+          id: selected_number[0]["id"],
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  const customInput = ({ events, props }) => (
+    <input {...events} {...props} type="text" className="custom-otp-input" />
+  );
+
+  const insert_email_verification = async () => {
+    try {
+      if (form.email?.val != "") {
+        const result = await insertEmailVerification(
+          customer.id,
+          form.email.val
+        );
+        console.log(result);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  const update_customer = async (field_id, value) => {
+    try {
+      const update = await updateCustomerDataById(customer.id, field_id, value);
+      console.log(update, customer.id, value);
+      window.location.reload();
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const decrypt = ATOB(profile);
   if (decrypt === "account") {
@@ -58,7 +134,49 @@ const AccountSettings = () => {
               <tr>
                 <td className="border px-4 py-2 font-bold">Company</td>
                 <td className="border px-4 py-2 ">
-                  {customer[228]} <CopyButton text={customer[228]} />
+                  {!form.company_name?.status ? (
+                    <>
+                      {customer[228]}
+                      <CopyButton text={customer[228]} />
+                      <EditButton
+                        onClickFunction={() => {
+                          setForm((prev) => ({
+                            ...prev,
+                            company_name: { val: customer[228], status: true },
+                          }));
+                        }}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="text"
+                          name="company_name"
+                          value={form.company_name?.val}
+                          className="border w-full p-2"
+                          onChange={(e) => formHandler(e, true)}
+                        />
+                        <EditButton
+                          onClickFunction={() => {
+                            setForm((prev) => ({
+                              ...prev,
+                              company_name: {
+                                val: customer[228],
+                                status: false,
+                              },
+                            }));
+                          }}
+                        />{" "}
+                        <i
+                          className="pi pi-save cursor-pointer hover:text-green-500"
+                          onClick={() =>
+                            update_customer("228", form.company_name?.val)
+                          }
+                        ></i>
+                      </div>
+                    </>
+                  )}
                 </td>
               </tr>
               <tr>
@@ -73,10 +191,47 @@ const AccountSettings = () => {
               </tr>
               <tr>
                 <td className="border px-4 py-2 font-bold">Address</td>
-                <td className="border px-4 py-2 ">
-                  {customer[432]}
-                  <CopyButton text={customer[432]} />
-                </td>
+                {form.address?.status && (
+                  <td className="border px-4 py-2">
+                    <textarea
+                      type="text"
+                      name="address"
+                      className="w-full border resize-none p-2"
+                      value={form.address?.val}
+                      onChange={(e) => formHandler(e, true)}
+                    />
+                    <div className="flex gap-2">
+                      <EditButton
+                        onClickFunction={() => {
+                          setForm((prev) => ({
+                            ...prev,
+                            address: { val: customer[432], status: false },
+                          }));
+                        }}
+                      />
+                      <i
+                        className="pi pi-save cursor-pointer hover:text-green-500"
+                        onClick={() =>
+                          update_customer("432", form.address?.val)
+                        }
+                      ></i>
+                    </div>
+                  </td>
+                )}
+                {!form.address?.status && (
+                  <td className="border px-4 py-2 ">
+                    {customer[432]}
+                    <CopyButton text={customer[432]} />
+                    <EditButton
+                      onClickFunction={() => {
+                        setForm((prev) => ({
+                          ...prev,
+                          address: { val: customer[432], status: true },
+                        }));
+                      }}
+                    />
+                  </td>
+                )}
               </tr>
             </tbody>
           </table>
@@ -96,23 +251,277 @@ const AccountSettings = () => {
             <tbody>
               <tr>
                 <td className="border px-4 py-2 font-bold">Contact Person</td>
-                <td className="border px-4 py-2 ">{customer[466]}</td>
+                <td className="border px-4 py-2 ">
+                  {!form.contact_person?.status ? (
+                    <div className="flex gap-2 items-center">
+                      {customer[466]}
+                      <EditButton
+                        onClickFunction={() => {
+                          setForm((prev) => ({
+                            ...prev,
+                            contact_person: {
+                              val: customer[466],
+                              status: true,
+                            },
+                          }));
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <div className="flex gap-2 items-center">
+                      <input
+                        type="text"
+                        name="contact_person"
+                        value={form.contact_person?.val}
+                        onChange={(e) => formHandler(e, true)}
+                        className="border p-2"
+                      />
+                      <EditButton
+                        onClickFunction={() => {
+                          setForm((prev) => ({
+                            ...prev,
+                            contact_person: {
+                              val: customer[466],
+                              status: false,
+                            },
+                          }));
+                        }}
+                      />
+                      <i
+                        className="pi pi-save cursor-pointer hover:text-green-500"
+                        onClick={() =>
+                          update_customer("466", form.contact_person?.val)
+                        }
+                      ></i>
+                    </div>
+                  )}
+                </td>
               </tr>
               <tr>
                 <td className="border px-4 py-2 font-bold">Job Title</td>
-                <td className="border px-4 py-2 ">{customer[471]}</td>
+                <td className="border px-4 py-2 ">
+                  {!form.job_title?.status ? (
+                    <div className="flex gap-2 items-center">
+                      {customer[471]}
+                      <CopyButton text={customer[471]} />
+                      <EditButton
+                        onClickFunction={() => {
+                          setForm((prev) => ({
+                            ...prev,
+                            job_title: {
+                              val: customer[471],
+                              status: true,
+                            },
+                          }));
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <div className="flex gap-2 items-center">
+                      <input
+                        type="text"
+                        name="job_title"
+                        value={form.job_title?.val}
+                        onChange={(e) => formHandler(e, true)}
+                        className="border p-2"
+                      />
+                      <EditButton
+                        onClickFunction={() => {
+                          setForm((prev) => ({
+                            ...prev,
+                            job_title: {
+                              val: customer[471],
+                              status: false,
+                            },
+                          }));
+                        }}
+                      />
+                      <i
+                        className="pi pi-save cursor-pointer hover:text-green-500"
+                        onClick={() =>
+                          update_customer("471", form.job_title?.val)
+                        }
+                      ></i>
+                    </div>
+                  )}
+                </td>
               </tr>
               <tr>
                 <td className="border px-4 py-2 font-bold">Phone</td>
                 <td className="border px-4 py-2 ">
-                  {customer[233]} <CopyButton text={customer[233]} />
+                  <div>
+                    {customer[233]}
+                    {!form.phone?.status ? (
+                      <>
+                        <CopyButton text={customer[233]} />
+                        <EditButton
+                          onClickFunction={() => {
+                            setForm((prev) => ({
+                              ...prev,
+                              phone: {
+                                val: customer[233],
+                                status: true,
+                              },
+                            }));
+                          }}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <InputMask
+                          value={`${form.phone?.val}`}
+                          onChange={(e) => formHandler(e, true)}
+                          mask="+99-999-9999-9999"
+                          name="phone"
+                          placeholder="+99-999-9999-9999"
+                          className="border p-2"
+                        />{" "}
+                        <EditButton
+                          onClickFunction={() => {
+                            setForm((prev) => ({
+                              ...prev,
+                              phone: {
+                                val: customer[233],
+                                status: false,
+                              },
+                            }));
+                          }}
+                        />{" "}
+                        <i
+                          className="pi pi-save cursor-pointer hover:text-green-500"
+                          onClick={() =>
+                            update_customer("233", form.phone?.val)
+                          }
+                        ></i>
+                      </>
+                    )}
+                  </div>
                 </td>
               </tr>
               <tr>
                 <td className="border px-4 py-2 font-bold">Email</td>
                 <td className="border px-4 py-2 ">
-                  {customer[229]}
-                  <i className=" ms-2 pi pi-copy"></i>
+                  <div className="flex gap-2 items-center">
+                    {!form.email?.status ? (
+                      <>
+                        {customer[229]}
+                        <CopyButton text={customer[229]} />
+                        <EditButton
+                          onClickFunction={() => {
+                            setForm((prev) => ({
+                              ...prev,
+                              email: {
+                                val: customer[229],
+                                status: true,
+                              },
+                            }));
+                          }}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <input
+                          type="email"
+                          name="email"
+                          className="border p-2"
+                          value={form.email?.val}
+                          onChange={(e) => formHandler(e, true)}
+                        />
+                        <EditButton
+                          onClickFunction={() => {
+                            setForm((prev) => ({
+                              ...prev,
+                              email: {
+                                val: customer[229],
+                                status: false,
+                              },
+                            }));
+                          }}
+                        />
+                        <i
+                          className="pi pi-save cursor-pointer hover:text-green-500"
+                          onClick={
+                            () => {
+                              setForm((prev) => ({
+                                ...prev,
+                                email: {
+                                  val: form.email?.val,
+                                  status: true,
+                                  dialog: true,
+                                },
+                              }));
+                              insert_email_verification();
+                              get_email_verification();
+                            }
+                            // update_customer("233", form.phone?.val)
+                          }
+                        ></i>
+
+                        <Dialog
+                          visible={form.email?.dialog}
+                          onHide={() =>
+                            setForm((prev) => ({
+                              ...prev,
+                              email: {
+                                val: form.email?.val,
+                                status: true,
+                                dialog: false,
+                              },
+                            }))
+                          }
+                          header="Email Verification"
+                          className="w-1/3"
+                        >
+                          <div className="p-3 flex flex-col gap-5 items-center">
+                            <style scoped>
+                              {`
+                .custom-otp-input {
+                    width: 40px;
+                    font-size: 36px;
+                    border: 0 none;
+                    appearance: none;
+                    text-align: center;
+                    transition: all 0.2s;
+                    background: transparent;
+                    border-bottom: 2px solid var(--surface-500);
+                }
+
+                .custom-otp-input:focus {
+                    outline: 0 none;
+                    border-bottom-color: var(--primary-color);
+                }
+            `}
+                            </style>
+                            <span>{JSON.stringify(otp)}</span>
+                            <InputOtp
+                              value={otp.val}
+                              onChange={(e) =>
+                                setOtp((prev) => ({ ...prev, val: e.value }))
+                              }
+                              inputTemplate={customInput}
+                              length={5}
+                            />
+                            <WebButton
+                              onClickFunction={() => {
+                                if (otp.otp === otp.val) {
+                                  update_customer("229", form.email?.val);
+                                  setForm((prev) => ({
+                                    ...prev,
+                                    email: {
+                                      val: form.email?.val,
+                                      status: true,
+                                      dialog: false,
+                                    },
+                                  }));
+                                  verifiedEmail(otp.id);
+                                }
+                              }}
+                            />
+                          </div>
+                        </Dialog>
+                      </>
+                    )}
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -132,41 +541,53 @@ const AccountSettings = () => {
             </thead>
             <tbody>
               <tr>
+                <td className="border px-4 py-2 font-bold" colSpan={2}>
+                  <a
+                    href={`./Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Documents`}
+                  >
+                    <div className="flex items-center gap-1 w-fit  cursor-pointer hover:text-blue-500">
+                      <span>Company Documents </span>
+                      <i className="pi pi-angle-right w-fit"></i>
+                    </div>
+                  </a>
+                </td>
+              </tr>
+              <tr>
                 <td className="border px-4 py-2 font-bold">
-                  <Link
+                  <a
                     href={`./Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Expatriate`}
                   >
                     <div className="flex items-center gap-1 w-fit  cursor-pointer hover:text-blue-500">
                       <span>Total Expatriate </span>
                       <i className="pi pi-angle-right w-fit"></i>
                     </div>
-                  </Link>
+                  </a>
                 </td>
                 <td className="border px-4 py-2 ">{customer[1506]}</td>
               </tr>
               <tr>
                 <td className="border px-4 py-2 font-bold">
-                  <Link
+                  <a
                     href={`./Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Dependent`}
                   >
                     <div className="flex items-center gap-1 w-fit  cursor-pointer hover:text-blue-500">
                       <span>Total Dependent </span>
                       <i className="pi pi-angle-right w-fit"></i>
                     </div>
-                  </Link>
+                  </a>
                 </td>
                 <td className="border px-4 py-2 ">{customer[1507]}</td>
               </tr>
               <tr>
                 <td className="border px-4 py-2 font-bold">
-                  <Link
+                  <a
                     href={`./Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Visitors`}
                   >
                     <div className="flex items-center gap-1 w-fit  cursor-pointer hover:text-blue-500">
                       <span>Total Visitors </span>
                       <i className="pi pi-angle-right w-fit"></i>
                     </div>
-                  </Link>
+                  </a>
                 </td>
                 <td className="border px-4 py-2 ">{customer[1508]}</td>
               </tr>

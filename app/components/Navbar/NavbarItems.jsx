@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { BTOA } from "@/app/function/decryptor";
 
 const NavbarItems = ({ onClick = () => {} }) => {
   const navbar_data = [
@@ -20,7 +21,7 @@ const NavbarItems = ({ onClick = () => {} }) => {
       content: [
         { id: 0, text: "Your Orders", link: "/your-orders" },
         { id: 2, text: "Billings List", link: "/billing" },
-        { id: 2, text: "Invoices List", link: "/invoice" },
+        { id: 2, text: "Payment History", link: "/invoice" },
 
         { id: 3, text: "", link: "", line: true },
       ],
@@ -48,6 +49,13 @@ const NavbarItems = ({ onClick = () => {} }) => {
       title: "Buat Tiket",
       dropdown: false,
       link: "/tickets/new",
+      content: [],
+    },
+    {
+      id: 5,
+      title: "Profile",
+      dropdown: false,
+      link: `/admin/account/${BTOA("account")}`,
       content: [],
     },
   ];

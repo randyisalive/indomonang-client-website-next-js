@@ -2,8 +2,9 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import StatusBadge from "./tableComponent/StatusBadge";
+import Link from "next/link";
 
-const DataTable = ({ datas = [], text = "", children }) => {
+const DataTable = ({ datas = [], text = "", children, type = "order" }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
@@ -14,11 +15,22 @@ const DataTable = ({ datas = [], text = "", children }) => {
           className="bg-gray-100 border-b cursor-pointer flex p-2 py-3 items-center rounded-t-lg justify-between"
         >
           <span className="font-bold text-lg">{text}</span>
-          <motion.i
-            initial={{ rotate: 0 }}
-            animate={isOpen ? { rotate: 90 } : { rotate: 0 }}
-            className={`pi pi-angle-right`}
-          ></motion.i>
+          <div className="flex items-center gap-2">
+            {type === "order" && (
+              <Link
+                href={"/your-orders"}
+                className=" hover:underline text-blue-500"
+              >
+                View All
+              </Link>
+            )}
+
+            <motion.i
+              initial={{ rotate: 0 }}
+              animate={isOpen ? { rotate: 90 } : { rotate: 0 }}
+              className={`pi pi-angle-right`}
+            ></motion.i>
+          </div>
         </div>
         <motion.div
           initial={{ height: 0 }}

@@ -41,6 +41,7 @@ const useWOData = () => {
                   id: item.id,
                   ref_num: item[2134],
                   status: status_name[0],
+                  priority: item[321],
                   service: item[674],
                   estimated_done: item[791],
                   status_name: status_name[0]?.name,
@@ -50,6 +51,8 @@ const useWOData = () => {
                   rating: item[2631],
                   date_added: item.date_added,
                   applicant: item[316],
+                  nationality: item[699],
+                  job_title: item[700],
                   city: item[1809],
                 };
               })

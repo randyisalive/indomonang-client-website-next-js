@@ -1,10 +1,8 @@
 "use client";
 import React from "react";
 import { Dialog } from "primereact/dialog";
-import useProcessingData from "@/app/hooks/useProcessingData";
 
 import { Timeline } from "primereact/timeline";
-
 import CopyButton from "../../CopyButton";
 import StatusBadge from "../StatusBadge";
 import WebButton from "../../WebButton";
@@ -42,6 +40,33 @@ const WORowsDialog = ({
     item["1916_db_value"].split(",").includes(id)
   );
   const wo_filtered = wo.filter((item) => item.id === id);
+  const events = [
+    {
+      status: "Open",
+      icon: "pi pi-shopping-cart",
+      color: "#9C27B0",
+    },
+    {
+      status: "Drafting",
+      icon: "pi pi-cog",
+      color: "#673AB7",
+    },
+    {
+      status: "Checking",
+      icon: "pi pi-shopping-cart",
+      color: "#FF9800",
+    },
+    {
+      status: "Processing",
+      icon: "pi pi-check",
+      color: "#607D8B",
+    },
+    {
+      status: "Finished",
+      icon: "pi pi-check",
+      color: "#607D8B",
+    },
+  ];
 
   return (
     <Dialog
@@ -56,25 +81,49 @@ const WORowsDialog = ({
         <span className=" text-base font-bold">Order Details</span>
         <table className="w-full text-xs">
           <tr>
-            <td className=" text-gray-400">No. Invoice</td>
+            <td className=" text-gray-400">Company</td>
             {invoice.length > 0 && (
-              <td className=" text-end flex justify-end  font-bold">
-                <div className=" w-fit hover:underline text-blue-500 cursor-pointer">
-                  {invoice_filtered[0]?.[1907]}
-                </div>
+              <td className=" text-end flex justify-end">
+                <div className=" w-fit ">{wo_filtered[0].company}</div>
               </td>
             )}
           </tr>
           <tr>
-            <td className=" text-gray-400">Invoice Date</td>
+            <td className=" text-gray-400">Service</td>
             {invoice.length > 0 && (
-              <td className=" text-end">{invoice_filtered[0]?.["1912"]}</td>
+              <td className=" text-end flex justify-end">
+                <div className=" w-fit ">{wo_filtered[0].service}</div>
+              </td>
+            )}
+          </tr>
+          <tr>
+            <td className=" text-gray-400">Reference Number</td>
+            {invoice.length > 0 && (
+              <td className=" text-end flex justify-end">
+                <div className=" w-fit ">{wo_filtered[0].ref_num}</div>
+              </td>
+            )}
+          </tr>
+          <tr>
+            <td className=" text-gray-400">City / Country</td>
+            {invoice.length > 0 && (
+              <td className=" text-end flex justify-end">
+                <div className=" w-fit ">{wo_filtered[0].city}</div>
+              </td>
+            )}
+          </tr>{" "}
+          <tr>
+            <td className=" text-gray-400">Priority</td>
+            {invoice.length > 0 && (
+              <td className=" text-end flex justify-end">
+                <div className=" w-fit ">{wo_filtered[0].priority}</div>
+              </td>
             )}
           </tr>
           <tr>
             <td className=" text-gray-400">Ratings</td>
             {wo.length > 0 && (
-              <td className=" flex justify-end">
+              <td className=" flex justify-end items-center">
                 <Rating
                   cancel={false}
                   value={wo_filtered[0]?.rating}
@@ -89,6 +138,55 @@ const WORowsDialog = ({
                 />
               </td>
             )}
+          </tr>
+          <tr>
+            <td className=" text-gray-400">Timeline</td>
+            {wo.length > 0 && (
+              <td className="  flex justify-end pt-3">
+                <div className="flex gap-2">
+                  {events.map((item) => {
+                    return (
+                      <StatusBadge
+                        title={item.status}
+                        bg_color={
+                          item.status === wo_filtered[0]?.status.name
+                            ? item.color
+                            : null
+                        }
+                        font_color={
+                          item.status === wo_filtered[0]?.status.name
+                            ? "white"
+                            : "black"
+                        }
+                      />
+                    );
+                  })}
+                  {console.log(wo_filtered)}
+                </div>
+              </td>
+            )}
+          </tr>
+        </table>
+      </div>
+      <div className="flex flex-col gap-1 mt-3 ">
+        <span className=" text-base font-bold">Applicant Info</span>
+        <table className="w-full text-xs border-t mt-1" cellPadding={5}>
+          <tr>
+            <td className="w-2">Name </td>
+            <td style={{ width: "1px" }}>:</td>
+            <td className="text-start font-bold">
+              {wo_filtered[0]?.applicant}
+            </td>
+          </tr>
+          <tr>
+            <td className="w-2">Nationality</td>
+            <td style={{ width: "1px" }}>:</td>
+            <td className=" font-bold">{wo_filtered[0]?.nationality}</td>
+          </tr>
+          <tr>
+            <td className="w-2">Job Title</td>
+            <td style={{ width: "1px" }}>:</td>
+            <td>{wo_filtered[0]?.job_title}</td>
           </tr>
         </table>
       </div>
@@ -217,7 +315,7 @@ const WORowsDialog = ({
         </>
       )}
       {wo_filtered[0].rating == 0 && (
-        <div className="my-3">
+        <div className="mt-10 mb-10">
           <Message text="Rate order first" severity="info" />
         </div>
       )}

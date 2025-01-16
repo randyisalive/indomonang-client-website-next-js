@@ -561,7 +561,96 @@ const api = () => {
         console.error(e);
       }
     };
-    return { getCustomerDataById };
+    const updateCustomerDataById = async (company_id, field_id, value) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "update",
+        entity_id: 25,
+        data: { [`field_${field_id}`]: value },
+        update_by_field: { id: company_id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    const getEmailVerification = async (parent_item_id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 171,
+        filters: { parent_item_id: parent_item_id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    const insertEmailVerification = async (parent_id, email) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "insert",
+        entity_id: 171,
+        items: {
+          //field_2469: ticket_id,
+          field_2834: email,
+          parent_item_id: parent_id,
+        },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    const verifiedEmail = async (id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "update",
+        entity_id: 171,
+        data: { field_2836: 1 },
+        update_by_field: { id: id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    return {
+      getCustomerDataById,
+      updateCustomerDataById,
+      getEmailVerification,
+      insertEmailVerification,
+      verifiedEmail,
+    };
   };
   const ExpatriateApi = () => {
     const getExpatriateByParentId = async (parent_id) => {
@@ -628,6 +717,28 @@ const api = () => {
       }
     };
     return { getVisitorsByParentId };
+  };
+  const CompanyDocumentApi = () => {
+    const getCompanyDocumentById = async (parent_id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 89,
+        filters: { parent_item_id: parent_id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    return { getCompanyDocumentById };
   };
 
   const ProcessingListApi = () => {
@@ -1353,6 +1464,7 @@ const api = () => {
     FamilyApi,
     VisitorsApi,
     RecentNewsApi,
+    CompanyDocumentApi,
   };
 };
 

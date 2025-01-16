@@ -10,6 +10,7 @@ import BillingFooter from "./tableComponent/Billing/BillingFooter";
 import WOFooter from "./tableComponent/WORows/WOFooter";
 import InvoiceRows from "@/app/(main)/invoice/components/InvoiceRows";
 import InvoiceFooter from "@/app/(main)/invoice/components/InvoiceFooter";
+import InvoiceBillsRows from "@/app/(main)/billing/components/InvoiceBillsRows";
 
 const TableComponent = ({
   th_array = [],
@@ -122,6 +123,18 @@ const TableComponent = ({
                     />
                   </>
                 )}
+                {TableType === "invoice_bills" && (
+                  <>
+                    <InvoiceBillsRows
+                      item={item}
+                      num={index}
+                      currentPage={currentPage}
+                      rowsPerPage={rowsPerPage}
+                      handleWODialog={dialogOnChange}
+                      role={role}
+                    />
+                  </>
+                )}
               </React.Fragment>
             ))}
           </tbody>
@@ -132,9 +145,13 @@ const TableComponent = ({
             {TableType === "wo" && (
               <WOFooter currentRows={currentRows} all_data={datas} />
             )}
-            {TableType === "invoice" && <InvoiceFooter all_data={datas} />}
           </tfoot>
         </table>
+        {TableType === "invoice_bills" && (
+          <div className="my-5 w-fit shadow-md rounded-sm p-3">
+            <InvoiceFooter all_data={currentRows} />
+          </div>
+        )}
         <nav className="mt-4 p-3">
           <ul className="flex justify-center space-x-2">
             {Array.from(

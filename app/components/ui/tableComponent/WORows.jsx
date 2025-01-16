@@ -63,7 +63,9 @@ const WORows = ({
           />
         </td>
         <td className="border px-4 py-2 text-start">{item.service}</td>
-        <td className="border px-4 py-2 text-center">{item.estimated_done}</td>
+        <td className="border px-4 py-2 text-center">{item.applicant}</td>
+        <td className="border px-4 py-2 text-center">{item.priority}</td>
+        <td className="border px-4 py-2 text-center">{item.city}</td>
         <td className="border px-4 py-2 text-center">
           {rating != 0 ? (
             <Rating

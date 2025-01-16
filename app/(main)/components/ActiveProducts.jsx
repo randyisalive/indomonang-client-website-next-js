@@ -15,7 +15,7 @@ const ActiveProducts = ({ text = "", type = "" }) => {
           <Skeleton height="300px" className=" rounded-lg" />
         </div>
       ) : (
-        <DataTable text={text}>
+        <DataTable text={text} type={type}>
           {type === "order" && <OrderProducts />}
           {type === "news" && <NewsProducts />}
         </DataTable>

@@ -4,6 +4,7 @@ import React from "react";
 import ExpatriateList from "./components/ExpatriateList";
 import DependentList from "./components/DependentList";
 import VisitorsList from "./components/VisitorsList";
+import DocumentsList from "./components/DocumentsList";
 
 const AccountDetailPage = () => {
   const { id } = useParams();
@@ -12,6 +13,7 @@ const AccountDetailPage = () => {
       {id === "Expatriate" && <ExpatriateList />}
       {id === "Dependent" && <DependentList />}
       {id === "Visitors" && <VisitorsList />}
+      {id === "Documents" && <DocumentsList />}
     </div>
   );
 };
