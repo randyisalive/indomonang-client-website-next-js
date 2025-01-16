@@ -60,7 +60,7 @@ const useHomeCardContainerData = () => {
             id: 1,
             count: unpaid_invoices,
             sub: "Unpaid Invoices",
-            link: "/invoice",
+            link: "/billing",
           },
           {
             id: 2,
