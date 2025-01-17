@@ -7,6 +7,7 @@ import "primeflex/primeflex.css";
 import { AccountProvider } from "./Context/AccountContext";
 import { AccountDataProvider } from "./admin/context/AccountDataContext";
 import Footer from "./components/Footer";
+import { AccountSettingProvider } from "./admin/context/AccountSettingContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.className} flex flex-col antialiased min-h-screen `}
       >
-        <AccountDataProvider> {children}</AccountDataProvider>
+        <AccountDataProvider>
+          <AccountSettingProvider>{children}</AccountSettingProvider>
+        </AccountDataProvider>
       </body>
     </html>
   );

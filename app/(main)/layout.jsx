@@ -8,6 +8,9 @@ import { RecentNewsProvider } from "../Context/RecentNewsContext";
 import { WoProvider } from "./your-orders/context/WoContext";
 import { BillingProvider } from "./billing/context/BillingContext";
 import { InvoiceProvider } from "./invoice/context/InvoiceContext";
+import ExpatriateListContext, {
+  ExpatriateListProvider,
+} from "../admin/account/[profile]/[id]/context/ExpatriateListContext";
 
 const layout = ({ children }) => {
   return (
@@ -20,10 +23,12 @@ const layout = ({ children }) => {
                 <RecentNewsProvider>
                   <BillingProvider>
                     <InvoiceProvider>
-                      <section className="md:px-6 lg:p-0 ">
-                        <Navbar />
-                        <main className=" min-h-full ">{children}</main>
-                      </section>
+                      <ExpatriateListProvider>
+                        <section className="md:px-6 lg:p-0 ">
+                          <Navbar />
+                          <main className=" min-h-full ">{children}</main>
+                        </section>
+                      </ExpatriateListProvider>
                     </InvoiceProvider>
                   </BillingProvider>
                 </RecentNewsProvider>

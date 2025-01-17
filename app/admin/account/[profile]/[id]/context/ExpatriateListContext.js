@@ -8,14 +8,13 @@ const ExpatriateListContext = createContext();
 
 // Define a provider component
 export const ExpatriateListProvider = ({ children }) => {
-  const { accounts, isLoading } = useAccountDataContext();
-
-  const { expatriates } = useExpatriateListData(accounts.company_id);
+  const { expatriates, expat_notis } = useExpatriateListData();
 
   return (
     <ExpatriateListContext.Provider
       value={{
         expatriates,
+        expat_notis,
       }}
     >
       {children}

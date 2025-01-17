@@ -15,9 +15,7 @@ const AdminLayout = ({ children }) => {
             <SettingSpan />
           </div>
         </div>
-        <AccountSettingProvider>
-          <div className="w-full md:w-2/3 py-24  md:p-24">{children}</div>
-        </AccountSettingProvider>
+        <div className="w-full md:w-2/3 py-24  md:p-24">{children}</div>
       </div>
     </>
   );

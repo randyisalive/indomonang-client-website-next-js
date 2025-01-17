@@ -1,9 +1,9 @@
 import React from "react";
 import NavbarItems from "./Navbar/NavbarItems";
-import Profile from "./Navbar/Profile";
 import Link from "next/link";
 import SmallNavbar from "./Navbar/SmallNavbar";
 import AdminMessage from "./Admin/AdminMessage";
+import Notification from "./Navbar/Notification";
 
 const Navbar = () => {
   return (
@@ -23,8 +23,13 @@ const Navbar = () => {
               <SmallNavbar />
             </div>
           </div>
-          <div className="hidden sm:flex gap-3 flex-wrap items-center">
-            <NavbarItems />
+          <div className="hidden sm:flex gap-3 items-center justify-between">
+            <div className="w-full flex">
+              <NavbarItems />
+            </div>
+            <div className="w-fit">
+              <Notification />
+            </div>
           </div>
         </div>
       </div>

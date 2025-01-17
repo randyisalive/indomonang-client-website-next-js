@@ -1,4 +1,5 @@
 "use client";
+import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 import api from "@/app/api/api";
 import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
 import React, { useEffect, useState } from "react";
@@ -12,25 +13,25 @@ const useProfileCardData = () => {
   const [isLoading, setIsLoading] = useState(0);
 
   // dec key
-  const { user_id } = useDecryptionKeyData();
+  const { accounts } = useAccountDataContext();
   // user data
   useEffect(() => {
     const getData = async () => {
       try {
-        const user_data = await getCompanyById(user_id);
-        if (user_data) {
-          const company_data = await getCustomerDataById(
-            user_data[0]["2630_db_value"]
-          );
-          setCustomer(company_data[0]);
-          setIsLoading(1);
+        console.log(accounts);
+        if (accounts.company_id) {
+          const company_data = await getCustomerDataById(accounts.company_id);
+          if (company_data.length === 1) {
+            setCustomer(company_data[0]);
+            setIsLoading(1);
+          }
         }
       } catch (e) {
         console.error(e);
       }
     };
     getData();
-  }, [user_id]);
+  }, [accounts]);
 
   return { customer, isLoading };
 };

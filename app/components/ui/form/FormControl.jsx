@@ -8,12 +8,14 @@ import useLoginData from "@/app/hooks/useLoginData";
 import { Message } from "primereact/message";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { AnimatePresence, motion } from "framer-motion";
+import api from "@/app/api/api";
 
 const FormControl = ({ children, title = "", className = {} }) => {
   // form api
 
   const { handleForm, form, handleLogin, users, isLoading, handleKeyPress } =
     useLoginData();
+
   return (
     <div className={`border h-fit ${className}`}>
       <section>
@@ -34,6 +36,7 @@ const FormControl = ({ children, title = "", className = {} }) => {
           title="Password"
           placeholder="Password"
           type="password"
+          subtitle="Forgot?"
           subLink="/reset"
           onChange={handleForm}
           name="password"

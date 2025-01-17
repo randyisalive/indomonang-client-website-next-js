@@ -20,18 +20,21 @@ const useDecryptionKeyData = () => {
         if (typeof window !== "undefined") {
           const datas = await getDecryptionKey();
           if (datas) {
-            const dec_key = datas[0][2644];
-            const user_id = decryptMessage(
-              getLocalStorage("id"),
-              datas[0][2644]
-            );
-            const role_data = decryptMessage(
-              getLocalStorage("r"),
-              datas[0][2644]
-            );
+            const dec_key = datas[0]?.[2644];
+            if (getLocalStorage("id") && getLocalStorage("r")) {
+              const user_id = decryptMessage(
+                getLocalStorage("id"),
+                datas[0]?.[2644]
+              );
+              const role_data = decryptMessage(
+                getLocalStorage("r"),
+                datas[0]?.[2644]
+              );
+              setUserId(user_id);
+              setRole(role_data);
+            }
+
             setDecKey(dec_key);
-            setUserId(user_id);
-            setRole(role_data);
           }
         }
       } catch (e) {
@@ -42,14 +45,14 @@ const useDecryptionKeyData = () => {
   }, []);
 
   // Retrieve the decryption key from localStorage (if exists)
-  useEffect(() => {
+  /*   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedDecKey = localStorage.getItem("decKey");
       if (storedDecKey) {
         setDecKey(storedDecKey);
       }
     }
-  }, []);
+  }, []); */
 
   return { decKey, user_id, role };
 };

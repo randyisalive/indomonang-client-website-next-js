@@ -1,26 +1,25 @@
 "use client";
+import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 import api from "@/app/api/api";
 import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
 import React, { useEffect, useState } from "react";
 
 const useAccountSettingsData = () => {
   // api
-  const { CustomerDatabasApi, CustomerAccountApi } = api();
-  const { getAccountById } = CustomerAccountApi();
+  const { CustomerDatabasApi } = api();
   const { getCustomerDataById } = CustomerDatabasApi();
 
   // get data
-  const { user_id } = useDecryptionKeyData();
+  const { accounts } = useAccountDataContext();
   const [customer, setCustomer] = useState([]);
   const [isLoading, setIsLoading] = useState(0);
 
   const getData = async () => {
     try {
-      if (user_id) {
-        const account_data = await getAccountById(user_id);
-        const company_id = account_data[0]["2630_db_value"];
-        const company_data = await getCustomerDataById(company_id);
+      if (accounts.id) {
+        const company_data = await getCustomerDataById(accounts.company_id);
         setCustomer(company_data[0]);
+        console.log(company_data);
         setIsLoading(1);
       } else {
       }
@@ -31,7 +30,7 @@ const useAccountSettingsData = () => {
 
   useEffect(() => {
     getData();
-  }, [user_id]);
+  }, [accounts.id]);
 
   return { customer, isLoading };
 };

@@ -26,7 +26,7 @@ const Form = ({
         {subtitle != "" ? (
           <Link
             href={subLink}
-            className="text-blue-600 cursor-pointer text-sm hover:text-blue-700"
+            className="text-blue-600 cursor-pointer text-sm hover:underline"
           >
             {subtitle}
           </Link>
