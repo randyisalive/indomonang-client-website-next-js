@@ -65,7 +65,7 @@ const Notification = () => {
                 if (item.count > 0) {
                   return (
                     <div
-                      className=" text-md mt-3 flex border items-center  p-3 w-full"
+                      className=" text-md mt-3 flex  items-center  p-3 w-full"
                       key={item.id}
                     >
                       <div className="pe-2">
@@ -95,7 +95,7 @@ const Notification = () => {
                 if (item.count > 0) {
                   return (
                     <div
-                      className=" text-md mt-3 flex border items-center  p-3 w-full"
+                      className=" text-md mt-3 flex  items-center  p-3 w-full"
                       key={item.id}
                     >
                       <div className="pe-2">
@@ -125,7 +125,7 @@ const Notification = () => {
                 if (item.count > 0) {
                   return (
                     <div
-                      className=" text-md mt-3 flex border items-center  p-3 w-full"
+                      className=" text-md mt-3 flex  items-center  p-3 w-full"
                       key={item.id}
                     >
                       <div className="pe-2">
