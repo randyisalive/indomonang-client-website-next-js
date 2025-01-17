@@ -19,4 +19,11 @@ export const invoice_data = [
   { id: 8, text: "Closed", bg_color: "#BFC9CA" },
 ];
 
+export const docuemnts_data = [
+  { id: 0, text: "Expired", bg_color: "#D72638" },
+  { id: 1, text: "Near Expiry 2", bg_color: "#F77F00" },
+  { id: 2, text: "Near Expiry 1", bg_color: "#449dd1" },
+  { id: 3, text: "Active", bg_color: "#28A745" },
+];
+
 export const expatriate_status_data = [{ id: 0 }];

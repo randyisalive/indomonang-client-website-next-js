@@ -1,4 +1,5 @@
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
+import { docuemnts_data } from "@/app/function/static_data";
 import React from "react";
 
 const RptkaCard = (data = {}) => {
@@ -9,7 +10,17 @@ const RptkaCard = (data = {}) => {
           <td className="w-1/3">Status</td>
           <td>:</td>
           <td>
-            <StatusBadge title={data.status} />
+            {docuemnts_data
+              .filter((item) => data.status === item.text)
+              .map((i) => {
+                return (
+                  <StatusBadge
+                    title={i.text}
+                    bg_color={i.bg_color}
+                    font_color="white"
+                  />
+                );
+              })}
           </td>
         </tr>
         <tr>

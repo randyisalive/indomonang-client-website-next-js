@@ -1,4 +1,5 @@
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
+import { docuemnts_data } from "@/app/function/static_data";
 import { truncateString } from "@/app/function/TruncateString";
 import React from "react";
 
@@ -10,7 +11,17 @@ const VisaCard = ({ visaData = {} }) => {
           <td className="w-1/3">Status</td>
           <td>:</td>
           <td>
-            <StatusBadge title={visaData.statusVisa} />
+            {docuemnts_data
+              .filter((item) => visaData.statusVisa === item.text)
+              .map((i) => {
+                return (
+                  <StatusBadge
+                    title={i.text}
+                    bg_color={i.bg_color}
+                    font_color="white"
+                  />
+                );
+              })}
           </td>
         </tr>
         <tr>
