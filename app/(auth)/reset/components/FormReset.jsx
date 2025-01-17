@@ -34,7 +34,7 @@ const FormReset = () => {
           <Message
             text={message.message}
             severity={message.severity}
-            className="w-full scale-75"
+            className="w-full "
           />
         </div>
       )}
