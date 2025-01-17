@@ -97,7 +97,6 @@ const BillingDetail = () => {
                         </td>
                         <td className="border px-4 text-center py-2 text-blue-600">
                           {item.amount_of_payment}
-                          {console.log(item)}
                         </td>
                       </tr>{" "}
                       <tr>

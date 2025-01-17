@@ -33,7 +33,6 @@ const useExpatriateListData = () => {
             count: Object.keys(activeValues).length,
           };
         });
-        console.log(expat_data, notif_data);
         setExpatriates(expat_data);
         setExpatNotis(notif_data);
       }

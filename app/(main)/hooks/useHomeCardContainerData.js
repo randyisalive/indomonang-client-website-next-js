@@ -22,7 +22,6 @@ const useHomeCardContainerData = () => {
   const getData = async () => {
     try {
       if (accounts.id) {
-        console.log(wo);
         const finished_order = wo.filter(
           (item) => item.status?.name === "Finished"
         ).length;

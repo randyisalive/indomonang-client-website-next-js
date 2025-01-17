@@ -17,7 +17,6 @@ const useInvoiceData = () => {
   const getData = async () => {
     try {
       if (accounts.id) {
-        console.log(accounts);
         const company_id = accounts.company_id;
         if (role === "Admin") {
           const wo_data = await getWoAll();
@@ -59,7 +58,6 @@ const useInvoiceData = () => {
   };
   const handleDownloadInvoice = async (id) => {
     const download_invoice = await DownloadInvoices(id);
-    console.log(download_invoice);
 
     if (download_invoice) {
       const binaryString = atob(download_invoice.content);

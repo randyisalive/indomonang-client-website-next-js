@@ -15,7 +15,6 @@ const DocumentsList = ({ visitors = [] }) => {
   ];
 
   const { documentData } = useCompanyDocumentContext();
-  console.log(documentData);
 
   return (
     <table className="min-w-1/2 w-full  text-xs">

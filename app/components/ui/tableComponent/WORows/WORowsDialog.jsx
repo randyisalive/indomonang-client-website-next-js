@@ -161,7 +161,6 @@ const WORowsDialog = ({
                       />
                     );
                   })}
-                  {console.log(wo_filtered)}
                 </div>
               </td>
             )}

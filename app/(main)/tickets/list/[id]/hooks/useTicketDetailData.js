@@ -216,7 +216,6 @@ const useTicketDetailData = () => {
   const updateTicket = async (ticket_id, value) => {
     try {
       const update_ticket = await updateTicketStatus(ticket_id, value);
-      console.log(update_ticket);
       if (update_ticket) {
         getData();
       } else {

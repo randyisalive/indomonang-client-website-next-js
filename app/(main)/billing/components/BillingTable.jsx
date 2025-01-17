@@ -19,7 +19,6 @@ const BillingTable = () => {
     "Payment Terms",
     "Amount",
   ];
-  console.log(invoice);
   const unpaid_invoice = invoice.filter((item) =>
     ["Approved", "Delivered", "Arrived to Client"].includes(item[1905])
   );

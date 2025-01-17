@@ -22,7 +22,6 @@ export const checkPassword = async (password, hashedPassword) => {
 
 export const encryptMessage = (message, key) => {
   const encrypted = CryptoJS.AES.encrypt(message, key).toString();
-  console.log("Encrypted Message:", encrypted);
   return encrypted;
 };
 

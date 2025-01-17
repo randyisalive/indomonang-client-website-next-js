@@ -25,8 +25,6 @@ const useTicketNewData = () => {
   const [userId, setUserId] = useState(0);
   useEffect(() => {
     setUserId(accounts.id);
-    console.log(accounts);
-    console.log(wo);
   }, [accounts.id, wo]);
 
   // check if wo available by ref

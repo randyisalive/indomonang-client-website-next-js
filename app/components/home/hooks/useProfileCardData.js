@@ -18,7 +18,6 @@ const useProfileCardData = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        console.log(accounts);
         if (accounts.company_id) {
           const company_data = await getCustomerDataById(accounts.company_id);
           if (company_data.length === 1) {

@@ -12,7 +12,7 @@ const layout = ({ children }) => {
 
   return (
     <MainContainer>
-      <HeaderComponent title="Tiket" breadcrumbs_array={breadcrumbs_array} />
+      <HeaderComponent title="Ticket" breadcrumbs_array={breadcrumbs_array} />
       <TicketNavigation />
       <TicketProvider> {children}</TicketProvider>
     </MainContainer>

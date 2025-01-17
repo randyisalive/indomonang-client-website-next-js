@@ -12,7 +12,6 @@ import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 
 const ProfileCard = () => {
   const { role } = useAccountDataContext();
-  const router = useRouter();
   const Logout = () => {
     localStorage.clear();
     //router.push("/login");
@@ -42,7 +41,7 @@ const ProfileCard = () => {
             <Link href={`/admin/account`}>
               <WebButton title="Edit" />
             </Link>
-            <WebButton title="Keluar" onClickFunction={Logout} />
+            <WebButton title="Sign out" onClickFunction={Logout} />
             {role === "Admin" && <DebugButton />}
           </div>
         </>

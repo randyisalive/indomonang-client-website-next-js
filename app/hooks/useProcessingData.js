@@ -33,7 +33,6 @@ const useProcessingData = () => {
         return item.id;
       });
       const processing_data = await getProcessingDataById(wo_ids.join(","));
-      console.log(processing_data);
 
       const processing_array = processing_data.map((item) => {
         return item.id;
@@ -123,7 +122,6 @@ const useProcessingData = () => {
       const values = item["1778_db_value"].split(",");
       return values.includes(woId);
     });
-    console.log("Filtered Courier: ", filtered_courier);
     setFilteredCourier(filtered_courier);
   }, [woId, wo]);
 

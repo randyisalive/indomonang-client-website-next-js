@@ -19,7 +19,6 @@ const useFormChangePasswordData = () => {
     const key = decodeURIComponent(searchParams.get("key")).replace(/ /g, "+");
     if (key) {
       const x = decryptMessage(key, decKey);
-      console.log(x);
       if (x) {
         setUserId(x);
       }
@@ -60,7 +59,6 @@ const useFormChangePasswordData = () => {
         }
         const hashed_password = handleHashPassword(form.confirm);
         const change = await changePassword(user_id, hashed_password);
-        console.log(change);
         if (change) {
           window.location.href = "/login";
         } else {

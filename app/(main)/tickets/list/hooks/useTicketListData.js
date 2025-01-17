@@ -23,7 +23,6 @@ const useTicketListData = () => {
         }
         const ticket_data = await getTicketsByUserId(user_id);
         setTickets(ticket_data);
-        console.log(ticket_data);
       } else {
         throw new Error("No user Id");
       }

@@ -52,7 +52,6 @@ const AccountSettings = () => {
       const selected_number = number.filter(
         (item) => item[2834] === form.email.val
       );
-      console.log(selected_number);
       if (selected_number) {
         setOtp({
           otp: selected_number[0][2833],
@@ -75,7 +74,6 @@ const AccountSettings = () => {
           customer.id,
           form.email.val
         );
-        console.log(result);
       }
     } catch (e) {
       console.error(e);
@@ -84,7 +82,6 @@ const AccountSettings = () => {
   const update_customer = async (field_id, value) => {
     try {
       const update = await updateCustomerDataById(customer.id, field_id, value);
-      console.log(update, customer.id, value);
       window.location.reload();
     } catch (e) {
       console.error(e);

@@ -37,7 +37,6 @@ const useUploadDocumentData = () => {
         if (wo.length > 0) {
           const wo_filtered = wo.filter((item) => item.ref_num === refForm);
           setWoData(wo_filtered);
-          console.log(wo_filtered);
           // get required document
           const req_document = await getRequiredDocumentDataByRefNum(refForm);
           const req_document_child =
@@ -46,7 +45,6 @@ const useUploadDocumentData = () => {
             setRequiredDocument([]);
             return;
           }
-          console.log(req_document, req_document_child);
           // parent bg_color
           const parent_bgColor = [
             { id: 0, name: "Open", bg_color: "#00C49A" },
@@ -86,7 +84,6 @@ const useUploadDocumentData = () => {
     const file = e.target.files[0];
     if (id) {
       const base64Content = await readFileAsBase64(file);
-      console.log(requiredDocument);
       try {
         const upload_attachment = await UploadeAttachments(
           file.name,
@@ -109,9 +106,7 @@ const useUploadDocumentData = () => {
       const delete_data = await deleteAttachments(id, 2266);
       if (delete_data) {
         const status = await updateAttachmentStatus(0, id);
-        console.log(status);
         const data = await getWoBtn();
-        console.log(data);
       }
     } catch (e) {
       console.error(e);

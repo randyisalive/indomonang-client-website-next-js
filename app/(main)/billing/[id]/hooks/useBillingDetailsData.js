@@ -12,7 +12,6 @@ const useBillingDetailsData = () => {
 
   // billing context
   const { bills } = useBillingContext();
-  console.log(bills);
   // get datas billing
   const [billing, setBilling] = useState([]);
   const [isLoading, setIsLoading] = useState(0);

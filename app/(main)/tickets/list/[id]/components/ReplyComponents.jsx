@@ -7,7 +7,6 @@ const ReplyComponents = ({
 }) => {
   return (
     <>
-      {console.log(ticket)}
       {ticket.chats_data && (
         <div className="flex flex-col gap-3">
           {ticket.chats_data?.map((item) => {

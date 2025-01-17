@@ -14,7 +14,6 @@ const useCompanyDocumentData = () => {
   const getData = async () => {
     try {
       const document = await getCompanyDocumentById(accounts.company_id);
-      console.log(document);
       if (document) {
         setDocumentData(document);
       }

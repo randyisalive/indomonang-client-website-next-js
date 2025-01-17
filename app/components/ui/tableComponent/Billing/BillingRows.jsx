@@ -29,7 +29,6 @@ const BillingRows = ({
             bg_color={item.payment_status?.bg_color}
             font_color="white"
           />
-          {console.log(item)}
         </div>
       </td>
       <td className="border px-4 py-2">

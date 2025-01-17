@@ -16,7 +16,7 @@ const NavbarItems = ({ onClick = () => {} }) => {
     },
     {
       id: 1,
-      title: "Layanan",
+      title: "Services",
       dropdown: false,
       content: [
         { id: 0, text: "Your Orders", link: "/your-orders" },
@@ -39,21 +39,21 @@ const NavbarItems = ({ onClick = () => {} }) => {
     }, */
     {
       id: 3,
-      title: "Upload Documents",
+      title: "Upload Document",
       link: "/upload",
       dropdown: false,
       content: [],
     },
     {
       id: 4,
-      title: "Buat Tiket",
+      title: "Create A Tiket",
       dropdown: false,
       link: "/tickets/new",
       content: [],
     },
     {
       id: 5,
-      title: "Profile",
+      title: "Your Profile",
       dropdown: false,
       link: `/admin/account/${BTOA("account")}`,
       content: [],

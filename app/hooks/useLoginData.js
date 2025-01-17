@@ -46,7 +46,6 @@ const useLoginData = () => {
         }
         if (user_data && user_data.length > 0) {
           const id = user_data[0]["id"];
-          console.log(user_data);
           const password = user_data[0][2615];
           const email = user_data[0][2616];
           const role = user_data[0][2628];

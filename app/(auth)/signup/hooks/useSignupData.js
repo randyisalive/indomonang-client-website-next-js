@@ -66,7 +66,6 @@ const useSignupData = () => {
         handleVisible(true);
         const code_ver = await getCodeVerification();
         if (code_ver) {
-          console.log(code_ver);
           setDialogForm((prev) => ({ ...prev, code: code_ver[0][2619] }));
         }
       }
@@ -82,7 +81,6 @@ const useSignupData = () => {
       try {
         const company_data = await getAllCompany();
         setCompany(company_data);
-        console.log(company_data);
       } catch (e) {
         console.error(e);
       }
@@ -104,7 +102,6 @@ const useSignupData = () => {
   const getVerification = async () => {
     try {
       const email_verification = await getVerificationByEmail(form.email);
-      console.log(email_verification);
       setDialogLoading(1);
       setTimeout(() => {
         setDialogLoading(2);
@@ -131,7 +128,6 @@ const useSignupData = () => {
 
   const getCodeVerification = async () => {
     const email_verification = await getVerificationByEmail(form.email);
-    console.log(email_verification);
     if (email_verification) {
       setDialogForm((prev) => ({
         ...prev,
@@ -144,7 +140,6 @@ const useSignupData = () => {
   const submitVerification = async () => {
     if (dialogForm.code === dialogForm.code_submit) {
       const update_status = await updateAccountStatus(dialogForm.user_id, 1);
-      console.log(update_status);
       if (update_status) {
         handleVisible(false);
         window.location.href = "/login";

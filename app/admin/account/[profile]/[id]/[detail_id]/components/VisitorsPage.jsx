@@ -3,7 +3,6 @@ import DataCard from "./ui/DataCard";
 
 const VisitorsPage = ({ visitors = [], detail_id = 0 }) => {
   const visitor_data = visitors.filter((item) => item.id === detail_id);
-  console.log(visitor_data);
   return (
     <div className="flex flex-col gap-3 md:flex md:flex-row flex-wrap">
       <DataCard

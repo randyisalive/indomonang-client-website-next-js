@@ -53,7 +53,6 @@ const RefTable = ({
   const openData = datas.filter((x) => x[2267] === "Open");
   return (
     <React.Fragment>
-      {console.log(item)}
       {datas.length > 0 && (
         <div className="mx-5 sm:mx-0 w-1 sm:w-2  flex flex-col gap-2  text-sm mt-10 mb-3">
           <span className="font-bold text-sm">Completed Status:</span>

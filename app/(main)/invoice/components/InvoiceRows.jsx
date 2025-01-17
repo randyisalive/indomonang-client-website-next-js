@@ -17,7 +17,6 @@ const InvoiceRows = ({
   const { handleDownloadInvoice } = useInvoiceContext();
   const payment_id = item[2839].split(" ").pop();
   const payment_array = payment_id.split(",");
-  console.log(item);
 
   return (
     <tr key={item.id}>

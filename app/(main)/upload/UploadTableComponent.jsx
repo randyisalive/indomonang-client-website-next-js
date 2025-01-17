@@ -76,7 +76,6 @@ const UploadTableComponent = () => {
                 </motion.div>
 
                 <table className="min-w-full  rounded-lg text-sm">
-                  {console.log(woData)}
                   <tbody>
                     {woData.map((item, index) => (
                       <React.Fragment key={index}>

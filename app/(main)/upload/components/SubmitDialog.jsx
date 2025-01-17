@@ -74,17 +74,11 @@ const SubmitDialog = ({ ref_num = "" }) => {
   ];
 
   const [agree, setAgree] = useState(null);
-  useEffect(() => {
-    console.log(agree);
-  }, [agree]);
-
-  const router = useRouter();
 
   // submit documents
   const submitAttachment = async () => {
     try {
       const update_status = await updateRequiredListStatus(ref_num);
-      console.log(update_status);
       setTimeout(() => {
         handleDialog(false);
         window.location.href = "/upload";

@@ -6,7 +6,7 @@ const UploadPage = () => {
   return (
     <div className="flex flex-col w-full mx-auto pt-7  sm:px-6, lg:px-0 max-w-screen-xl">
       <HeaderComponent
-        title="Upload Documents"
+        title="Upload Document"
         breadcrumbs="Portal Home / Upload"
       />
       <div className="my-3">

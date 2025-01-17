@@ -17,8 +17,6 @@ const BillingFooter = ({ currentRows = [] }) => {
     return acc;
   }, []);
 
-  console.log(filteredRowsOutstanding);
-
   const filteredRowsAmountPayment = currentRows.filter(
     (item, index, self) =>
       index === self.findIndex((t) => t.invoices === item.invoices)
@@ -45,7 +43,6 @@ const BillingFooter = ({ currentRows = [] }) => {
       const previousItemValue =
         index > 0 ? parseInt(array[index - 1].outstanding_balance_int) : 0;
       const currentValue = parseInt(item.outstanding_balance_int);
-      console.log(currentValue, accumulator, array);
 
       // Adjust the calculation to ensure correct accumulation
       return accumulator + currentValue;

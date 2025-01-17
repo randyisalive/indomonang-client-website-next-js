@@ -92,10 +92,8 @@ function useAccountsData() {
     try {
       setIsLoading(1);
       const update = await updateStatusAccount(item_id, val);
-      console.log(update);
       if (update) {
         setRefresh(!refresh);
-        console.log(refresh);
         setTimeout(() => setIsLoading(0), 1000);
       }
     } catch (e) {
