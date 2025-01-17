@@ -20,8 +20,8 @@ const BillingDetail = () => {
   return (
     <div className="flex flex-col  w-full mx-auto pt-7 mb-10 sm:px-6, lg:px-0 max-w-screen-xl">
       <HeaderComponent
-        title="Billing Details"
-        breadcrumbs={`Portal Home / Billing / P-${id}`}
+        title="Payment Details"
+        breadcrumbs={`Portal Home / Payment History / P-${id}`}
         breadcrumbs_array={breadcrumbs_array}
       />
       {isLoading > 0 ? (
