@@ -2,6 +2,7 @@ import React from "react";
 import { useVisitorsListContext } from "../context/VisitorsListContext";
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import Link from "next/link";
+import { docuemnts_data } from "@/app/function/static_data";
 
 const VisitorsList = () => {
   const th_array = ["Status", "Name", "Gender", "Nationality"];
@@ -34,7 +35,17 @@ const VisitorsList = () => {
           return (
             <tr key={item.id}>
               <td className="border px-4 py-2 font-bold">
-                <StatusBadge title={item[1454]} />
+                <div className=" flex w-full justify-center items-center">
+                  {docuemnts_data
+                    .filter((i) => i.text === item[1454])
+                    .map((i) => (
+                      <StatusBadge
+                        title={i.text}
+                        bg_color={i.bg_color}
+                        font_color="white"
+                      />
+                    ))}
+                </div>
               </td>
               <td className="border px-4 py-2 text-blue-500 hover:underline cursor-pointer">
                 <div>

@@ -6,7 +6,6 @@ const PassportCard = ({ passportData = {} }) => {
   return (
     <table className="min-w-full mt-3 text-sm" cellPadding={5}>
       <tbody>
-        {console.log(passportData)}
         <tr>
           <td className="w-1/3">Status</td>
           <td>:</td>
@@ -40,10 +39,18 @@ const PassportCard = ({ passportData = {} }) => {
           <td>{passportData.expiredDate}</td>
         </tr>
         <tr>
+          <td className="w-1/3"> Remaining Days</td>
+          <td>:</td>
+          <td>{passportData.ymd}</td>
+        </tr>
+        <tr>
           <td className="w-1/3">Passport</td>
           <td>:</td>
           <td>
-            <label htmlFor="" className=" text-blue-500">
+            <label
+              htmlFor=""
+              className=" text-blue-500 cursor-pointer hover:underline"
+            >
               <td>{passportData.attachment}</td>
             </label>
           </td>

@@ -47,9 +47,7 @@ const VisaCard = ({ visaData = {} }) => {
         <tr>
           <td className="w-1/3">Remaining Days</td>
           <td>:</td>
-          <td>
-            {visaData.remainingDays} | {visaData.ymd}
-          </td>
+          <td>{visaData.ymd}</td>
         </tr>
         <tr>
           <td className="w-1/3">Visa</td>

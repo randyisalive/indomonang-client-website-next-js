@@ -53,9 +53,7 @@ const KitasCard = ({ kitasData = {} }) => {
           <td className="w-1/3">Remaining Days</td>
           <td>:</td>
           <td>
-            <td>
-              {kitasData.remainingDays} | {kitasData.ymd}
-            </td>
+            <td>{kitasData.ymd}</td>
           </td>
         </tr>
         <tr>

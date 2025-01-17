@@ -46,9 +46,7 @@ const MerpCard = ({ merpData = {} }) => {
         <tr>
           <td className="w-1/3">Remaining Days</td>
           <td>:</td>
-          <td>
-            {merpData.remainingDays} | {merpData.ymd}
-          </td>
+          <td>{merpData.ymd}</td>
         </tr>
         <tr>
           <td className="w-1/3">MERP</td>

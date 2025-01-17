@@ -46,9 +46,7 @@ const StmCard = ({ data = {} }) => {
         <tr>
           <td className="w-1/3">Remaining Days</td>
           <td>:</td>
-          <td>
-            {data.remainingDays} | {data.ymd}
-          </td>
+          <td>{data.ymd}</td>
         </tr>
         <tr>
           <td className="w-1/3">STM</td>
