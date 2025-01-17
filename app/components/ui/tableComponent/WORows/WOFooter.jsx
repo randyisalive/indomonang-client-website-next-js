@@ -1,9 +1,9 @@
-import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
+import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 import React from "react";
 
 const WOFooter = ({ currentRows = [], all_data = [] }) => {
   // role
-  const { role } = useDecryptionKeyData();
+  const { role } = useAccountDataContext();
   const rating_total = all_data
     .filter((item) => item.rating != 0)
     .reduce((acc, item) => {
