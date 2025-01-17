@@ -65,7 +65,7 @@ const Notification = () => {
                 if (item.count > 0) {
                   return (
                     <div
-                      className=" text-md mt-3 flex  items-center  p-3 w-full"
+                      className=" text-md mt-3 flex  items-start  p-3 w-full"
                       key={item.id}
                     >
                       <div className="pe-2">
@@ -73,19 +73,28 @@ const Notification = () => {
                       </div>
                       <div className="w-full relative flex">
                         <div className="flex flex-col">
-                          <Link
-                            className="text-blue-500 hover:underline cursor-pointer"
-                            href={`/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Expatriate/${item.id}`}
-                          >
-                            {item.name}
-                          </Link>
+                          <div className=" flex items-center">
+                            <div className="flex">
+                              <Link
+                                className="text-blue-500 hover:underline cursor-pointer"
+                                href={`/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Expatriate/${item.id}`}
+                              >
+                                {item.name}
+                              </Link>
+                            </div>
+                            <div className=" flex items-center text-xs opacity-50 pt-1">
+                              <span className="px-1">•</span>
+                              <p className="">Expatriate</p>
+                            </div>
+                          </div>
+
                           <span className=" text-xs text-gray-500 opacity-50">
-                            Expatriates
+                            <p className=" text-red-500">
+                              Your document will expire soon. Please renew or
+                              replace them to avoid legal issue
+                            </p>
                           </span>
                         </div>
-
-                        <span className="px-1">•</span>
-                        <p className=" text-red-500">Need Attention!</p>
                       </div>
                     </div>
                   );
@@ -95,7 +104,7 @@ const Notification = () => {
                 if (item.count > 0) {
                   return (
                     <div
-                      className=" text-md mt-3 flex  items-center  p-3 w-full"
+                      className=" text-md mt-3 flex  items-start  p-3 w-full"
                       key={item.id}
                     >
                       <div className="pe-2">
@@ -103,19 +112,28 @@ const Notification = () => {
                       </div>
                       <div className="w-full relative flex">
                         <div className="flex flex-col">
-                          <Link
-                            className="text-blue-500 hover:underline cursor-pointer"
-                            href={`/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Dependent/${item.id}`}
-                          >
-                            {item.name}
-                          </Link>
+                          <div className=" flex items-center">
+                            <div className="flex">
+                              <Link
+                                className="text-blue-500 hover:underline cursor-pointer"
+                                href={`/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Expatriate/${item.id}`}
+                              >
+                                {item.name}
+                              </Link>
+                            </div>
+                            <div className=" flex items-center text-xs opacity-50 pt-1">
+                              <span className="px-1">•</span>
+                              <p className="">Dependent</p>
+                            </div>
+                          </div>
+
                           <span className=" text-xs text-gray-500 opacity-50">
-                            Dependent
+                            <p className=" text-red-500">
+                              Your document will expire soon. Please renew or
+                              replace them to avoid legal issue
+                            </p>
                           </span>
                         </div>
-
-                        <span className="px-1">•</span>
-                        <p className=" text-red-500">Need Attention!</p>
                       </div>
                     </div>
                   );
@@ -125,7 +143,7 @@ const Notification = () => {
                 if (item.count > 0) {
                   return (
                     <div
-                      className=" text-md mt-3 flex  items-center  p-3 w-full"
+                      className=" text-md mt-3 flex  items-start  p-3 w-full"
                       key={item.id}
                     >
                       <div className="pe-2">
@@ -133,19 +151,28 @@ const Notification = () => {
                       </div>
                       <div className="w-full relative flex">
                         <div className="flex flex-col">
-                          <Link
-                            className="text-blue-500 hover:underline cursor-pointer"
-                            href={`/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Visitors/${item.id}`}
-                          >
-                            {item.name}
-                          </Link>
+                          <div className=" flex items-center">
+                            <div className="flex">
+                              <Link
+                                className="text-blue-500 hover:underline cursor-pointer"
+                                href={`/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Expatriate/${item.id}`}
+                              >
+                                {item.name}
+                              </Link>
+                            </div>
+                            <div className=" flex items-center text-xs opacity-50 pt-1">
+                              <span className="px-1">•</span>
+                              <p className="">Visitor</p>
+                            </div>
+                          </div>
+
                           <span className=" text-xs text-gray-500 opacity-50">
-                            Visitor
+                            <p className=" text-red-500">
+                              Your document will expire soon. Please renew or
+                              replace them to avoid legal issue
+                            </p>
                           </span>
                         </div>
-
-                        <span className="px-1">•</span>
-                        <p className=" text-red-500">Need Attention!</p>
                       </div>
                     </div>
                   );

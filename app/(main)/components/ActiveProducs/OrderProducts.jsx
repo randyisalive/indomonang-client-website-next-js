@@ -23,6 +23,7 @@ const OrderProducts = () => {
             />
           </div>
           <div className="w-1/3"> {item.service}</div>
+          <div className="w-1/3"> {item.service}</div>
         </div>
       ))}
     </>

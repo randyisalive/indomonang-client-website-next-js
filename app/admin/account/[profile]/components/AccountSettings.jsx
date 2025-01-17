@@ -532,7 +532,7 @@ const AccountSettings = () => {
             >
               <tr>
                 <th className="text-start ps-6 border text-base" colSpan={2}>
-                  Total Foreign
+                  Document Summary
                 </th>
               </tr>
             </thead>
