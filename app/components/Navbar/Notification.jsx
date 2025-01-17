@@ -56,7 +56,10 @@ const Notification = () => {
             {expat_notis.map((item) => {
               if (item.count > 0) {
                 return (
-                  <div className=" text-md mt-3 flex border items-center  p-3 w-full">
+                  <div
+                    className=" text-md mt-3 flex border items-center  p-3 w-full"
+                    key={item.id}
+                  >
                     <div className="pe-2">
                       <Badge value={item.count} severity="danger" />
                     </div>
