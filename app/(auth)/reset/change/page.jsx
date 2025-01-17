@@ -6,8 +6,7 @@ import FormChangePassword from "./components/FormChangePassword";
 const ResetChildPage = () => {
   return (
     <div>
-      <Navbar />
-      <div className="bg-mainBlue flex lg:justify-center p-5">
+      <div className="bg-mainBlue flex lg:justify-center p-5 h-screen">
         <div className="flex flex-col p-5    lg:w-2/6  border bg-white rounded-md">
           <span className="text-4xl mt-3 font-bold w-full text-center">
             Lost Password Reset
