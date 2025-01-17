@@ -26,6 +26,7 @@ const useLoginData = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(0);
   const [form, setForm] = useState({ email: "", password: "" });
+  const [message, setMessage] = useState("");
 
   const handleForm = (e) => {
     const { name, value } = e.target;
@@ -36,8 +37,13 @@ const useLoginData = () => {
     try {
       setIsLoading(1);
       if (form.email) {
-        console.log("Fetching data for email:", form.email);
         const user_data = await getUserByEmail(form.email);
+        if (user_data.length == 0) {
+          setMessage("No Account Found!");
+          setIsLoading(2);
+          setForm({});
+          return;
+        }
         if (user_data && user_data.length > 0) {
           const id = user_data[0]["id"];
           console.log(user_data);
@@ -82,13 +88,14 @@ const useLoginData = () => {
               }
             }
           } else {
+            setMessage("Wrong Credentials!");
             setIsLoading(2);
           }
-        } else {
-          console.log("No User Found");
         }
       } else {
-        console.error("Email field is empty");
+        setMessage("Form not filled!");
+        setIsLoading(2);
+        setForm({});
       }
     } catch (e) {
       console.error(e);
@@ -115,7 +122,7 @@ const useLoginData = () => {
     }
   }, [form, users]);
 
-  return { handleForm, form, handleLogin: getData, users, isLoading };
+  return { handleForm, form, handleLogin: getData, users, isLoading, message };
 };
 
 export default useLoginData;

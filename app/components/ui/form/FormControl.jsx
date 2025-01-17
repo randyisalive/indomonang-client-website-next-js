@@ -13,8 +13,15 @@ import api from "@/app/api/api";
 const FormControl = ({ children, title = "", className = {} }) => {
   // form api
 
-  const { handleForm, form, handleLogin, users, isLoading, handleKeyPress } =
-    useLoginData();
+  const {
+    handleForm,
+    form,
+    handleLogin,
+    users,
+    isLoading,
+    handleKeyPress,
+    message,
+  } = useLoginData();
 
   return (
     <div className={`border h-fit ${className}`}>
@@ -43,7 +50,7 @@ const FormControl = ({ children, title = "", className = {} }) => {
           value={form.password}
         />
         <AnimatePresence>
-          {isLoading === 2 ? (
+          {isLoading === 2 && message ? (
             <>
               <motion.div
                 initial={{ opacity: 0 }}
@@ -52,7 +59,7 @@ const FormControl = ({ children, title = "", className = {} }) => {
                 className="w-full p-2 text-center"
               >
                 <span className="">
-                  <Message text="Wrong Credentials" severity="error" />
+                  <Message text={message} severity="error" />
                 </span>
               </motion.div>
             </>
