@@ -7,11 +7,12 @@ const DependentListContext = createContext();
 
 // Define a provider component
 export const DependentListProvider = ({ children }) => {
-  const { dependent } = useDependentListData();
+  const { dependent, dependent_notis } = useDependentListData();
   return (
     <DependentListContext.Provider
       value={{
         dependent,
+        dependent_notis,
       }}
     >
       {children}

@@ -3,16 +3,23 @@ import React, { useEffect, useRef, useState } from "react";
 import { useExpatriateListContext } from "@/app/admin/account/[profile]/[id]/context/ExpatriateListContext";
 import { AnimatePresence, motion } from "framer-motion";
 import { Badge } from "primereact/badge";
-import { Message } from "primereact/message";
 import Link from "next/link";
+import { useDependentListContext } from "@/app/admin/account/[profile]/[id]/context/DependentListContext";
+import { useVisitorsListContext } from "@/app/admin/account/[profile]/[id]/context/VisitorsListContext";
 
 const Notification = () => {
   const cm = useRef(null);
-  const { expat_notis, expatriates } = useExpatriateListContext();
+  const { expat_notis } = useExpatriateListContext();
+  const { dependent_notis } = useDependentListContext();
+  const { visitors_notis } = useVisitorsListContext();
 
   const [isOpen, setIsOpen] = useState(false);
-
-  const all_count_notis = expat_notis.reduce((acc, item) => {
+  const all_notis_data = [
+    ...expat_notis,
+    ...dependent_notis,
+    ...visitors_notis,
+  ];
+  const all_count_notis = all_notis_data.reduce((acc, item) => {
     return acc + item.count;
   }, 0);
 
@@ -73,6 +80,66 @@ const Notification = () => {
                         </Link>
                         <span className=" text-xs text-gray-500 opacity-50">
                           Expatriates
+                        </span>
+                      </div>
+
+                      <span className="px-1">•</span>
+                      <p className=" text-red-500">Need Attention!</p>
+                    </div>
+                  </div>
+                );
+              }
+            })}
+            {dependent_notis.map((item) => {
+              if (item.count > 0) {
+                return (
+                  <div
+                    className=" text-md mt-3 flex border items-center  p-3 w-full"
+                    key={item.id}
+                  >
+                    <div className="pe-2">
+                      <Badge value={item.count} severity="danger" />
+                    </div>
+                    <div className="w-full relative flex">
+                      <div className="flex flex-col">
+                        <Link
+                          className="text-blue-500 hover:underline cursor-pointer"
+                          href={`/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Dependent/${item.id}`}
+                        >
+                          {item.name}
+                        </Link>
+                        <span className=" text-xs text-gray-500 opacity-50">
+                          Dependent
+                        </span>
+                      </div>
+
+                      <span className="px-1">•</span>
+                      <p className=" text-red-500">Need Attention!</p>
+                    </div>
+                  </div>
+                );
+              }
+            })}{" "}
+            {visitors_notis.map((item) => {
+              if (item.count > 0) {
+                return (
+                  <div
+                    className=" text-md mt-3 flex border items-center  p-3 w-full"
+                    key={item.id}
+                  >
+                    <div className="pe-2">
+                      <Badge value={item.count} severity="danger" />
+                    </div>
+                    <div className="w-full relative flex">
+                      <div className="flex flex-col">
+                        <Link
+                          className="text-blue-500 hover:underline cursor-pointer"
+                          href={`/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Visitors/${item.id}`}
+                        >
+                          {item.name}
+                        </Link>
+                        <span className=" text-xs text-gray-500 opacity-50">
+                          Visitor
                         </span>
                       </div>
 

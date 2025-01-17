@@ -9,13 +9,14 @@ const VisitorsListContext = createContext();
 
 // Define a provider component
 export const VisitorsListProvider = ({ children }) => {
-  const { visitors } = useVisitorsListData();
+  const { visitors, visitors_notis } = useVisitorsListData();
 
   return (
     <AccountProvider>
       <VisitorsListContext.Provider
         value={{
           visitors,
+          visitors_notis,
         }}
       >
         {children}
