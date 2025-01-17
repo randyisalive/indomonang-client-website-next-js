@@ -60,116 +60,118 @@ const Notification = () => {
             <div className="font-bold flex w-full justify-between p-3 border-b">
               Notifications
             </div>
-            {expat_notis.map((item) => {
-              if (item.count > 0) {
-                return (
-                  <div
-                    className=" text-md mt-3 flex border items-center  p-3 w-full"
-                    key={item.id}
-                  >
-                    <div className="pe-2">
-                      <Badge value={item.count} severity="danger" />
-                    </div>
-                    <div className="w-full relative flex">
-                      <div className="flex flex-col">
-                        <Link
-                          className="text-blue-500 hover:underline cursor-pointer"
-                          href={`/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Expatriate/${item.id}`}
-                        >
-                          {item.name}
-                        </Link>
-                        <span className=" text-xs text-gray-500 opacity-50">
-                          Expatriates
-                        </span>
+            <div className="h-full overflow-y-auto w-full">
+              {expat_notis.map((item) => {
+                if (item.count > 0) {
+                  return (
+                    <div
+                      className=" text-md mt-3 flex border items-center  p-3 w-full"
+                      key={item.id}
+                    >
+                      <div className="pe-2">
+                        <Badge value={item.count} severity="danger" />
                       </div>
+                      <div className="w-full relative flex">
+                        <div className="flex flex-col">
+                          <Link
+                            className="text-blue-500 hover:underline cursor-pointer"
+                            href={`/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Expatriate/${item.id}`}
+                          >
+                            {item.name}
+                          </Link>
+                          <span className=" text-xs text-gray-500 opacity-50">
+                            Expatriates
+                          </span>
+                        </div>
 
-                      <span className="px-1">•</span>
-                      <p className=" text-red-500">Need Attention!</p>
-                    </div>
-                  </div>
-                );
-              }
-            })}
-            {dependent_notis.map((item) => {
-              if (item.count > 0) {
-                return (
-                  <div
-                    className=" text-md mt-3 flex border items-center  p-3 w-full"
-                    key={item.id}
-                  >
-                    <div className="pe-2">
-                      <Badge value={item.count} severity="danger" />
-                    </div>
-                    <div className="w-full relative flex">
-                      <div className="flex flex-col">
-                        <Link
-                          className="text-blue-500 hover:underline cursor-pointer"
-                          href={`/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Dependent/${item.id}`}
-                        >
-                          {item.name}
-                        </Link>
-                        <span className=" text-xs text-gray-500 opacity-50">
-                          Dependent
-                        </span>
+                        <span className="px-1">•</span>
+                        <p className=" text-red-500">Need Attention!</p>
                       </div>
-
-                      <span className="px-1">•</span>
-                      <p className=" text-red-500">Need Attention!</p>
                     </div>
-                  </div>
-                );
-              }
-            })}{" "}
-            {visitors_notis.map((item) => {
-              if (item.count > 0) {
-                return (
-                  <div
-                    className=" text-md mt-3 flex border items-center  p-3 w-full"
-                    key={item.id}
-                  >
-                    <div className="pe-2">
-                      <Badge value={item.count} severity="danger" />
-                    </div>
-                    <div className="w-full relative flex">
-                      <div className="flex flex-col">
-                        <Link
-                          className="text-blue-500 hover:underline cursor-pointer"
-                          href={`/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Visitors/${item.id}`}
-                        >
-                          {item.name}
-                        </Link>
-                        <span className=" text-xs text-gray-500 opacity-50">
-                          Visitor
-                        </span>
+                  );
+                }
+              })}
+              {dependent_notis.map((item) => {
+                if (item.count > 0) {
+                  return (
+                    <div
+                      className=" text-md mt-3 flex border items-center  p-3 w-full"
+                      key={item.id}
+                    >
+                      <div className="pe-2">
+                        <Badge value={item.count} severity="danger" />
                       </div>
+                      <div className="w-full relative flex">
+                        <div className="flex flex-col">
+                          <Link
+                            className="text-blue-500 hover:underline cursor-pointer"
+                            href={`/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Dependent/${item.id}`}
+                          >
+                            {item.name}
+                          </Link>
+                          <span className=" text-xs text-gray-500 opacity-50">
+                            Dependent
+                          </span>
+                        </div>
 
-                      <span className="px-1">•</span>
-                      <p className=" text-red-500">Need Attention!</p>
+                        <span className="px-1">•</span>
+                        <p className=" text-red-500">Need Attention!</p>
+                      </div>
                     </div>
-                  </div>
-                );
-              }
-            })}
-            {all_count_notis === 0 && (
-              <div className=" h-full w-full justify-center flex items-center">
-                <div className="flex flex-col justify-center">
-                  <div className="w-full  flex justify-center">
-                    <img
-                      src="https://static.vecteezy.com/system/resources/thumbnails/023/570/826/small_2x/still-empty-no-notification-yet-concept-illustration-line-icon-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-vector.jpg"
-                      alt=""
-                      width={100}
-                    />
-                  </div>
+                  );
+                }
+              })}{" "}
+              {visitors_notis.map((item) => {
+                if (item.count > 0) {
+                  return (
+                    <div
+                      className=" text-md mt-3 flex border items-center  p-3 w-full"
+                      key={item.id}
+                    >
+                      <div className="pe-2">
+                        <Badge value={item.count} severity="danger" />
+                      </div>
+                      <div className="w-full relative flex">
+                        <div className="flex flex-col">
+                          <Link
+                            className="text-blue-500 hover:underline cursor-pointer"
+                            href={`/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Visitors/${item.id}`}
+                          >
+                            {item.name}
+                          </Link>
+                          <span className=" text-xs text-gray-500 opacity-50">
+                            Visitor
+                          </span>
+                        </div>
 
-                  <span className=" text-center font-bold">
-                    No Notification Yet
-                  </span>
-                  <p className=" text-xs text-center opacity-50 mt-2">
-                    You have no notifications right now. Come back later
-                  </p>
+                        <span className="px-1">•</span>
+                        <p className=" text-red-500">Need Attention!</p>
+                      </div>
+                    </div>
+                  );
+                }
+              })}
+              {all_count_notis === 0 && (
+                <div className=" h-full w-full justify-center flex items-center">
+                  <div className="flex flex-col justify-center">
+                    <div className="w-full  flex justify-center">
+                      <img
+                        src="https://static.vecteezy.com/system/resources/thumbnails/023/570/826/small_2x/still-empty-no-notification-yet-concept-illustration-line-icon-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-vector.jpg"
+                        alt=""
+                        width={100}
+                      />
+                    </div>
+
+                    <span className=" text-center font-bold">
+                      No Notification Yet
+                    </span>
+                    <p className=" text-xs text-center opacity-50 mt-2">
+                      You have no notifications right now. Come back later
+                    </p>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
