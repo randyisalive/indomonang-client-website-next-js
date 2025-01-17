@@ -156,7 +156,7 @@ const Notification = () => {
                   <div className="flex flex-col justify-center">
                     <div className="w-full  flex justify-center">
                       <img
-                        src="https://static.vecteezy.com/system/resources/thumbnails/023/570/826/small_2x/still-empty-no-notification-yet-concept-illustration-line-icon-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-vector.jpg"
+                        src="https://cdni.iconscout.com/illustration/premium/thumb/empty-notification-illustration-download-in-svg-png-gif-file-formats--state-no-states-pack-user-interface-illustrations-8593294.png"
                         alt=""
                         width={100}
                       />
