@@ -350,9 +350,9 @@ const AccountSettings = () => {
                 <td className="border px-4 py-2 font-bold">Phone</td>
                 <td className="border px-4 py-2 ">
                   <div>
-                    {customer[233]}
                     {!form.phone?.status ? (
                       <>
+                        {customer[233]}
                         <CopyButton text={customer[233]} />
                         <EditButton
                           onClickFunction={() => {
