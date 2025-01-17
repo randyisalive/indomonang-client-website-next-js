@@ -150,6 +150,26 @@ const Notification = () => {
                 );
               }
             })}
+            {all_count_notis === 0 && (
+              <div className=" h-full w-full justify-center flex items-center">
+                <div className="flex flex-col justify-center">
+                  <div className="w-full  flex justify-center">
+                    <img
+                      src="https://static.vecteezy.com/system/resources/thumbnails/023/570/826/small_2x/still-empty-no-notification-yet-concept-illustration-line-icon-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-vector.jpg"
+                      alt=""
+                      width={100}
+                    />
+                  </div>
+
+                  <span className=" text-center font-bold">
+                    No Notification Yet
+                  </span>
+                  <p className=" text-xs text-center opacity-50 mt-2">
+                    You have no notifications right now. Come back later
+                  </p>
+                </div>
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
