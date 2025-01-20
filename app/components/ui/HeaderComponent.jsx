@@ -15,11 +15,23 @@ const HeaderComponent = ({
             if (item.nav) {
               return (
                 <li key={item.nav}>
-                  <Link href={item.nav}>{item.text}</Link>
+                  <Link
+                    href={item.nav}
+                    className=" hover:text-blue-500 cursor-pointer"
+                  >
+                    {item.text}
+                  </Link>
                 </li>
               );
             }
-            return <li key={item.nav}>{item.text} </li>;
+            return (
+              <li
+                key={item.nav}
+                className=" hover:text-blue-500 cursor-pointer"
+              >
+                {item.text}{" "}
+              </li>
+            );
           })}
         </ul>
       </div>

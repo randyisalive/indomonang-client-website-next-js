@@ -1,11 +1,9 @@
 "use client";
 import React from "react";
 import { Dialog } from "primereact/dialog";
-
 import { Timeline } from "primereact/timeline";
 import CopyButton from "../../CopyButton";
 import StatusBadge from "../StatusBadge";
-import WebButton from "../../WebButton";
 import { Rating } from "primereact/rating";
 import { useWoContext } from "@/app/(main)/your-orders/context/WoContext";
 import { useWoDetailContext } from "@/app/(main)/your-orders/context/WoDetailContext";
@@ -19,15 +17,8 @@ const WORowsDialog = ({
   rating = 0,
 }) => {
   const { wo } = useWoContext();
-  const {
-    processing,
-    getProcessing,
-    download_attachments,
-    downloadStatus,
-    isLoading,
-    processedData,
-    filteredCourier,
-  } = useWoDetailContext();
+  const { download_attachments, processedData, filteredCourier } =
+    useWoDetailContext();
   const { invoice } = useInvoiceContext();
   const delivery_status = [
     { id: 0, text: "Open", bg_color: "#00C49A" },
@@ -36,37 +27,47 @@ const WORowsDialog = ({
     { id: 3, text: "Canceled", bg_color: "#B6244F" },
   ];
 
-  const invoice_filtered = invoice.filter((item) =>
-    item["1916_db_value"].split(",").includes(id)
-  );
   const wo_filtered = wo.filter((item) => item.id === id);
   const events = [
     {
       status: "Open",
-      icon: "pi pi-shopping-cart",
-      color: "#9C27B0",
+      icon: "pi pi-hourglass",
+      color: "#00C49A",
     },
     {
       status: "Drafting",
-      icon: "pi pi-cog",
-      color: "#673AB7",
+      icon: "pi pi-pencil",
+      color: "#3F612D",
     },
     {
       status: "Checking",
       icon: "pi pi-shopping-cart",
-      color: "#FF9800",
+      color: "#8D80AD",
     },
     {
       status: "Processing",
-      icon: "pi pi-check",
-      color: "#607D8B",
+      icon: "pi pi-spinner",
+      color: "#192bc2",
     },
     {
       status: "Finished",
       icon: "pi pi-check",
-      color: "#607D8B",
+      color: "#BFC9CA",
     },
   ];
+
+  const customizedMarker = (item) => {
+    const markerColor =
+      item.status === wo_filtered[0]?.status?.name ? item.color : "#e5e7eb";
+    return (
+      <span
+        className="flex p-1 align-items-center justify-content-center text-white border-circle  shadow-sm z-10"
+        style={{ backgroundColor: markerColor }}
+      >
+        <i className={`${item.icon} text-xs`}></i>
+      </span>
+    );
+  };
 
   return (
     <Dialog
@@ -111,7 +112,7 @@ const WORowsDialog = ({
                 <div className=" w-fit ">{wo_filtered[0].city}</div>
               </td>
             )}
-          </tr>{" "}
+          </tr>
           <tr>
             <td className=" text-gray-400">Priority</td>
             {invoice.length > 0 && (
@@ -140,14 +141,14 @@ const WORowsDialog = ({
             )}
           </tr>
           <tr>
-            <td className=" text-gray-400">Timeline</td>
-            {wo.length > 0 && (
+            <td className=" text-gray-400 w-full pt-5  align-top">Timeline </td>
+            {/* {wo.length > 0 && (
               <td className="  flex justify-end pt-3">
                 <div className="flex gap-2">
                   {events.map((item) => {
                     return (
                       <StatusBadge
-                        title={item.status}
+                        title={item.sdtatus}
                         bg_color={
                           item.status === wo_filtered[0]?.status.name
                             ? item.color
@@ -163,7 +164,21 @@ const WORowsDialog = ({
                   })}
                 </div>
               </td>
-            )}
+            )} */}
+            <td className=" w-fit flex justify-end pt-5">
+              <Timeline
+                marker={customizedMarker}
+                value={events}
+                className="w-full md:w-20rem text-xs "
+                opposite={(item) => {
+                  const markerColor =
+                    item.status === wo_filtered[0]?.status?.name
+                      ? item.color
+                      : "#e5e7eb";
+                  return <p style={{ color: markerColor }}>{item.status}</p>;
+                }}
+              />
+            </td>
           </tr>
         </table>
       </div>

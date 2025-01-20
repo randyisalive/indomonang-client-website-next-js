@@ -15,6 +15,7 @@ import { InputMask } from "primereact/inputmask";
 import { Dialog } from "primereact/dialog";
 import { InputOtp } from "primereact/inputotp";
 import WebButton from "@/app/components/ui/WebButton";
+import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 
 const AccountSettings = () => {
   const { profile } = useParams();
@@ -26,9 +27,11 @@ const AccountSettings = () => {
     getEmailVerification,
     insertEmailVerification,
     verifiedEmail,
+    deleteEmail,
   } = CustomerDatabasApi();
 
   const { customer, isLoading } = useAccountSettingContext();
+  const { role } = useAccountDataContext();
   const [form, setForm] = useState({
     address: { val: customer[432], status: false },
     company_name: { val: customer[228], status: false },
@@ -52,6 +55,7 @@ const AccountSettings = () => {
       const selected_number = number.filter(
         (item) => item[2834] === form.email.val
       );
+      console.log(number);
       if (selected_number) {
         setOtp({
           otp: selected_number[0][2833],
@@ -70,10 +74,22 @@ const AccountSettings = () => {
   const insert_email_verification = async () => {
     try {
       if (form.email?.val != "") {
+        const email_data = await getEmailVerification(customer.id);
+        if (Array.isArray(email_data)) {
+          for (const email of email_data) {
+            const delete_email = await deleteEmail(email["id"]);
+            console.log(delete_email);
+          }
+        }
+
         const result = await insertEmailVerification(
           customer.id,
           form.email.val
         );
+        if (result) {
+          const email_data = await get_email_verification(customer.id);
+          console.log(email_data);
+        }
       }
     } catch (e) {
       console.error(e);
@@ -110,7 +126,23 @@ const AccountSettings = () => {
         className=" p-3 shadow-sm flex flex-col gap-3"
         key={customer.id}
       >
-        <span className=" text-3xl font-bold underline">Your Data</span>
+        <div className="w-full justify-between flex items-center">
+          <span className=" text-3xl font-bold underline">Your Data</span>
+          {role === "Admin" && (
+            <div>
+              <WebButton
+                title={
+                  <>
+                    <i className="pi pi-print"></i>
+                  </>
+                }
+                onClickFunction={() => {
+                  alert("Print, not yet ready!");
+                }}
+              />
+            </div>
+          )}
+        </div>
         <div className="overflow-x-auto w-full ">
           <table className="min-w-1/2 w-full mt-3  text-sm">
             <thead
@@ -134,7 +166,7 @@ const AccountSettings = () => {
                   {!form.company_name?.status ? (
                     <>
                       {customer[228]}
-                      <CopyButton text={customer[228]} />
+
                       <EditButton
                         onClickFunction={() => {
                           setForm((prev) => ({
@@ -218,7 +250,6 @@ const AccountSettings = () => {
                 {!form.address?.status && (
                   <td className="border px-4 py-2 ">
                     {customer[432]}
-                    <CopyButton text={customer[432]} />
                     <EditButton
                       onClickFunction={() => {
                         setForm((prev) => ({
@@ -300,7 +331,6 @@ const AccountSettings = () => {
                   {!form.job_title?.status ? (
                     <div className="flex gap-2 items-center">
                       {customer[471]}
-                      <CopyButton text={customer[471]} />
                       <EditButton
                         onClickFunction={() => {
                           setForm((prev) => ({
@@ -350,7 +380,6 @@ const AccountSettings = () => {
                     {!form.phone?.status ? (
                       <>
                         {customer[233]}
-                        <CopyButton text={customer[233]} />
                         <EditButton
                           onClickFunction={() => {
                             setForm((prev) => ({
@@ -372,7 +401,7 @@ const AccountSettings = () => {
                           name="phone"
                           placeholder="+99-999-9999-9999"
                           className="border p-2"
-                        />{" "}
+                        />
                         <EditButton
                           onClickFunction={() => {
                             setForm((prev) => ({
@@ -402,7 +431,6 @@ const AccountSettings = () => {
                     {!form.email?.status ? (
                       <>
                         {customer[229]}
-                        <CopyButton text={customer[229]} />
                         <EditButton
                           onClickFunction={() => {
                             setForm((prev) => ({
@@ -489,7 +517,6 @@ const AccountSettings = () => {
                 }
             `}
                             </style>
-                            <span>{JSON.stringify(otp)}</span>
                             <InputOtp
                               value={otp.val}
                               onChange={(e) =>
@@ -524,7 +551,7 @@ const AccountSettings = () => {
             </tbody>
           </table>
         </div>
-        <div className="overflow-x-auto w-full shadow-md">
+        <div className="overflow-x-auto w-full ">
           <table className="min-w-1/2 w-full mt-3 text-sm">
             <thead
               className="text-white"
@@ -538,53 +565,26 @@ const AccountSettings = () => {
             </thead>
             <tbody>
               <tr>
-                <td className="border px-4 py-2 font-bold" colSpan={2}>
-                  <a
-                    href={`./Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Documents`}
-                  >
-                    <div className="flex items-center gap-1 w-fit  cursor-pointer hover:text-blue-500">
-                      <span>Company Documents </span>
-                      <i className="pi pi-angle-right w-fit"></i>
-                    </div>
-                  </a>
-                </td>
-              </tr>
-              <tr>
                 <td className="border px-4 py-2 font-bold">
-                  <a
-                    href={`./Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Expatriate`}
-                  >
-                    <div className="flex items-center gap-1 w-fit  cursor-pointer hover:text-blue-500">
-                      <span>Total Expatriate </span>
-                      <i className="pi pi-angle-right w-fit"></i>
-                    </div>
-                  </a>
+                  <div className="flex items-center gap-1 w-fit  ">
+                    <span>Total Expatriate </span>
+                  </div>
                 </td>
                 <td className="border px-4 py-2 ">{customer[1506]}</td>
               </tr>
               <tr>
                 <td className="border px-4 py-2 font-bold">
-                  <a
-                    href={`./Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Dependent`}
-                  >
-                    <div className="flex items-center gap-1 w-fit  cursor-pointer hover:text-blue-500">
-                      <span>Total Dependent </span>
-                      <i className="pi pi-angle-right w-fit"></i>
-                    </div>
-                  </a>
+                  <div className="flex items-center gap-1 w-fit ">
+                    <span>Total Dependent </span>
+                  </div>
                 </td>
                 <td className="border px-4 py-2 ">{customer[1507]}</td>
               </tr>
               <tr>
                 <td className="border px-4 py-2 font-bold">
-                  <a
-                    href={`./Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Visitors`}
-                  >
-                    <div className="flex items-center gap-1 w-fit  cursor-pointer hover:text-blue-500">
-                      <span>Total Visitors </span>
-                      <i className="pi pi-angle-right w-fit"></i>
-                    </div>
-                  </a>
+                  <div className="flex items-center gap-1 w-fit  ">
+                    <span>Total Visitors </span>
+                  </div>
                 </td>
                 <td className="border px-4 py-2 ">{customer[1508]}</td>
               </tr>

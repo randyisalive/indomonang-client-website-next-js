@@ -38,9 +38,7 @@ const BillingRows = ({
       <td className="border px-4 py-2 text-end text-green-600 w-2">
         {item.sub_total}
       </td>
-      {/*  <td className="border px-4 py-2 text-end  text-blue-600">
-        {item.amount_of_payment}
-      </td> */}
+
       <td className="border px-4 py-2 text-end text-red-600">
         {item.outstanding_balance}
       </td>

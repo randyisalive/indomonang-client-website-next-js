@@ -728,6 +728,25 @@ const api = () => {
         console.error(e);
       }
     };
+    const deleteEmail = async (id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "delete",
+        entity_id: 171,
+        delete_by_field: { id: id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
 
     return {
       getCustomerDataById,
@@ -735,6 +754,7 @@ const api = () => {
       getEmailVerification,
       insertEmailVerification,
       verifiedEmail,
+      deleteEmail,
     };
   };
   const ExpatriateApi = () => {

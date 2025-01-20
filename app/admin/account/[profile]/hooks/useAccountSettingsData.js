@@ -1,8 +1,7 @@
 "use client";
 import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 import api from "@/app/api/api";
-import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const useAccountSettingsData = () => {
   // api

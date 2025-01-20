@@ -36,8 +36,8 @@ const InvoiceBillsRows = ({
       </td>
       <td className="border px-4 py-2 text-center">{item[1914]}</td>
       <td className="border px-4 py-2 text-center">{item[1913]}</td>
-      <td className="border px-4 py-2">
-        <table className="table text-xs w-full">
+      <td className="border px-4 py-2 text-end font-bold text-secondaryBlue">
+        {/*    <table className="table text-xs w-full">
           <tbody>
             <tr className="border-b">
               <td className=" font-bold">Sub Total:</td>
@@ -54,7 +54,8 @@ const InvoiceBillsRows = ({
               <td className=" text-green-600">{item[2051]}</td>
             </tr>
           </tbody>
-        </table>
+        </table> */}
+        {item[2051]}
       </td>
     </tr>
   );

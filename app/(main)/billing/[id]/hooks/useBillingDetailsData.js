@@ -2,6 +2,7 @@ import api from "@/app/api/api";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useBillingContext } from "../../context/BillingContext";
+import { useInvoiceContext } from "@/app/(main)/invoice/context/InvoiceContext";
 
 const useBillingDetailsData = () => {
   // api
@@ -12,6 +13,8 @@ const useBillingDetailsData = () => {
 
   // billing context
   const { bills } = useBillingContext();
+  const { handleDownloadInvoice } = useInvoiceContext();
+
   // get datas billing
   const [billing, setBilling] = useState([]);
   const [isLoading, setIsLoading] = useState(0);
@@ -51,7 +54,7 @@ const useBillingDetailsData = () => {
   const [wo, setWo] = useState([]);
   const [invoice, setInvoice] = useState([]);
 
-  return { billing, wo, invoice, isLoading };
+  return { billing, wo, invoice, isLoading, handleDownloadInvoice };
 };
 
 export default useBillingDetailsData;

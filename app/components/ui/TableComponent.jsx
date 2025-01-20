@@ -28,7 +28,7 @@ const TableComponent = ({
 
   // State for pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(20);
   const selectRef = useRef(null);
   const page_selection = [
     { id: 1, value: 5 },
@@ -62,13 +62,10 @@ const TableComponent = ({
           className="border-2 text-center w-2"
           onChange={(e) => setRowsPerPage(Number(e.target.value))}
           ref={selectRef}
+          value={rowsPerPage}
         >
           {page_selection.map((item) => (
-            <option
-              value={item.value}
-              key={item.id}
-              defaultValue={rowsPerPage === item.value}
-            >
+            <option value={item.value} key={item.id}>
               {item.value}
             </option>
           ))}
@@ -148,8 +145,10 @@ const TableComponent = ({
           </tfoot>
         </table>
         {TableType === "invoice_bills" && (
-          <div className="my-5 w-fit shadow-md rounded-sm p-3">
-            <InvoiceFooter all_data={currentRows} />
+          <div className="my-5 w-full  flex justify-end   p-3">
+            <div>
+              <InvoiceFooter all_data={currentRows} />
+            </div>
           </div>
         )}
         <nav className="mt-4 p-3">

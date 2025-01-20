@@ -20,7 +20,7 @@ const InvoiceFooter = ({ all_data = [] }) => {
         <span className="underline">TOTALS:</span>
         <table className="table w-full">
           <tbody>
-            <tr>
+            {/* <tr>
               <td>ST </td>
               <td>: </td>
               <td className=" font-normal text-red-600">
@@ -33,11 +33,9 @@ const InvoiceFooter = ({ all_data = [] }) => {
               <td className=" font-normal text-blue-600">
                 Rp. {ppn_rp.toLocaleString("id-ID")} ,-
               </td>
-            </tr>
+            </tr> */}
             <tr>
-              <td>GT </td>
-              <td>: </td>
-              <td className=" font-normal text-green-600">
+              <td className=" text-secondaryBlue font-bold ">
                 Rp. {grand_total.toLocaleString("id-ID")} ,-
               </td>
             </tr>

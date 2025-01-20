@@ -1,6 +1,7 @@
 import { Dialog } from "primereact/dialog";
 import { Rating } from "primereact/rating";
 import React, { useState } from "react";
+import WebButton from "../../../WebButton";
 
 const WORowsRatingDialog = ({
   dialogStatusRating = false,
@@ -17,22 +18,28 @@ const WORowsRatingDialog = ({
       header="Rate Orders"
     >
       {rating == 0 ? (
-        <Rating
-          cancel={false}
-          value={ratingVal}
-          onChange={(e) => {
-            handleRating(id, e.value);
-            setRatingVal(e.value);
-          }}
-          pt={{
-            onIcon: {
-              className: "",
-              style: { color: "#9A1C20" },
-            },
-          }}
-        />
+        <div className="flex justify-center gap-3">
+          <Rating
+            value={ratingVal}
+            onChange={(e) => {
+              setRatingVal(e.value);
+            }}
+            pt={{
+              onIcon: {
+                className: "",
+                style: { color: "#9A1C20" },
+              },
+            }}
+          />
+          {ratingVal > 0 && (
+            <WebButton
+              title="Submit"
+              onClickFunction={() => handleRating(id, ratingVal)}
+            />
+          )}
+        </div>
       ) : (
-        <p>Thank you for your rating 😊 {rating}</p>
+        <p>Thank you for your rating 😊</p>
       )}
     </Dialog>
   );

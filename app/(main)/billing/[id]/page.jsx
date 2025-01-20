@@ -8,12 +8,13 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import { motion } from "framer-motion";
 
 const BillingDetail = () => {
-  const { billing, invoice, wo, isLoading } = useBillingDetailsData();
+  const { billing, invoice, wo, isLoading, handleDownloadInvoice } =
+    useBillingDetailsData();
   const { id } = useParams();
 
   const breadcrumbs_array = [
     { id: 0, text: "Portal Home /", nav: "/" },
-    { id: 1, text: "Billing /", nav: "/billing" },
+    { id: 1, text: "Payment History /", nav: "/billing" },
     { id: 2, text: `P-${id}` },
   ];
 
@@ -168,7 +169,12 @@ const BillingDetail = () => {
                           <td className="border px-4 py-2 font-bold">
                             Invoice
                           </td>
-                          <td className="border px-4 py-2">{item[1968]}</td>
+                          <td className="border px-4 py-2">
+                            <i
+                              className="pi pi-download cursor-pointer hover:text-blue-500"
+                              onClick={() => handleDownloadInvoice(item.id)}
+                            ></i>
+                          </td>
                         </tr>
                         <tr>
                           <td className="border px-4 py-2 font-bold">Total</td>

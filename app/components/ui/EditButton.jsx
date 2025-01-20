@@ -7,7 +7,7 @@ const EditButton = ({ onClickFunction = () => {} }) => {
       <motion.i
         whileTap={{ scale: 0.889 }}
         onClick={onClickFunction}
-        className="pi pi-pen-to-square hover:text-blue-500 cursor-pointer"
+        className="pi pi-pen-to-square px-1 hover:text-blue-500 cursor-pointer"
       ></motion.i>
     </>
   );
