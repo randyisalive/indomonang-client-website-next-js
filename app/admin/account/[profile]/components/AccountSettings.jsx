@@ -16,6 +16,7 @@ import { Dialog } from "primereact/dialog";
 import { InputOtp } from "primereact/inputotp";
 import WebButton from "@/app/components/ui/WebButton";
 import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
+import ExportAccountButton from "./AccountSettings/ExportAccountButton";
 
 const AccountSettings = () => {
   const { profile } = useParams();
@@ -128,20 +129,7 @@ const AccountSettings = () => {
       >
         <div className="w-full justify-between flex items-center">
           <span className=" text-3xl font-bold underline">Your Data</span>
-          {role === "Admin" && (
-            <div>
-              <WebButton
-                title={
-                  <>
-                    <i className="pi pi-print"></i>
-                  </>
-                }
-                onClickFunction={() => {
-                  alert("Print, not yet ready!");
-                }}
-              />
-            </div>
-          )}
+          <ExportAccountButton data={customer} />
         </div>
         <div className="overflow-x-auto w-full ">
           <table className="min-w-1/2 w-full mt-3  text-sm">

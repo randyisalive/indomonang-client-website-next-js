@@ -9,15 +9,7 @@ import { CompanyDocumentProvider } from "./context/CompanyDocumentContext";
 const ExpatDetailLayout = ({ children }) => {
   return (
     <div>
-      <main>
-        <CompanyDocumentProvider>
-          <ExpatriateListProvider>
-            <DependentListProvider>
-              <VisitorsListProvider>{children}</VisitorsListProvider>
-            </DependentListProvider>
-          </ExpatriateListProvider>
-        </CompanyDocumentProvider>
-      </main>
+      <main>{children}</main>
     </div>
   );
 };
