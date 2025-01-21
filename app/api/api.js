@@ -1,3 +1,4 @@
+import { formatDate } from "../function/formatDate";
 import { base_url } from "./base_url";
 
 const api = () => {
@@ -50,6 +51,29 @@ const api = () => {
         action: "insert",
         entity_id: 165,
         items: { parent_item_id: parent_id, field_2734: key },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    const insertFailedLogin = async (parent_id, login_status) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "insert",
+        entity_id: 161,
+        items: {
+          parent_item_id: parent_id,
+          field_2694: formatDate(),
+          field_2695: login_status,
+        },
       };
       try {
         const response = await fetch(base_url, {
@@ -408,6 +432,7 @@ const api = () => {
       updateRecovery,
       updateAccountEmail,
       changePassword,
+      insertFailedLogin,
     };
   };
 

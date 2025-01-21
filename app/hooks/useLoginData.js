@@ -12,6 +12,7 @@ const useLoginData = () => {
     insertLoginToken,
     getLoginTokenByUser,
     getAllLoginToken,
+    insertFailedLogin,
   } = CustomerAccountApi();
   const { getDecryptionKey } = DecryptionKeyApi();
 
@@ -47,7 +48,6 @@ const useLoginData = () => {
         if (user_data && user_data.length > 0) {
           const id = user_data[0]["id"];
           const password = user_data[0][2615];
-          const email = user_data[0][2616];
           const role = user_data[0][2628];
           const login_status = await checkPassword(form.password, password);
           if (login_status) {
@@ -76,6 +76,8 @@ const useLoginData = () => {
                 const filtersAllToken = all_token.filter(
                   (item) => item[2734] === token
                 );
+                const login_status_success = await insertFailedLogin(id, "627");
+                console.log(login_status_success);
                 if (filtersAllToken.length > 0) {
                   // nav.push("/");
                   window.location.href = "/";
@@ -88,6 +90,8 @@ const useLoginData = () => {
             }
           } else {
             setMessage("Wrong Credentials!");
+            const login_status_failed = await insertFailedLogin(id, "628");
+            console.log(login_status_failed);
             setIsLoading(2);
           }
         }
