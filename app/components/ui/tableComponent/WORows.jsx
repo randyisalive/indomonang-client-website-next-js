@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Rating } from "primereact/rating";
 import WORowsRatingDialog from "./WORows/WORowsRatingDialog/WORowsRatingDialog";
+import { priority_data } from "@/app/function/static_data";
 
 const WORows = ({
   item = {},
@@ -64,7 +65,13 @@ const WORows = ({
         </td>
         <td className="border px-4 py-2 text-start">{item.service}</td>
         <td className="border px-4 py-2 text-center">{item.applicant}</td>
-        <td className="border px-4 py-2 text-center">{item.priority}</td>
+        <td className="border px-4 py-2 text-center">
+          {priority_data
+            .filter((i) => i.text === item.priority)
+            .map((x) => {
+              return <StatusBadge title={x.text} bg_color={x.bg_color} />;
+            })}
+        </td>
         <td className="border px-4 py-2 text-center">{item.city}</td>
         <td className="border px-4 py-2 text-center">
           {rating != 0 ? (

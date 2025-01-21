@@ -7,9 +7,12 @@ const UploadPage = () => {
     <div className="flex flex-col w-full mx-auto pt-7  sm:px-6, lg:px-0 max-w-screen-xl">
       <HeaderComponent
         title="Upload Document"
-        breadcrumbs="Portal Home / Upload"
+        breadcrumbs_array={[
+          { id: 0, text: "Portal Home /", nav: "/" },
+          { id: 1, text: "Upload Document", nav: "/upload" },
+        ]}
       />
-      <div className="my-3">
+      <div className="mt-5">
         <UploadTableComponent />
       </div>
     </div>

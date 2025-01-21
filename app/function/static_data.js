@@ -7,6 +7,12 @@ export const enquiry_data = [
   { id: 5, text: "Cancelled", bg_color: "#B6244F" },
 ];
 
+export const priority_data = [
+  { id: 0, text: "Normal", bg_color: "#C3E6CB" },
+  { id: 1, text: "Urgent", bg_color: "#FFEEBA" },
+  { id: 2, text: "Super Urgent", bg_color: "#F8D7DA" },
+];
+
 export const invoice_data = [
   { id: 0, text: "Canceled", bg_color: "#B6244F" },
   { id: 1, text: "Open", bg_color: "#00C49A" },
@@ -21,8 +27,8 @@ export const invoice_data = [
 
 export const docuemnts_data = [
   { id: 0, text: "Expired", bg_color: "#D72638" },
-  { id: 1, text: "Near Expiry 2", bg_color: "#F77F00" },
-  { id: 2, text: "Near Expiry 1", bg_color: "#449dd1" },
+  { id: 1, text: "Expiry 2", bg_color: "#F77F00" },
+  { id: 2, text: "Expiry 1", bg_color: "#449dd1" },
   { id: 3, text: "Active", bg_color: "#28A745" },
 ];
 

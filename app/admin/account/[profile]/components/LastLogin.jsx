@@ -4,11 +4,11 @@ import SearchInput from "@/app/components/ui/form/SearchInput";
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import { ATOB } from "@/app/function/decryptor";
 import SearchTerms from "@/app/function/SearchTerms";
-import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
 import { useParams } from "next/navigation";
 import { ProgressSpinner } from "primereact/progressspinner";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 
 const LastLogin = () => {
   const { profile } = useParams();
@@ -20,7 +20,7 @@ const LastLogin = () => {
     const { getLastLoginAllByParentId } = CustomerAccountLastLoginDataApi();
 
     // decryption
-    const { user_id } = useDecryptionKeyData();
+    const { accounts, role } = useAccountDataContext();
 
     // get last login data
     const [data, setData] = useState([]);
@@ -28,8 +28,8 @@ const LastLogin = () => {
     useEffect(() => {
       const getData = async () => {
         try {
-          if (user_id) {
-            const datas = await getLastLoginAllByParentId(user_id);
+          if (accounts.id) {
+            const datas = await getLastLoginAllByParentId(accounts.id);
             if (datas) {
               const bg_color = [
                 { id: 0, text: "Success", bg_color: "#22c55e" },
@@ -38,9 +38,11 @@ const LastLogin = () => {
               const json_datas = datas.map((item) => {
                 return {
                   id: item.id,
-                  date: item[2694],
-                  status_data: bg_color.filter((x) => x.text === item[2695])[0],
-                  keyword: item[2695],
+                  date: item?.[2694],
+                  status_data: bg_color.filter(
+                    (x) => x.text === item?.[2695]
+                  )[0],
+                  keyword: item?.[2695],
                 };
               });
 
@@ -53,15 +55,15 @@ const LastLogin = () => {
         }
       };
       getData();
-    }, [user_id]);
-    const th_array = ["No", "Date", "Status"];
+    }, [accounts.id]);
+    const th_array = ["Date", "Status"];
     const [search, setSearch] = useState("");
 
     const { dataToDisplay } = SearchTerms(data, search, setSearch);
 
     // State for pagination
     const [currentPage, setCurrentPage] = useState(1);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(20);
     const page_selection = [
       { id: 1, value: 5 },
       { id: 2, value: 10 },
@@ -93,7 +95,7 @@ const LastLogin = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="block "
+        className="block px-5 lg:px-0"
       >
         <div className="flex gap-3">
           <SearchInput search={search} setSearch={setSearch} />
@@ -101,6 +103,7 @@ const LastLogin = () => {
             name="pageMax"
             className="pl-10 py-2 border-2 focus:border-blue-500 focus:outline-none w-1/6"
             id=""
+            value={rowsPerPage}
             onChange={(e) => setRowsPerPage(e.target.value)}
           >
             {page_selection.map((item) => {
@@ -112,8 +115,8 @@ const LastLogin = () => {
             })}
           </select>
         </div>
-        <table className="min-w-full mt-3 shadow-md rounded-lg text-sm">
-          <thead className="text-white" style={{ backgroundColor: "#3b71ca" }}>
+        <table className="min-w-full mt-3  rounded-lg text-sm">
+          <thead className="text-white" style={{ backgroundColor: "#9C1C23" }}>
             <tr>
               {th_array.map((th, index) => (
                 <th key={index} className="py-3 px-4 text-center border">
@@ -125,16 +128,15 @@ const LastLogin = () => {
           <tbody>
             {currentRows.map((item, index) => (
               <tr key={item.id}>
-                <td className="border px-4 py-2 text-center">
-                  {index + 1 + (currentPage - 1) * rowsPerPage}
-                </td>
                 <td className="border px-4 py-2 text-center">{item.date}</td>
                 <td className="border px-4 py-2 text-center">
-                  <StatusBadge
-                    title={item.status_data?.text}
-                    bg_color={item.status_data?.bg_color}
-                    font_color="white"
-                  />
+                  <div className="w-full flex justify-center items-center">
+                    <StatusBadge
+                      title={item.status_data?.text}
+                      bg_color={item.status_data?.bg_color}
+                      font_color="white"
+                    />
+                  </div>
                 </td>
               </tr>
             ))}

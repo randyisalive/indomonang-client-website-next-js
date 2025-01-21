@@ -2,6 +2,7 @@ import React from "react";
 import { useCompanyDocumentContext } from "../context/CompanyDocumentContext";
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import { docuemnts_data } from "@/app/function/static_data";
+import WebButton from "@/app/components/ui/WebButton";
 
 const DocumentsList = ({ visitors = [] }) => {
   const th_array = [
@@ -14,10 +15,10 @@ const DocumentsList = ({ visitors = [] }) => {
     "Attachment",
   ];
 
-  const { documentData } = useCompanyDocumentContext();
+  const { documentData, handleDownloadDocument } = useCompanyDocumentContext();
 
   return (
-    <table className="min-w-1/2 w-full  text-xs">
+    <table className="min-w-1/2 w-full  text-sm">
       <thead className="text-white" style={{ backgroundColor: "#9c1c23" }}>
         <tr>
           <th className="text-start ps-6 text-base border" colSpan={7}>
@@ -29,7 +30,7 @@ const DocumentsList = ({ visitors = [] }) => {
             return (
               <th
                 key={item}
-                className=" border text-start px-4 py-2  text-black"
+                className=" border text-center px-4 py-2  text-black"
                 style={{ backgroundColor: "#f3f4f6" }}
               >
                 {item}
@@ -58,10 +59,15 @@ const DocumentsList = ({ visitors = [] }) => {
                     ))}
                 </div>
               </td>
-              <td className="border px-4 py-2 ">{item[1292]}</td>
-              <td className="border px-4 py-2 ">{item[1306]}</td>
-              <td className="border px-4 py-2 ">{item[1307]}</td>
-              <td className="border px-4 py-2 ">{item[1309]}</td>
+              <td className="border px-4 py-2 text-center">{item[1292]}</td>
+              <td className="border px-4 py-2 text-center">{item[1306]}</td>
+              <td className="border px-4 py-2 text-center">{item[1307]}</td>
+              <td className="border px-4 py-2 text-center">
+                <WebButton
+                  title={<i className="pi pi-download"></i>}
+                  onClickFunction={() => handleDownloadDocument(item.id)}
+                />
+              </td>
             </tr>
           );
         })}

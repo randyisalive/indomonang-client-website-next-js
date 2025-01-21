@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SearchTerms from "@/app/function/SearchTerms";
 import SearchInput from "./form/SearchInput";
 import BillingRows from "./tableComponent/Billing/BillingRows";
@@ -19,6 +19,7 @@ const TableComponent = ({
   dialogOnChange = () => {},
   children,
   footer = "",
+  search_text = "",
   role = "Client",
   handleRating = () => {},
 }) => {
@@ -48,6 +49,10 @@ const TableComponent = ({
     event.preventDefault();
     setCurrentPage(number);
   };
+
+  useEffect(() => {
+    setSearch(search_text);
+  }, [search_text]);
 
   return (
     <motion.div

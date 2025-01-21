@@ -1,7 +1,6 @@
 "use client";
 import TableComponent from "@/app/components/ui/TableComponent";
 import React from "react";
-import useBillingData from "../hooks/useBillingData";
 import JsonDisplay from "@/app/components/ui/JsonDisplay";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { motion } from "framer-motion";

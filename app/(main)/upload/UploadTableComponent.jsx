@@ -37,7 +37,7 @@ const UploadTableComponent = () => {
       <div className="mb-3 mx-5 sm:m-0 flex gap-3">
         <SearchBarUpload ref={refForm} handleRef={handleForm} />
         <WebButton onClickFunction={() => getWoBtn()} />
-      </div>{" "}
+      </div>
       <AnimatePresence mode="wait">
         <motion.div
           initial={{ opacity: 0 }}
@@ -47,7 +47,6 @@ const UploadTableComponent = () => {
         >
           {wo_data.length > 0 ? (
             <>
-              {" "}
               <span> Ref Number: </span>
               <div className="flex">
                 {wo_data.map((item) => {

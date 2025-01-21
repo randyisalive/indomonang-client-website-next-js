@@ -8,11 +8,12 @@ const CompanyDocumentContext = createContext();
 
 // Define a provider component
 export const CompanyDocumentProvider = ({ children }) => {
-  const { documentData } = useCompanyDocumentData();
+  const { documentData, handleDownloadDocument } = useCompanyDocumentData();
   return (
     <CompanyDocumentContext.Provider
       value={{
         documentData,
+        handleDownloadDocument,
       }}
     >
       {children}

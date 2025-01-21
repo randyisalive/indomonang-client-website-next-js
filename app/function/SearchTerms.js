@@ -8,18 +8,28 @@ const SearchTerms = (
   const [filteredData, setFilteredData] = useState(initialData);
 
   useEffect(() => {
-    if (searchTerm === "") {
+    const terms = searchTerm
+      .split(",")
+      .map((term) => term.trim().replace(/\s+/g, "").toLowerCase());
+    console.log("Search Terms:", terms);
+
+    let filtered = initialData;
+
+    if (terms.every((term) => term === "")) {
       setFilteredData(initialData);
     } else {
-      const lowercasedTerm = searchTerm.toLowerCase();
-      const result = initialData.filter((item) =>
-        Object.values(item).some((val) =>
-          String(val).toLowerCase().includes(lowercasedTerm)
-        )
-      );
-      setFilteredData(result);
+      filtered = filtered.filter((item) => {
+        return terms.every((term) => {
+          return Object.values(item).some((val) =>
+            String(val).replace(/\s+/g, "").toLowerCase().includes(term)
+          );
+        });
+      });
     }
-  }, [searchTerm]);
+
+    console.log("Filtered Result:", filtered);
+    setFilteredData(filtered);
+  }, [searchTerm, initialData]);
 
   const dataToDisplay =
     filteredData.length > 0 || searchTerm !== "" ? filteredData : initialData;

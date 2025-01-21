@@ -9,7 +9,7 @@ const invoicePage = () => {
         title="Billing List"
         breadcrumbs_array={[
           { id: 0, text: "Portal Home /", nav: "/" },
-          { id: 1, text: "Billing", nav: "/billing" },
+          { id: 1, text: "Payment History", nav: "/billing" },
         ]}
       />
       <div className="mt-5">

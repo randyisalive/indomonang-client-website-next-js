@@ -843,7 +843,27 @@ const api = () => {
         console.error(e);
       }
     };
-    return { getCompanyDocumentById };
+    const DownloadDocument = async (id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "download_attachment",
+        entity_id: 89,
+        item_id: id,
+        field_id: 1309,
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    return { getCompanyDocumentById, DownloadDocument };
   };
 
   const ProcessingListApi = () => {
