@@ -1,7 +1,6 @@
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import React from "react";
 import { useInvoiceContext } from "../../invoice/context/InvoiceContext";
-import { invoice_data } from "@/app/function/static_data";
 
 const InvoiceBillsRows = ({
   item = {},
@@ -10,7 +9,6 @@ const InvoiceBillsRows = ({
   rowsPerPage = 10,
   role = "",
 }) => {
-  const status_invoice = invoice_data.filter((x) => x.text === item[1905]);
   const { handleDownloadInvoice } = useInvoiceContext();
   return (
     <tr key={item.id}>

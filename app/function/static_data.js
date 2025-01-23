@@ -24,6 +24,10 @@ export const invoice_data = [
   { id: 7, text: "Arrived to Client", bg_color: "#9C27B0" },
   { id: 8, text: "Closed", bg_color: "#BFC9CA" },
 ];
+export const invoice_data_client = [
+  { id: 0, text: "Rejected", bg_color: "#B6244F", real_data: "Canceled" },
+  { id: 8, text: "Approved", bg_color: "#BFC9CA", real_data: "Closed" },
+];
 
 export const docuemnts_data = [
   { id: 0, text: "Expired", bg_color: "#D72638" },

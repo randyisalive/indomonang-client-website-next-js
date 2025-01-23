@@ -1,6 +1,7 @@
 import React from "react";
 import BillingTable from "./components/BillingTable";
 import HeaderComponent from "@/app/components/ui/HeaderComponent";
+import BillingSection from "./components/BillingSection";
 
 const invoicePage = () => {
   return (
@@ -9,9 +10,10 @@ const invoicePage = () => {
         title="Billing List"
         breadcrumbs_array={[
           { id: 0, text: "Portal Home /", nav: "/" },
-          { id: 1, text: "Payment History", nav: "/billing" },
+          { id: 1, text: "Billing", nav: "/billing" },
         ]}
       />
+
       <div className="mt-5">
         <BillingTable />
       </div>

@@ -1,6 +1,6 @@
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import React from "react";
-import { invoice_data } from "@/app/function/static_data";
+import { invoice_data, invoice_data_client } from "@/app/function/static_data";
 import { useInvoiceContext } from "../context/InvoiceContext";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -38,9 +38,27 @@ const InvoiceRows = ({
           </motion.span>
         </Link>
       </td>
-
+      <td className="border px-4 py-2 text-center ">
+        <div className="w-full flex justify-center items-center">
+          {invoice_data_client
+            .filter((i) => item[1905] === i.real_data)
+            .map((x) => {
+              return (
+                <StatusBadge
+                  title={x.text}
+                  bg_color={x.bg_color}
+                  font_color="white"
+                />
+              );
+            })}
+        </div>
+      </td>
       <td className="border px-4 py-2 text-center">{item[2837]}</td>
-      <td className="border px-4 py-2 text-end text-green-600 font-bold">
+      <td
+        className={`border px-4 py-2 text-end ${
+          item[1905] === "Closed" ? "text-green-600" : "text-red-600"
+        }  font-bold`}
+      >
         {item[2051]}
       </td>
     </tr>

@@ -9,13 +9,13 @@ const InvoiceTables = () => {
     "No",
     "No. Invoice",
     "Transaction ID",
+    "Status",
     "Date of Payment",
-
     "Amount",
   ];
 
   const payment_history_data = invoice.filter((item) =>
-    ["Closed"].includes(item[1905])
+    ["Closed", "Canceled"].includes(item[1905])
   );
 
   return (

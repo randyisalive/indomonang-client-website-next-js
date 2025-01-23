@@ -5,12 +5,16 @@ import SearchInput from "./form/SearchInput";
 import BillingRows from "./tableComponent/Billing/BillingRows";
 import WORows from "./tableComponent/WORows";
 import JsonDisplay from "./JsonDisplay";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import BillingFooter from "./tableComponent/Billing/BillingFooter";
 import WOFooter from "./tableComponent/WORows/WOFooter";
 import InvoiceRows from "@/app/(main)/invoice/components/InvoiceRows";
-import InvoiceFooter from "@/app/(main)/invoice/components/InvoiceFooter";
 import InvoiceBillsRows from "@/app/(main)/billing/components/InvoiceBillsRows";
+import BillingSection from "@/app/(main)/billing/components/BillingSection";
+
+import BillingFilter from "./tableComponent/Billing/BillingFilter";
+import PaymentHistorySection from "./tableComponent/Invoice (payment history)/PaymentHistorySection";
+import InvoiceFilter from "./tableComponent/Invoice (payment history)/InvoiceFilter";
 
 const TableComponent = ({
   th_array = [],
@@ -26,6 +30,8 @@ const TableComponent = ({
   const [search, setSearch] = useState("");
 
   const { dataToDisplay } = SearchTerms(datas, search, setSearch);
+
+  // filter
 
   // State for pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -61,26 +67,51 @@ const TableComponent = ({
       exit={{ opacity: 0 }}
       className="flex flex-col w-full "
     >
-      <div className="flex gap-3">
-        <SearchInput name="search" search={search} setSearch={setSearch} />
-        <select
-          className="border-2 text-center w-2"
-          onChange={(e) => setRowsPerPage(Number(e.target.value))}
-          ref={selectRef}
-          value={rowsPerPage}
-        >
-          {page_selection.map((item) => (
-            <option value={item.value} key={item.id}>
-              {item.value}
-            </option>
-          ))}
-        </select>
-      </div>
+      {TableType === "invoice_bills" && (
+        <div className=" pb-5">
+          <BillingSection data={currentRows} />
+        </div>
+      )}
+      {TableType === "invoice" && (
+        <div className=" pb-5">
+          <PaymentHistorySection data={currentRows} />
+        </div>
+      )}
 
+      <div className="flex flex-col">
+        {TableType === "invoice_bills" && (
+          <div className="w-full">
+            <BillingFilter search={search} setSearch={setSearch} />
+          </div>
+        )}
+        {TableType === "invoice" && (
+          <div className="w-full">
+            <InvoiceFilter search={search} setSearch={setSearch} />
+          </div>
+        )}
+        <div className="w-full flex gap-3">
+          <SearchInput name="search" search={search} setSearch={setSearch} />
+          <select
+            className="border-2 text-center w-2"
+            onChange={(e) => setRowsPerPage(Number(e.target.value))}
+            ref={selectRef}
+            value={rowsPerPage}
+          >
+            {page_selection.map((item) => (
+              <option value={item.value} key={item.id}>
+                {item.value}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
       <JsonDisplay data={datas} />
       <div className="overflow-x-auto sm:overflow-hidden overflow-y-hidden ">
         <table className="min-w-full mt-3 shadow-md rounded-lg text-sm">
-          <thead className="text-white" style={{ backgroundColor: "#9c1c23" }}>
+          <thead
+            className=" text-gray-800"
+            style={{ backgroundColor: "#f3f4f6" }}
+          >
             <tr>
               {th_array.map((th, index) => (
                 <th key={index} className="py-3 px-4 text-center border">
@@ -149,13 +180,7 @@ const TableComponent = ({
             )}
           </tfoot>
         </table>
-        {TableType === "invoice_bills" && (
-          <div className="my-5 w-full  flex justify-end   p-3">
-            <div>
-              <InvoiceFooter all_data={currentRows} />
-            </div>
-          </div>
-        )}
+
         <nav className="mt-4 p-3">
           <ul className="flex justify-center space-x-2">
             {Array.from(
