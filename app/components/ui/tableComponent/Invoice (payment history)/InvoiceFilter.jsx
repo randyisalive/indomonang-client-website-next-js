@@ -7,8 +7,12 @@ import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
 import { invoice_data, invoice_data_client } from "@/app/function/static_data";
 
-const InvoiceFilter = ({ search = "", setSearch = () => {} }) => {
-  const [filter, setFilter] = useState(false);
+const InvoiceFilter = ({
+  search = "",
+  setSearch = () => {},
+  filter = false,
+  setFilter = () => {},
+}) => {
   const [filterForm, setFilterForm] = useState({
     date: "",
     invoice: "",
@@ -24,7 +28,7 @@ const InvoiceFilter = ({ search = "", setSearch = () => {} }) => {
     const array_search = [
       filterForm.date,
       filterForm.invoice?.[1907],
-      filterForm.status?.text,
+      filterForm.status?.real_data,
     ];
     setSearch(array_search.filter(Boolean).join(","));
   }, [filterForm]);

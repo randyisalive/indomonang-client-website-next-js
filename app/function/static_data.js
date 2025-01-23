@@ -25,7 +25,7 @@ export const invoice_data = [
   { id: 8, text: "Closed", bg_color: "#BFC9CA" },
 ];
 export const invoice_data_client = [
-  { id: 0, text: "Rejected", bg_color: "#B6244F", real_data: "Canceled" },
+  { id: 0, text: "Refunds", bg_color: "#B6244F", real_data: "Canceled" },
   { id: 8, text: "Approved", bg_color: "#BFC9CA", real_data: "Closed" },
 ];
 

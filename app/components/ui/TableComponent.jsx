@@ -32,6 +32,7 @@ const TableComponent = ({
   const { dataToDisplay } = SearchTerms(datas, search, setSearch);
 
   // filter
+  const [filter, setFilter] = useState({ filter: false, state: false });
 
   // State for pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -86,26 +87,33 @@ const TableComponent = ({
         )}
         {TableType === "invoice" && (
           <div className="w-full">
-            <InvoiceFilter search={search} setSearch={setSearch} />
+            <InvoiceFilter
+              filter={filter}
+              setFilter={setFilter}
+              search={search}
+              setSearch={setSearch}
+            />
           </div>
         )}
-        <div className="w-full flex gap-3">
-          <SearchInput name="search" search={search} setSearch={setSearch} />
-          <select
-            className="border-2 text-center w-2"
-            onChange={(e) => setRowsPerPage(Number(e.target.value))}
-            ref={selectRef}
-            value={rowsPerPage}
-          >
-            {page_selection.map((item) => (
-              <option value={item.value} key={item.id}>
-                {item.value}
-              </option>
-            ))}
-          </select>
-        </div>
+        {!filter.filter && (
+          <div className="w-full flex gap-3">
+            <SearchInput name="search" search={search} setSearch={setSearch} />
+            <select
+              className="border-2 text-center w-2"
+              onChange={(e) => setRowsPerPage(Number(e.target.value))}
+              ref={selectRef}
+              value={rowsPerPage}
+            >
+              {page_selection.map((item) => (
+                <option value={item.value} key={item.id}>
+                  {item.value}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
       </div>
-      <JsonDisplay data={datas} />
+
       <div className="overflow-x-auto sm:overflow-hidden overflow-y-hidden ">
         <table className="min-w-full mt-3 shadow-md rounded-lg text-sm">
           <thead
