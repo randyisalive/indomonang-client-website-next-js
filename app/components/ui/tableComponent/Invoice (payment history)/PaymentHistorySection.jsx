@@ -1,3 +1,4 @@
+"use client";
 import NumberFlow from "@number-flow/react";
 import React from "react";
 
