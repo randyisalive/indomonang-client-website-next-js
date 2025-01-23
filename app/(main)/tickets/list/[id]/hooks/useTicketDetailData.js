@@ -49,11 +49,11 @@ const useTicketDetailData = () => {
         ...prev,
         ticket_data: ticket_data[0],
         ticket_status: ticketStatus.filter(
-          (item) => item.text == ticket_data[0][2467]
+          (item) => item.text == ticket_data[0]?.[2467]
         ),
       }));
       if (ticket_data) {
-        const total_attachment = ticket_data[0][2745].split(",");
+        const total_attachment = ticket_data[0]?.[2745].split(",");
         const attachment_tickets = await getAttachmentTicketsById(
           ticket_data[0]["id"]
         );
@@ -69,8 +69,9 @@ const useTicketDetailData = () => {
               user_id: item[2772],
               text: item[2653],
               role: item[2746],
-              company: username[0][2630],
-              name: username[0][2614],
+              company:
+                username[0][2628] === "Client" ? username[0]?.[2630] : "Admin",
+              name: username[0]?.[2614],
               attachment: attachment,
               date: item["date_added"],
             };

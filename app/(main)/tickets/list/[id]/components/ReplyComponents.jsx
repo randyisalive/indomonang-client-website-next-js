@@ -1,10 +1,7 @@
 import React from "react";
 
-const ReplyComponents = ({
-  ticket = [],
-  handleDownload = () => {},
-  role = "",
-}) => {
+const ReplyComponents = ({ ticket = [], handleDownload = () => {} }) => {
+  console.log(ticket);
   return (
     <>
       {ticket.chats_data && (
@@ -20,7 +17,7 @@ const ReplyComponents = ({
                       width={55}
                       alt="asda.jpg"
                     />
-                    <span className="w-fit text-blue-500 font-bold hover:underline cursor-pointer">
+                    <span className="w-fit text-blue-500 font-bold ">
                       {item.name}
                     </span>
 

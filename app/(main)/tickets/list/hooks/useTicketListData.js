@@ -1,7 +1,7 @@
 "use client";
+import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 import api from "@/app/api/api";
-import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const useTicketListData = () => {
   //api
@@ -9,19 +9,19 @@ const useTicketListData = () => {
   const { getTicketsByUserId, getTicketsAll } = TicketsApi();
   //api
   // dec key
-  const { user_id, role } = useDecryptionKeyData();
+  const { accounts, role } = useAccountDataContext();
   // dec key
   // get data
   const [tickets, setTickets] = useState([]);
   const getData = async () => {
     try {
-      if (user_id && role) {
+      if (accounts.id && role) {
         if (role === "Admin") {
           const ticket_data = await getTicketsAll();
           setTickets(ticket_data);
           return;
         }
-        const ticket_data = await getTicketsByUserId(user_id);
+        const ticket_data = await getTicketsByUserId(accounts.id);
         setTickets(ticket_data);
       } else {
         throw new Error("No user Id");
@@ -32,7 +32,7 @@ const useTicketListData = () => {
   };
   useEffect(() => {
     getData();
-  }, [user_id, role]);
+  }, [accounts.id, role]);
   // get data
 
   return { tickets };

@@ -83,7 +83,7 @@ const FormControl = ({ children, title = "", className = {} }) => {
           }}
         />
       </section>
-      <section id="footer" className="m-1  py-4  border-t text-sm text-center">
+      {/*    <section id="footer" className="m-1  py-4  border-t text-sm text-center">
         <span className="text-gray-600">
           Not a member yet?
           <Link
@@ -93,7 +93,7 @@ const FormControl = ({ children, title = "", className = {} }) => {
             Create a New Account
           </Link>
         </span>
-      </section>
+      </section> */}
     </div>
   );
 };

@@ -165,22 +165,27 @@ const WORowsDialog = ({
                 </div>
               </td>
             )} */}
-            <td className=" w-fit flex justify-end pt-5">
-              <Timeline
-                marker={customizedMarker}
-                value={events}
-                className="w-full md:w-20rem text-xs "
-                opposite={(item) => {
-                  const markerColor =
-                    item.status === wo_filtered[0]?.status?.name
-                      ? item.color
-                      : "#e5e7eb";
-                  return <p style={{ color: markerColor }}>{item.status}</p>;
-                }}
-              />
-            </td>
           </tr>
         </table>
+        <div className="flex w-full">
+          <Timeline
+            marker={customizedMarker}
+            value={events}
+            className="w-full md:w-20rem text-xs"
+            layout="horizontal"
+            content={(item) => {
+              const markerColor =
+                item.status === wo_filtered[0]?.status?.name
+                  ? item.color
+                  : "#e5e7eb";
+              return (
+                <p style={{ color: markerColor }} className=" text-start">
+                  {item.status}
+                </p>
+              );
+            }}
+          />
+        </div>
       </div>
       <div className="flex flex-col gap-1 mt-3 ">
         <span className=" text-base font-bold">Applicant Info</span>

@@ -7,17 +7,26 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import { useTicketContext } from "../context/TicketContext";
+import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
+import {
+  priority_tickets_data,
+  status_tickets_data,
+  ticket_category_data,
+} from "@/app/function/static_data";
+import { tickets_category_data } from "./data/TicketsCategoryData";
 
 const TicketListPage = () => {
   const { tickets } = useTicketContext();
+  const { role } = useAccountDataContext();
   const th_array = [
     "Ticket ID",
     "Status",
     "Priority",
     "Reference Number",
     "Category",
+    role === "Admin" ? "PIC Officer" : null,
     "Date Created",
-  ];
+  ].filter(Boolean);
   const [search, setSearch] = useState("");
 
   const { dataToDisplay } = SearchTerms(tickets, search, setSearch);
@@ -44,35 +53,6 @@ const TicketListPage = () => {
     setCurrentPage(number);
   };
 
-  // status & priority
-  const status_data = [
-    { id: 0, text: "Open", bg_color: "#00C49A" },
-    { id: 1, text: "On Progress", bg_color: "#007BFF" },
-    { id: 2, text: "Closed", bg_color: "#BFC9CA" },
-    { id: 3, text: "Canceled", bg_color: "#DC3545" },
-  ];
-
-  const priority_data = [
-    { id: 0, text: "High", bg_color: "#FFEB3B" },
-    { id: 1, text: "Low", bg_color: "#007BFF" },
-    { id: 2, text: "Medium", bg_color: "#FF9800" },
-    { id: 3, text: "Urgent", bg_color: "#ff0000" },
-  ];
-
-  // category
-  const ticket_category = [
-    { id: 0, text: "Bug Reports", bg_color: "#B6244F" },
-    { id: 1, text: "Complaints", bg_color: "#DC3545" },
-    { id: 2, text: "Follow-up on Previous Issues", bg_color: "#007BFF" },
-    { id: 3, text: "General Inquiries", bg_color: "#FFD289" },
-    { id: 4, text: "Invoice Queries", bg_color: "#9A1C20" },
-    { id: 5, text: "Order Status", bg_color: "#72A276" },
-    { id: 6, text: "Other Issues", bg_color: "#BFC9CA" },
-    { id: 7, text: "Payment Issues", bg_color: "#D4EDDA" },
-    { id: 8, text: "Refund Requests", bg_color: "#00C49A" },
-    { id: 9, text: "Subscription Problems", bg_color: "#008BF8" },
-    { id: 10, text: "Uncategorized Requests", bg_color: "#3F612D" },
-  ];
   return (
     <div className="mx-5 lg:mx-0">
       <SearchInput search={search} setSearch={setSearch} />
@@ -106,56 +86,65 @@ const TicketListPage = () => {
                     </Link>
                   </td>
                   <td className="border px-4 py-2 text-center">
-                    {status_data
-                      .filter((x) => x.text === item[2467])
-                      .map((i) => {
-                        return (
-                          <>
-                            {item[2467] && (
-                              <StatusBadge
-                                key={i.id}
-                                title={i.text}
-                                bg_color={i.bg_color}
-                                font_color="white"
-                              />
-                            )}
-                          </>
-                        );
-                      })}
+                    <div className="flex w-full justify-center">
+                      {status_tickets_data
+                        .filter((x) => x.text === item[2467])
+                        .map((i) => {
+                          return (
+                            <>
+                              {item[2467] && (
+                                <StatusBadge
+                                  key={i.id}
+                                  title={i.text}
+                                  bg_color={i.bg_color}
+                                  font_color="white"
+                                />
+                              )}
+                            </>
+                          );
+                        })}
+                    </div>
                   </td>
                   <td className="border px-4 py-2 text-center">
-                    {priority_data
-                      .filter((x) => x.text === item[2769])
-                      .map((i) => {
-                        return (
-                          <>
-                            {item[2769] && (
-                              <StatusBadge
-                                title={i.text}
-                                bg_color={i.bg_color}
-                                font_color="white"
-                              />
-                            )}
-                          </>
-                        );
-                      })}
+                    <div className="flex justify-center w-full">
+                      {priority_tickets_data
+                        .filter((x) => x.text === item[2769])
+                        .map((i) => {
+                          return (
+                            <>
+                              {item[2769] && (
+                                <StatusBadge
+                                  title={i.text}
+                                  bg_color={i.bg_color}
+                                  font_color="white"
+                                />
+                              )}
+                            </>
+                          );
+                        })}
+                    </div>
                   </td>
 
-                  <td className="border px-4 py-2 "> {item[2466]}</td>
+                  <td className="border px-4 py-2 text-center">{item[2466]}</td>
                   <td className="border px-4 py-2 ">
-                    {ticket_category
-                      .filter((x) => x.text === item[2470])
-                      .map((i) => {
-                        return (
-                          <StatusBadge
-                            title={i.text}
-                            bg_color={i.bg_color}
-                            font_color="white"
-                          />
-                        );
-                      })}
+                    <div className="flex w-full justify-center">
+                      {ticket_category_data
+                        .filter((x) => x.text === item[2470])
+                        .map((i) => {
+                          return (
+                            <StatusBadge
+                              title={i.text}
+                              bg_color={i.bg_color}
+                              font_color="white"
+                            />
+                          );
+                        })}
+                    </div>
                   </td>
-                  <td className="border px-4 py-2 ">{item["date_added"]}</td>
+                  <td className="border px-4 py-2 text-center">{item[2498]}</td>
+                  <td className="border px-4 py-2 text-center">
+                    {item.date_added}
+                  </td>
                 </tr>
               );
             })}

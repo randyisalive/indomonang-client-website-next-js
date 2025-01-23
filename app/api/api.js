@@ -227,7 +227,7 @@ const api = () => {
         username: "rendi",
         password: "rendi",
         action: "select",
-        select_fields: "2614,2630",
+        select_fields: "2614,2630,2628",
         entity_id: 154,
         filters: { id: id },
       };
@@ -1335,7 +1335,7 @@ const api = () => {
       category,
       ticket_detail,
       user_id,
-      officer,
+      pic,
       priority
     ) => {
       const json_data = {
@@ -1351,7 +1351,7 @@ const api = () => {
           field_2470: category,
           field_2465: ticket_detail,
           field_2646: user_id,
-          field_2498: officer,
+          field_2498: pic,
           field_2769: priority,
         },
       };

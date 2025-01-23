@@ -1,4 +1,3 @@
-import useSignupData from "@/app/(auth)/signup/hooks/useSignupData";
 import React from "react";
 
 const SelectForm = ({

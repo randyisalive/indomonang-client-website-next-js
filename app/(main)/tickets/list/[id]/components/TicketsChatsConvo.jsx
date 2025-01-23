@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
 import WebButton from "@/app/components/ui/WebButton";
 import { truncateString } from "@/app/function/TruncateString";
 import TextAreaTicket from "./TextAreaTicket";

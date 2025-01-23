@@ -10,17 +10,11 @@ import { v4 as uuidv4 } from "uuid";
 
 const useTicketNewData = () => {
   // api
-  const { WOApi, CustomerAccountApi, TicketsApi } = api();
-  const { getAccountById } = CustomerAccountApi();
-  const { getWoByRefNum } = WOApi();
-  const { getTicketsByUserId, insertTickets, uploadAttachmentTickets } =
-    TicketsApi();
-
-  // router
-  const router = useRouter();
+  const { TicketsApi } = api();
+  const { insertTickets, uploadAttachmentTickets } = TicketsApi();
 
   // dec key
-  const { accounts, role } = useAccountDataContext();
+  const { accounts } = useAccountDataContext();
   const { wo } = useWoContext();
   const [userId, setUserId] = useState(0);
   useEffect(() => {
@@ -48,6 +42,13 @@ const useTicketNewData = () => {
   };
   const [search, setSearch] = useState("");
   // check if wo available by ref
+  // input pic if search changes
+  useEffect(() => {
+    setForm((prev) => ({
+      ...prev,
+      pic: wo.filter((item) => item.ref_num === search)[0]?.pic,
+    }));
+  }, [search]);
 
   // tickets state
   const [form, setForm] = useState({
@@ -57,6 +58,7 @@ const useTicketNewData = () => {
     details: "",
     attachments: [],
     priority: "633",
+    pic: wo.filter((item) => item.ref_num === search),
   });
   const ticket_priority = [
     { id: 0, text: "Urgent", bg_color: "#ff0000", value: "633" },
@@ -102,15 +104,7 @@ const useTicketNewData = () => {
   };
 
   const SubmitTicket = async () => {
-    const {
-      email,
-      name,
-      category,
-      details,
-      attachments,
-      officer_pic,
-      priority,
-    } = form;
+    const { email, name, category, details, attachments, pic, priority } = form;
     const uuid = uuidv4();
 
     try {
@@ -122,7 +116,7 @@ const useTicketNewData = () => {
         category,
         details,
         userId,
-        officer_pic,
+        pic,
         priority
       );
       if (insert_ticket && form.attachments.length > 0) {

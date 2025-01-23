@@ -6,7 +6,7 @@ import DocumentTable from "./DocumentTable";
 const ExpatriatesExport = () => {
   const { expatriates } = useExpatriateListContext();
   return (
-    <table className="w-full" style={{ fontSize: "5px" }}>
+    <table className="w-full" style={{ fontSize: "8px" }}>
       <thead className="fixed-header">
         <tr>
           <th
@@ -16,8 +16,8 @@ const ExpatriatesExport = () => {
           >
             Expatriate
           </th>
-        </tr>{" "}
-        <tr>
+        </tr>
+        <tr className=" text-xs">
           <th className="p-3 font-bold text-center  bg-gray-500 border">
             Name
           </th>
@@ -55,9 +55,9 @@ const ExpatriatesExport = () => {
         </tr>
       </thead>
       <tbody>
-        {expatriates.map((item) => {
+        {expatriates.map((item, index) => {
           return (
-            <tr>
+            <tr key={index}>
               <td className=" text-center border">{item[1082]}</td>
               <td className="text-center border">{item[1087]}</td>
               <td className=" text-center border">{item[1084]}</td>
@@ -142,16 +142,20 @@ const ExpatriatesExport = () => {
                 />
               </td>
               <td className="p-1 text-center border">
-                <table className="w-full">
-                  <tr>
-                    <td className=" font-bold text-start">No. EPO: </td>
-                    <td className="text-end">{item[1315]}</td>
-                  </tr>
-                  <tr>
-                    <td className=" font-bold text-start">Issuing Date:</td>
-                    <td className="text-end">{item[1290]}</td>
-                  </tr>
-                </table>
+                {item[1315] || item[1290] ? (
+                  <table className="w-full">
+                    <tr>
+                      <td className="text-center">{item[1315]}asasd</td>
+                    </tr>
+                    <tr>
+                      <td className="text-center">{item[1290]}</td>
+                    </tr>
+                  </table>
+                ) : (
+                  <p className=" text-center text-red-500 font-bold">
+                    NO PROCESS
+                  </p>
+                )}
               </td>
             </tr>
           );

@@ -33,3 +33,34 @@ export const docuemnts_data = [
 ];
 
 export const expatriate_status_data = [{ id: 0 }];
+
+/// tickets
+// status & priority
+export const status_tickets_data = [
+  { id: 0, text: "Open", bg_color: "#00C49A" },
+  { id: 1, text: "On Progress", bg_color: "#007BFF" },
+  { id: 2, text: "Closed", bg_color: "#BFC9CA" },
+  { id: 3, text: "Canceled", bg_color: "#DC3545" },
+];
+
+export const priority_tickets_data = [
+  { id: 0, text: "High", bg_color: "#FFEB3B" },
+  { id: 1, text: "Low", bg_color: "#007BFF" },
+  { id: 2, text: "Medium", bg_color: "#FF9800" },
+  { id: 3, text: "Urgent", bg_color: "#ff0000" },
+];
+
+// category
+export const ticket_category_data = [
+  { id: 0, text: "Bug Reports", bg_color: "#B6244F" },
+  { id: 1, text: "Complaints", bg_color: "#DC3545" },
+  { id: 2, text: "Follow-up on Previous Issues", bg_color: "#007BFF" },
+  { id: 3, text: "General Inquiries", bg_color: "#FFD289" },
+  { id: 4, text: "Invoice Queries", bg_color: "#9A1C20" },
+  { id: 5, text: "Order Status", bg_color: "#72A276" },
+  { id: 6, text: "Other Issues", bg_color: "#BFC9CA" },
+  { id: 7, text: "Payment Issues", bg_color: "#D4EDDA" },
+  { id: 8, text: "Refund Requests", bg_color: "#00C49A" },
+  { id: 9, text: "Subscription Problems", bg_color: "#008BF8" },
+  { id: 10, text: "Uncategorized Requests", bg_color: "#3F612D" },
+];

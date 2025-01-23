@@ -1,14 +1,13 @@
 "use client";
 import Form from "@/app/components/ui/form/Form";
 import React from "react";
-import useSignupData from "../hooks/useSignupData";
 import SelectForm from "@/app/components/ui/form/SelectForm";
 import WebButton from "@/app/components/ui/WebButton";
 import Link from "next/link";
-import { Dialog } from "primereact/dialog";
 import SignupDialog from "./SignupDialog";
 import { Message } from "primereact/message";
 import { AnimatePresence, motion } from "framer-motion";
+import useSignupData from "../hooks/useSignupData";
 
 const FormSignup = () => {
   const {
@@ -17,7 +16,6 @@ const FormSignup = () => {
     company,
     visible,
     handleVisible,
-    getVerification,
     dialogLoading,
     SignupButton,
     signupLoading,

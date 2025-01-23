@@ -19,6 +19,7 @@ const DataTable = ({ datas = [], text = "", children, type = "order" }) => {
             {type === "order" && (
               <Link
                 href={"/your-orders"}
+                onClick={(e) => e.stopPropagation()}
                 className=" hover:underline text-blue-500"
               >
                 View All

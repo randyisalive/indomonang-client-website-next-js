@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import SearchInput from "@/app/components/ui/form/SearchInput";
 import WebButton from "@/app/components/ui/WebButton";
 import Form from "@/app/components/ui/form/Form";
@@ -13,6 +13,7 @@ import "./TicketsNew.css";
 import useWOData from "@/app/hooks/useWOData";
 import { useActiveProductContext } from "@/app/Context/ActiveProductContext";
 import { useTicketContext } from "../context/TicketContext";
+import { useWoContext } from "../../your-orders/context/WoContext";
 
 const TicketPageNew = () => {
   const {
@@ -26,6 +27,8 @@ const TicketPageNew = () => {
     SubmitTicket,
     ticket_priority,
   } = useTicketNewData();
+
+  console.log(form);
 
   const { activeProduct } = useActiveProductContext();
   const wo_data = activeProduct.map((item) => {
@@ -57,7 +60,6 @@ const TicketPageNew = () => {
         >
           {wo_data.length > 0 ? (
             <>
-              {" "}
               <span> Ref Number: </span>
               <div className="flex">
                 {wo_data.map((item) => {
@@ -88,6 +90,7 @@ const TicketPageNew = () => {
               placeholder="Email"
               onChange={(e) => handleForm(e)}
               value={form.email}
+              disabled
             />
             <Form
               title="Name"
@@ -96,6 +99,7 @@ const TicketPageNew = () => {
               placeholder="Your Name"
               onChange={(e) => handleForm(e)}
               value={form.name}
+              disabled
             />
             <div className=" w-full my-3 flex flex-col  p-1 gap-2">
               <span className=" text-gray-500 text-sm">Priority</span>

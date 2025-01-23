@@ -54,6 +54,7 @@ const useWOData = () => {
                   nationality: item[699],
                   job_title: item[700],
                   city: item[1809],
+                  pic: item["created_by"],
                 };
               })
             );

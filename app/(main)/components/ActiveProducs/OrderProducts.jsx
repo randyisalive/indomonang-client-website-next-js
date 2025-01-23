@@ -1,10 +1,10 @@
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import { useActiveProductContext } from "@/app/Context/ActiveProductContext";
-import { enquiry_data } from "@/app/function/static_data";
+import { enquiry_data, priority_data } from "@/app/function/static_data";
 import React from "react";
 
 const OrderProducts = () => {
-  const { activeProduct, role } = useActiveProductContext();
+  const { activeProduct } = useActiveProductContext();
   return (
     <>
       {activeProduct.map((item) => (
@@ -15,15 +15,21 @@ const OrderProducts = () => {
               Date: {item.date_added}
             </span>
           </div>
-          <div className="w-1/3">
+          <div className="w-1/3 flex justify-center">
             <StatusBadge
               title={item.status?.name}
               bg_color={item.status?.bg_color}
               font_color="white"
             />
           </div>
-          <div className="w-1/3"> {item.service}</div>
-          <div className="w-1/3"> {item.service}</div>
+          <div className="w-1/3  flex justify-center">
+            {priority_data
+              .filter((i) => i.text === item.priority)
+              .map((x) => (
+                <StatusBadge title={x.text} bg_color={x.bg_color} />
+              ))}
+          </div>
+          <div className="w-1/3 "> {item.service}</div>
         </div>
       ))}
     </>

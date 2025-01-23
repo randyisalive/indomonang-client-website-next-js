@@ -17,7 +17,7 @@ const DependentExport = () => {
   });
 
   return (
-    <table className="w-full" style={{ fontSize: "5px" }}>
+    <table className="w-full" style={{ fontSize: "8px" }}>
       <thead className="fixed-header">
         <tr>
           <th
@@ -28,7 +28,7 @@ const DependentExport = () => {
             Dependent
           </th>
         </tr>
-        <tr>
+        <tr className=" text-xs">
           <th className="p-3 font-bold text-center bg-gray-500 border">Name</th>
           <th className="p-3 font-bold text-center bg-gray-500 border">
             Relationship
@@ -125,17 +125,15 @@ const DependentExport = () => {
                     </td>
 
                     <td className="p-1 text-start border">
-                      {i[1365] && i[1350] ? (
+                      {i[1365] || i[1350] ? (
                         <table className="w-full">
                           <tr>
-                            <td className=" font-bold text-start">No. EPO: </td>
-                            <td className="text-end">{i[1365]}</td>
+                            <td className=" font-bold text-center">
+                              {i[1365]}
+                            </td>
                           </tr>
                           <tr>
-                            <td className=" font-bold text-start">
-                              Issuing Date:
-                            </td>
-                            <td className="text-end">{i[1350]}</td>
+                            <td className="text-center">{i[1350]}</td>
                           </tr>
                         </table>
                       ) : (
