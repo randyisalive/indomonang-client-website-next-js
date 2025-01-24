@@ -44,6 +44,8 @@ const TableComponent = ({
     { id: 3, value: 15 },
     { id: 4, value: 20 },
     { id: 5, value: 25 },
+    { id: 5, value: 35 },
+    { id: 5, value: 50 },
   ];
 
   // Calculate the index range for the current page
@@ -86,7 +88,7 @@ const TableComponent = ({
           </div>
         )}
         {TableType === "invoice" && (
-          <div className="w-full">
+          <div className="w-full px-5 lg:px-0">
             <InvoiceFilter
               filter={filter}
               setFilter={setFilter}
@@ -96,7 +98,7 @@ const TableComponent = ({
           </div>
         )}
         {!filter.filter && (
-          <div className="w-full flex gap-3">
+          <div className="w-full flex gap-3 px-5 lg:px-0">
             <SearchInput name="search" search={search} setSearch={setSearch} />
             <select
               className="border-2 text-center w-2"
@@ -114,8 +116,8 @@ const TableComponent = ({
         )}
       </div>
 
-      <div className="overflow-x-auto sm:overflow-hidden overflow-y-hidden ">
-        <table className="min-w-full mt-3 shadow-md rounded-lg text-sm">
+      <div className="overflow-x-auto     mx-5 lg:mx-0">
+        <table className="min-w-full mt-3  rounded-lg text-sm">
           <thead
             className=" text-gray-800"
             style={{ backgroundColor: "#f3f4f6" }}

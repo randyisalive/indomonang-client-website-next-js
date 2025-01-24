@@ -8,7 +8,8 @@ const HeaderComponent = ({
 }) => {
   return (
     <header className="text-5xl font-bold mx-5 sm:mx-0">
-      {title}
+      <span className=" text-4xl lg:text-5xl"> {title}</span>
+
       <div className="text-xs text-gray-600 mt-3">
         <ul className="flex gap-1">
           {breadcrumbs_array.map((item, index) => {

@@ -51,12 +51,13 @@ const BillingFilter = ({ search = "", setSearch = () => {} }) => {
   };
 
   return (
-    <div className="flex lg:w-full w-full pb-3 items-center gap-3">
+    <div className="flex flex-col lg:flex-row lg:w-full  pb-3 items-center gap-3  mx-5 lg:mx-0 ">
       <WebButton
         title={<i className="pi pi-filter"></i>}
         onClickFunction={() => {
           setFilter(!filter);
         }}
+        className={`w-full lg:w-fit`}
       />
 
       <AnimatePresence>
@@ -65,7 +66,7 @@ const BillingFilter = ({ search = "", setSearch = () => {} }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="flex gap-2 w-full"
+            className="flex gap-2 w-full flex-col lg:flex-row"
           >
             <Dropdown
               className="border w-full"
@@ -124,6 +125,7 @@ const BillingFilter = ({ search = "", setSearch = () => {} }) => {
                 onClickFunction={() => {
                   setFilterForm({ date: "" });
                 }}
+                className={`w-full lg:w-fit`}
               />
             </div>
           </motion.div>

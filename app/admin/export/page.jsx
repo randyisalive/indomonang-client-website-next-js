@@ -153,11 +153,7 @@ const ExportPage = () => {
                   <table className="w-1/2">
                     <thead>
                       <tr>
-                        <th
-                          className="  text-white"
-                          colSpan={3}
-                          style={{ backgroundColor: "#9C1C23" }}
-                        >
+                        <th className="   bg-whiteMain" colSpan={3}>
                           Summary
                         </th>
                       </tr>
@@ -178,7 +174,7 @@ const ExportPage = () => {
                         <td>:</td>
                         <td>{customer[1508]}</td>
                       </tr>
-                      <tr className=" bg-gray-500">
+                      <tr className=" border-t">
                         <td className=" font-bold">Grand Total</td>
                         <td>:</td>
                         <td className=" font-bold">{customer[1509]}</td>
@@ -201,10 +197,7 @@ const ExportPage = () => {
                 <table className="w-1/3 border">
                   <thead className="border">
                     <tr>
-                      <th
-                        colSpan={2}
-                        className=" text-center bg-indomonangeRed text-white p-2"
-                      >
+                      <th colSpan={2} className=" text-center bg-whiteMain p-2">
                         Color Code
                       </th>
                     </tr>
@@ -215,12 +208,12 @@ const ExportPage = () => {
                         <tr key={index}>
                           <td className="p-1 border">
                             <div className="flex justify-center">
-                              <StatusBadge
-                                title={item.text}
-                                bg_color={item.bg_color}
-                                font_color="white"
-                                className="w-full"
-                              />
+                              <label
+                                htmlFor=""
+                                style={{ color: item.bg_color }}
+                              >
+                                {item.text}
+                              </label>
                             </div>
                           </td>
                           <td className="p-1 border">

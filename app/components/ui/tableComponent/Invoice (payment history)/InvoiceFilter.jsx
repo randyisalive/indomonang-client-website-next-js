@@ -73,12 +73,13 @@ const InvoiceFilter = ({
     );
   };
   return (
-    <div className="flex lg:w-full w-full pb-3 items-center gap-3">
+    <div className="flex flex-col lg:flex-row lg:w-full w-full pb-3 items-center gap-3">
       <WebButton
         title={<i className="pi pi-filter"></i>}
         onClickFunction={() => {
           setFilter(!filter);
         }}
+        className={`w-full lg:w-fit`}
       />
 
       <AnimatePresence>
@@ -87,7 +88,7 @@ const InvoiceFilter = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="flex gap-2 w-full"
+            className="flex flex-col lg:flex-row gap-2 w-full"
           >
             <Dropdown
               className="border w-full"
@@ -162,6 +163,7 @@ const InvoiceFilter = ({
                 onClickFunction={() => {
                   setFilterForm({});
                 }}
+                className={`w-full lg:w-fit`}
               />
             </div>
           </motion.div>

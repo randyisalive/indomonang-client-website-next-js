@@ -9,14 +9,21 @@ const PaymentHistorySection = ({ data = [] }) => {
       const cleanedStr = item[1932].replace(/[^0-9]/g, "");
       return acc + parseInt(cleanedStr);
     }, 0);
-  const max_transaction = data.sort((a, b) => {
+
+  const result_max = Math.max(
+    ...data.map((item) => item[2051].replace(/[^0-9]/g, ""))
+  );
+  const result_min = Math.min(
+    ...data.map((item) => item[2051].replace(/[^0-9]/g, ""))
+  );
+
+  const min_transaction = data.sort((a, b) => {
     const cleanedStrA = a[2051].replace(/[^0-9]/g, "");
     const cleanedStrB = b[2051].replace(/[^0-9]/g, "");
     const sorter = cleanedStrB - cleanedStrA;
 
     return sorter;
   });
-  const result = max_transaction[0]?.[2051]?.replace(/[^0-9]/g, "");
 
   const ppn_rp = data.reduce((acc, item) => {
     const cleanedStr = item[2049].replace(/[^0-9]/g, "");
@@ -38,18 +45,20 @@ const PaymentHistorySection = ({ data = [] }) => {
     refund_total / rejected_filtered.length
   ).toFixed(0);
   return (
-    <div className="py-3 px-5 lg:px-0  w-full flex text-sm">
-      <div className="w-1/3 justify-start flex">
-        <div className="flex flex-col gap-2">
-          <span className=" underline">Approve Payment </span>
+    <div className="py-3 px-5 lg:px-0 gap-5 lg:gap-0  w-full flex flex-col lg:flex-row text-sm">
+      <div className="lg:w-1/3 lg:justify-start flex  justify-center">
+        <div className="flex flex-col gap-2 items-center lg:items-start">
+          <span className=" underline text-xs lg:text-base">
+            Approve Payment
+          </span>
           <NumberFlow
             value={grand_total}
             prefix="Rp. "
             suffix=" ,-"
-            className="text-3xl font-bold text-green-500"
+            className="lg:text-3xl text-xl font-bold text-green-500"
           />
-          <div className="flex flex-col">
-            <span>Avg. Apprpved Transaction</span>
+          <div className="flex flex-col text-xs lg:text-base">
+            <span>Avg. Transaction</span>
             <NumberFlow
               value={avg_transaction_approved}
               prefix="Rp. "
@@ -58,34 +67,34 @@ const PaymentHistorySection = ({ data = [] }) => {
           </div>
         </div>
       </div>
-      <div className="w-1/3 justify-center items-center  flex">
-        <div className="flex flex-col gap-2">
-          <span className="underline">Highest Transaction </span>
+      <div className="lg:w-1/3 justify-center items-center  flex">
+        <div className="flex flex-col gap-2 items-center ">
+          <span className="underline text-xs lg:text-base">
+            Highest Transaction
+          </span>
           <NumberFlow
-            value={result}
+            value={result_max}
             prefix="Rp. "
             suffix=" ,-"
-            className="text-3xl"
+            className="lg:text-3xl text-xl font-bold"
           />
-          <div className="flex flex-col">
+          <div className="flex flex-col text-xs lg:text-base">
             <span>Min. Transaction</span>
-            <NumberFlow value={0} prefix="Rp. " suffix=" ,-" />
-            <span>Total Transactions</span>
-            <NumberFlow value={data.length} suffix=" Payments Occured" />
+            <span>Rp. {result_min.toLocaleString("id-ID")} ,-</span>
           </div>
         </div>
       </div>
-      <div className="w-1/3 flex justify-end">
-        <div className="flex flex-col gap-2">
-          <span className=" underline">Refunds </span>
+      <div className="lg:w-1/3   flex lg:justify-end justify-center ">
+        <div className="flex flex-col items-center lg:items-start gap-2">
+          <span className="underline text-xs lg:text-base">Refunds </span>
           <NumberFlow
             value={refund_total}
             prefix="Rp. "
             suffix=" ,-"
-            className="text-3xl text-red-500"
-          />{" "}
-          <div className="flex flex-col">
-            <span>Avg. Refunds Transaction</span>
+            className="lg:text-3xl text-xl text-red-500 font-bold"
+          />
+          <div className="flex flex-col text-xs lg:text-base">
+            <span>Avg. Transaction</span>
             <NumberFlow
               value={avg_transaction_rejected}
               prefix="Rp. "

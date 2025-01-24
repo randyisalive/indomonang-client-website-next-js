@@ -4,33 +4,31 @@ import DocumentTable from "./DocumentTable";
 
 const VisitorExport = () => {
   const { visitors } = useVisitorsListContext();
-  console.log(visitors);
+  const th_array = [
+    "Name",
+    "Address",
+    "Nationality",
+    "Passport",
+    "VISA",
+    "ITK",
+    "SKJ",
+  ];
   return (
     <table className="w-2/3" style={{ fontSize: "8px" }}>
       <thead className="fixed-header">
         <tr>
-          <th
-            className="p-2 text-white text-sm"
-            style={{ backgroundColor: "#9C1C23" }}
-            colSpan={8}
-          >
+          <th className="p-2 bg-whiteMain border text-sm" colSpan={8}>
             Visitors
           </th>
         </tr>
         <tr className=" text-xs">
-          <th className="p-3 font-bold text-center bg-gray-500 border">Name</th>
-          <th className="p-3 font-bold text-center bg-gray-500 border">
-            Address
-          </th>
-          <th className="p-3 font-bold text-center bg-gray-500 border">
-            Nationality
-          </th>
-          <th className="p-3 font-bold text-center bg-gray-500 border">
-            Passport
-          </th>
-          <th className="p-3 font-bold text-center bg-gray-500 border">VISA</th>
-          <th className="p-3 font-bold text-center bg-gray-500 border">ITK</th>
-          <th className="p-3 font-bold text-center bg-gray-500 border">SKJ</th>
+          {th_array.map((i) => {
+            return (
+              <th className="p-3 font-bold text-center bg-whiteMain border">
+                {i}
+              </th>
+            );
+          })}
         </tr>
       </thead>
       <tbody>

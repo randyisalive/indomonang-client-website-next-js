@@ -6,6 +6,20 @@ import DocumentTable from "./DocumentTable";
 const DependentExport = () => {
   const { expatriates } = useExpatriateListContext();
   const { dependent } = useDependentListContext();
+  const th_array = [
+    "Name",
+    "Relationship",
+    "Passport",
+
+    "VISA",
+    "KITAS",
+    "MERP",
+    "STM",
+    "SKTT",
+
+    "SKJ",
+    "EPO",
+  ];
   const data = expatriates.map((expat) => {
     const depend_data = dependent.filter(
       (depent) => expat[1082] === depent[1317]
@@ -20,32 +34,18 @@ const DependentExport = () => {
     <table className="w-full" style={{ fontSize: "8px" }}>
       <thead className="fixed-header">
         <tr>
-          <th
-            className="p-2 text-white text-sm"
-            style={{ backgroundColor: "#9C1C23" }}
-            colSpan={11}
-          >
+          <th className="p-2  text-sm bg-whiteMain border" colSpan={11}>
             Dependent
           </th>
         </tr>
         <tr className=" text-xs">
-          <th className="p-3 font-bold text-center bg-gray-500 border">Name</th>
-          <th className="p-3 font-bold text-center bg-gray-500 border">
-            Relationship
-          </th>
-          <th className="p-3 font-bold text-center bg-gray-500 border">
-            Passport
-          </th>
-          <th className="p-3 font-bold text-center bg-gray-500 border">VISA</th>
-          <th className="p-3 font-bold text-center bg-gray-500 border">
-            KITAS
-          </th>
-          <th className="p-3 font-bold text-center bg-gray-500 border">MERP</th>
-          <th className="p-3 font-bold text-center bg-gray-500 border">STM</th>
-          <th className="p-3 font-bold text-center bg-gray-500 border">SKTT</th>
-
-          <th className="p-3 font-bold text-center bg-gray-500 border">SKJ</th>
-          <th className="p-3 font-bold text-center bg-gray-500 border">EPO</th>
+          {th_array.map((i) => {
+            return (
+              <th className="p-3 font-bold text-center bg-whiteMain border">
+                {i}
+              </th>
+            );
+          })}
         </tr>
       </thead>
       <tbody>

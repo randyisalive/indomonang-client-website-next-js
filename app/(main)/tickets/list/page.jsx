@@ -58,7 +58,7 @@ const TicketListPage = () => {
       <SearchInput search={search} setSearch={setSearch} />
       <div className=" overflow-x-auto">
         <table className="min-w-full mt-3 shadow-md rounded-lg text-sm">
-          <thead className="text-white" style={{ backgroundColor: "#9c1c23" }}>
+          <thead className="" style={{ backgroundColor: "#f3f4f6" }}>
             <tr>
               {th_array.map((i) => {
                 return (

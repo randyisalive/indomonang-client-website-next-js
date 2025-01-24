@@ -15,6 +15,7 @@ export default {
         mainBlue: "#163172",
         secondaryBlue: "#1062fe",
         indomonangeRed: "#9c1c23",
+        whiteMain: "#f3f4f6",
       },
       textColor: {
         mainBlue: "#163172",
