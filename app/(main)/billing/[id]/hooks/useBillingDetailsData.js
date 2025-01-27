@@ -7,13 +7,13 @@ import { useInvoiceContext } from "@/app/(main)/invoice/context/InvoiceContext";
 const useBillingDetailsData = () => {
   // api
   const { InvoiceApi, WOApi } = api();
-  const { id } = useParams();
+  const { id } = useParams(); // invoice ids
   const { getInvoiceById } = InvoiceApi();
   const { getWoById } = WOApi();
 
   // billing context
   const { bills } = useBillingContext();
-  const { handleDownloadInvoice } = useInvoiceContext();
+  const { handleDownloadInvoice, invoice: inv } = useInvoiceContext();
 
   // get datas billing
   const [billing, setBilling] = useState([]);
@@ -21,26 +21,25 @@ const useBillingDetailsData = () => {
   const getBillingData = async () => {
     try {
       //const payment_data = await getPaymentById(bills_array.join(","));
+      console.log(bills);
       const filtered_payment_data = bills.billing_data.filter(
-        (item) => item.id === id
+        (item) => item.invoices_id === id
       );
-      if (filtered_payment_data.length > 0) {
-        setBilling(filtered_payment_data);
-        setIsLoading(1);
-        const invoice_data = await getInvoiceById(
+      setBilling(filtered_payment_data);
+      setIsLoading(1);
+      /* const invoice_data = await getInvoiceById(
           filtered_payment_data[0]?.invoices
-        );
-        setInvoice(invoice_data);
-        setIsLoading(2);
-        const invoice_array = invoice_data.map((item) => {
-          return item["1916_db_value"];
-        });
-        const wo_data = await getWoById(invoice_array.join(","));
-        setWo(wo_data);
-        setIsLoading(3);
-      } else {
-        throw new Error("Payment Data Not Found");
-      }
+        ); */
+      console.log(inv);
+      const invoice_data = inv.filter((item) => item[1907] === id);
+      setInvoice(invoice_data);
+      setIsLoading(2);
+      const invoice_array = invoice_data.map((item) => {
+        return item["1916_db_value"];
+      });
+      const wo_data = await getWoById(invoice_array.join(","));
+      setWo(wo_data);
+      setIsLoading(3);
     } catch (e) {
       console.error(e);
     }

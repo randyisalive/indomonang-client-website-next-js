@@ -22,30 +22,33 @@ const ProfileCard = () => {
 
   return (
     <div
-      className={`${
-        isLoading === 1 ? "border w-full" : ""
-      } rounded-lg p-3 px-2 flex gap-3 flex-col w-52`}
+      className={`border w-full rounded-lg p-3 px-2 flex gap-3 flex-col w-52`}
     >
-      {isLoading === 0 ? (
-        <div className="  flex h-1/2">
-          <Skeleton height="300px" />
+      <>
+        {isLoading === 1 ? (
+          <>
+            <span className="text-lg font-light">
+              #{customer[461]} <br />
+              {customer[228]}
+            </span>
+          </>
+        ) : (
+          <>
+            <div className="w-full">
+              <Skeleton />
+            </div>
+          </>
+        )}
+
+        <p className="text-sm text-gray-500">{customer[432]}</p>
+        <div className="flex gap-3 w-full flex-wrap">
+          <Link href={`/admin/account`}>
+            <WebButton title="Edit" />
+          </Link>
+          <WebButton title="Sign out" onClickFunction={Logout} />
+          {role === "Admin" && <DebugButton />}
         </div>
-      ) : (
-        <>
-          <span className="text-lg font-light">
-            #{customer[461]} <br />
-            {customer[228]}
-          </span>
-          <p className="text-sm text-gray-500">{customer[432]}</p>
-          <div className="flex gap-3 w-full flex-wrap">
-            <Link href={`/admin/account`}>
-              <WebButton title="Edit" />
-            </Link>
-            <WebButton title="Sign out" onClickFunction={Logout} />
-            {role === "Admin" && <DebugButton />}
-          </div>
-        </>
-      )}
+      </>
     </div>
   );
 };

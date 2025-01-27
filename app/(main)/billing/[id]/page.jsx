@@ -15,7 +15,7 @@ const BillingDetail = () => {
   const breadcrumbs_array = [
     { id: 0, text: "Portal Home /", nav: "/" },
     { id: 1, text: "Payment History /", nav: "/billing" },
-    { id: 2, text: `P-${id}` },
+    { id: 2, text: `${id}` },
   ];
 
   return (
@@ -37,10 +37,10 @@ const BillingDetail = () => {
             <span className="text-xl font-light m-0 p-0">Payment Detail</span>
           </div>
           <hr />
-          <div className="text-sm">
+          <div className="text-sm  flex flex-wrap gap-5">
             {billing.map((item) => {
               return (
-                <div key={item.id} className="overflow-x-auto  sm:w-1/2">
+                <div key={item.id} className="">
                   <table className="min-w-fit w-full  mt-3 text-sm">
                     <thead
                       className="text-white"

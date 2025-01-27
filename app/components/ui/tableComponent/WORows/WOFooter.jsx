@@ -15,17 +15,16 @@ const WOFooter = ({ currentRows = [], all_data = [] }) => {
   if (role === "Admin") {
     return (
       <tr>
-        <td colSpan={6} className="text-start font-bold border px-4 py-2">
+        <td
+          colSpan={9}
+          className="text-start font-bold border px-4 py-2 bg-whiteMain"
+        >
           Customer Ratings:
           <p className="font-normal mt-1">
             Rating AVG: {rating_avg.toFixed(2)}
             <i className="pi pi-star ms-1"></i>
           </p>
         </td>
-        <td
-          colSpan={2}
-          className="border px-4 py-2  items-center text-center font-bold "
-        ></td>
       </tr>
     );
   }

@@ -6,33 +6,29 @@ const PaymentHistorySection = ({ data = [] }) => {
   const refund_total = data
     .filter((i) => i[1905] === "Canceled")
     .reduce((acc, item) => {
-      const cleanedStr = item[1932].replace(/[^0-9]/g, "");
+      const cleanedStr = item[1932]?.replace(/[^0-9]/g, "");
       return acc + parseInt(cleanedStr);
     }, 0);
 
   const result_max = Math.max(
-    ...data.map((item) => item[2051].replace(/[^0-9]/g, ""))
+    ...data.map((item) => item[2051]?.replace(/[^0-9]/g, ""))
   );
   const result_min = Math.min(
-    ...data.map((item) => item[2051].replace(/[^0-9]/g, ""))
+    ...data.map((item) => item[2051]?.replace(/[^0-9]/g, ""))
   );
 
   const min_transaction = data.sort((a, b) => {
-    const cleanedStrA = a[2051].replace(/[^0-9]/g, "");
-    const cleanedStrB = b[2051].replace(/[^0-9]/g, "");
+    const cleanedStrA = a[2051]?.replace(/[^0-9]/g, "");
+    const cleanedStrB = b[2051]?.replace(/[^0-9]/g, "");
     const sorter = cleanedStrB - cleanedStrA;
 
     return sorter;
   });
 
-  const ppn_rp = data.reduce((acc, item) => {
-    const cleanedStr = item[2049].replace(/[^0-9]/g, "");
-    return acc + parseInt(cleanedStr);
-  }, 0);
   const grand_total = data
     .filter((i) => i[1905] === "Closed")
     .reduce((acc, item) => {
-      const cleanedStr = item[2051].replace(/[^0-9]/g, "");
+      const cleanedStr = item[2051]?.replace(/[^0-9]/g, "");
       return acc + parseInt(cleanedStr);
     }, 0);
 

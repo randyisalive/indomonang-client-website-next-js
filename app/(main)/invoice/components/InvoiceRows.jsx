@@ -4,19 +4,20 @@ import { invoice_data, invoice_data_client } from "@/app/function/static_data";
 import { useInvoiceContext } from "../context/InvoiceContext";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useBillingContext } from "../../billing/context/BillingContext";
 
 const InvoiceRows = ({
   item = {},
   num = 0,
   currentPage = 0,
   rowsPerPage = 10,
-  role = "",
 }) => {
   const status_invoice = invoice_data.filter((x) => x.text === item[1905]);
   const { handleDownloadInvoice } = useInvoiceContext();
   const payment_id = item[2839].split(" ").pop();
   const payment_array = payment_id.split(",");
+  const transaction_array = item?.[2838].split(",");
+  const payment_dates = item?.[2837].split(",");
+  console.log(payment_dates);
 
   return (
     <tr key={item.id}>
@@ -24,19 +25,21 @@ const InvoiceRows = ({
         {num + 1 + (currentPage - 1) * rowsPerPage}
       </td>
       <td className="border px-4 py-2 text-center ">
-        <span
-          className=" w-fit  cursor-pointer"
-          onClick={() => handleDownloadInvoice(item.id)}
-        >
-          {item[1907]}
-        </span>
+        <Link href={`/billing/${decodeURIComponent(item[1907])}`}>
+          <span
+            className=" w-fit text-blue-500 cursor-pointer hover:underline"
+            //onClick={() => handleDownloadInvoice(item.id)}
+          >
+            {item[1907]}
+          </span>
+        </Link>
       </td>
       <td className="border px-4 py-2 text-center ">
-        <Link href={`/billing/${payment_array[0]}`}>
-          <motion.span className="cursor-pointer hover:underline text-blue-600">
-            {item[2838]}
-          </motion.span>
-        </Link>
+        <ul>
+          {transaction_array?.map((item, index) => {
+            return <li key={index}>{item}</li>;
+          })}
+        </ul>
       </td>
       <td className="border px-4 py-2 text-center ">
         <div className="w-full flex justify-center items-center">
@@ -45,6 +48,7 @@ const InvoiceRows = ({
             .map((x) => {
               return (
                 <StatusBadge
+                  key={x.id}
                   title={x.text}
                   bg_color={x.bg_color}
                   font_color="white"
@@ -53,7 +57,9 @@ const InvoiceRows = ({
             })}
         </div>
       </td>
-      <td className="border px-4 py-2 text-center">{item[2837]}</td>
+      <td className="border px-4 py-2 text-center">
+        {payment_dates[payment_dates?.length - 1]}
+      </td>
       <td
         className={`border px-4 py-2 text-end ${
           item[1905] === "Closed" ? "text-green-600" : "text-red-600"
