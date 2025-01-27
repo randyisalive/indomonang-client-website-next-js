@@ -24,7 +24,11 @@ const DocumentTable = ({
                   {docuemnts_data
                     .filter((i) => i.text === status)
                     .map((x) => (
-                      <p key={x.id} style={{ color: x.bg_color }}>
+                      <p
+                        key={x.id}
+                        className="font-bold"
+                        style={{ color: x.bg_color }}
+                      >
                         {status}
                       </p>
                     ))}

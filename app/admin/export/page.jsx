@@ -210,6 +210,7 @@ const ExportPage = () => {
                             <div className="flex justify-center">
                               <label
                                 htmlFor=""
+                                className="font-bold"
                                 style={{ color: item.bg_color }}
                               >
                                 {item.text}
