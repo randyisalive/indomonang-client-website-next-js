@@ -8,7 +8,10 @@ const OrderProducts = () => {
   return (
     <>
       {activeProduct.map((item) => (
-        <div key={item.id} className="w-full items-center flex p-2 border-b">
+        <div
+          key={item.ref_num}
+          className="w-full items-center flex p-2 border-b"
+        >
           <div className="w-1/3 flex flex-col">
             {item.ref_num}
             <span className="text-xs text-gray-400 font-bold">

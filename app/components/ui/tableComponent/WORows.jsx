@@ -68,8 +68,14 @@ const WORows = ({
         <td className="border px-4 py-2 text-center">
           {priority_data
             .filter((i) => i.text === item.priority)
-            .map((x) => {
-              return <StatusBadge title={x.text} bg_color={x.bg_color} />;
+            .map((x, index) => {
+              return (
+                <StatusBadge
+                  key={`${x.text}-${index}`}
+                  title={x.text}
+                  bg_color={x.bg_color}
+                />
+              );
             })}
         </td>
         <td className="border px-4 py-2 text-center">{item.city}</td>

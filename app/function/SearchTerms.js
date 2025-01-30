@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import useDebounce from "./useDebounce";
 
 const SearchTerms = (
   initialData,
@@ -6,30 +7,39 @@ const SearchTerms = (
   setSearchTerm = () => {}
 ) => {
   const [filteredData, setFilteredData] = useState(initialData);
+  const debounceSearchTerm = useDebounce(searchTerm, 500);
+
+  // Preprocess initialData to normalize it (remove spaces and convert to lowercase)
+  const preprocessedData = useMemo(() => {
+    return initialData.map((item) => {
+      const normalizedItem = {};
+      for (const key in item) {
+        normalizedItem[key] = String(item[key])
+          .replace(/\s+/g, "")
+          .toLowerCase();
+      }
+      return { ...item, normalized: normalizedItem };
+    });
+  }, [initialData]);
 
   useEffect(() => {
-    const terms = searchTerm
+    const terms = debounceSearchTerm
       .split(",")
       .map((term) => term.trim().replace(/\s+/g, "").toLowerCase());
-    console.log("Search Terms:", terms);
-
-    let filtered = initialData;
 
     if (terms.every((term) => term === "")) {
       setFilteredData(initialData);
-    } else {
-      filtered = filtered.filter((item) => {
-        return terms.every((term) => {
-          return Object.values(item).some((val) =>
-            String(val).replace(/\s+/g, "").toLowerCase().includes(term)
-          );
-        });
-      });
+      return;
     }
 
-    console.log("Filtered Result:", filtered);
+    const filtered = preprocessedData.filter((item) => {
+      return terms.every((term) => {
+        return Object.values(item.normalized).some((val) => val.includes(term));
+      });
+    });
+
     setFilteredData(filtered);
-  }, [searchTerm, initialData]);
+  }, [debounceSearchTerm, initialData, preprocessedData]);
 
   const dataToDisplay =
     filteredData.length > 0 || searchTerm !== "" ? filteredData : initialData;

@@ -217,7 +217,11 @@ const WORowsDialog = ({
             (x) => x.text === item[1547]
           );
           return (
-            <table className="w-full text-xs border-t mt-1" cellPadding={5}>
+            <table
+              key={item.id}
+              className="w-full text-xs border-t mt-1"
+              cellPadding={5}
+            >
               <tr>
                 <td className="w-2">Courier </td>
                 <td className="">:</td>
@@ -294,6 +298,7 @@ const WORowsDialog = ({
               {processedData.document.map((item) => {
                 return (
                   <table
+                    key={item.id}
                     className="w-full text-xs border-t mt-1"
                     cellPadding={5}
                   >
