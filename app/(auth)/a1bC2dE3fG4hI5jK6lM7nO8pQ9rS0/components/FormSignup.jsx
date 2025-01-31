@@ -86,7 +86,6 @@ const FormSignup = () => {
             <option value="" selected></option>
             <option value="618">Admin</option>
             <option value="619">Client</option>
-            <option value="620">Developer</option>
           </SelectForm>
         </div>
         <div className="w-full text-center flex-col flex gap-3">
