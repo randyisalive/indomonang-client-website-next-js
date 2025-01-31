@@ -24,6 +24,10 @@ const useSignupData = () => {
   const [signupLoading, setSignupLoading] = useState(0);
   const [message, setMessage] = useState("");
   const handleForm = (e) => {
+    if (e.target.name === "company") {
+      setForm((prev) => ({ ...prev, company: e.target.value.id }));
+      return;
+    }
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   const SignupButton = async () => {
@@ -80,7 +84,11 @@ const useSignupData = () => {
     const getData = async () => {
       try {
         const company_data = await getAllCompany();
-        setCompany(company_data);
+        const sorted = company_data.sort((a, b) =>
+          a[228].localeCompare(b[228])
+        );
+
+        setCompany(sorted);
       } catch (e) {
         console.error(e);
       }

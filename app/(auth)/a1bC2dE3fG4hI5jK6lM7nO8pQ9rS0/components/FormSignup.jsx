@@ -9,6 +9,8 @@ import { Message } from "primereact/message";
 import { AnimatePresence, motion } from "framer-motion";
 import useSignupData from "../hooks/useSignupData";
 
+import { Dropdown } from "primereact/dropdown";
+
 const FormSignup = () => {
   const {
     handleForm,
@@ -47,7 +49,7 @@ const FormSignup = () => {
             value={form.password}
           />
         </div>
-        <div className="block lg:flex gap-3">
+        <div className="block lg:flex gap-3 items-center">
           <Form
             type="email"
             name="email"
@@ -57,21 +59,16 @@ const FormSignup = () => {
             placeholder="newmail@email.com"
             onChange={(e) => handleForm(e)}
           />
-          <SelectForm
-            title="Company *"
-            className={`w-full lg:w-1/2`}
-            name="company"
+          <Dropdown
+            value={form.company}
             onChange={(e) => handleForm(e)}
-          >
-            <option value="" selected></option>
-            {company.map((item) => {
-              return (
-                <option key={item[228]} value={item.id}>
-                  {item[228]}
-                </option>
-              );
-            })}
-          </SelectForm>
+            options={company}
+            name="company"
+            optionLabel="228"
+            filter
+            filterPlaceholder="Search"
+            className="w-full lg:w-1/2 flex mt-4 p-1 h-fit rounded-none border "
+          />
         </div>
       </div>
       <div className="flex mt-5 flex-col gap-3">
@@ -81,6 +78,7 @@ const FormSignup = () => {
             title="Role *"
             className={`w-full`}
             name="role"
+            value={form.role}
             onChange={(e) => handleForm(e)}
           >
             <option value="" selected></option>
