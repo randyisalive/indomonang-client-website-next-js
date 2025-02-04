@@ -34,11 +34,15 @@ const useHomeCardContainerData = () => {
             item.status?.name
           )
         ).length;
+        let unpaid_invoices = 0;
+        if (wo_array.length > 0) {
+          const invoice_data = await getInvoiceByWo(wo_array.join(","));
 
-        const invoice_data = await getInvoiceByWo(wo_array.join(","));
-        const unpaid_invoices = invoice_data.filter((item) =>
-          ["Approved", "Delivered", "Arrived to Client"].includes(item[1905])
-        ).length;
+          unpaid_invoices = invoice_data.filter((item) =>
+            ["Approved", "Delivered", "Arrived to Client"].includes(item[1905])
+          ).length;
+        }
+
         let tickets_data;
         if (role === "Admin") {
           tickets_data = await getTicketsAll();
