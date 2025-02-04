@@ -31,7 +31,7 @@ const WORowsDialog = ({
   const events = [
     {
       status: "Open",
-      icon: "pi pi-hourglass",
+      icon: "pi pi-cart-plus",
       color: "#00C49A",
     },
     {
@@ -41,7 +41,7 @@ const WORowsDialog = ({
     },
     {
       status: "Checking",
-      icon: "pi pi-shopping-cart",
+      icon: "pi pi-search",
       color: "#8D80AD",
     },
     {
