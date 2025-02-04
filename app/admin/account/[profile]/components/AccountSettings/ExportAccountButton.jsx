@@ -33,21 +33,17 @@ const ExportAccountButton = () => {
   };
   return (
     <div>
-      {role === "Admin" && (
-        <div>
-          <WebButton
-            title={
-              <>
-                <i className="pi pi-print"></i>
-              </>
-            }
-            onClickFunction={() => {
-              alert("Print, not yet ready!");
-              window.location.href = "/admin/export";
-            }}
-          />
-        </div>
-      )}
+      <WebButton
+        title={
+          <>
+            <i className="pi pi-print"></i>
+          </>
+        }
+        onClickFunction={() => {
+          alert("Print, not yet ready!");
+          window.location.href = "/admin/export";
+        }}
+      />
     </div>
   );
 };
