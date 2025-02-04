@@ -83,43 +83,38 @@ const WORowsDialog = ({
         <table className="w-full text-xs">
           <tr>
             <td className=" text-gray-400">Company</td>
-            {invoice.length > 0 && (
-              <td className=" text-end flex justify-end">
-                <div className=" w-fit ">{wo_filtered[0].company}</div>
-              </td>
-            )}
+
+            <td className=" text-end flex justify-end">
+              <div className=" w-fit ">{wo_filtered[0].company}</div>
+            </td>
           </tr>
           <tr>
             <td className=" text-gray-400">Service</td>
-            {invoice.length > 0 && (
-              <td className=" text-end flex justify-end">
-                <div className=" w-fit ">{wo_filtered[0].service}</div>
-              </td>
-            )}
+
+            <td className=" text-end flex justify-end">
+              <div className=" w-fit ">{wo_filtered[0].service}</div>
+            </td>
           </tr>
           <tr>
             <td className=" text-gray-400">Reference Number</td>
-            {invoice.length > 0 && (
-              <td className=" text-end flex justify-end">
-                <div className=" w-fit ">{wo_filtered[0].ref_num}</div>
-              </td>
-            )}
+
+            <td className=" text-end flex justify-end">
+              <div className=" w-fit ">{wo_filtered[0].ref_num}</div>
+            </td>
           </tr>
           <tr>
             <td className=" text-gray-400">City / Country</td>
-            {invoice.length > 0 && (
-              <td className=" text-end flex justify-end">
-                <div className=" w-fit ">{wo_filtered[0].city}</div>
-              </td>
-            )}
+
+            <td className=" text-end flex justify-end">
+              <div className=" w-fit ">{wo_filtered[0].city}</div>
+            </td>
           </tr>
           <tr>
             <td className=" text-gray-400">Priority</td>
-            {invoice.length > 0 && (
-              <td className=" text-end flex justify-end">
-                <div className=" w-fit ">{wo_filtered[0].priority}</div>
-              </td>
-            )}
+
+            <td className=" text-end flex justify-end">
+              <div className=" w-fit ">{wo_filtered[0].priority}</div>
+            </td>
           </tr>
           <tr>
             <td className=" text-gray-400">Ratings</td>
