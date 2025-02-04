@@ -3,11 +3,13 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import NumberFlow from "@number-flow/react";
+import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 
-const HomeCard = ({ item = {}, role = "" }) => {
+const HomeCard = ({ item = {} }) => {
   const nav = useRouter();
   const [count, setCount] = useState(Math.random() * 100);
-  const [prevCount, setPrevCount] = useState(item.count);
+
+  const { role } = useAccountDataContext();
 
   useEffect(() => {
     setCount(item.count);

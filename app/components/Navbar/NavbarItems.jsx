@@ -54,9 +54,10 @@ const NavbarItems = ({ onClick = () => {} }) => {
     {
       id: 5,
       title: "Document Record",
+      link: "/record",
       dropdown: false,
       content: [
-        {
+        /*  {
           id: 0,
           text: "Company",
           link: `/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Documents`,
@@ -75,7 +76,7 @@ const NavbarItems = ({ onClick = () => {} }) => {
           id: 3,
           text: "Visitor",
           link: "/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Visitors",
-        },
+        }, */
       ],
     },
   ];
