@@ -51,7 +51,7 @@ const TicketPageNew = () => {
           onClickFunction={getWoData}
         />
       </div>
-      <AnimatePresence mode="wait">
+      {/*     <AnimatePresence mode="wait">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -73,7 +73,7 @@ const TicketPageNew = () => {
             </p>
           )}
         </motion.div>
-      </AnimatePresence>
+      </AnimatePresence> */}
 
       <AnimatePresence>
         {woData.length > 0 && (

@@ -38,7 +38,7 @@ const UploadTableComponent = () => {
         <SearchBarUpload ref={refForm} handleRef={handleForm} />
         <WebButton onClickFunction={() => getWoBtn()} />
       </div>
-      <AnimatePresence mode="wait">
+      {/* <AnimatePresence mode="wait">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -60,7 +60,7 @@ const UploadTableComponent = () => {
             </p>
           )}
         </motion.div>
-      </AnimatePresence>
+      </AnimatePresence> */}
       <CheckWOAuth woData={woData}>
         <AnimatePresence>
           {woData.length > 0 && (
