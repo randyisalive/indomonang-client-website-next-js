@@ -34,7 +34,7 @@ const DocumentRecordCard = () => {
       link: "/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Visitors",
     },
   ];
-  console.log(dependent);
+  console.log(expatriates);
 
   const expat_column = [
     {
@@ -49,6 +49,10 @@ const DocumentRecordCard = () => {
       header: "Nationality",
       key: "1084",
     },
+    {
+      header: "Position",
+      key: "1085",
+    },
   ];
   const dependent_column = [
     {
@@ -56,8 +60,12 @@ const DocumentRecordCard = () => {
       key: "1100",
     },
     {
-      header: "Address",
-      key: "1106",
+      header: "Expat Name",
+      key: "1317",
+    },
+    {
+      header: "Relation",
+      key: "1096",
     },
     {
       header: "Nationality",
@@ -70,8 +78,12 @@ const DocumentRecordCard = () => {
       key: "1442",
     },
     {
-      header: "Address",
-      key: "1447",
+      header: "Visa Type",
+      key: "1462",
+    },
+    {
+      header: "Purpose",
+      key: "1463",
     },
     {
       header: "Nationality",

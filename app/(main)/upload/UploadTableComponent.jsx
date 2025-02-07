@@ -21,6 +21,7 @@ const UploadTableComponent = () => {
     FilesUploadHandle,
     woData,
     deleteAttachmentBtn,
+    handleDownloadUploadedDocuments,
   } = useUploadDocumentData();
 
   const { activeProduct } = useActiveProductContext();
@@ -31,6 +32,8 @@ const UploadTableComponent = () => {
   const handleDropdown = () => {
     setDropdown(!dropdown);
   };
+
+  const [read_more, setReadMore] = useState(false);
 
   return (
     <React.Fragment>
@@ -101,6 +104,57 @@ const UploadTableComponent = () => {
                           <td className="border px-4 py-2  w-2/3">
                             {item.applicant}
                           </td>
+                        </tr>{" "}
+                        <tr>
+                          <td className="border px-4 py-2  w-1/3 font-bold">
+                            Others
+                          </td>
+                          <td className="border px-4 py-2  w-2/3">
+                            <ul>
+                              {item.other_expat_list
+                                ?.split(", ")
+                                .slice(0, 3)
+                                .map((item, index) => {
+                                  return (
+                                    <li className="">
+                                      {index + 1}. {item}
+                                    </li>
+                                  );
+                                })}
+                              {item.other_expat_list?.split(", ").length >
+                                5 && (
+                                <>
+                                  {read_more && (
+                                    <>
+                                      <ul>
+                                        {item.other_expat_list
+                                          ?.split(", ")
+                                          .slice(
+                                            3,
+                                            item.other_expat_list.split(", ")
+                                              .length
+                                          )
+                                          .map((item, index) => {
+                                            return (
+                                              <li className="">
+                                                {index + 4}. {item}
+                                              </li>
+                                            );
+                                          })}
+                                      </ul>
+                                    </>
+                                  )}
+                                  <span
+                                    className="text-blue-500 hover:underline cursor-pointer"
+                                    onClick={() => setReadMore(!read_more)}
+                                  >
+                                    {!read_more && <>Read more</>}
+                                    {read_more && <>Read less</>}
+                                  </span>
+                                </>
+                              )}
+                            </ul>
+                          </td>
                         </tr>
                         <tr>
                           <td className="border px-4 py-2  w-1/3 font-bold">
@@ -149,6 +203,9 @@ const UploadTableComponent = () => {
                   isLoading={requiredDocument.isLoading}
                   FileHandler={FilesUploadHandle}
                   deleteAttachmentBtn={deleteAttachmentBtn}
+                  handleDownloadUploadedDocuments={
+                    handleDownloadUploadedDocuments
+                  }
                 />
               )}
             </>

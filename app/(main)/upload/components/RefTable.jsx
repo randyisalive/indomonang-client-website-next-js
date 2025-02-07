@@ -16,6 +16,7 @@ const RefTable = ({
   isLoading = false,
   ref_num = "",
   deleteAttachmentBtn = () => {},
+  handleDownloadUploadedDocuments = () => {},
 }) => {
   const th_array = [
     "No",
@@ -89,7 +90,7 @@ const RefTable = ({
           <table
             className={
               isLoading || item.name === "Completed"
-                ? "min-w-full shadow-md  text-sm  cursor-not-allowed"
+                ? "min-w-full shadow-md  text-sm  "
                 : "min-w-full shadow-md text-sm"
             }
           >
@@ -123,7 +124,14 @@ const RefTable = ({
                     <td className="border px-4 py-2 text-center">
                       {i[2266] != "" ? (
                         <div className="flex gap-2 items-center">
-                          <span className="w-full text-left">{i[2266]}</span>
+                          <span
+                            className="w-full text-left text-blue-500 hover:underline cursor-pointer"
+                            onClick={() =>
+                              handleDownloadUploadedDocuments(i.id)
+                            }
+                          >
+                            {i[2266]}
+                          </span>
                           {item.name === "Generated" ? (
                             <i
                               className="pi pi-times cursor-pointer text-red-400"

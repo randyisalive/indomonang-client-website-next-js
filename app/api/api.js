@@ -1089,6 +1089,26 @@ const api = () => {
         console.error(e);
       }
     }
+    async function DownloadRequiredListDocuments(id) {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "download_attachment",
+        entity_id: 128,
+        item_id: id,
+        field_id: "2266",
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    }
     return {
       getRequiredDocumentDataByRefNum,
       getRequiredDocumentDataChild,
@@ -1096,6 +1116,7 @@ const api = () => {
       deleteAttachments,
       updateAttachmentStatus,
       updateRequiredListStatus,
+      DownloadRequiredListDocuments,
     };
   };
 

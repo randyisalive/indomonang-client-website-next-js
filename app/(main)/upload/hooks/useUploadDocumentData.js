@@ -13,6 +13,7 @@ const useUploadDocumentData = () => {
     UploadeAttachments,
     deleteAttachments,
     updateAttachmentStatus,
+    DownloadRequiredListDocuments,
   } = RequiredDocumentApi();
 
   // state data
@@ -112,6 +113,26 @@ const useUploadDocumentData = () => {
       console.error(e);
     }
   };
+
+  const handleDownloadUploadedDocuments = async (id) => {
+    const download_docs = await DownloadRequiredListDocuments(id);
+
+    if (download_docs) {
+      const binaryString = atob(download_docs.content);
+      const len = binaryString.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+      const blob = new Blob([bytes], { type: "application/zip" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = download_docs.filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
   return {
     wo,
     woData,
@@ -122,6 +143,7 @@ const useUploadDocumentData = () => {
     requiredDocument,
     FilesUploadHandle,
     deleteAttachmentBtn,
+    handleDownloadUploadedDocuments,
   };
 };
 
