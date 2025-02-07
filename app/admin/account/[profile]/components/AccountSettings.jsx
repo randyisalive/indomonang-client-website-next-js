@@ -124,12 +124,11 @@ const AccountSettings = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className=" p-3 shadow-sm flex flex-col gap-3"
+        className=" p-3 flex flex-col gap-3"
         key={customer.id}
       >
         <div className="w-full justify-between flex items-center">
           <span className=" text-3xl font-bold underline">Your Data</span>
-          <ExportAccountButton data={customer} />
         </div>
         <div className="overflow-x-auto w-full ">
           <table className="min-w-1/2 w-full mt-3  text-sm">
