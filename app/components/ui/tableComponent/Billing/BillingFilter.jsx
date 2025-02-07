@@ -11,6 +11,8 @@ const BillingFilter = ({ search = "", setSearch = () => {} }) => {
   const [filterForm, setFilterForm] = useState({
     date: "",
     invoice: "",
+    month: "",
+    year: "",
     full_data: "",
   });
   const { invoice } = useInvoiceContext();
@@ -86,20 +88,37 @@ const BillingFilter = ({ search = "", setSearch = () => {} }) => {
             <div className="flex justify-center w-full  relative">
               <Calendar
                 inputId="date"
-                value={filterForm.full_data}
+                value={filterForm.month}
                 onChange={(e) => {
                   const date = e.value;
                   let formattedDate =
                     date.toLocaleString("default", { month: "long" }) +
-                    " " +
-                    date.getFullYear();
-                  setFilterForm((prev) => ({ ...prev, date: formattedDate }));
+                    setFilterForm((prev) => ({ ...prev, date: formattedDate }));
                 }}
                 className="border text-gray-700 p-2 rounded-md w-full"
                 view="month"
                 name="date"
-                placeholder="Date"
-                dateFormat="MM yy"
+                placeholder="Month"
+                dateFormat="MM"
+                touchUI
+              />
+
+              <Calendar
+                inputId="date"
+                value={filterForm.year}
+                onChange={(e) => {
+                  const date = e.value;
+                  let formattedDate =
+                    /* date.toLocaleString("default", { month: "long" }) +
+                    " " + */
+                    date.getFullYear();
+                  setFilterForm((prev) => ({ ...prev, date: formattedDate }));
+                }}
+                className="border text-gray-700 p-2 rounded-md w-full"
+                view="year"
+                name="date"
+                placeholder="Year"
+                dateFormat="yy"
                 touchUI
               />
 

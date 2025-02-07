@@ -41,45 +41,17 @@ const PaymentHistorySection = ({ data = [] }) => {
     refund_total / rejected_filtered.length
   ).toFixed(0);
   return (
-    <div className="py-3 px-5 lg:px-0 gap-5 lg:gap-0  w-full flex flex-col lg:flex-row text-sm justify-evenly">
-      <div className="lg:w-1/3 lg:justify-start flex  justify-center">
-        <div className="flex flex-col gap-2 items-center lg:items-start">
-          <span className=" underline text-xs lg:text-base">
-            Approve Payment
-          </span>
-          <NumberFlow
-            value={grand_total}
-            prefix="Rp. "
-            suffix=" ,-"
-            className="lg:text-3xl text-xl font-bold text-green-500"
-          />
-          <div className="flex flex-col text-xs lg:text-base">
-            <span>Avg. Transaction</span>
+    <div className="py-3 px-5 lg:px-0 gap-5 lg:gap-0  w-full flex flex-col lg:flex-row text-sm justify-center">
+      <div className="lg:w-1/3 justify-center flex items-center">
+        <div className="w-full flex justify-center ">
+          <div className="flex gap-2 flex-col ">
             <NumberFlow
-              value={avg_transaction_approved}
+              value={grand_total}
+              className=" text-4xl"
               prefix="Rp. "
               suffix=" ,-"
             />
-          </div>
-        </div>
-      </div>
-
-      <div className="lg:w-1/3   flex lg:justify-end justify-center ">
-        <div className="flex flex-col items-center lg:items-start gap-2">
-          <span className="underline text-xs lg:text-base">Refunds </span>
-          <NumberFlow
-            value={refund_total}
-            prefix="Rp. "
-            suffix=" ,-"
-            className="lg:text-3xl text-xl text-red-500 font-bold"
-          />
-          <div className="flex flex-col text-xs lg:text-base">
-            <span>Avg. Transaction</span>
-            <NumberFlow
-              value={avg_transaction_rejected}
-              prefix="Rp. "
-              suffix=" ,-"
-            />
+            <span className="text-center text-lg">Total Payment</span>
           </div>
         </div>
       </div>

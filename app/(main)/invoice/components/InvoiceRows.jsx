@@ -41,22 +41,6 @@ const InvoiceRows = ({
           })}
         </ul>
       </td>
-      <td className="border px-4 py-2 text-center ">
-        <div className="w-full flex justify-center items-center">
-          {invoice_data_client
-            .filter((i) => item[1905] === i.real_data)
-            .map((x) => {
-              return (
-                <StatusBadge
-                  key={x.id}
-                  title={x.text}
-                  bg_color={x.bg_color}
-                  font_color="white"
-                />
-              );
-            })}
-        </div>
-      </td>
       <td className="border px-4 py-2 text-center">
         {payment_dates[payment_dates?.length - 1]}
       </td>

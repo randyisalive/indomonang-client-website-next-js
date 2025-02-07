@@ -55,6 +55,7 @@ const useWOData = () => {
                   job_title: item[700],
                   city: item[1809],
                   pic: item["created_by"],
+                  other_expat_list: item[318],
                 };
               })
             );

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Dialog } from "primereact/dialog";
 import { Timeline } from "primereact/timeline";
 import CopyButton from "../../CopyButton";
@@ -9,6 +9,7 @@ import { useWoContext } from "@/app/(main)/your-orders/context/WoContext";
 import { useWoDetailContext } from "@/app/(main)/your-orders/context/WoDetailContext";
 import { useInvoiceContext } from "@/app/(main)/invoice/context/InvoiceContext";
 import { Message } from "primereact/message";
+import WebButton from "../../WebButton";
 
 const WORowsDialog = ({
   visible = false,
@@ -52,9 +53,15 @@ const WORowsDialog = ({
     {
       status: "Finished",
       icon: "pi pi-check",
-      color: "#BFC9CA",
+      color: "#223FFF",
     },
   ];
+
+  const [read_more, setReadMore] = useState(false);
+
+  const expat_other = "Expat A, Expat B, Expat C";
+  console.log(wo);
+  const expat_other_array = expat_other.split(",");
 
   const customizedMarker = (item) => {
     const markerColor =
@@ -80,46 +87,43 @@ const WORowsDialog = ({
     >
       <div className="flex flex-col gap-1 mt-3 ">
         <span className=" text-base font-bold">Order Details</span>
-        <table className="w-full text-xs">
+        <table className="w-full text-xs" cellPadding={5}>
           <tr>
-            <td className=" text-gray-400">Company</td>
-
-            <td className=" text-end flex justify-end">
-              <div className=" w-fit ">{wo_filtered[0].company}</div>
+            <td className=" text-gray-400 w-2">Company</td>
+            <td className="" style={{ width: "100px" }}>
+              :
             </td>
+            <td className=" text-start w-full">{wo_filtered[0].company}</td>
           </tr>
           <tr>
             <td className=" text-gray-400">Service</td>
-
-            <td className=" text-end flex justify-end">
-              <div className=" w-fit ">{wo_filtered[0].service}</div>
-            </td>
+            <td>:</td>
+            <td className=" text-start w-fit">{wo_filtered[0].service}</td>
           </tr>
           <tr>
             <td className=" text-gray-400">Reference Number</td>
-
-            <td className=" text-end flex justify-end">
+            <td>:</td>
+            <td className=" text-start ">
               <div className=" w-fit ">{wo_filtered[0].ref_num}</div>
             </td>
           </tr>
           <tr>
             <td className=" text-gray-400">City / Country</td>
+            <td>:</td>
 
-            <td className=" text-end flex justify-end">
-              <div className=" w-fit ">{wo_filtered[0].city}</div>
-            </td>
+            <td className=" text-start">{wo_filtered[0].city}</td>
           </tr>
           <tr>
             <td className=" text-gray-400">Priority</td>
+            <td>:</td>
 
-            <td className=" text-end flex justify-end">
-              <div className=" w-fit ">{wo_filtered[0].priority}</div>
-            </td>
+            <td className=" text-start">{wo_filtered[0].priority}</td>
           </tr>
           <tr>
             <td className=" text-gray-400">Ratings</td>
+            <td>:</td>
             {wo.length > 0 && (
-              <td className=" flex justify-end items-center">
+              <td className=" flex justify-start items-center">
                 <Rating
                   cancel={false}
                   value={wo_filtered[0]?.rating}
@@ -134,32 +138,6 @@ const WORowsDialog = ({
                 />
               </td>
             )}
-          </tr>
-          <tr>
-            <td className=" text-gray-400 w-full pt-5  align-top">Timeline </td>
-            {/* {wo.length > 0 && (
-              <td className="  flex justify-end pt-3">
-                <div className="flex gap-2">
-                  {events.map((item) => {
-                    return (
-                      <StatusBadge
-                        title={item.sdtatus}
-                        bg_color={
-                          item.status === wo_filtered[0]?.status.name
-                            ? item.color
-                            : null
-                        }
-                        font_color={
-                          item.status === wo_filtered[0]?.status.name
-                            ? "white"
-                            : "black"
-                        }
-                      />
-                    );
-                  })}
-                </div>
-              </td>
-            )} */}
           </tr>
         </table>
         <div className="flex w-full">
@@ -201,6 +179,54 @@ const WORowsDialog = ({
             <td className="w-2">Job Title</td>
             <td style={{ width: "1px" }}>:</td>
             <td>{wo_filtered[0]?.job_title}</td>
+          </tr>{" "}
+          <tr>
+            <td className="text-xs pl-1  align-top">Other Applicants</td>
+            <td className="align-top">:</td>
+            <td className="text-xs">
+              <ul>
+                {wo_filtered[0].other_expat_list
+                  ?.split(", ")
+                  .slice(0, 5)
+                  .map((item, index) => {
+                    return (
+                      <li className="">
+                        {index + 1}. {item}
+                      </li>
+                    );
+                  })}
+                {wo_filtered[0].other_expat_list?.split(", ").length > 5 && (
+                  <>
+                    {read_more && (
+                      <>
+                        <ul>
+                          {wo_filtered[0].other_expat_list
+                            ?.split(", ")
+                            .slice(
+                              5,
+                              wo_filtered[0].other_expat_list.split(", ").length
+                            )
+                            .map((item, index) => {
+                              return (
+                                <li className="">
+                                  {index + 6}. {item}
+                                </li>
+                              );
+                            })}
+                        </ul>
+                      </>
+                    )}
+                    <span
+                      className="text-blue-500 hover:underline cursor-pointer"
+                      onClick={() => setReadMore(!read_more)}
+                    >
+                      {!read_more && <>Read more</>}
+                      {read_more && <>Read less</>}
+                    </span>
+                  </>
+                )}
+              </ul>
+            </td>
           </tr>
         </table>
       </div>
