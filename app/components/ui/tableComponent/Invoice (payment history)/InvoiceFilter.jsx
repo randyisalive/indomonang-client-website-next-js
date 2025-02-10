@@ -6,6 +6,7 @@ import { useInvoiceContext } from "@/app/(main)/invoice/context/InvoiceContext";
 import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
 import { invoice_data, invoice_data_client } from "@/app/function/static_data";
+import CalendarFilterComponent from "../../form/CalendarFilterComponent";
 
 const InvoiceFilter = ({
   search = "",
@@ -121,38 +122,7 @@ const InvoiceFilter = ({
               }}
               placeholder="Status"
             />
-            <div className="flex justify-center w-full  relative">
-              <Calendar
-                inputId="date"
-                value={filterForm.full_data}
-                onChange={(e) => {
-                  const date = e.value;
-                  let formattedDate =
-                    date.toLocaleString("default", { month: "long" }) +
-                    " " +
-                    date.getFullYear();
-                  setFilterForm((prev) => ({ ...prev, date: formattedDate }));
-                }}
-                className="border text-gray-700 p-2 rounded-md w-full"
-                view="month"
-                name="date"
-                placeholder="Date"
-                dateFormat="MM yy"
-                touchUI
-              />
-
-              {filterForm.date && (
-                <>
-                  <i
-                    className="pi text-gray-500 cursor-pointer pi-times absolute right-0 flex h-full items-center pr-3"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      clearSelectedForm(e, "date");
-                    }}
-                  ></i>
-                </>
-              )}
-            </div>
+            <CalendarFilterComponent settings="all" />
             <div className="flex">
               <WebButton
                 title={

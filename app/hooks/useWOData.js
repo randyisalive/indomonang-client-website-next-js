@@ -29,8 +29,10 @@ const useWOData = () => {
             let wo_data;
             if (role === "Client") {
               wo_data = await getWoByUserId(company_id[0]["2630_db_value"]);
-            } else {
+            } else if (role === "Admin") {
               wo_data = await getWoAll();
+            } else {
+              return;
             }
             const datas = await Promise.all(
               wo_data.map(async (item) => {
@@ -40,10 +42,11 @@ const useWOData = () => {
                 return {
                   id: item.id,
                   ref_num: item[2134],
+                  main_ids: item[2134],
                   status: status_name[0],
                   priority: item[321],
                   service: item[674],
-                  estimated_done: item[791],
+                  //estimated_done: item[791],
                   status_name: status_name[0]?.name,
                   dialog_status: false,
                   dialog_status_rating: false,

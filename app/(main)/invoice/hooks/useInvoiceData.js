@@ -7,8 +7,7 @@ const useInvoiceData = () => {
   // api
   const { InvoiceApi, WOApi, CustomerAccountApi } = api();
   const { getWoByUserId, getWoAll } = WOApi();
-  const { getAccountById } = CustomerAccountApi();
-  const { getInvoiceById, getInvoiceByWo, DownloadInvoices } = InvoiceApi();
+  const { getInvoiceByWo, DownloadInvoices } = InvoiceApi();
   // dec_key
   const { accounts, role } = useAccountDataContext();
 
@@ -27,7 +26,18 @@ const useInvoiceData = () => {
           }
           if (wo_array.length > 0) {
             const invoice_data = await getInvoiceByWo(wo_array.join(", "));
-            setInvoice(invoice_data);
+            const array_data = invoice_data.map((item) => {
+              return {
+                id: item.id,
+                invoice_id: item[1907],
+                main_ids: item[1907], // for filter
+                status: item[1905],
+                due_date: item[1914],
+                payment_terms: item[1913],
+                amount: item[2051],
+              };
+            });
+            setInvoice(array_data);
           }
         } else {
           if (company_id) {
@@ -39,14 +49,26 @@ const useInvoiceData = () => {
             }
             if (wo_array.length > 0) {
               const invoice_data = await getInvoiceByWo(wo_array.join(", "));
-              const filtered_invoice = invoice_data.filter((item) =>
+              const array_data = invoice_data.map((item) => {
+                return {
+                  id: item.id,
+                  main_ids: item[1907], // for filter
+                  invoice_id: item[1907],
+                  status: item[1905],
+                  due_date: item[1914],
+                  payment_terms: item[1913],
+                  amount: item[2051],
+                };
+              });
+              const filtered_invoice = array_data.filter((item) =>
                 [
                   "Approved",
                   "Delivered",
                   "Arrived to Client",
                   "Closed",
-                ].includes(item[1905])
+                ].includes(item.status)
               );
+
               setInvoice(filtered_invoice);
             }
           }

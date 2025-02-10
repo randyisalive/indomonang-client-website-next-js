@@ -15,6 +15,7 @@ import BillingSection from "@/app/(main)/billing/components/BillingSection";
 import BillingFilter from "./tableComponent/Billing/BillingFilter";
 import PaymentHistorySection from "./tableComponent/Invoice (payment history)/PaymentHistorySection";
 import InvoiceFilter from "./tableComponent/Invoice (payment history)/InvoiceFilter";
+import TableFiltersComponent from "./tableComponent/TableFiltersComponent";
 
 const TableComponent = ({
   th_array = [],
@@ -63,6 +64,15 @@ const TableComponent = ({
     setSearch(search_text);
   }, [search_text]);
 
+  // filters state
+  const [filterForm, setFilterForm] = useState({
+    date: "",
+    main_ids: "",
+    month: "",
+    year: null,
+    full_date: "",
+  });
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -70,6 +80,14 @@ const TableComponent = ({
       exit={{ opacity: 0 }}
       className="flex flex-col w-full "
     >
+      <TableFiltersComponent
+        main_data={datas}
+        filter_data={filterForm}
+        search={search}
+        setSearch={setSearch}
+        form_placeholders={{ dropdown: TableType }}
+      />
+
       {TableType === "invoice_bills" && (
         <div className=" pb-5">
           <BillingSection data={currentRows} />
@@ -87,16 +105,7 @@ const TableComponent = ({
             <BillingFilter search={search} setSearch={setSearch} />
           </div>
         )}
-        {TableType === "invoice" && (
-          <div className="w-full px-5 lg:px-0">
-            <InvoiceFilter
-              filter={filter}
-              setFilter={setFilter}
-              search={search}
-              setSearch={setSearch}
-            />
-          </div>
-        )}
+
         {!filter.filter && (
           <div className="w-full flex gap-3 px-5 lg:px-0">
             <SearchInput name="search" search={search} setSearch={setSearch} />

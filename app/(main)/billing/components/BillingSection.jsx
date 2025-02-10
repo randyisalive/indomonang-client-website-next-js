@@ -4,7 +4,7 @@ import React from "react";
 
 const BillingSection = ({ data = [] }) => {
   const grand_total = data.reduce((acc, item) => {
-    const cleanedStr = item[2051].replace(/[^0-9]/g, "");
+    const cleanedStr = item.amount.replace(/[^0-9]/g, "");
     return acc + parseInt(cleanedStr);
   }, 0);
   return (

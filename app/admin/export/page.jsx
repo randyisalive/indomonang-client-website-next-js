@@ -14,11 +14,7 @@ import { motion } from "framer-motion";
 import WebButton from "@/app/components/ui/WebButton";
 
 const ExportPage = () => {
-  const [isLoading, setIsLoading] = useState(0);
   const { customer } = useAccountSettingContext();
-  const { expatriates } = useExpatriateListContext();
-  const { dependent } = useDependentListContext();
-  const { visitors } = useVisitorsListContext();
 
   const doc_status_ordered = docuemnts_data.sort((a, b) => b.id - a.id);
 
@@ -43,12 +39,12 @@ const ExportPage = () => {
     <div className=" text-xs overflow-x-auto  ">
       <>
         <style scoped>
-          {` @media print {
-        @page {
-        size:A2 landscape;
+          {`@page {
+        size:A3 landscape;
         margin: 10mm;
         
-        }
+        } @media print {
+        
         #btn-container {
         display:none;
         }

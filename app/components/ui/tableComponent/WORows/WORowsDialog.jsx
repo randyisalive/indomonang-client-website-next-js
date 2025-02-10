@@ -183,50 +183,53 @@ const WORowsDialog = ({
           <tr>
             <td className="text-xs pl-1  align-top">Other Applicants</td>
             <td className="align-top">:</td>
-            <td className="text-xs">
-              <ul>
-                {wo_filtered[0].other_expat_list
-                  ?.split(", ")
-                  .slice(0, 5)
-                  .map((item, index) => {
-                    return (
-                      <li className="">
-                        {index + 1}. {item}
-                      </li>
-                    );
-                  })}
-                {wo_filtered[0].other_expat_list?.split(", ").length > 5 && (
-                  <>
-                    {read_more && (
-                      <>
-                        <ul>
-                          {wo_filtered[0].other_expat_list
-                            ?.split(", ")
-                            .slice(
-                              5,
-                              wo_filtered[0].other_expat_list.split(", ").length
-                            )
-                            .map((item, index) => {
-                              return (
-                                <li className="">
-                                  {index + 6}. {item}
-                                </li>
-                              );
-                            })}
-                        </ul>
-                      </>
-                    )}
-                    <span
-                      className="text-blue-500 hover:underline cursor-pointer"
-                      onClick={() => setReadMore(!read_more)}
-                    >
-                      {!read_more && <>Read more</>}
-                      {read_more && <>Read less</>}
-                    </span>
-                  </>
-                )}
-              </ul>
-            </td>
+            {wo_filtered[0].other_expat_list && (
+              <td className="text-xs">
+                <ul>
+                  {wo_filtered[0].other_expat_list
+                    ?.split(", ")
+                    .slice(0, 5)
+                    .map((item, index) => {
+                      return (
+                        <li className="">
+                          {index + 1}. {item}
+                        </li>
+                      );
+                    })}
+                  {wo_filtered[0].other_expat_list?.split(", ").length > 5 && (
+                    <>
+                      {read_more && (
+                        <>
+                          <ul>
+                            {wo_filtered[0].other_expat_list
+                              ?.split(", ")
+                              .slice(
+                                5,
+                                wo_filtered[0].other_expat_list.split(", ")
+                                  .length
+                              )
+                              .map((item, index) => {
+                                return (
+                                  <li className="">
+                                    {index + 6}. {item}
+                                  </li>
+                                );
+                              })}
+                          </ul>
+                        </>
+                      )}
+                      <span
+                        className="text-blue-500 hover:underline cursor-pointer"
+                        onClick={() => setReadMore(!read_more)}
+                      >
+                        {!read_more && <>Read more</>}
+                        {read_more && <>Read less</>}
+                      </span>
+                    </>
+                  )}
+                </ul>
+              </td>
+            )}
           </tr>
         </table>
       </div>

@@ -16,7 +16,7 @@ const WOFooter = ({ currentRows = [], all_data = [] }) => {
     return (
       <tr>
         <td
-          colSpan={9}
+          colSpan={10}
           className="text-start font-bold border px-4 py-2 bg-whiteMain"
         >
           Customer Ratings:

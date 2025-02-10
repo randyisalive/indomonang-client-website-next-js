@@ -21,6 +21,7 @@ const WOTable = () => {
     "Applicant Name",
     "Priority",
     "City / Country",
+    "Date Ordered",
     "Rate Order",
   ].filter(Boolean);
 

@@ -89,6 +89,7 @@ const useBillingData = () => {
               outstanding_balance_int: item[2212] ? item[2212] : 0,
               invoices: item["1960_db_value"],
               invoices_id: item[1960],
+              main_ids: item[1960], // for filter
             };
           });
           /*   const outstanding_totals = billing_data.reduce(

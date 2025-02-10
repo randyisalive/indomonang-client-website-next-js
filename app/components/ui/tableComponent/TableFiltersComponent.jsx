@@ -1,51 +1,43 @@
-"use client";
 import React, { useEffect, useState } from "react";
-import WebButton from "../../WebButton";
+import CalendarFilterComponent from "../form/CalendarFilterComponent";
+import WebButton from "../WebButton";
 import { motion, AnimatePresence } from "framer-motion";
 import { Dropdown } from "primereact/dropdown";
-import { useInvoiceContext } from "@/app/(main)/invoice/context/InvoiceContext";
-import CalendarFilterComponent from "../../form/CalendarFilterComponent";
 
-const BillingFilter = ({ search = "", setSearch = () => {} }) => {
+const TableFiltersComponent = ({
+  main_data = [],
+  filter_data = { date: "", main_ids: "", month: "", year: "", full_date: "" },
+  search = "",
+  form_placeholders = { dropdown: "" },
+  setSearch = () => {},
+}) => {
   const [filter, setFilter] = useState(false);
-  const [filterForm, setFilterForm] = useState({
-    date: "",
-    invoice: "",
-    month: "",
-    year: null,
-    full_date: "",
-  });
-
+  const [filterForm, setFilterForm] = useState(filter_data);
   const updateFilterForm = (field, value) => {
     setFilterForm((prev) => ({
       ...prev,
       [field]: value,
     }));
   };
-  const { invoice } = useInvoiceContext();
 
+  // update search data
   useEffect(() => {
-    const array_search = [
-      filterForm.month,
-      filterForm.year,
-      filterForm.invoice?.invoice_id,
-    ];
+    const array_search = [Object.values(filterForm)];
+    console.log(array_search);
     setSearch(array_search.filter(Boolean).join(","));
   }, [filterForm]);
 
-  const unpaid_invoice = invoice.filter((item) =>
-    ["Approved", "Delivered", "Arrived to Client"].includes(item.status)
-  );
-
+  // clear filter form
   const clearSelectedForm = (e, name) => {
     setFilterForm((prev) => ({ ...prev, [name]: "" }));
   };
 
+  // template
   const customValue = (option, props) => {
-    if (option && props.placeholder === "Invoice") {
+    if (option && props.placeholder === form_placeholders.dropdown) {
       return (
         <div className="flex items-center justify-between">
-          <div>{option.invoice_id}</div>
+          <div>{option.main_ids}</div>
           <i
             className="pi pi-times z-10"
             onClick={(e) => {
@@ -81,18 +73,41 @@ const BillingFilter = ({ search = "", setSearch = () => {} }) => {
             exit={{ opacity: 0 }}
             className="flex gap-2 w-full flex-col lg:flex-row"
           >
-            <Dropdown
+            {/*  <Dropdown
               className="border w-full"
-              value={filterForm.invoice}
-              optionLabel="invoice_id"
-              options={unpaid_invoice}
-              name="invoice"
+              value={filterForm.main_ids}
+              optionLabel="main_ids"
+              options={main_data}
+              name="main_ids"
               valueTemplate={customValue}
               onChange={(e) => {
+                console.log(e.value);
                 updateFilterForm(e.target.name, e.value);
               }}
-              placeholder="Invoice"
-            />
+              placeholder={form_placeholders.dropdown}
+            /> */}
+            <div className="w-full flex  relative items-center">
+              <select
+                name="main_ids"
+                className="border rounded-lg w-full text-gray-600 h-full"
+                value={filterForm.main_ids}
+                placeholder={form_placeholders.dropdown}
+                onChange={(e) =>
+                  updateFilterForm(e.target.name, e.target.value)
+                }
+              >
+                <option defaultValue></option>
+                {main_data.map((item) => {
+                  return <option>{item.main_ids}</option>;
+                })}
+              </select>
+              {!filterForm.main_ids && (
+                <span className=" absolute pl-2 text-gray-400">
+                  {form_placeholders.dropdown}
+                </span>
+              )}
+            </div>
+
             <CalendarFilterComponent
               settings="all"
               filterForm={filterForm}
@@ -107,7 +122,8 @@ const BillingFilter = ({ search = "", setSearch = () => {} }) => {
                   </>
                 }
                 onClickFunction={() => {
-                  updateFilterForm("date", "");
+                  setFilterForm({});
+                  setSearch("");
                 }}
                 className={`w-full lg:w-fit`}
               />
@@ -119,4 +135,4 @@ const BillingFilter = ({ search = "", setSearch = () => {} }) => {
   );
 };
 
-export default BillingFilter;
+export default TableFiltersComponent;

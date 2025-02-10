@@ -79,6 +79,7 @@ const WORows = ({
             })}
         </td>
         <td className="border px-4 py-2 text-center">{item.city}</td>
+        <td className="border px-4 py-2 text-center">{item.date_added}</td>
         <td className="border px-4 py-2 text-center">
           {rating != 0 ? (
             <Rating

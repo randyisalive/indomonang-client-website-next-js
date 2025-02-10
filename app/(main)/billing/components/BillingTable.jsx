@@ -19,7 +19,7 @@ const BillingTable = () => {
     "Amount",
   ];
   const unpaid_invoice = invoice.filter((item) =>
-    ["Approved", "Delivered", "Arrived to Client"].includes(item[1905])
+    ["Approved", "Delivered", "Arrived to Client"].includes(item.status)
   );
 
   return (
