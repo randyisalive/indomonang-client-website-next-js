@@ -51,7 +51,7 @@ const BillingDetail = () => {
                           className="text-start ps-6 border text-base"
                           colSpan={2}
                         >
-                          {item.status}
+                          {item.invoice_id}
                         </th>
                       </tr>
                     </thead>

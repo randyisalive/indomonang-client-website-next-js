@@ -40,6 +40,7 @@ const useBillingDetailsData = () => {
       const invoice_array = invoice_data.map((item) => {
         return item.wo_ids_val;
       });
+
       const wo_data = await getWoById(invoice_array.join(","));
       setWo(wo_data);
       setIsLoading(3);

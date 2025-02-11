@@ -64,6 +64,8 @@ const useInvoiceData = () => {
                   amount: item[2051],
                   transactions: item[2838],
                   payment_dates: item[2837],
+                  wo_ids: item[1916],
+                  wo_ids_val: item["1916_db_value"],
                 };
               });
               const filtered_invoice = array_data.filter((item) =>
