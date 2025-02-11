@@ -8,7 +8,6 @@ const useBillingDetailsData = () => {
   // api
   const { InvoiceApi, WOApi } = api();
   const { id } = useParams(); // invoice ids
-  const { getInvoiceById } = InvoiceApi();
   const { getWoById } = WOApi();
 
   // billing context
@@ -22,20 +21,24 @@ const useBillingDetailsData = () => {
     try {
       //const payment_data = await getPaymentById(bills_array.join(","));
       console.log(bills);
-      const filtered_payment_data = bills.billing_data.filter(
-        (item) => item.invoices_id === id
-      );
+      const filtered_payment_data = bills.billing_data.filter((item) => {
+        const ids = item.invoices_id.split(",");
+        if (ids.includes(id)) {
+          return item.invoices_id;
+        }
+      });
       setBilling(filtered_payment_data);
       setIsLoading(1);
       /* const invoice_data = await getInvoiceById(
           filtered_payment_data[0]?.invoices
         ); */
-      console.log(inv);
-      const invoice_data = inv.filter((item) => item[1907] === id);
+
+      const invoice_data = inv.filter((item) => item.main_ids === id);
+      console.log(invoice_data);
       setInvoice(invoice_data);
       setIsLoading(2);
       const invoice_array = invoice_data.map((item) => {
-        return item["1916_db_value"];
+        return item.wo_ids_val;
       });
       const wo_data = await getWoById(invoice_array.join(","));
       setWo(wo_data);

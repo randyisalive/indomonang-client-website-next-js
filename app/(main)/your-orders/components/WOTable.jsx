@@ -2,12 +2,9 @@
 import TableComponent from "@/app/components/ui/TableComponent";
 import React, { useState } from "react";
 import { ProgressSpinner } from "primereact/progressspinner";
-import { Dropdown } from "primereact/dropdown";
+
 import { useWoContext } from "../context/WoContext";
 import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
-import { enquiry_data, priority_data } from "@/app/function/static_data";
-import { AnimatePresence, motion } from "framer-motion";
-import WebButton from "@/app/components/ui/WebButton";
 
 const WOTable = () => {
   const { wo, isLoading, handleWODialog, handleRating } = useWoContext();
@@ -104,102 +101,6 @@ const WOTable = () => {
         </div>
       ) : (
         <>
-          <div className="flex lg:w-full w-1/3 pb-3 items-center gap-3">
-            <WebButton
-              title={<i className="pi pi-filter"></i>}
-              onClickFunction={() => {
-                setFilter(!filter);
-                setSearchText(["", "", ""]);
-                setDropdown({});
-              }}
-            />
-
-            <AnimatePresence>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="w-full"
-              >
-                {filter && (
-                  <div className="flex gap-2 w-full">
-                    <Dropdown
-                      value={dropdown.ref_num}
-                      filter
-                      onChange={(e) => {
-                        setDropdown((prev) => ({
-                          ...prev,
-                          ref_num: e.value,
-                        }));
-                        setSearchText((prev) => [
-                          prev[0],
-                          prev[1],
-                          e.value?.ref_num || "",
-                        ]);
-                      }}
-                      options={ref_data}
-                      optionLabel="ref_num"
-                      valueTemplate={customValue}
-                      placeholder="Reference"
-                      className="w-full border"
-                    />
-                    <Dropdown
-                      value={dropdown.priority}
-                      onChange={(e) => {
-                        setDropdown((prev) => ({
-                          ...prev,
-                          priority: e.value,
-                        }));
-                        setSearchText((prev) => [
-                          e.value?.text || "",
-                          prev[1],
-                          prev[2],
-                        ]);
-                      }}
-                      options={priority_data}
-                      optionLabel="text"
-                      valueTemplate={customValue}
-                      placeholder="Priority"
-                      className="w-full border"
-                    />
-                    <Dropdown
-                      value={dropdown.status}
-                      onChange={(e) => {
-                        setDropdown((prev) => ({
-                          ...prev,
-                          status: e.value,
-                        }));
-                        setSearchText((prev) => [
-                          prev[0],
-                          e.value?.text || "",
-                          prev[2],
-                        ]);
-                      }}
-                      options={enquiry_data}
-                      optionLabel="text"
-                      valueTemplate={customValue}
-                      placeholder="Status"
-                      className="w-full border"
-                    />
-                    <div className="flex">
-                      <WebButton
-                        title={
-                          <>
-                            <i className="pi pi-sync"></i>
-                          </>
-                        }
-                        onClickFunction={() => {
-                          setSearchText(["", "", ""]);
-                          setDropdown({});
-                        }}
-                      />
-                    </div>
-                  </div>
-                )}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
           <TableComponent
             th_array={th_array}
             datas={wo}

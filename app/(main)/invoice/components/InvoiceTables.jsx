@@ -14,7 +14,7 @@ const InvoiceTables = () => {
   ];
 
   const payment_history_data = invoice.filter((item) =>
-    ["Closed"].includes(item[1905])
+    ["Closed"].includes(item.status)
   );
 
   return (

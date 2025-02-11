@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import CalendarFilterComponent from "../form/CalendarFilterComponent";
 import WebButton from "../WebButton";
 import { motion, AnimatePresence } from "framer-motion";
-import { Dropdown } from "primereact/dropdown";
 
 const TableFiltersComponent = ({
   main_data = [],
   filter_data = { date: "", main_ids: "", month: "", year: "", full_date: "" },
   search = "",
   form_placeholders = { dropdown: "" },
+  extra_filters = [],
   setSearch = () => {},
 }) => {
   const [filter, setFilter] = useState(false);
@@ -101,11 +101,6 @@ const TableFiltersComponent = ({
                   return <option>{item.main_ids}</option>;
                 })}
               </select>
-              {!filterForm.main_ids && (
-                <span className=" absolute pl-2 text-gray-400">
-                  {form_placeholders.dropdown}
-                </span>
-              )}
             </div>
 
             <CalendarFilterComponent

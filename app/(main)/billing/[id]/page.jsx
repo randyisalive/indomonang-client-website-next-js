@@ -24,7 +24,7 @@ const BillingDetail = () => {
         title="Payment Details"
         breadcrumbs={`Portal Home / Payment History / P-${id}`}
         breadcrumbs_array={breadcrumbs_array}
-      />{" "}
+      />
       {isLoading > 1 ? (
         <motion.div
           initial={{ opacity: 0 }}
@@ -51,20 +51,26 @@ const BillingDetail = () => {
                           className="text-start ps-6 border text-base"
                           colSpan={2}
                         >
-                          {item[1907]}
+                          {item.status}
                         </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <td className="border px-4 py-2 font-bold">Due Date</td>
-                        <td className="border px-4 py-2 ">{item[1914]}</td>
+                        <td className="border px-4 py-2 ">{item.due_date}</td>
                       </tr>
                       <tr>
                         <td className="border px-4 py-2 font-bold">
                           Payment Deadline
                         </td>
-                        <td className="border px-4 py-2 ">{item[1913]}</td>
+                        <td className="border px-4 py-2 ">
+                          {
+                            item.payment_dates?.split(",")[
+                              item.payment_dates?.split(",").length - 1
+                            ]
+                          }
+                        </td>
                       </tr>
                       <tr>
                         <td className="border px-4 py-2 font-bold">Invoice</td>
@@ -78,7 +84,7 @@ const BillingDetail = () => {
                       <tr>
                         <td className="border px-4 py-2 font-bold">Total</td>
                         <td className="border px-4 py-2 text-red-600">
-                          {item[2051]}
+                          {item.amount}
                         </td>
                       </tr>
                     </tbody>

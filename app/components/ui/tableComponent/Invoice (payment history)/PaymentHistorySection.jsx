@@ -4,9 +4,9 @@ import React from "react";
 
 const PaymentHistorySection = ({ data = [] }) => {
   const grand_total = data
-    .filter((i) => i[1905] === "Closed")
+    .filter((i) => i.status === "Closed")
     .reduce((acc, item) => {
-      const cleanedStr = item[2051]?.replace(/[^0-9]/g, "");
+      const cleanedStr = item.amount?.replace(/[^0-9]/g, "");
       return acc + parseInt(cleanedStr);
     }, 0);
 

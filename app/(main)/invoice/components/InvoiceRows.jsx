@@ -11,13 +11,8 @@ const InvoiceRows = ({
   currentPage = 0,
   rowsPerPage = 10,
 }) => {
-  const status_invoice = invoice_data.filter((x) => x.text === item[1905]);
-  const { handleDownloadInvoice } = useInvoiceContext();
-  const payment_id = item[2839].split(" ").pop();
-  const payment_array = payment_id.split(",");
-  const transaction_array = item?.[2838].split(",");
-  const payment_dates = item?.[2837].split(",");
-  console.log(payment_dates);
+  const transaction_array = item?.transactions?.split(",");
+  const payment_dates = item?.payment_dates?.split(",");
 
   return (
     <tr key={item.id}>
@@ -25,12 +20,12 @@ const InvoiceRows = ({
         {num + 1 + (currentPage - 1) * rowsPerPage}
       </td>
       <td className="border px-4 py-2 text-center ">
-        <Link href={`/billing/${decodeURIComponent(item[1907])}`}>
+        <Link href={`/billing/${decodeURIComponent(item.invoice_id)}`}>
           <span
             className=" w-fit text-blue-500 cursor-pointer hover:underline"
             //onClick={() => handleDownloadInvoice(item.id)}
           >
-            {item[1907]}
+            {item.invoice_id}
           </span>
         </Link>
       </td>
@@ -46,10 +41,10 @@ const InvoiceRows = ({
       </td>
       <td
         className={`border px-4 py-2 text-end ${
-          item[1905] === "Closed" ? "text-green-600" : "text-red-600"
+          item.status === "Closed" ? "text-green-600" : "text-red-600"
         }  font-bold`}
       >
-        {item[2051]}
+        {item.amount}
       </td>
     </tr>
   );

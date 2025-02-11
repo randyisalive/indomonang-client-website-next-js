@@ -29,12 +29,16 @@ const useInvoiceData = () => {
             const array_data = invoice_data.map((item) => {
               return {
                 id: item.id,
-                invoice_id: item[1907],
                 main_ids: item[1907], // for filter
+                invoice_id: item[1907],
                 status: item[1905],
                 due_date: item[1914],
                 payment_terms: item[1913],
                 amount: item[2051],
+                transactions: item[2838],
+                payment_dates: item[2837],
+                wo_ids: item[1916],
+                wo_ids_val: item["1916_db_value"],
               };
             });
             setInvoice(array_data);
@@ -58,6 +62,8 @@ const useInvoiceData = () => {
                   due_date: item[1914],
                   payment_terms: item[1913],
                   amount: item[2051],
+                  transactions: item[2838],
+                  payment_dates: item[2837],
                 };
               });
               const filtered_invoice = array_data.filter((item) =>

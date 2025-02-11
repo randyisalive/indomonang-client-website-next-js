@@ -80,14 +80,6 @@ const TableComponent = ({
       exit={{ opacity: 0 }}
       className="flex flex-col w-full "
     >
-      <TableFiltersComponent
-        main_data={datas}
-        filter_data={filterForm}
-        search={search}
-        setSearch={setSearch}
-        form_placeholders={{ dropdown: TableType }}
-      />
-
       {TableType === "invoice_bills" && (
         <div className=" pb-5">
           <BillingSection data={currentRows} />
@@ -98,14 +90,14 @@ const TableComponent = ({
           <PaymentHistorySection data={currentRows} />
         </div>
       )}
-
+      <TableFiltersComponent
+        main_data={datas}
+        filter_data={filterForm}
+        search={search}
+        setSearch={setSearch}
+        form_placeholders={{ dropdown: TableType }}
+      />
       <div className="flex flex-col">
-        {TableType === "invoice_bills" && (
-          <div className="w-full">
-            <BillingFilter search={search} setSearch={setSearch} />
-          </div>
-        )}
-
         {!filter.filter && (
           <div className="w-full flex gap-3 px-5 lg:px-0">
             <SearchInput name="search" search={search} setSearch={setSearch} />
