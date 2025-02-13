@@ -20,7 +20,7 @@ const DataTable = ({ datas = [], text = "", children, type = "order" }) => {
               <Link
                 href={"/your-orders"}
                 onClick={(e) => e.stopPropagation()}
-                className=" hover:underline text-blue-500"
+                className=" hover:underline text-blue-500 text-xs"
               >
                 View All
               </Link>
@@ -29,7 +29,7 @@ const DataTable = ({ datas = [], text = "", children, type = "order" }) => {
             <motion.i
               initial={{ rotate: 0 }}
               animate={isOpen ? { rotate: 90 } : { rotate: 0 }}
-              className={`pi pi-angle-right`}
+              className={`pi pi-angle-right text-xs text-blue-500`}
             ></motion.i>
           </div>
         </div>

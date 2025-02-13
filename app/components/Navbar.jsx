@@ -4,6 +4,7 @@ import Link from "next/link";
 import SmallNavbar from "./Navbar/SmallNavbar";
 import AdminMessage from "./Admin/AdminMessage";
 import Notification from "./Navbar/Notification";
+import ProfileDropdown from "./Navbar/ProfileDropdown";
 
 const Navbar = () => {
   return (
@@ -28,8 +29,8 @@ const Navbar = () => {
               <div className="w-full flex">
                 <NavbarItems />
               </div>
-              <div className="w-fit">
-                <Notification />
+              <div className="text-end w-3">
+                <ProfileDropdown />
               </div>
             </div>
           </div>

@@ -7,10 +7,12 @@ const ProfileCardContext = createContext();
 
 // Define a provider component
 export const ProfileCardProvider = ({ children }) => {
-  const { customer, isLoading } = useProfileCardData();
+  const { customer, isLoading, picture_profile } = useProfileCardData();
 
   return (
-    <ProfileCardContext.Provider value={{ customer, isLoading }}>
+    <ProfileCardContext.Provider
+      value={{ customer, isLoading, picture_profile }}
+    >
       {children}
     </ProfileCardContext.Provider>
   );

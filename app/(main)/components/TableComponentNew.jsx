@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const TableComponentNew = ({
@@ -5,13 +6,20 @@ const TableComponentNew = ({
   data = [],
   title = "Table Title",
   search_bar = true,
+  link = "",
 }) => {
   return (
     <div className="overflow-x-auto">
       <>
         {title && (
-          <div className="my-3">
-            <span className=" font-bold text-xl underline">{title}</span>
+          <div className="my-3 flex justify-between items-center">
+            <span className=" font-bold text-base ">{title}</span>
+            <Link
+              href={`${link}`}
+              className="text-blue-500 text-sm hover:underline"
+            >
+              View All
+            </Link>
           </div>
         )}
 

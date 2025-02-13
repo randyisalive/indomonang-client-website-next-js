@@ -8,8 +8,9 @@ const useProfileCardData = () => {
   // api
   const { CustomerDatabasApi, CustomerAccountApi } = api();
   const { getCustomerDataById } = CustomerDatabasApi();
-  const { getCompanyById } = CustomerAccountApi();
+  const { getProfilePictureById } = CustomerAccountApi();
   const [customer, setCustomer] = useState([]);
+  const [picture_profile, setPicture] = useState("");
   const [isLoading, setIsLoading] = useState(0);
 
   // dec key
@@ -20,8 +21,10 @@ const useProfileCardData = () => {
       try {
         if (accounts.company_id) {
           const company_data = await getCustomerDataById(accounts.company_id);
+          const picture = await getProfilePictureById(accounts.id);
           if (company_data.length === 1) {
             setCustomer(company_data[0]);
+            setPicture(picture);
             setIsLoading(1);
           }
         }
@@ -32,7 +35,7 @@ const useProfileCardData = () => {
     getData();
   }, [accounts]);
 
-  return { customer, isLoading };
+  return { customer, isLoading, picture_profile };
 };
 
 export default useProfileCardData;

@@ -9,7 +9,7 @@ const HomeCard = ({ item = {} }) => {
   const nav = useRouter();
   const [count, setCount] = useState(Math.random() * 100);
 
-  const { role } = useAccountDataContext();
+  const { role, accounts } = useAccountDataContext();
 
   useEffect(() => {
     setCount(item.count);

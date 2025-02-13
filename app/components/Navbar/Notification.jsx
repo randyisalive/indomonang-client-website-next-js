@@ -2,10 +2,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useExpatriateListContext } from "@/app/admin/account/[profile]/[id]/context/ExpatriateListContext";
 import { AnimatePresence, motion } from "framer-motion";
-import { Badge } from "primereact/badge";
-import Link from "next/link";
 import { useDependentListContext } from "@/app/admin/account/[profile]/[id]/context/DependentListContext";
 import { useVisitorsListContext } from "@/app/admin/account/[profile]/[id]/context/VisitorsListContext";
+import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
+import WebButton from "../ui/WebButton";
 
 const Notification = () => {
   const cm = useRef(null);
@@ -38,16 +38,17 @@ const Notification = () => {
     };
   }, [cardRef, isOpen, cm]);
 
+  const { accounts } = useAccountDataContext();
+
   return (
-    <div className=" relative w-full flex">
-      <i
-        className="pi pi-bell text-xl p-overlay-badge text-gray-800 cursor-pointer"
+    <div className=" relative w-full justify-end flex   ">
+      <div
+        className="flex gap-1 items-center p-2 cursor-pointer  w-full justify-end "
         onClick={() => setIsOpen(!isOpen)}
       >
-        {all_count_notis > 0 && (
-          <Badge severity="warning" value={all_count_notis} />
-        )}
-      </i>
+        <p>{accounts.username}</p>
+        <i className="pi pi-angle-right"></i>
+      </div>
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -55,13 +56,13 @@ const Notification = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="card flex flex-col min-w-96 h-96 z-10 md:items-center shadow-md rounded-xl overflow-y-auto top-full right-0 absolute text-sm bg-white"
+            className="card flex flex-col min-w-full h-96 z-10 md:items-center shadow-md rounded-xl overflow-y-auto top-full right-0 absolute text-sm bg-white"
           >
             <div className="font-bold flex w-full justify-between p-3 border-b">
-              Notifications
+              Actions
             </div>
             <div className="h-full overflow-y-auto w-full">
-              {expat_notis.map((item) => {
+              {/*  {expat_notis.map((item) => {
                 if (item.count > 0) {
                   return (
                     <div
@@ -197,7 +198,12 @@ const Notification = () => {
                     </p>
                   </div>
                 </div>
-              )}
+              )} */}
+              <ul className="p-3">
+                <li>
+                  <WebButton />
+                </li>
+              </ul>
             </div>
           </motion.div>
         )}
