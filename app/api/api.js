@@ -1615,27 +1615,25 @@ const api = () => {
     return { getRecentNewsAll };
   };
 
-  const QuotationApi = (company_name) => {
+  const QuotationApi = () => {
     const getQuotationByCompany = async (company_name) => {
-      if (company_name != "") {
-        const json_data = {
-          username: "rendi",
-          password: "rendi",
-          action: "select",
-          entity_id: 46,
-          select_fields: "441,434,436,614,587,624,3199",
-          filters: { 3198: company_name, 1035: 2 },
-        };
-        try {
-          const response = await fetch(base_url, {
-            method: "POST",
-            body: JSON.stringify(json_data),
-          });
-          const data = await response.json();
-          return data.data;
-        } catch (e) {
-          console.error(e);
-        }
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 46,
+        select_fields: "441,434,436,614,587,624,3199,439,3198",
+        filters: { 3198: 286 },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
       }
     };
     const getQuotationAll = async () => {
@@ -1644,10 +1642,7 @@ const api = () => {
         password: "rendi",
         action: "select",
         entity_id: 46,
-        select_fields: "441,434,436,614,587,624,3199",
-        filters: {
-          1035: 2,
-        },
+        select_fields: "441,434,436,614,587,624,3199,439,3198",
       };
       try {
         const response = await fetch(base_url, {
@@ -1668,7 +1663,7 @@ const api = () => {
         action: "download_attachment",
         entity_id: 46,
         item_id: id,
-        field_id: 1828,
+        field_id: 3205,
       };
       try {
         const response = await fetch(base_url, {
@@ -1682,10 +1677,94 @@ const api = () => {
       }
     };
 
-    return { getQuotationByCompany, getQuotationAll, downloadClientApproval };
+    const uploadClientSignature = async (
+      client_name,
+      filename,
+      base64Content,
+      id
+    ) => {
+      const API_JSON = {
+        username: "rendi",
+        password: "rendi",
+        action: "update",
+        entity_id: 46,
+        data: {
+          field_3200: [
+            {
+              name: filename,
+              content: base64Content,
+            },
+          ],
+          field_3204: client_name,
+        },
+        update_by_field: { id: id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(API_JSON),
+        });
+        const data = await response.json();
+        return data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    const ApproveQuotations = async (id) => {
+      const API_JSON = {
+        username: "rendi",
+        password: "rendi",
+        action: "run_process",
+        entity_id: 46,
+        item_id: id,
+        process_id: 12,
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(API_JSON),
+        });
+        const data = await response.json();
+        return data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    return {
+      getQuotationByCompany,
+      getQuotationAll,
+      downloadClientApproval,
+      uploadClientSignature,
+      ApproveQuotations,
+    };
+  };
+  const TermsOfServiceApi = () => {
+    const getTermsOfService = async () => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 61,
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    return { getTermsOfService };
   };
 
   return {
+    TermsOfServiceApi,
     CustomerAccountApi,
     QuotationApi,
     DecryptionKeyApi,

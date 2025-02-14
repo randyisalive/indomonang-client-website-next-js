@@ -21,15 +21,15 @@ const NotificationBox = () => {
   }, 0);
 
   return (
-    <div className="my-3 border  rounded-lg text-sm flex flex-col gap-3 h-96 overflow-y-auto relative">
+    <div className="  rounded-lg text-sm flex flex-col gap-3 h-96 relative">
       <div className=" font-bold  sticky top-0 z-10">
-        <div className=" absolute p-3 flex items-center gap-1 border-b w-full bg-white shadow-sm">
+        <div className=" absolute border rounded-tr-lg p-3 flex items-center gap-1 border-b w-full bg-white shadow-sm">
           <i className="pi pi-bell"></i>
-          <span>Notifications</span>
+          <span>Expired Documents</span>
           <Badge value={all_count_notis} severity="warning rounded-full" />
         </div>
       </div>
-      <div className=" absolute top-10">
+      <div className=" absolute top-10 overflow-y-auto h-96 border rounded-lg w-full">
         {expat_notis.map((item) => {
           if (item.count > 0) {
             return (
@@ -148,7 +148,7 @@ const NotificationBox = () => {
           }
         })}
         {all_count_notis === 0 && (
-          <div className=" h-full p-5 mt-14 w-full justify-center flex items-center">
+          <div className=" h-full p-5 w-full justify-center flex items-center">
             <div className="flex flex-col justify-center">
               <div className="w-full  flex justify-center">
                 <img
@@ -159,10 +159,10 @@ const NotificationBox = () => {
               </div>
 
               <span className=" text-center font-bold">
-                No Notification Yet
+                No Documents Expired
               </span>
               <p className=" text-xs text-center opacity-50 mt-2">
-                You have no notifications right now. Come back later
+                You have no documents expired right now. Come back later
               </p>
             </div>
           </div>

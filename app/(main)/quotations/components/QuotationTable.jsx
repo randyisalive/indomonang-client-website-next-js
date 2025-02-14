@@ -6,9 +6,12 @@ import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import { quotation_status } from "@/app/function/static_data";
 import WebButton from "@/app/components/ui/WebButton";
 import QuotationSection from "./QuotationSection";
+import Link from "next/link";
+import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 
 const QuotationTable = () => {
   const { quotations, download_client_approval } = useQuotationContext();
+  const { accounts } = useAccountDataContext();
 
   const columns_array = [
     {
@@ -16,12 +19,14 @@ const QuotationTable = () => {
       key: "434",
       render: (row) => {
         return (
-          <span
-            className=" text-blue-500 hover:underline cursor-pointer"
-            onClick={() => download_client_approval(row.id)}
-          >
-            {row[434]}
-          </span>
+          <Link href={`quotations/${row.id}`}>
+            <span
+              className=" text-blue-500 hover:underline cursor-pointer"
+              onClick={() => download_client_approval(row.id)}
+            >
+              {row[434]}
+            </span>
+          </Link>
         );
       },
     },
@@ -66,8 +71,12 @@ const QuotationTable = () => {
         return (
           <>
             <div className="flex gap-3">
-              <WebButton title="Approve" />
-              <WebButton title="Reject" bg_color="#F90C01" />
+              <Link
+                href={`/quotations/${row.id}`}
+                className=" text-blue-500 text-sm cursor-pointer hover:underline"
+              >
+                View
+              </Link>
             </div>
           </>
         );
@@ -77,7 +86,6 @@ const QuotationTable = () => {
   return (
     <div>
       <QuotationSection data={quotations} />
-
       <TableComponentNew
         numbering={true}
         data={quotations}

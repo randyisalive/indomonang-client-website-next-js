@@ -7,10 +7,24 @@ const QuotationContext = createContext();
 
 // Define a provider component
 export const QuotationProvider = ({ children }) => {
-  const { quotations, download_client_approval } = useQuotationsData();
+  const {
+    quotations,
+    download_client_approval,
+    pdf,
+    upload_client_signature,
+    approve_quotation,
+  } = useQuotationsData();
 
   return (
-    <QuotationContext.Provider value={{ quotations, download_client_approval }}>
+    <QuotationContext.Provider
+      value={{
+        quotations,
+        download_client_approval,
+        pdf,
+        upload_client_signature,
+        approve_quotation,
+      }}
+    >
       {children}
     </QuotationContext.Provider>
   );

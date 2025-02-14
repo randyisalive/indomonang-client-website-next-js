@@ -27,7 +27,7 @@ const SmallNavbar = () => {
           <>
             <div
               onClick={() => setStatus(false)}
-              className="absolute w-full bg-black opacity-30 top-0 z-40 min-h-svh right-0"
+              className="absolute w-full opacity-30 top-0 z-40 min-h-svh right-0"
             ></div>
             <motion.div
               initial={{ width: 0 }}

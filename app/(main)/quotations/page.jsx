@@ -1,7 +1,6 @@
 import HeaderComponent from "@/app/components/ui/HeaderComponent";
 import React from "react";
 import QuotationTable from "./components/QuotationTable";
-import QuotationSection from "./components/QuotationSection";
 
 const QuotationsPage = () => {
   return (

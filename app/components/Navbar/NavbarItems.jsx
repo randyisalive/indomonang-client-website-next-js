@@ -154,7 +154,7 @@ const NavbarItems = ({ onClick = () => {} }) => {
           <motion.span
             style={item.dropdown ? { color: "#1062FE" } : { color: "#000" }}
             whileHover={{ color: "#1062FE" }}
-            className="bg-dark cursor-pointer"
+            className="cursor-pointer"
             onClick={() => handleItems(item.id)}
           >
             {item.link ? (

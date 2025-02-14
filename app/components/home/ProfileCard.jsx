@@ -21,7 +21,9 @@ const ProfileCard = () => {
   const { customer, isLoading, picture_profile } = useProfileCardContext();
 
   return (
-    <div className={`border w-full rounded-lg p-3 px-2 flex gap-3 flex-col `}>
+    <div
+      className={`border w-full  rounded-lg p-3 px-2 flex gap-3 flex-col h-full `}
+    >
       <>
         {isLoading === 1 ? (
           <>

@@ -4,11 +4,15 @@ import { useQuotationContext } from "../context/QuotationsContext";
 
 const QuotationSection = ({ data = [] }) => {
   const { quotations } = useQuotationContext();
-
-  const grand_total = quotations.reduce((acc, item) => {
-    const total = acc + parseInt(item[3199]);
-    return total;
-  }, 0);
+  let grand_total = 0;
+  if (quotations?.length > 0) {
+    grand_total = quotations?.reduce((acc, item) => {
+      if (item[3199] === "NaN") {
+        const total = acc + parseInt(item[3199]);
+        return total;
+      }
+    }, 0);
+  }
 
   return (
     <div className="p-5 flex justify-center">

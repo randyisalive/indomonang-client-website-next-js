@@ -25,8 +25,8 @@ const Navbar = () => {
                 <SmallNavbar />
               </div>
             </div>
-            <div className="hidden sm:flex gap-3 items-center justify-between">
-              <div className="w-full flex">
+            <div className="hidden  sm:flex gap-3 items-center justify-between">
+              <div className="w-full  flex">
                 <NavbarItems />
               </div>
               <div className="text-end w-3">
