@@ -1,5 +1,6 @@
 import Footer from "../components/Footer";
 import HomeList from "../components/home/HomeList";
+import NotificationBox from "../components/home/NotificationBox";
 import ProfileCard from "../components/home/ProfileCard";
 import HeaderComponent from "../components/ui/HeaderComponent";
 import ActiveProducts from "./components/ActiveProducts";
@@ -20,6 +21,7 @@ export default function Home() {
       <div className="mt-6 block sm:flex  mx-5 sm:mx-0 gap-3">
         <div className=" lg:w-1/4 px-4 lg:px-0 flex sm:block gap-3 lg:gap-0 mb-5 lg:mb-0">
           <ProfileCard />
+          <NotificationBox />
         </div>
         <div className="lg:w-3/4  flex flex-col gap-3 ">
           <HomeCardContainer />

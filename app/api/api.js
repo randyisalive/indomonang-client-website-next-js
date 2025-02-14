@@ -1615,8 +1615,79 @@ const api = () => {
     return { getRecentNewsAll };
   };
 
+  const QuotationApi = (company_name) => {
+    const getQuotationByCompany = async (company_name) => {
+      if (company_name != "") {
+        const json_data = {
+          username: "rendi",
+          password: "rendi",
+          action: "select",
+          entity_id: 46,
+          select_fields: "441,434,436,614,587,624,3199",
+          filters: { 3198: company_name, 1035: 2 },
+        };
+        try {
+          const response = await fetch(base_url, {
+            method: "POST",
+            body: JSON.stringify(json_data),
+          });
+          const data = await response.json();
+          return data.data;
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    };
+    const getQuotationAll = async () => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 46,
+        select_fields: "441,434,436,614,587,624,3199",
+        filters: {
+          1035: 2,
+        },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    const downloadClientApproval = async (id) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "download_attachment",
+        entity_id: 46,
+        item_id: id,
+        field_id: 1828,
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    return { getQuotationByCompany, getQuotationAll, downloadClientApproval };
+  };
+
   return {
     CustomerAccountApi,
+    QuotationApi,
     DecryptionKeyApi,
     WOApi,
     ExtraMethodsApi,

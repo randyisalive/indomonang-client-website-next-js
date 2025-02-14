@@ -52,7 +52,7 @@ const ProfileDropdown = () => {
   return (
     <div className=" relative w-full justify-end flex">
       <div
-        className="flex gap-1 items-center p-2   w-full justify-end "
+        className="flex gap-1 items-center   w-full justify-end "
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex gap-1 items-center cursor-pointer">

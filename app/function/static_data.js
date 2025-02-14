@@ -68,3 +68,15 @@ export const ticket_category_data = [
   { id: 9, text: "Subscription Problems", bg_color: "#008BF8" },
   { id: 10, text: "Uncategorized Requests", bg_color: "#3F612D" },
 ];
+
+//quotation status
+export const quotation_status = [
+  { id: 0, text: "Overdue", bg_color: "#FFD289" },
+  { id: 1, text: "Open", bg_color: "#00C49A" },
+  { id: 2, text: "Signed", bg_color: "#009688" },
+  { id: 3, text: "Quoted", bg_color: "#008BF8" },
+  { id: 4, text: "Rejected", bg_color: "#F44336" },
+  { id: 5, text: "Approved", bg_color: "#007BFF" },
+  { id: 6, text: "Canceled", bg_color: "#B6244F" },
+  { id: 7, text: "Closed", bg_color: "#BFC9CA" },
+];

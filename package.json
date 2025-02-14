@@ -24,6 +24,7 @@
     "primereact": "^10.8.5",
     "react": "^19.0.0",
     "react-animated-numbers": "^1.0.0",
+    "react-custom-scroll": "^7.0.0",
     "react-dom": "^19.0.0",
     "react-signature-canvas": "^1.0.7",
     "uuid": "^11.0.3",

@@ -9,6 +9,7 @@ const WebButton = ({
   def = false,
   styles = {},
   disabled = false,
+  bg_color = "#1062FE",
 }) => {
   return (
     <motion.button
@@ -19,7 +20,7 @@ const WebButton = ({
           ? { opacity: 0.88 }
           : {
               opacity: 1,
-              backgroundColor: "#1062FE",
+              backgroundColor: bg_color,
               color: "#ffffff",
               fontWeight: "300",
             }
