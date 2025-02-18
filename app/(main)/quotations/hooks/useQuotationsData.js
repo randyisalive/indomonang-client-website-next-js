@@ -23,7 +23,6 @@ const useQuotationsData = () => {
       if (accounts) {
         const quotation_data = await getQuotationByCompany(accounts.company);
         setQuotations(quotation_data);
-        console.log(quotation_data);
       }
     } catch (e) {
       console.error(e);
@@ -40,7 +39,6 @@ const useQuotationsData = () => {
   const download_client_approval = async (id = 136) => {
     try {
       const download = await downloadClientApproval(id);
-      console.log("Download", download);
       if (download) {
         setPdf(download);
         /*  const binaryString = atob(download.content);

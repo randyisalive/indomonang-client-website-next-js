@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const TableComponentNew = ({
   columns = [],
@@ -20,9 +20,11 @@ const TableComponentNew = ({
     { id: 3, value: 15 },
     { id: 4, value: 20 },
     { id: 5, value: 25 },
-    { id: 5, value: 35 },
-    { id: 5, value: 50 },
-  ]; // Calculate the index range for the current page
+    { id: 6, value: 35 },
+    { id: 7, value: 50 },
+  ]; // Ensure unique IDs
+
+  // Calculate the index range for the current page
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = data.slice(indexOfFirstRow, indexOfLastRow);
@@ -32,52 +34,46 @@ const TableComponentNew = ({
     event.preventDefault();
     setCurrentPage(number);
   };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="flex flex-col w-full "
+      className="flex flex-col w-full"
     >
-      <>
-        {title && (
-          <div className="my-3 flex justify-between items-center">
-            <span className=" font-bold text-base ">{title}</span>
-            <Link
-              href={`${link}`}
-              className="text-blue-500 text-sm hover:underline"
-            >
-              View All
-            </Link>
-          </div>
-        )}
-      </>
+      {title && (
+        <div className="my-3 flex justify-between items-center">
+          <span className="font-bold text-base">{title}</span>
+          <Link
+            href={`${link}`}
+            className="text-blue-500 text-sm hover:underline"
+          >
+            View All
+          </Link>
+        </div>
+      )}
       <table className="min-w-full bg-white border border-gray-200">
-        {/* Table Header */}
         <thead className="bg-gray-50">
           <tr>
             {numbering && (
-              <th className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                 No
               </th>
             )}
             {columns.map((column, index) => (
-              <>
-                <th
-                  key={index}
-                  className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider"
-                >
-                  {column.header}
-                </th>
-              </>
+              <th
+                key={`${index}-${column.id}`}
+                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+              >
+                {column.header}
+              </th>
             ))}
           </tr>
         </thead>
-
-        {/* Table Body */}
         <tbody className="divide-y divide-gray-200">
           {currentRows.map((row, rowIndex) => (
-            <tr key={rowIndex}>
+            <tr key={`${rowIndex}-${row.id}`}>
               {numbering && (
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                   {indexOfFirstRow + rowIndex + 1}
@@ -85,7 +81,7 @@ const TableComponentNew = ({
               )}
               {columns.map((column, colIndex) => (
                 <td
-                  key={colIndex}
+                  key={`${colIndex}-${column.id}`}
                   className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
                 >
                   {column.render ? column.render(row) : row[column.key]}
@@ -94,7 +90,7 @@ const TableComponentNew = ({
             </tr>
           ))}
         </tbody>
-      </table>{" "}
+      </table>
       <nav className="mt-4 p-3">
         <ul className="flex justify-center space-x-2">
           {Array.from(
