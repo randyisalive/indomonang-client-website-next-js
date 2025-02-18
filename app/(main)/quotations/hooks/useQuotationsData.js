@@ -23,6 +23,7 @@ const useQuotationsData = () => {
       if (accounts) {
         const quotation_data = await getQuotationByCompany(accounts.company);
         setQuotations(quotation_data);
+        console.log(quotation_data);
       }
     } catch (e) {
       console.error(e);
