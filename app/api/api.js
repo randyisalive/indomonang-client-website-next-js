@@ -1616,14 +1616,14 @@ const api = () => {
   };
 
   const QuotationApi = () => {
-    const getQuotationByCompany = async (company_name) => {
+    const getQuotationByCompany = async (company_id) => {
       const json_data = {
         username: "rendi",
         password: "rendi",
         action: "select",
         entity_id: 46,
         select_fields: "441,434,436,614,587,624,3199,439,3198",
-        filters: { 3198: 286 },
+        filters: { 3198: company_id, 441: 476 },
       };
       try {
         const response = await fetch(base_url, {
@@ -1718,7 +1718,48 @@ const api = () => {
         action: "run_process",
         entity_id: 46,
         item_id: id,
-        process_id: 12,
+        process_id: 253,
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(API_JSON),
+        });
+        const data = await response.json();
+        return data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    // rejection function
+    const InputRejectionNote = async (id, rejection_note) => {
+      const API_JSON = {
+        username: "rendi",
+        password: "rendi",
+        action: "update",
+        entity_id: 46,
+        data: { field_3211: rejection_note },
+        update_by_field: { id: id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(API_JSON),
+        });
+        const data = await response.json();
+        return data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    const RejectQuotations = async (id) => {
+      const API_JSON = {
+        username: "rendi",
+        password: "rendi",
+        action: "run_process",
+        entity_id: 46,
+        item_id: id,
+        process_id: 13,
       };
       try {
         const response = await fetch(base_url, {
@@ -1738,6 +1779,8 @@ const api = () => {
       downloadClientApproval,
       uploadClientSignature,
       ApproveQuotations,
+      RejectQuotations,
+      InputRejectionNote,
     };
   };
   const TermsOfServiceApi = () => {

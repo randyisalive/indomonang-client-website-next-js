@@ -13,6 +13,7 @@ export const QuotationProvider = ({ children }) => {
     pdf,
     upload_client_signature,
     approve_quotation,
+    reject_quotation,
   } = useQuotationsData();
 
   return (
@@ -23,6 +24,7 @@ export const QuotationProvider = ({ children }) => {
         pdf,
         upload_client_signature,
         approve_quotation,
+        reject_quotation,
       }}
     >
       {children}

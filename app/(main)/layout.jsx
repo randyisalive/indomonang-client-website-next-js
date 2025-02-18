@@ -13,36 +13,39 @@ import ExpatriateListContext, {
 } from "../admin/account/[profile]/[id]/context/ExpatriateListContext";
 import { DependentListProvider } from "../admin/account/[profile]/[id]/context/DependentListContext";
 import { VisitorsListProvider } from "../admin/account/[profile]/[id]/context/VisitorsListContext";
+import { DecryptionProvider } from "../Context/DecryptionContext";
 
 const layout = ({ children }) => {
   return (
     <>
-      <WithAuth>
-        <WoProvider>
-          <ProfileCardProvider>
-            <HomeCardContainerProvider>
-              <ActiveProductProvider>
-                <RecentNewsProvider>
-                  <BillingProvider>
-                    <InvoiceProvider>
-                      <ExpatriateListProvider>
-                        <DependentListProvider>
-                          <VisitorsListProvider>
-                            <section className="md:px-6 lg:p-0 ">
-                              <Navbar />
-                              <main className=" min-h-full ">{children}</main>
-                            </section>
-                          </VisitorsListProvider>
-                        </DependentListProvider>
-                      </ExpatriateListProvider>
-                    </InvoiceProvider>
-                  </BillingProvider>
-                </RecentNewsProvider>
-              </ActiveProductProvider>
-            </HomeCardContainerProvider>
-          </ProfileCardProvider>
-        </WoProvider>
-      </WithAuth>
+      <DecryptionProvider>
+        <WithAuth>
+          <WoProvider>
+            <ProfileCardProvider>
+              <HomeCardContainerProvider>
+                <ActiveProductProvider>
+                  <RecentNewsProvider>
+                    <BillingProvider>
+                      <InvoiceProvider>
+                        <ExpatriateListProvider>
+                          <DependentListProvider>
+                            <VisitorsListProvider>
+                              <section className="md:px-6 lg:p-0 ">
+                                <Navbar />
+                                <main className=" min-h-full ">{children}</main>
+                              </section>
+                            </VisitorsListProvider>
+                          </DependentListProvider>
+                        </ExpatriateListProvider>
+                      </InvoiceProvider>
+                    </BillingProvider>
+                  </RecentNewsProvider>
+                </ActiveProductProvider>
+              </HomeCardContainerProvider>
+            </ProfileCardProvider>
+          </WoProvider>
+        </WithAuth>
+      </DecryptionProvider>
     </>
   );
 };

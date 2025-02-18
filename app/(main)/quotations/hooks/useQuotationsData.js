@@ -11,6 +11,8 @@ const useQuotationsData = () => {
     downloadClientApproval,
     uploadClientSignature,
     ApproveQuotations,
+    RejectQuotations,
+    InputRejectionNote,
   } = QuotationApi();
 
   // context
@@ -21,7 +23,7 @@ const useQuotationsData = () => {
   const getData = async () => {
     try {
       if (accounts) {
-        const quotation_data = await getQuotationByCompany(accounts.company);
+        const quotation_data = await getQuotationByCompany(accounts.company_id);
         setQuotations(quotation_data);
         console.log(quotation_data);
       }
@@ -80,7 +82,27 @@ const useQuotationsData = () => {
   const approve_quotation = async (id) => {
     try {
       const approve = await ApproveQuotations(id);
-      console.log(approve);
+      if (approve) {
+        window.location.href = "/quotations";
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const reject_quotation = async (id, rejection_note) => {
+    try {
+      if (rejection_note) {
+        const rejectionNotes = await InputRejectionNote(id, rejection_note);
+        if (rejectionNotes) {
+          const rejection = await RejectQuotations(id);
+          if (rejection) {
+            window.location.href = "/quotations";
+          }
+        }
+      } else {
+        throw new Error("Rejection Note empty!!");
+      }
     } catch (e) {
       console.error(e);
     }
@@ -92,6 +114,7 @@ const useQuotationsData = () => {
     pdf,
     upload_client_signature,
     approve_quotation,
+    reject_quotation,
   };
 };
 

@@ -4,24 +4,28 @@ import TableComponentNew from "../../components/TableComponentNew";
 import { useQuotationContext } from "../context/QuotationsContext";
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import { quotation_status } from "@/app/function/static_data";
-import WebButton from "@/app/components/ui/WebButton";
 import QuotationSection from "./QuotationSection";
 import Link from "next/link";
-import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
+import { encryptMessage } from "@/app/function/decryptor";
+import { useDecryptionContext } from "@/app/Context/DecryptionContext";
 
 const QuotationTable = () => {
   const { quotations, download_client_approval } = useQuotationContext();
-  const { accounts } = useAccountDataContext();
+  const { decKey } = useDecryptionContext();
 
   const columns_array = [
     {
       header: "Quotation ID",
-      key: "434",
+      key: "quotation-id",
       render: (row) => {
         return (
-          <Link href={`quotations/${row.id}`}>
+          <Link
+            href={`quotations/${encodeURIComponent(
+              encryptMessage(row.id, decKey)
+            )}`}
+          >
             <span
-              className=" text-blue-500 hover:underline cursor-pointer"
+              className="text-blue-500 hover:underline cursor-pointer"
               onClick={() => download_client_approval(row.id)}
             >
               {row[434]}
@@ -30,6 +34,7 @@ const QuotationTable = () => {
         );
       },
     },
+
     {
       header: "Quote Status",
       key: "441",

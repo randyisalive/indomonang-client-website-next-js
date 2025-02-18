@@ -8,14 +8,18 @@ import { useParams } from "next/navigation";
 import WebButton from "@/app/components/ui/WebButton";
 import SignatureCanvas from "react-signature-canvas";
 import { Message } from "primereact/message";
+import { useDecryptionContext } from "@/app/Context/DecryptionContext";
+import { decryptMessage } from "@/app/function/decryptor";
 
 const QuotationDialog = ({ visible = false, handleVisible = () => {} }) => {
   const { id } = useParams();
+  const { decKey } = useDecryptionContext();
+  const real_id = decryptMessage(decodeURIComponent(id), decKey);
   const { terms } = useTermsOfService();
   const { quotations, upload_client_signature, approve_quotation } =
     useQuotationContext();
 
-  const quotation_filtered = quotations?.filter((q) => q.id == id);
+  const quotation_filtered = quotations?.filter((q) => q.id == real_id);
 
   const filtered_terms = terms?.filter(
     (i) => i[662] === quotation_filtered?.[0]?.[439]
@@ -36,9 +40,9 @@ const QuotationDialog = ({ visible = false, handleVisible = () => {} }) => {
         "iVBORw0KGgoAAAANSUhEUgAAAd0AAACWCAYAAACb1VJ1AAAAAXNSR0IArs4c6QAABhxJREFUeF7t1cEJAAAIAzG7/9Juca+4QCEIt3MECBAgQIBAIrBkxQgBAgQIECBwousJCBAgQIBAJCC6EbQZAgQIECAgun6AAAECBAhEAqIbQZshQIAAAQKi6wcIECBAgEAkILoRtBkCBAgQICC6foAAAQIECEQCohtBmyFAgAABAqLrBwgQIECAQCQguhG0GQIECBAgILp+gAABAgQIRAKiG0GbIUCAAAECousHCBAgQIBAJCC6EbQZAgQIECAgun6AAAECBAhEAqIbQZshQIAAAQKi6wcIECBAgEAkILoRtBkCBAgQICC6foAAAQIECEQCohtBmyFAgAABAqLrBwgQIECAQCQguhG0GQIECBAgILp+gAABAgQIRAKiG0GbIUCAAAECousHCBAgQIBAJCC6EbQZAgQIECAgun6AAAECBAhEAqIbQZshQIAAAQKi6wcIECBAgEAkILoRtBkCBAgQICC6foAAAQIECEQCohtBmyFAgAABAqLrBwgQIECAQCQguhG0GQIECBAgILp+gAABAgQIRAKiG0GbIUCAAAECousHCBAgQIBAJCC6EbQZAgQIECAgun6AAAECBAhEAqIbQZshQIAAAQKi6wcIECBAgEAkILoRtBkCBAgQICC6foAAAQIECEQCohtBmyFAgAABAqLrBwgQIECAQCQguhG0GQIECBAgILp+gAABAgQIRAKiG0GbIUCAAAECousHCBAgQIBAJCC6EbQZAgQIECAgun6AAAECBAhEAqIbQZshQIAAAQKi6wcIECBAgEAkILoRtBkCBAgQICC6foAAAQIECEQCohtBmyFAgAABAqLrBwgQIECAQCQguhG0GQIECBAgILp+gAABAgQIRAKiG0GbIUCAAAECousHCBAgQIBAJCC6EbQZAgQIECAgun6AAAECBAhEAqIbQZshQIAAAQKi6wcIECBAgEAkILoRtBkCBAgQICC6foAAAQIECEQCohtBmyFAgAABAqLrBwgQIECAQCQguhG0GQIECBAgILp+gAABAgQIRAKiG0GbIUCAAAECousHCBAgQIBAJCC6EbQZAgQIECAgun6AAAECBAhEAqIbQZshQIAAAQKi6wcIECBAgEAkILoRtBkCBAgQICC6foAAAQIECEQCohtBmyFAgAABAqLrBwgQIECAQCQguhG0GQIECBAgILp+gAABAgQIRAKiG0GbIUCAAAECousHCBAgQIBAJCC6EbQZAgQIECAgun6AAAECBAhEAqIbQZshQIAAAQKi6wcIECBAgEAkILoRtBkCBAgQICC6foAAAQIECEQCohtBmyFAgAABAqLrBwgQIECAQCQguhG0GQIECBAgILp+gAABAgQIRAKiG0GbIUCAAAECousHCBAgQIBAJCC6EbQZAgQIECAgun6AAAECBAhEAqIbQZshQIAAAQKi6wcIECBAgEAkILoRtBkCBAgQICC6foAAAQIECEQCohtBmyFAgAABAqLrBwgQIECAQCQguhG0GQIECBAgILp+gAABAgQIRAKiG0GbIUCAAAECousHCBAgQIBAJCC6EbQZAgQIECAgun6AAAECBAhEAqIbQZshQIAAAQKi6wcIECBAgEAkILoRtBkCBAgQICC6foAAAQIECEQCohtBmyFAgAABAqLrBwgQIECAQCQguhG0GQIECBAgILp+gAABAgQIRAKiG0GbIUCAAAECousHCBAgQIBAJCC6EbQZAgQIECAgun6AAAECBAhEAqIbQZshQIAAAQKi6wcIECBAgEAkILoRtBkCBAgQICC6foAAAQIECEQCohtBmyFAgAABAqLrBwgQIECAQCQguhG0GQIECBAgILp+gAABAgQIRAKiG0GbIUCAAAECousHCBAgQIBAJCC6EbQZAgQIECAgun6AAAECBAhEAqIbQZshQIAAAQKi6wcIECBAgEAkILoRtBkCBAgQICC6foAAAQIECEQCohtBmyFAgAABAqLrBwgQIECAQCQguhG0GQIECBAgILp+gAABAgQIRAKiG0GbIUCAAAECousHCBAgQIBAJCC6EbQZAgQIECAgun6AAAECBAhEAqIbQZshQIAAAQIPVQEAlyKjTskAAAAASUVORK5CYII="
       ) {
         setForm((prev) => ({ ...prev, signature: base64 }));
-        if (form.client_name && form.signature) {
-          upload_client_signature(form.client_name, base64, id);
-          approve_quotation(id);
+        if (form.client_name) {
+          upload_client_signature(form.client_name, base64, real_id);
+          approve_quotation(real_id);
         } else {
           setMsg("Name form cant be blank!");
 
@@ -66,13 +70,14 @@ const QuotationDialog = ({ visible = false, handleVisible = () => {} }) => {
   useEffect(() => {
     setForm({ signature: "", client_name: "" });
     setCheckbox(false);
+    setMsg("");
   }, [visible]);
 
   return (
     <Dialog
       visible={visible}
       header=" Quotation Agreement Notice"
-      onHide={() => handleVisible()}
+      onHide={() => handleVisible("approveDialog", false)}
       style={{ minWidth: "50rem", maxWidth: "50rem", height: "30rem" }}
     >
       <div className="h-full overflow-y-auto flex flex-col gap-3">
@@ -120,7 +125,7 @@ const QuotationDialog = ({ visible = false, handleVisible = () => {} }) => {
                 title="Clear"
                 bg_color="#FF0000"
               />
-              <WebButton onClickFunction={saveSignature} title="Sign" />
+              <WebButton onClickFunction={saveSignature} title="Sign" />{" "}
             </div>
           </div>
         )}
