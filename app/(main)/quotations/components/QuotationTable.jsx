@@ -8,10 +8,13 @@ import QuotationSection from "./QuotationSection";
 import Link from "next/link";
 import { encryptMessage } from "@/app/function/decryptor";
 import { useDecryptionContext } from "@/app/Context/DecryptionContext";
+import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
+import { Message } from "primereact/message";
 
 const QuotationTable = () => {
   const { quotations, download_client_approval } = useQuotationContext();
   const { decKey } = useDecryptionContext();
+  const { role } = useAccountDataContext();
 
   const columns_array = [
     {
@@ -91,6 +94,17 @@ const QuotationTable = () => {
   return (
     <div>
       <QuotationSection data={quotations} />
+      <div className="my-1">
+        <Message
+          text={
+            <p>
+              <strong>Admin Privilage</strong> &nbsp; All Quotations
+            </p>
+          }
+          severity="warn"
+        />
+      </div>
+
       <TableComponentNew
         numbering={true}
         data={quotations}

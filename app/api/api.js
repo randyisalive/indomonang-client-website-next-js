@@ -479,12 +479,13 @@ const api = () => {
         console.error(e);
       }
     };
-    const getWoAll = async () => {
+    const getWoAll = async (filters_object = {}) => {
       const json_data = {
         username: "rendi",
         password: "rendi",
         action: "select",
         entity_id: 36,
+        //  filters: filters_object,
       };
       try {
         const response = await fetch(base_url, {

@@ -94,6 +94,7 @@ const TableComponent = ({
         main_data={datas}
         filter_data={filterForm}
         search={search}
+        TableType={TableType}
         setSearch={setSearch}
         form_placeholders={{ dropdown: TableType }}
       />

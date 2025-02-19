@@ -8,6 +8,7 @@ const CalendarFilterComponent = ({
 }) => {
   const handleDateChange = (e, field, formatOptions) => {
     const date = e.value;
+    console.log(date);
     const formattedDate = date.toLocaleString("default", formatOptions);
     updateFilterForm(field, formattedDate);
   };
@@ -66,6 +67,7 @@ const CalendarFilterComponent = ({
           />
         </>
       )}
+
       {filterForm.date && (
         <i
           className="pi text-gray-500 cursor-pointer pi-times absolute right-0 flex h-full items-center pr-3"

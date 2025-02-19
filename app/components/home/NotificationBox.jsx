@@ -29,7 +29,10 @@ const NotificationBox = () => {
           <Badge value={all_count_notis} severity="warning rounded-full" />
         </div>
       </div>
-      <div className=" absolute top-10 overflow-y-auto h-96 border rounded-lg w-full">
+      <div
+        className=" absolute top-10 overflow-y-auto border rounded-lg w-full"
+        style={{ height: "400px" }}
+      >
         {expat_notis.map((item) => {
           if (item.count > 0) {
             return (

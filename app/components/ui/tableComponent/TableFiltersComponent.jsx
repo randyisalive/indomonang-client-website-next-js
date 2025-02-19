@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import CalendarFilterComponent from "../form/CalendarFilterComponent";
 import WebButton from "../WebButton";
 import { motion, AnimatePresence } from "framer-motion";
+import { enquiry_data } from "@/app/function/static_data";
 
 const TableFiltersComponent = ({
   main_data = [],
@@ -10,6 +11,7 @@ const TableFiltersComponent = ({
   form_placeholders = { dropdown: "" },
   extra_filters = [],
   setSearch = () => {},
+  TableType = "",
 }) => {
   const [filter, setFilter] = useState(false);
   const [filterForm, setFilterForm] = useState(filter_data);
@@ -86,7 +88,7 @@ const TableFiltersComponent = ({
               }}
               placeholder={form_placeholders.dropdown}
             /> */}
-            <div className="w-full flex  relative items-center">
+            <div className="w-full flex  relative items-center gap-2">
               <select
                 name="main_ids"
                 className="border rounded-lg w-full text-gray-600 h-full"
@@ -101,6 +103,34 @@ const TableFiltersComponent = ({
                   return <option>{item.main_ids}</option>;
                 })}
               </select>
+
+              {TableType === "wo" && (
+                <>
+                  <select
+                    name="status"
+                    className="border rounded-lg w-full text-gray-600 h-full"
+                    value={filterForm.status}
+                    placeholder={form_placeholders.dropdown}
+                    onChange={(e) =>
+                      updateFilterForm(e.target.name, e.target.value)
+                    }
+                  >
+                    <option defaultValue></option>
+                    {TableType === "wo" && (
+                      <>
+                        {enquiry_data.map((item) => {
+                          return <option>{item.text}</option>;
+                        })}
+                      </>
+                    )}
+                    {TableType === "invoice" && (
+                      <>
+                        <option value="unpaid">Unpaid</option>
+                      </>
+                    )}
+                  </select>
+                </>
+              )}
             </div>
 
             <CalendarFilterComponent

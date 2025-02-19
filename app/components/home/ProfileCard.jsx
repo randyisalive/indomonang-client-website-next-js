@@ -46,8 +46,8 @@ const ProfileCard = () => {
           </>
         ) : (
           <>
-            <div className="w-full">
-              <Skeleton />
+            <div className="w-full h-full">
+              <Skeleton className="h-full" />
             </div>
           </>
         )}

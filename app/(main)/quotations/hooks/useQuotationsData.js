@@ -23,9 +23,13 @@ const useQuotationsData = () => {
   const getData = async () => {
     try {
       if (accounts) {
-        const quotation_data = await getQuotationByCompany(accounts.company_id);
+        let quotation_data;
+        if (role === "Admin") {
+          quotation_data = await getQuotationAll();
+        } else {
+          quotation_data = await getQuotationByCompany(accounts.company_id);
+        }
         setQuotations(quotation_data);
-        console.log(quotation_data);
       }
     } catch (e) {
       console.error(e);

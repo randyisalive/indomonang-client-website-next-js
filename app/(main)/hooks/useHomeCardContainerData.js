@@ -39,8 +39,13 @@ const useHomeCardContainerData = () => {
           const invoice_data = await getInvoiceByWo(wo_array.join(","));
 
           unpaid_invoices = invoice_data.filter((item) =>
-            ["Approved", "Delivered", "Arrived to Client"].includes(item[1905])
+            ["Arrived to Client"].includes(item[1905])
           ).length;
+          console.log(
+            invoice_data.filter((item) =>
+              ["Arrived to Client"].includes(item[1905])
+            )
+          );
         }
 
         let tickets_data;

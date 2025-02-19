@@ -1,9 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import api from "../api/api";
-import useDecryptionKeyData from "./useDecryptionKeyData";
 import EnquityStatusData from "../function/EnquityStatusData";
-import { useRouter } from "next/navigation";
 import { useAccountDataContext } from "../admin/context/AccountDataContext";
 
 const useWOData = () => {
@@ -20,6 +18,11 @@ const useWOData = () => {
   const [wo, setWO] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // filters data
+  const [filters_array, setFiltersArray] = useState({
+    date_added: "",
+  });
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -30,7 +33,7 @@ const useWOData = () => {
             if (role === "Client") {
               wo_data = await getWoByUserId(company_id[0]["2630_db_value"]);
             } else if (role === "Admin") {
-              wo_data = await getWoAll();
+              wo_data = await getWoAll(filters_array);
             } else {
               return;
             }
@@ -71,7 +74,7 @@ const useWOData = () => {
       }
     };
     getData();
-  }, [accounts.id, role]);
+  }, [accounts.id, role, filters_array]);
 
   const handleWODialog = (id = 0, dialogStatus = false) => {
     setWO((prev) =>
