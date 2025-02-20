@@ -80,3 +80,17 @@ export const quotation_status = [
   { id: 6, text: "Canceled", bg_color: "#B6244F" },
   { id: 7, text: "Closed", bg_color: "#BFC9CA" },
 ];
+
+// document upload status
+export const document_status = [
+  { id: 0, text: "Empty", bg_color: "#BFC9CA" },
+  { id: 1, text: "Deleted", bg_color: "#DC3545" },
+  { id: 2, text: "Uploaded", bg_color: "#00C49A" },
+];
+
+// history status
+export const history_status = [
+  { id: 0, text: "Deleted", bg_color: "#DC3545" },
+  { id: 1, text: "Submitted", bg_color: "#008BF8" },
+  { id: 2, text: "Uploaded", bg_color: "#00C49A" },
+];

@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import SubmitDialog from "./SubmitDialog";
 import useUploadDocumentData from "../hooks/useUploadDocumentData";
 import { Message } from "primereact/message";
+import { document_status } from "@/app/function/static_data";
 
 const RefTable = ({
   datas = [],
@@ -15,6 +16,7 @@ const RefTable = ({
   FileHandler = () => {},
   isLoading = false,
   ref_num = "",
+  commen_data = [],
   deleteAttachmentBtn = () => {},
   handleDownloadUploadedDocuments = () => {},
 }) => {
@@ -23,6 +25,7 @@ const RefTable = ({
     "Status",
     "Required Document",
     "Critical Point",
+    "Date Uploaded",
     "Document",
   ];
 
@@ -51,12 +54,14 @@ const RefTable = ({
   };
 
   // status open uploaded
-  const openData = datas.filter((x) => x[2267] === "Open");
+  const openData = datas.filter((x) => x[2267] === "Deleted");
   return (
     <React.Fragment>
       {datas.length > 0 && (
-        <div className="mx-5 sm:mx-0 w-1 sm:w-2  flex flex-col gap-2  text-sm mt-10 mb-3">
-          <span className="font-bold text-sm">Completed Status:</span>
+        <div className="mx-5 sm:mx-0 sm:w-full   flex flex-col gap-2  text-sm mt-10 mb-3">
+          <span className="font-bold text-sm w-full">
+            Document Completeness Status:
+          </span>
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
@@ -65,11 +70,12 @@ const RefTable = ({
             className="w-fit"
           >
             <StatusBadge
-              title={item.name}
+              title={`${item.name}`}
               bg_color={item.bg_color?.bg_color}
-              font_color="white"
+              font_color={item.name === "Waiting" ? "black" : "white"}
             />
           </motion.div>
+          <span>{commen_data?.[0]?.["date_added"]}</span>
         </div>
       )}
       <div className="relative flex m-5 sm:m-0 overflow-x-auto  flex-col">
@@ -78,7 +84,7 @@ const RefTable = ({
             <i className="pi pi-spinner pi-spin text-5xl"></i>
           </div>
         ) : null}
-        {item.name === "Completed" ? (
+        {item.name === "Submitted" ? (
           <motion.i
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
@@ -111,16 +117,21 @@ const RefTable = ({
                       {index + 1}
                     </td>
                     <td className="border px-4 py-2 text-center">
-                      <StatusBadge
-                        title={`${i[2267]}`}
-                        font_color={i[2267] === "Uploaded" ? "" : "white"}
-                        bg_color={
-                          i[2267] === "Uploaded" ? "#BFC9CA" : "#00C49A"
-                        }
-                      />
+                      {document_status
+                        .filter((x) => x.text === i[2267])
+                        .map((a) => {
+                          return (
+                            <StatusBadge
+                              title={`${a.text}`}
+                              font_color={"white"}
+                              bg_color={a.bg_color}
+                            />
+                          );
+                        })}
                     </td>
                     <td className="border px-4 py-2 text-center">{i[2264]}</td>
                     <td className="border px-4 py-2 text-center">{i[2265]}</td>
+                    <td className="border px-4 py-2 text-center">{i[3220]}</td>
                     <td className="border px-4 py-2 text-center">
                       {i[2266] != "" ? (
                         <div className="flex gap-2 items-center">
@@ -132,7 +143,8 @@ const RefTable = ({
                           >
                             {i[2266]}
                           </span>
-                          {item.name === "Generated" ? (
+
+                          {item.name === "Waiting" ? (
                             <i
                               className="pi pi-times cursor-pointer text-red-400"
                               onClick={() => deleteAttachmentBtn(i.id)}
@@ -190,7 +202,7 @@ const RefTable = ({
         </nav>
       )}
 
-      {openData.length === 0 && item.name === "Generated" ? (
+      {openData.length === 0 && item.name === "Waiting" ? (
         <>
           <SubmitDialog ref_num={ref_num} />
         </>

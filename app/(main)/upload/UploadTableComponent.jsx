@@ -9,6 +9,10 @@ import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import { ProgressSpinner } from "primereact/progressspinner";
 import CheckWOAuth from "./components/CheckWOAuth";
 import { useActiveProductContext } from "@/app/Context/ActiveProductContext";
+import TableComponentNew from "../components/TableComponentNew";
+import useUploadDocumentHistory from "./hooks/useUploadDocumentHistory";
+import { history_status } from "@/app/function/static_data";
+import parse from "html-react-parser";
 
 const UploadTableComponent = () => {
   const {
@@ -23,6 +27,8 @@ const UploadTableComponent = () => {
     deleteAttachmentBtn,
     handleDownloadUploadedDocuments,
   } = useUploadDocumentData();
+
+  const { history, getData } = useUploadDocumentHistory();
 
   const { activeProduct } = useActiveProductContext();
   const wo_data = activeProduct.map((item) => {
@@ -39,36 +45,20 @@ const UploadTableComponent = () => {
     <React.Fragment>
       <div className="mb-3 mx-5 sm:m-0 flex gap-3">
         <SearchBarUpload ref={refForm} handleRef={handleForm} />
-        <WebButton onClickFunction={() => getWoBtn()} />
+
+        <WebButton onClickFunction={() => getWoBtn()} title="Search" />
       </div>
-      {/* <AnimatePresence mode="wait">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="text-xs text-gray-500 flex gap-1 my-1 mx-5 lg:mx-0"
-        >
-          {wo_data.length > 0 ? (
-            <>
-              <span> Ref Number: </span>
-              <div className="flex">
-                {wo_data.map((item) => {
-                  return item.ref_num + ", ";
-                })}
-              </div>
-            </>
-          ) : (
-            <p className=" text-red-500">
-              Order a service to get a reference number
-            </p>
-          )}
-        </motion.div>
-      </AnimatePresence> */}
+      <div className="py-2">
+        <span className=" text-xs text-gray-500">
+          Enter the reference number for your order
+        </span>
+      </div>
+
       <CheckWOAuth woData={woData}>
         <AnimatePresence>
           {woData.length > 0 && (
             <>
-              <div className="shadow-md mx-5 sm:mx-0 my-10 ">
+              <div className="shadow-md mx-5 sm:mx-0 my-3 ">
                 <motion.div
                   className="flex  p-3 justify-between items-center border borde-b-0"
                   style={{ backgroundColor: "#f3f4f6" }}
@@ -87,6 +77,20 @@ const UploadTableComponent = () => {
                           </td>
                           <td className="border px-4 py-2  w-2/3">
                             {item.ref_num}
+                          </td>
+                        </tr>{" "}
+                        <tr>
+                          <td className="border px-4 py-2 w-1/3 font-bold">
+                            Status
+                          </td>
+                          <td className="border px-4 py-2 w-2/3">
+                            <div className="w-1/12">
+                              <StatusBadge
+                                title={item.status?.name}
+                                bg_color={item.status?.bg_color}
+                                font_color="white"
+                              />
+                            </div>
                           </td>
                         </tr>
                         <tr>
@@ -107,7 +111,7 @@ const UploadTableComponent = () => {
                         </tr>{" "}
                         <tr>
                           <td className="border px-4 py-2  w-1/3 font-bold">
-                            Others
+                            Other Applicants
                           </td>
                           <td className="border px-4 py-2  w-2/3">
                             <ul>
@@ -158,7 +162,7 @@ const UploadTableComponent = () => {
                         </tr>
                         <tr>
                           <td className="border px-4 py-2  w-1/3 font-bold">
-                            Proses
+                            Process
                           </td>
                           <td className="border px-4 py-2 w-2/3">
                             {item.service}
@@ -170,20 +174,6 @@ const UploadTableComponent = () => {
                           </td>
                           <td className="border px-4 py-2  w-2/3">
                             {item.city}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="border px-4 py-2 w-1/3 font-bold">
-                            Status
-                          </td>
-                          <td className="border px-4 py-2 w-2/3">
-                            <div className="w-1/12">
-                              <StatusBadge
-                                title={item.status?.name}
-                                bg_color={item.status?.bg_color}
-                                font_color="white"
-                              />
-                            </div>
                           </td>
                         </tr>
                       </React.Fragment>
@@ -206,8 +196,55 @@ const UploadTableComponent = () => {
                   handleDownloadUploadedDocuments={
                     handleDownloadUploadedDocuments
                   }
+                  commen_data={history}
                 />
               )}
+              <div className="my-5">
+                <TableComponentNew
+                  title=""
+                  numbering={true}
+                  columns={[
+                    {
+                      header: "Remarks",
+                      render: (row) => {
+                        return (
+                          <>
+                            <div className="flex flex-col gap-3 text-xs">
+                              <ul className="flex flex-col gap-1">
+                                <li>
+                                  <strong>{row[3230]}</strong>
+                                </li>
+                                <li>{parse(row[3229])}</li>
+                                <li>
+                                  {history_status
+                                    .filter((i) => i.text === row[3228])
+                                    .map((x) => {
+                                      return (
+                                        <StatusBadge
+                                          title={x.text}
+                                          bg_color={x.bg_color}
+                                          font_color="white"
+                                        />
+                                      );
+                                    })}
+                                </li>
+                              </ul>
+                            </div>
+                          </>
+                        );
+                      },
+                    },
+                    { header: "Date", key: "date_added" },
+                  ]}
+                  data={history}
+                />
+                <WebButton
+                  title="Fetch Data"
+                  onClickFunction={() =>
+                    getData(requiredDocument.data[0].parent_item_id)
+                  }
+                />
+              </div>
             </>
           )}
         </AnimatePresence>

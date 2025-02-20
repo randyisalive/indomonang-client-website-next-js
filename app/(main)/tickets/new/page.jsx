@@ -37,19 +37,14 @@ const TicketPageNew = () => {
 
   return (
     <div>
-      <div className="flex gap-3 mx-5 lg:mx-0">
+      <div className="flex gap-3 mx-5 lg:mx-0 justify-start">
         <SearchInput
           name="ref_num"
           search={search}
           setSearch={setSearch}
-          className={"w-full"}
           placeholder="Reference Number"
         />
-        <WebButton
-          title="Add Ticket"
-          className={`w-1/6`}
-          onClickFunction={getWoData}
-        />
+        <WebButton title="Search" className={``} onClickFunction={getWoData} />
       </div>
       {/*     <AnimatePresence mode="wait">
         <motion.div

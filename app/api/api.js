@@ -998,7 +998,7 @@ const api = () => {
         console.error(e);
       }
     };
-    const UploadeAttachments = async (filename, base64Content, id) => {
+    const UploadeAttachments = async (filename, base64Content, id, date) => {
       const API_JSON = {
         username: "rendi",
         password: "rendi",
@@ -1011,6 +1011,8 @@ const api = () => {
               content: base64Content,
             },
           ],
+          field_3220: date,
+          field_3232: 1,
         },
         update_by_field: {
           id: id,
@@ -1110,6 +1112,25 @@ const api = () => {
         console.error(e);
       }
     }
+    const getRequiredDocumentHistory = async (ref_num) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 202,
+        filters: { 3227: ref_num },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
     return {
       getRequiredDocumentDataByRefNum,
       getRequiredDocumentDataChild,
@@ -1117,6 +1138,7 @@ const api = () => {
       deleteAttachments,
       updateAttachmentStatus,
       updateRequiredListStatus,
+      getRequiredDocumentHistory,
       DownloadRequiredListDocuments,
     };
   };

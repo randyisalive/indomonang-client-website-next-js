@@ -57,14 +57,12 @@ const TableComponentNew = ({
         <thead className="bg-gray-50">
           <tr>
             {numbering && (
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                No
-              </th>
+              <th className=" py-3 text-center text-sm border w-1">No</th>
             )}
             {columns.map((column, index) => (
               <th
                 key={`${index}-${column.id}`}
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="px-6 py-3 text-left border text-sm"
               >
                 {column.header}
               </th>
@@ -75,14 +73,14 @@ const TableComponentNew = ({
           {currentRows.map((row, rowIndex) => (
             <tr key={`${rowIndex}-${row.id}`}>
               {numbering && (
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <td className="px-6 py-4 border whitespace-nowrap text-sm text-gray-900">
                   {indexOfFirstRow + rowIndex + 1}
                 </td>
               )}
               {columns.map((column, colIndex) => (
                 <td
                   key={`${colIndex}-${column.id}`}
-                  className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
+                  className="px-6 py-4 border whitespace-nowrap text-sm text-gray-900"
                 >
                   {column.render ? column.render(row) : row[column.key]}
                 </td>

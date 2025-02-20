@@ -3,6 +3,7 @@ import HeaderComponent from "@/app/components/ui/HeaderComponent";
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import { useParams } from "next/navigation";
 import React from "react";
+import parse from "html-react-parser";
 import useBillingDetailsData from "./hooks/useBillingDetailsData";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { motion } from "framer-motion";
@@ -156,7 +157,7 @@ const BillingDetail = () => {
                         </tr>
                         <tr>
                           <td className="border px-4 py-2 font-bold ">
-                            Sub Total
+                            Amount of Payment
                           </td>
                           <td className="border px-4 py-2 text-center text-green-600">
                             {item.sub_total}
@@ -172,18 +173,10 @@ const BillingDetail = () => {
                         </tr>
                         <tr>
                           <td className="border px-4 py-2 font-bold">
-                            Amount Need To Be Paid
+                            Invoice No
                           </td>
-                          <td className="border px-4 text-center py-2 text-blue-600">
-                            {item.amount_of_payment}
-                          </td>
-                        </tr>{" "}
-                        <tr>
-                          <td className="border px-4 py-2 font-bold">
-                            Outstanding Payment{" "}
-                          </td>
-                          <td className="border px-4 text-center py-2 text-red-600">
-                            {item.outstanding_balance}
+                          <td className="border px-4 py-2 text-center">
+                            {item.invoices_id}
                           </td>
                         </tr>
                       </tbody>
@@ -261,9 +254,18 @@ const BillingDetail = () => {
                         </tr>
                         <tr>
                           <td className="border px-4 py-2 font-bold">
-                            Time Estimation
+                            Applicant
                           </td>
-                          <td className="border px-4 py-2 ">{item[791]} </td>
+                          <td className="border px-4 py-2 ">{`${item[316]}`}</td>
+                        </tr>{" "}
+                        {console.log(item)}
+                        <tr>
+                          <td className="border px-4 py-2 font-bold">
+                            Other Applicant
+                          </td>
+                          <td className="border px-4 py-2 ">
+                            {item[318] ? parse(item[318]) : "-"}
+                          </td>
                         </tr>
                       </tbody>
                     </table>

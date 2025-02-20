@@ -49,8 +49,8 @@ const useUploadDocumentData = () => {
           // parent bg_color
           const parent_bgColor = [
             { id: 0, name: "Open", bg_color: "#00C49A" },
-            { id: 1, name: "Generated", bg_color: "#72A276" },
-            { id: 2, name: "Completed", bg_color: "#007BFF" },
+            { id: 1, name: "Waiting", bg_color: "#FFEB3B" },
+            { id: 2, name: "Submitted", bg_color: "#007BFF" },
             { id: 3, name: "Request for Change", bg_color: "#FFEB3B" },
           ];
           setRequiredDocument({
@@ -83,16 +83,23 @@ const useUploadDocumentData = () => {
   };
   const FilesUploadHandle = async (e, id) => {
     const file = e.target.files[0];
+    const date = new Date();
+    const day = date.getDate();
+    const dateString = date.toLocaleDateString();
+    const timeString = date.toLocaleTimeString();
+    const timestamp = Math.floor(Date.now() / 1000);
+    const dateTimeString = `${dateString} ${timeString}`;
+
     if (id) {
       const base64Content = await readFileAsBase64(file);
       try {
         const upload_attachment = await UploadeAttachments(
           file.name,
           base64Content,
-          id
+          id,
+          dateTimeString
         );
         setRequiredDocument((prev) => ({ ...prev, isLoading: true }));
-
         if (upload_attachment) {
           const document_data = await getWoBtn();
         }
