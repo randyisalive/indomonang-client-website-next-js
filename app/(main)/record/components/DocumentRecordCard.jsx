@@ -8,6 +8,7 @@ import TableComponentNew from "../../components/TableComponentNew";
 import { useExpatriateListContext } from "@/app/admin/account/[profile]/[id]/context/ExpatriateListContext";
 import { useDependentListContext } from "@/app/admin/account/[profile]/[id]/context/DependentListContext";
 import { useVisitorsListContext } from "@/app/admin/account/[profile]/[id]/context/VisitorsListContext";
+import parse from "html-react-parser";
 
 const DocumentRecordCard = () => {
   const { customer, isLoading } = useAccountSettingContext();
@@ -83,6 +84,9 @@ const DocumentRecordCard = () => {
     {
       header: "Purpose",
       key: "1463",
+      render: (row) => {
+        return <>{parse(row[1463])}</>;
+      },
     },
     {
       header: "Nationality",

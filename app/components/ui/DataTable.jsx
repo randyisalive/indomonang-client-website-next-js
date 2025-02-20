@@ -9,7 +9,7 @@ const DataTable = ({ datas = [], text = "", children, type = "order" }) => {
 
   return (
     <>
-      <div className="flex flex-col  text-sm w-full border-gray-300 border rounded-t-lg">
+      <div className="flex flex-col h-full text-sm w-full border-gray-300 border rounded-t-lg">
         <div
           onClick={() => setIsOpen(!isOpen)}
           className="bg-gray-100 border-b cursor-pointer flex p-2 py-3 items-center rounded-t-lg justify-between"
