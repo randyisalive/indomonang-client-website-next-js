@@ -94,16 +94,18 @@ const QuotationTable = () => {
   return (
     <div>
       <QuotationSection data={quotations} />
-      <div className="my-1">
-        <Message
-          text={
-            <p>
-              <strong>Admin Privilage</strong> &nbsp; All Quotations
-            </p>
-          }
-          severity="warn"
-        />
-      </div>
+      {role === "Admin" && (
+        <div className="mb-1">
+          <Message
+            text={
+              <p>
+                <strong>Admin Privilage</strong> &nbsp; All Quotations
+              </p>
+            }
+            severity="warn"
+          />
+        </div>
+      )}
 
       <TableComponentNew
         numbering={true}

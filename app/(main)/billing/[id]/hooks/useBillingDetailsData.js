@@ -3,12 +3,18 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useBillingContext } from "../../context/BillingContext";
 import { useInvoiceContext } from "@/app/(main)/invoice/context/InvoiceContext";
+import { useDecryptionContext } from "@/app/Context/DecryptionContext";
+import { decryptMessage } from "@/app/function/decryptor";
 
 const useBillingDetailsData = () => {
   // api
   const { InvoiceApi, WOApi } = api();
   const { id } = useParams(); // invoice ids
   const { getWoById } = WOApi();
+
+  // decryption
+  const { decKey } = useDecryptionContext();
+  const decode_id = decryptMessage(decodeURIComponent(id), decKey);
 
   // billing context
   const { bills } = useBillingContext();
@@ -23,7 +29,7 @@ const useBillingDetailsData = () => {
       console.log(bills);
       const filtered_payment_data = bills.billing_data.filter((item) => {
         const ids = item.invoices_id.split(",");
-        if (ids.includes(id)) {
+        if (ids.includes(decode_id)) {
           return item.invoices_id;
         }
       });
@@ -33,7 +39,7 @@ const useBillingDetailsData = () => {
           filtered_payment_data[0]?.invoices
         ); */
 
-      const invoice_data = inv.filter((item) => item.main_ids === id);
+      const invoice_data = inv.filter((item) => item.main_ids === decode_id);
       console.log(invoice_data);
       setInvoice(invoice_data);
       setIsLoading(2);
@@ -51,7 +57,7 @@ const useBillingDetailsData = () => {
 
   useEffect(() => {
     getBillingData();
-  }, [id, bills]);
+  }, [decode_id, bills]);
   // get datas billing
 
   const [wo, setWo] = useState([]);

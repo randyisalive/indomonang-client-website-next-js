@@ -6,23 +6,26 @@ import React from "react";
 import useBillingDetailsData from "./hooks/useBillingDetailsData";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { motion } from "framer-motion";
+import { useDecryptionContext } from "@/app/Context/DecryptionContext";
+import { decryptMessage } from "@/app/function/decryptor";
 
 const BillingDetail = () => {
   const { billing, invoice, wo, isLoading, handleDownloadInvoice } =
     useBillingDetailsData();
   const { id } = useParams();
+  const { decKey } = useDecryptionContext();
+  const decode_id = decryptMessage(decodeURIComponent(id), decKey);
 
   const breadcrumbs_array = [
     { id: 0, text: "Portal Home /", nav: "/" },
     { id: 1, text: "Payment History /", nav: "/invoice" },
-    { id: 2, text: `${id}` },
+    { id: 2, text: `${decode_id}` },
   ];
 
   return (
     <div className="flex flex-col  w-full mx-auto pt-7 mb-10 sm:px-6, lg:px-0 max-w-screen-xl">
       <HeaderComponent
         title="Payment Details"
-        breadcrumbs={`Portal Home / Payment History / P-${id}`}
         breadcrumbs_array={breadcrumbs_array}
       />
       {isLoading > 1 ? (
