@@ -30,7 +30,7 @@ export default function Home() {
           <div className="w-1/3">
             <NotificationBox />
           </div>
-          <div className="w-2/3 flex flex-col gap-5">
+          <div className="w-2/3 flex flex-col gap-5 ">
             <ActiveProducts text="Recent Orders" type="order" />
             <ActiveProducts text="Recent News" type="news" />
           </div>
