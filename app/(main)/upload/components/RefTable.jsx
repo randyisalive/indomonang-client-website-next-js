@@ -79,7 +79,10 @@ const RefTable = ({
             />
           </motion.div>
           <span className=" text-xs my-2">
-            Time Submitted: {latest_submmited?.[0]?.["date_added"]}
+            <p>
+              <strong>Latest Submitted Time:</strong>
+            </p>
+            <p> {latest_submmited?.[0]?.["date_added"]}</p>
           </span>
         </div>
       )}
