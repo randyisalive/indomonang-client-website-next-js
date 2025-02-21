@@ -47,6 +47,12 @@ const ProfileDropdown = () => {
         Logout();
       },
     },
+    {
+      id: 2,
+      link: "/support",
+      icon: "pi pi-question-circle",
+      title: "Help Center",
+    },
   ];
 
   return (
