@@ -46,29 +46,9 @@ const TicketPageNew = () => {
         />
         <WebButton title="Search" className={``} onClickFunction={getWoData} />
       </div>
-      {/*     <AnimatePresence mode="wait">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="text-xs text-gray-500 flex gap-1 my-1 mx-5 lg:mx-0"
-        >
-          {wo_data.length > 0 ? (
-            <>
-              <span> Ref Number: </span>
-              <div className="flex">
-                {wo_data.map((item) => {
-                  return item.ref_num + ", ";
-                })}
-              </div>
-            </>
-          ) : (
-            <p className=" text-red-500">
-              Order a service to get a reference number
-            </p>
-          )}
-        </motion.div>
-      </AnimatePresence> */}
+      <div className="my-3 text-xs text-gray-500">
+        Enter the reference number for your order
+      </div>
 
       <AnimatePresence>
         {woData.length > 0 && (

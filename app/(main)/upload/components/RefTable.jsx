@@ -4,7 +4,6 @@ import SearchTerms from "@/app/function/SearchTerms";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import SubmitDialog from "./SubmitDialog";
-import useUploadDocumentData from "../hooks/useUploadDocumentData";
 import { Message } from "primereact/message";
 import { document_status } from "@/app/function/static_data";
 
@@ -20,6 +19,10 @@ const RefTable = ({
   deleteAttachmentBtn = () => {},
   handleDownloadUploadedDocuments = () => {},
 }) => {
+  const latest_submmited = commen_data
+    .filter((item) => item[3228] === "Submitted")
+    .sort((a, b) => b.id - a.id);
+
   const th_array = [
     "No",
     "Status",
@@ -75,7 +78,9 @@ const RefTable = ({
               font_color={item.name === "Waiting" ? "black" : "white"}
             />
           </motion.div>
-          <span>{commen_data?.[0]?.["date_added"]}</span>
+          <span className=" text-xs my-2">
+            Time Submitted: {latest_submmited?.[0]?.["date_added"]}
+          </span>
         </div>
       )}
       <div className="relative flex m-5 sm:m-0 overflow-x-auto  flex-col">

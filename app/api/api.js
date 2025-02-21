@@ -1131,6 +1131,26 @@ const api = () => {
         console.error(e);
       }
     };
+    const UpdateClientData = async (id, name, email) => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "update",
+        entity_id: 127,
+        data: { field_3233: email, field_3234: name },
+        update_by_field: { id: id },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
     return {
       getRequiredDocumentDataByRefNum,
       getRequiredDocumentDataChild,
@@ -1140,6 +1160,7 @@ const api = () => {
       updateRequiredListStatus,
       getRequiredDocumentHistory,
       DownloadRequiredListDocuments,
+      UpdateClientData,
     };
   };
 

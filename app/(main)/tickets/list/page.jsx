@@ -13,7 +13,6 @@ import {
   status_tickets_data,
   ticket_category_data,
 } from "@/app/function/static_data";
-import { tickets_category_data } from "./data/TicketsCategoryData";
 
 const TicketListPage = () => {
   const { tickets } = useTicketContext();
@@ -25,6 +24,7 @@ const TicketListPage = () => {
     "Reference Number",
     "Category",
     role === "Admin" ? "PIC Officer" : null,
+    "Name",
     "Date Created",
   ].filter(Boolean);
   const [search, setSearch] = useState("");
@@ -34,13 +34,6 @@ const TicketListPage = () => {
   // State for pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const page_selection = [
-    { id: 1, value: 5 },
-    { id: 2, value: 10 },
-    { id: 3, value: 15 },
-    { id: 4, value: 20 },
-    { id: 5, value: 25 },
-  ];
 
   // Calculate the index range for the current page
   const indexOfLastRow = currentPage * rowsPerPage;

@@ -1,12 +1,13 @@
 "use client";
 import api from "@/app/api/api";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useWoContext } from "../../your-orders/context/WoContext";
+import useUploadDocumentHistory from "./useUploadDocumentHistory";
+import { useAccountSettingContext } from "@/app/admin/context/AccountSettingContext";
 
 const useUploadDocumentData = () => {
   // api
   const { WOApi, RequiredDocumentApi } = api();
-  const { getWoByRefNum } = WOApi();
   const {
     getRequiredDocumentDataByRefNum,
     getRequiredDocumentDataChild,
@@ -14,7 +15,11 @@ const useUploadDocumentData = () => {
     deleteAttachments,
     updateAttachmentStatus,
     DownloadRequiredListDocuments,
+    UpdateClientData,
   } = RequiredDocumentApi();
+
+  // hooks history
+  const { getData: getHistoryData, history } = useUploadDocumentHistory();
 
   // state data
   const [woData, setWoData] = useState([]);
@@ -30,6 +35,17 @@ const useUploadDocumentData = () => {
 
   //context
   const { wo } = useWoContext();
+  const { customer } = useAccountSettingContext();
+
+  // toast
+  const toastRef = useRef(null);
+  const show = (severity, summary, detail) => {
+    toastRef.current.show({
+      severity: severity,
+      summary: summary,
+      detail: detail,
+    });
+  };
 
   // function
   const getWoBtn = async () => {
@@ -62,7 +78,22 @@ const useUploadDocumentData = () => {
                 (item) => item.name == req_document[0]?.[2260] ?? 0
               )[0],
             },
+            parent_id: req_document[0].id,
           });
+          // update history data
+          getHistoryData(req_document[0].id);
+
+          // update client data
+          if (req_document[0].id) {
+            const update_client = await UpdateClientData(
+              req_document[0].id,
+              customer[466],
+              customer[229]
+            );
+            console.log(update_client);
+          } else {
+            throw new Error("Client data error in Upload Document");
+          }
         }
       }
     } catch (e) {
@@ -115,6 +146,10 @@ const useUploadDocumentData = () => {
       if (delete_data) {
         const status = await updateAttachmentStatus(0, id);
         const data = await getWoBtn();
+        console.log(status);
+        if (status) {
+          show("error", "Info", `File Deteled: ${status.data.id}`);
+        }
       }
     } catch (e) {
       console.error(e);
@@ -151,6 +186,9 @@ const useUploadDocumentData = () => {
     FilesUploadHandle,
     deleteAttachmentBtn,
     handleDownloadUploadedDocuments,
+    toastRef,
+    HistoryHooks: { history, getHistoryData },
+    UpdateClientData,
   };
 };
 

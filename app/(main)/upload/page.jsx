@@ -1,6 +1,7 @@
 import HeaderComponent from "@/app/components/ui/HeaderComponent";
 import React from "react";
 import UploadTableComponent from "./UploadTableComponent";
+import { UploadDocumentProvider } from "./context/UploadDocumentContext";
 
 const UploadPage = () => {
   return (
@@ -13,7 +14,9 @@ const UploadPage = () => {
         ]}
       />
       <div className="mt-5">
-        <UploadTableComponent />
+        <UploadDocumentProvider>
+          <UploadTableComponent />
+        </UploadDocumentProvider>
       </div>
     </div>
   );

@@ -13,6 +13,8 @@ import TableComponentNew from "../components/TableComponentNew";
 import useUploadDocumentHistory from "./hooks/useUploadDocumentHistory";
 import { history_status } from "@/app/function/static_data";
 import parse from "html-react-parser";
+import { Toast } from "primereact/toast";
+import { useUploadDocumentContext } from "./context/UploadDocumentContext";
 
 const UploadTableComponent = () => {
   const {
@@ -26,23 +28,23 @@ const UploadTableComponent = () => {
     woData,
     deleteAttachmentBtn,
     handleDownloadUploadedDocuments,
-  } = useUploadDocumentData();
+    HistoryHooks,
+    toastRef,
+  } = useUploadDocumentContext();
 
-  const { history, getData } = useUploadDocumentHistory();
+  // history hooks
+  const { history } = HistoryHooks;
 
-  const { activeProduct } = useActiveProductContext();
-  const wo_data = activeProduct.map((item) => {
-    return { ref_num: item.ref_num };
-  });
   const [dropdown, setDropdown] = useState(false);
   const handleDropdown = () => {
     setDropdown(!dropdown);
   };
 
-  const [read_more, setReadMore] = useState(false);
+  const [historyToggle, setHistoryToggle] = useState(true);
 
   return (
     <React.Fragment>
+      <Toast ref={toastRef} />
       <div className="mb-3 mx-5 sm:m-0 flex gap-3">
         <SearchBarUpload ref={refForm} handleRef={handleForm} />
 
@@ -108,13 +110,14 @@ const UploadTableComponent = () => {
                           <td className="border px-4 py-2  w-2/3">
                             {item.applicant}
                           </td>
-                        </tr>{" "}
+                        </tr>
                         <tr>
                           <td className="border px-4 py-2  w-1/3 font-bold">
                             Other Applicants
                           </td>
                           <td className="border px-4 py-2  w-2/3">
-                            <ul>
+                            {parse(item.other_expat_list)}
+                            {/*   <ul>
                               {item.other_expat_list
                                 ?.split(", ")
                                 .slice(0, 3)
@@ -157,7 +160,7 @@ const UploadTableComponent = () => {
                                   </span>
                                 </>
                               )}
-                            </ul>
+                            </ul> */}
                           </td>
                         </tr>
                         <tr>
@@ -199,52 +202,73 @@ const UploadTableComponent = () => {
                   commen_data={history}
                 />
               )}
-              <div className="my-5">
-                <TableComponentNew
-                  title=""
-                  numbering={true}
-                  columns={[
-                    {
-                      header: "Remarks",
-                      render: (row) => {
-                        return (
-                          <>
-                            <div className="flex flex-col gap-3 text-xs">
-                              <ul className="flex flex-col gap-1">
-                                <li>
-                                  <strong>{row[3230]}</strong>
-                                </li>
-                                <li>{parse(row[3229])}</li>
-                                <li>
-                                  {history_status
-                                    .filter((i) => i.text === row[3228])
-                                    .map((x) => {
-                                      return (
-                                        <StatusBadge
-                                          title={x.text}
-                                          bg_color={x.bg_color}
-                                          font_color="white"
-                                        />
-                                      );
-                                    })}
-                                </li>
-                              </ul>
-                            </div>
-                          </>
-                        );
-                      },
-                    },
-                    { header: "Date", key: "date_added" },
-                  ]}
-                  data={history}
-                />
-                <WebButton
-                  title="Fetch Data"
-                  onClickFunction={() =>
-                    getData(requiredDocument.data[0].parent_item_id)
-                  }
-                />
-              </div>
+              {history.length > 0 && (
+                <div className="my-5 ">
+                  <span
+                    className="w-full flex my-3 text-lg border-b items-center gap-2 cursor-pointer "
+                    onClick={() => setHistoryToggle(!historyToggle)}
+                  >
+                    History
+                    <motion.i
+                      initial={{ rotate: 0 }}
+                      animate={historyToggle ? { rotate: 90 } : { rotate: 0 }}
+                      exit={{ rotate: 0 }}
+                      className={`pi pi-angle-right `}
+                    ></motion.i>
+                  </span>
+                  <AnimatePresence mode="wait">
+                    {historyToggle && (
+                      <motion.div
+                        initial={{ height: 0 }}
+                        animate={
+                          historyToggle ? { height: "1200px" } : { height: 0 }
+                        }
+                        exit={{ height: 0 }}
+                        className="overflow-y-auto"
+                      >
+                        <TableComponentNew
+                          title=""
+                          numbering={true}
+                          columns={[
+                            {
+                              header: "Remarks",
+                              render: (row) => {
+                                return (
+                                  <>
+                                    <div className="flex flex-col gap-3 text-xs">
+                                      <ul className="flex flex-col gap-1">
+                                        <li>
+                                          <strong>{row[3230]}</strong>
+                                        </li>
+                                        <li>{parse(row[3229])}</li>
+                                        <li>
+                                          {history_status
+                                            .filter((i) => i.text === row[3228])
+                                            .map((x) => {
+                                              return (
+                                                <StatusBadge
+                                                  title={x.text}
+                                                  bg_color={x.bg_color}
+                                                  font_color="white"
+                                                />
+                                              );
+                                            })}
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </>
+                                );
+                              },
+                            },
+                            { header: "Date", key: "date_added" },
+                          ]}
+                          data={history}
+                        />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )}
             </>
           )}
         </AnimatePresence>

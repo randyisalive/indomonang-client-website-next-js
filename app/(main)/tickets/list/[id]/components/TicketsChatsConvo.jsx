@@ -32,28 +32,36 @@ const TicketsChatsConvo = ({
     <div className={`mb-5 rounded-xl flex flex-col gap-10 w-full relative `}>
       <div className="w-full">
         {role === "Client" && (
-          <select
-            name=""
-            id=""
-            className="p-2 rounded-full shadow-sm w-full border"
-            onChange={(e) =>
-              updateTicket(ticket.ticket_data.id, e.target.value)
-            }
-          >
-            <option value="0">Open</option>
+          <>
+            <span className="px-2 font-bold">Ticket Status:</span>
+            <select
+              name=""
+              id=""
+              className="p-2 rounded-full shadow-sm w-full border mt-1"
+              onChange={(e) =>
+                updateTicket(ticket.ticket_data.id, e.target.value)
+              }
+            >
+              <option value="0">Open</option>
 
-            <option value="2">Closed</option>
-            <option value="3">Canceled</option>
-          </select>
+              <option value="2">Closed</option>
+              <option value="3">Canceled</option>
+            </select>
+          </>
         )}
       </div>
       <div className="bg-white  border rounded-xl flex flex-col justify-between  p-3 h-fit gap-5 shadow-lg">
         <div className="flex flex-col h-100 justify-between">
           <div className=" flex flex-col">
             <div className=" flex gap-2 items-center mb-2">
-              <span className=" text-base font-bold text-gray-500 uppercase">
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className=" text-base font-bold text-gray-500 uppercase"
+              >
                 {ticket.ticket_data[2470]}
-              </span>{" "}
+              </motion.span>
               {ticket.ticket_status?.length > 0 ? (
                 <span>
                   <StatusBadge

@@ -1,10 +1,11 @@
 import api from "@/app/api/api";
 import WebButton from "@/app/components/ui/WebButton";
 import { AnimatePresence, motion } from "framer-motion";
-import { useRouter } from "next/navigation";
 import { Dialog } from "primereact/dialog";
 import React, { useEffect, useState } from "react";
 import parser from "html-react-parser";
+import { useUploadDocumentContext } from "../context/UploadDocumentContext";
+import { useAccountSettingContext } from "@/app/admin/context/AccountSettingContext";
 
 const SubmitDialog = ({ ref_num = "" }) => {
   // api
@@ -15,12 +16,17 @@ const SubmitDialog = ({ ref_num = "" }) => {
     setVisible(status);
   };
 
+  //context
+  const { UpdateClientData, requiredDocument } = useUploadDocumentContext();
+  const { customer } = useAccountSettingContext();
+
   const [agree, setAgree] = useState(null);
 
   // submit documents
   const submitAttachment = async () => {
     try {
       const update_status = await updateRequiredListStatus(ref_num);
+
       setTimeout(() => {
         handleDialog(false);
         window.location.href = "/upload";
@@ -31,7 +37,6 @@ const SubmitDialog = ({ ref_num = "" }) => {
   };
 
   const html = `  
-    <h1>Data Submission Agreement</h1>
     <p><strong>Effective Date:</strong> [Insert Date]</p>
 
     <p>This Data Submission Agreement ("Agreement") is entered into by and between <strong>[Your Company/Organization Name]</strong> ("We," "Us," or "Our") and the individual or entity ("You" or "Your") submitting data through the online form provided on <strong>[Website URL]</strong> ("Online Form"). By submitting data through the Online Form, You agree to the following terms and conditions:</p>

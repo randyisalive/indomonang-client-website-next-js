@@ -101,7 +101,12 @@ const TableComponent = ({
       <div className="flex flex-col">
         {!filter.filter && (
           <div className="w-full flex gap-3 px-5 lg:px-0">
-            <SearchInput name="search" search={search} setSearch={setSearch} />
+            <SearchInput
+              name="search"
+              search={search}
+              setSearch={setSearch}
+              width="w-full"
+            />
             <select
               className="border-2 text-center w-2"
               onChange={(e) => setRowsPerPage(Number(e.target.value))}

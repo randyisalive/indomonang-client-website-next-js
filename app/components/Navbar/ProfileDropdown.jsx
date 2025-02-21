@@ -52,12 +52,16 @@ const ProfileDropdown = () => {
   return (
     <div className=" relative w-full justify-end flex">
       <div
-        className="flex gap-1 items-center   w-full justify-end "
+        className="flex gap-1 items-center   w-full justify-end text-blue-500 "
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="flex gap-1 items-center cursor-pointer">
-          <p>{accounts.username}</p>
-          <i className={`pi pi-angle-right`}></i>
+        <div className="flex gap-1 items-center cursor-pointer ">
+          <p className="hover:underline">{accounts.username}</p>
+          <motion.i
+            className={`pi pi-angle-right`}
+            initial={{ rotate: 0 }}
+            animate={isOpen ? { rotate: 90 } : { rotate: 0 }}
+          ></motion.i>
         </div>
       </div>
       <AnimatePresence>
