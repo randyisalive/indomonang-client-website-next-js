@@ -4,7 +4,7 @@ import React, { useState } from "react";
 const SearchBarUpload = ({ ref = "", handleRef = () => {} }) => {
   return (
     <>
-      <div className="relative w-1/4 flex items-center">
+      <div className="relative lg:w-1/4 flex items-center">
         <div className="flex left-0 absolute ms-3">
           <i className="pi pi-search"></i>
         </div>

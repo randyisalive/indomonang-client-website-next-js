@@ -22,14 +22,14 @@ const NotificationBox = () => {
 
   return (
     <div className="rounded-lg text-sm flex flex-col gap-3 h-full relative">
-      <div className=" font-bold  sticky top-0 z-10">
+      <div className=" font-bold  sticky z-10">
         <div className=" absolute border rounded-tl-lg rounded-tr-lg p-3 flex items-center gap-1 border-b w-full bg-white shadow-sm">
           <i className="pi pi-bell"></i>
           <span>Expired Documents</span>
           <Badge value={all_count_notis} severity="warning rounded-full" />
         </div>
       </div>
-      <div className=" absolute pt-14 overflow-y-auto border rounded-lg w-full h-full">
+      <div className=" relative pt-14 overflow-y-auto border rounded-lg w-full h-full">
         {expat_notis.map((item) => {
           if (item.count > 0) {
             return (

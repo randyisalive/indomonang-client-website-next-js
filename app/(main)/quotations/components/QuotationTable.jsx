@@ -9,12 +9,10 @@ import Link from "next/link";
 import { encryptMessage } from "@/app/function/decryptor";
 import { useDecryptionContext } from "@/app/Context/DecryptionContext";
 import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
-import { Message } from "primereact/message";
 
 const QuotationTable = () => {
   const { quotations, download_client_approval } = useQuotationContext();
   const { decKey } = useDecryptionContext();
-  const { role } = useAccountDataContext();
 
   const columns_array = [
     {
@@ -22,18 +20,9 @@ const QuotationTable = () => {
       key: "quotation-id",
       render: (row) => {
         return (
-          <Link
-            href={`quotations/${encodeURIComponent(
-              encryptMessage(row.id, decKey)
-            )}`}
-          >
-            <span
-              className="text-blue-500 hover:underline cursor-pointer"
-              onClick={() => download_client_approval(row.id)}
-            >
-              {row[434]}
-            </span>
-          </Link>
+          <span className="" onClick={() => download_client_approval(row.id)}>
+            {row[434]}
+          </span>
         );
       },
     },
@@ -80,7 +69,9 @@ const QuotationTable = () => {
           <>
             <div className="flex gap-3">
               <Link
-                href={`/quotations/${row.id}`}
+                href={`quotations/${encodeURIComponent(
+                  encryptMessage(row.id, decKey)
+                )}`}
                 className=" text-blue-500 text-sm cursor-pointer hover:underline"
               >
                 View

@@ -231,7 +231,7 @@ const UploadTableComponent = () => {
                           numbering={true}
                           columns={[
                             {
-                              header: "Remarks",
+                              header: "Description",
                               render: (row) => {
                                 return (
                                   <>
