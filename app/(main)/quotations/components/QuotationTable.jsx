@@ -6,13 +6,11 @@ import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
 import { quotation_status } from "@/app/function/static_data";
 import QuotationSection from "./QuotationSection";
 import Link from "next/link";
-import { encryptMessage } from "@/app/function/decryptor";
 import { useDecryptionContext } from "@/app/Context/DecryptionContext";
-import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
+import { ProgressSpinner } from "primereact/progressspinner";
 
 const QuotationTable = () => {
   const { quotations, download_client_approval } = useQuotationContext();
-  const { decKey } = useDecryptionContext();
 
   const columns_array = [
     {
@@ -82,14 +80,21 @@ const QuotationTable = () => {
   ];
   return (
     <div>
-      <QuotationSection data={quotations} />
-
-      <TableComponentNew
-        numbering={true}
-        data={quotations}
-        columns={columns_array}
-        title=""
-      />
+      {quotations === 0 ? (
+        <div className=" my-5 p-3 flex justify-center items-center">
+          <ProgressSpinner />
+        </div>
+      ) : (
+        <React.Fragment>
+          <QuotationSection data={quotations} />
+          <TableComponentNew
+            numbering={true}
+            data={quotations}
+            columns={columns_array}
+            title=""
+          />
+        </React.Fragment>
+      )}
     </div>
   );
 };

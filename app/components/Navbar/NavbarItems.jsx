@@ -16,7 +16,7 @@ const NavbarItems = ({ onClick = () => {} }) => {
     },
     {
       id: 1,
-      title: "Services",
+      title: "Finances",
       dropdown: false,
       content: [
         { id: 0, text: "Your Orders", link: "/your-orders" },
@@ -26,17 +26,6 @@ const NavbarItems = ({ onClick = () => {} }) => {
         { id: 3, text: "", link: "", line: true },
       ],
     },
-    /* {
-      id: 2,
-      title: "Billing",
-      dropdown: false,
-      content: [
-        { id: 4, text: "Billing List", link: "/billing" },
-        // { id: 4, text: "Invoices", link: "/invoice" },
-        { id: 5, text: "", link: "", line: true },
-        
-      ],
-    }, */
     {
       id: 3,
       title: "Upload Document",
@@ -44,13 +33,6 @@ const NavbarItems = ({ onClick = () => {} }) => {
       dropdown: false,
       content: [],
     },
-    /*  {
-      id: 4,
-      title: "Create A Tiket",
-      dropdown: false,
-      link: "/tickets/new",
-      content: [],
-    }, */
     {
       id: 5,
       title: "Document Record",

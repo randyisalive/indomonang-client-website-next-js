@@ -19,11 +19,11 @@ const useQuotationsData = () => {
   const { accounts, role } = useAccountDataContext();
 
   // data state
-  const [quotations, setQuotations] = useState([]);
+  const [quotations, setQuotations] = useState(0);
   const getData = async () => {
     try {
       if (accounts) {
-        let quotation_data;
+        let quotation_data = 0;
         if (role === "Admin") {
           quotation_data = await getQuotationAll();
         } else {

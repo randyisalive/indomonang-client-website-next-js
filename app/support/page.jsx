@@ -2,10 +2,11 @@ import { Image } from "primereact/image";
 import React from "react";
 import HelpCard from "./components/HelpCard";
 import SupportFooter from "./components/SupportFooter";
+import { support_data } from "./data/support_data";
 
 const SupportPage = () => {
   return (
-    <div className="p-3  min-h-screen">
+    <div className="p-3  min-h-screen mx-20 ">
       <div className="h-96  flex flex-col justify-center mt-16">
         <Image
           loading="lazy"
@@ -21,13 +22,12 @@ const SupportPage = () => {
       <div className="my-5">
         <span className="flex items-center border-b pb-1">
           <p className="text-lg">📄</p>
-          <p className="border-b">Docs</p>
+          <p className="">Docs</p>
         </span>
         <div className="flex  flex-wrap gap-3 p-3 justify-around w-full">
-          <HelpCard />
-          <HelpCard />
-          <HelpCard />
-          <HelpCard />
+          {support_data.map((i) => {
+            return <HelpCard item={i} />;
+          })}
         </div>
       </div>
       <SupportFooter />

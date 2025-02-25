@@ -6,7 +6,7 @@ const SupportLayout = ({ children }) => {
   return (
     <div className=" text-gray-800 font-medium">
       <SupportNavbar />
-      <div className="px-20 container"> {children}</div>
+      <div className=" container"> {children}</div>
     </div>
   );
 };

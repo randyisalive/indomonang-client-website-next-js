@@ -27,7 +27,7 @@ export default function Home() {
           </div>
         </div>
         <div className="w-full lg:flex mt-5 gap-3">
-          <div className="lg:w-1/3 overflow-y-auto h-full">
+          <div className="lg:w-1/3 overflow-y-auto">
             <NotificationBox />
           </div>
           <div className="lg:w-2/3 flex flex-col gap-5 mt-5 lg:mt-0 ">

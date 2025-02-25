@@ -4,7 +4,6 @@ import { Worker } from "@react-pdf-viewer/core";
 import { Viewer } from "@react-pdf-viewer/core";
 import { useParams } from "next/navigation";
 import { useQuotationContext } from "../context/QuotationsContext";
-
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import { ProgressSpinner } from "primereact/progressspinner";
 import WebButton from "@/app/components/ui/WebButton";
@@ -16,7 +15,9 @@ const QuotationDetailPage = () => {
   const { download_client_approval, pdf, quotations } = useQuotationContext();
   const { id } = useParams();
   const slice_id = id.slice(20, -20);
-  const filtered_quotation = quotations.filter((i) => i.id === slice_id);
+
+  const filtered_quotation =
+    quotations !== 0 && quotations.filter((i) => i.id === slice_id);
 
   useEffect(() => {
     download_client_approval(slice_id);
