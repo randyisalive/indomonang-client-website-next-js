@@ -97,33 +97,39 @@ const DocumentRecordCard = () => {
   ];
 
   return (
-    <div className="py-5 flex gap-5  justify-evenly flex-wrap">
+    <div className="py-5 flex gap-5  justify-evenly flex-wrap ">
       {isLoading ? (
         <>
           {data.map((i) => {
             return <HomeCard key={i.id} item={i} />;
           })}
           <PrintSection />
-          <div className=" w-full flex flex-col gap-5">
-            <TableComponentNew
-              title="Expariate List"
-              search_bar={false}
-              data={expatriates}
-              columns={expat_column}
-              link={`/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Expatriate`}
-            />
-            <TableComponentNew
-              title="Dependent List"
-              search_bar={false}
-              data={dependent}
-              columns={dependent_column}
-            />
-            <TableComponentNew
-              title="Visitors List"
-              search_bar={false}
-              data={visitors}
-              columns={visitors_column}
-            />
+          <div className=" w-full flex flex-col gap-5  ">
+            <div className="overflow-x-auto mx-5">
+              <TableComponentNew
+                title="Expariate List"
+                search_bar={false}
+                data={expatriates}
+                columns={expat_column}
+                link={`/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Expatriate`}
+              />
+            </div>
+            <div className=" overflow-x-auto mx-5">
+              <TableComponentNew
+                title="Dependent List"
+                search_bar={false}
+                data={dependent}
+                columns={dependent_column}
+              />
+            </div>
+            <div className=" overflow-x-auto mx-5">
+              <TableComponentNew
+                title="Visitors List"
+                search_bar={false}
+                data={visitors}
+                columns={visitors_column}
+              />
+            </div>
           </div>
         </>
       ) : (

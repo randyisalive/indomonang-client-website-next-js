@@ -30,7 +30,7 @@ const NotificationBox = () => {
         </div>
       </div>
       <div className=" relative pt-14 overflow-y-auto border rounded-lg w-full h-full">
-        {expat_notis.map((item) => {
+        {all_notis_data.map((item) => {
           if (item.count > 0) {
             return (
               <div
@@ -69,7 +69,7 @@ const NotificationBox = () => {
             );
           }
         })}
-        {dependent_notis.map((item) => {
+        {/*  {dependent_notis.map((item) => {
           if (item.count > 0) {
             return (
               <div
@@ -146,7 +146,7 @@ const NotificationBox = () => {
               </div>
             );
           }
-        })}
+        })} */}
         {all_count_notis === 0 && (
           <div className=" h-full p-5 w-full justify-center flex items-center">
             <div className="flex flex-col justify-center">

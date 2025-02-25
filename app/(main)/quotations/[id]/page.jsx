@@ -16,6 +16,7 @@ const QuotationDetailPage = () => {
   const { download_client_approval, pdf, quotations } = useQuotationContext();
   const { id } = useParams();
   const slice_id = id.slice(20, -20);
+  const filtered_quotation = quotations.filter((i) => i.id === slice_id);
 
   useEffect(() => {
     download_client_approval(slice_id);
@@ -39,7 +40,7 @@ const QuotationDetailPage = () => {
       <div className="flex  flex-col  items-center w-full  pt-7  sm:px-6 lg:px-0 mb-10 relative">
         <div className="w-1/2 ">
           <div className="w-full justify-between p-3 text-lg font-bold border-b mb-5">
-            {quotations?.[0]?.[434]}
+            {filtered_quotation?.[0]?.[434]}
           </div>
           <div className="w-ful">
             {pdf.content ? (
@@ -50,7 +51,7 @@ const QuotationDetailPage = () => {
             ) : (
               <div className="flex justify-center">
                 <Message
-                  text="Quotation has not been printed!"
+                  text="We are still finalizing your quotation and apologize for the delay. Thank you for your patience."
                   severity="error"
                 />
               </div>

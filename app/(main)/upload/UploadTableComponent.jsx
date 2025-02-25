@@ -50,7 +50,7 @@ const UploadTableComponent = () => {
 
         <WebButton onClickFunction={() => getWoBtn()} title="Search" />
       </div>
-      <div className="py-2">
+      <div className="py-2 mx-5 sm:mx-0">
         <span className=" text-xs text-gray-500">
           Enter the reference number for your order
         </span>
@@ -60,7 +60,7 @@ const UploadTableComponent = () => {
         <AnimatePresence>
           {woData.length > 0 && (
             <>
-              <div className="shadow-md mx-5 sm:mx-0 my-3 ">
+              <div className=" mx-5 sm:mx-0 my-3 ">
                 <motion.div
                   className="flex  p-3 justify-between items-center border borde-b-0"
                   style={{ backgroundColor: "#f3f4f6" }}
@@ -203,7 +203,7 @@ const UploadTableComponent = () => {
                 />
               )}
               {history.length > 0 && (
-                <div className="my-5 ">
+                <div className="my-5 mx-5">
                   <span
                     className="w-full flex my-3 text-lg border-b items-center gap-2 cursor-pointer "
                     onClick={() => setHistoryToggle(!historyToggle)}

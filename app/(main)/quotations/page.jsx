@@ -13,7 +13,7 @@ const QuotationsPage = () => {
         ]}
       />
 
-      <div className="">
+      <div className="mx-5 overflow-x-auto">
         <QuotationTable />
       </div>
     </div>

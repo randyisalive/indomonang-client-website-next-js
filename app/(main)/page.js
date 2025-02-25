@@ -27,10 +27,10 @@ export default function Home() {
           </div>
         </div>
         <div className="w-full lg:flex mt-5 gap-3">
-          <div className="lg:w-1/3">
+          <div className="lg:w-1/3 overflow-y-auto h-full">
             <NotificationBox />
           </div>
-          <div className="lg:w-2/3 flex flex-col gap-5 mt-5 lg:mt-0">
+          <div className="lg:w-2/3 flex flex-col gap-5 mt-5 lg:mt-0 ">
             <ActiveProducts text="Recent Orders" type="order" />
             <ActiveProducts text="Recent News" type="news" />
           </div>

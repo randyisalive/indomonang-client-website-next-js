@@ -43,7 +43,7 @@ const TableComponentNew = ({
       className="flex flex-col w-full"
     >
       {title && (
-        <div className="my-3 flex justify-between items-center">
+        <div className="my-3 flex justify-between items-center w-full ">
           <span className="font-bold text-base">{title}</span>
           <Link
             href={`${link}`}
@@ -53,64 +53,67 @@ const TableComponentNew = ({
           </Link>
         </div>
       )}
-      <table className="min-w-full bg-white border border-gray-200">
-        <thead className="bg-gray-50">
-          <tr>
-            {numbering && (
-              <th className=" py-3 text-center text-sm border w-1">No</th>
-            )}
-            {columns.map((column, index) => (
-              <th
-                key={`${index}-${column.id}`}
-                className="px-6 py-3 text-left border text-sm"
-              >
-                {column.header}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-gray-200">
-          {currentRows.map((row, rowIndex) => (
-            <tr key={`${rowIndex}-${row.id}`}>
+      <div className=" overflow-x-auto">
+        {" "}
+        <table className="min-w-full bg-white border border-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
               {numbering && (
-                <td className="px-6 py-4 border whitespace-nowrap text-sm text-gray-900">
-                  {indexOfFirstRow + rowIndex + 1}
-                </td>
+                <th className=" py-3 text-center text-sm border w-1">No</th>
               )}
-              {columns.map((column, colIndex) => (
-                <td
-                  key={`${colIndex}-${column.id}`}
-                  className="px-6 py-4 border whitespace-nowrap text-sm text-gray-900"
+              {columns.map((column, index) => (
+                <th
+                  key={`${index}-${column.id}`}
+                  className="px-6 py-3 text-left border text-sm"
                 >
-                  {column.render ? column.render(row) : row[column.key]}
-                </td>
+                  {column.header}
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <nav className="mt-4 p-3">
-        <ul className="flex justify-center space-x-2">
-          {Array.from(
-            { length: Math.ceil(data.length / rowsPerPage) },
-            (_, index) => (
-              <li key={index}>
-                <a
-                  href="#!"
-                  className={`px-3 py-1 border rounded-md ${
-                    index + 1 === currentPage
-                      ? "bg-blue-500 text-white"
-                      : "bg-white text-blue-500"
-                  }`}
-                  onClick={(e) => handleClick(e, index + 1)}
-                >
-                  {index + 1}
-                </a>
-              </li>
-            )
-          )}
-        </ul>
-      </nav>
+          </thead>
+          <tbody className="divide-y divide-gray-200">
+            {currentRows.map((row, rowIndex) => (
+              <tr key={`${rowIndex}-${row.id}`}>
+                {numbering && (
+                  <td className="px-6 py-4 border whitespace-nowrap text-sm text-gray-900">
+                    {indexOfFirstRow + rowIndex + 1}
+                  </td>
+                )}
+                {columns.map((column, colIndex) => (
+                  <td
+                    key={`${colIndex}-${column.id}`}
+                    className="px-6 py-4 border whitespace-nowrap text-sm text-gray-900"
+                  >
+                    {column.render ? column.render(row) : row[column.key]}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <nav className="mt-4 p-3">
+          <ul className="flex justify-center space-x-2">
+            {Array.from(
+              { length: Math.ceil(data.length / rowsPerPage) },
+              (_, index) => (
+                <li key={index}>
+                  <a
+                    href="#!"
+                    className={`px-3 py-1 border rounded-md ${
+                      index + 1 === currentPage
+                        ? "bg-blue-500 text-white"
+                        : "bg-white text-blue-500"
+                    }`}
+                    onClick={(e) => handleClick(e, index + 1)}
+                  >
+                    {index + 1}
+                  </a>
+                </li>
+              )
+            )}
+          </ul>
+        </nav>
+      </div>
     </motion.div>
   );
 };

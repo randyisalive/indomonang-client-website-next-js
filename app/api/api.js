@@ -1599,7 +1599,7 @@ const api = () => {
         password: "rendi",
         action: "select",
         entity_id: 28,
-        filters: { 1778: wo_id },
+        filters: { 1778: wo_id, 1608: "34" },
       };
       try {
         const response = await fetch(base_url, {
@@ -1686,7 +1686,7 @@ const api = () => {
         password: "rendi",
         action: "select",
         entity_id: 46,
-        select_fields: "441,434,436,614,587,624,3199,439,3198",
+        select_fields: "441,434,436,614,587,624,3199,439,3198,3238",
       };
       try {
         const response = await fetch(base_url, {

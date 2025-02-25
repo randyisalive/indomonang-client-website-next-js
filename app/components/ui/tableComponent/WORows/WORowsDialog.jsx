@@ -7,20 +7,14 @@ import StatusBadge from "../StatusBadge";
 import { Rating } from "primereact/rating";
 import { useWoContext } from "@/app/(main)/your-orders/context/WoContext";
 import { useWoDetailContext } from "@/app/(main)/your-orders/context/WoDetailContext";
-import { useInvoiceContext } from "@/app/(main)/invoice/context/InvoiceContext";
 import { Message } from "primereact/message";
-import WebButton from "../../WebButton";
+import parser from "html-react-parser";
+import { motion, AnimatePresence } from "framer-motion";
 
-const WORowsDialog = ({
-  visible = false,
-  onHide = () => {},
-  id = 0,
-  rating = 0,
-}) => {
+const WORowsDialog = ({ visible = false, onHide = () => {}, id = 0 }) => {
   const { wo } = useWoContext();
   const { download_attachments, processedData, filteredCourier } =
     useWoDetailContext();
-  const { invoice } = useInvoiceContext();
   const delivery_status = [
     { id: 0, text: "Open", bg_color: "#00C49A" },
     { id: 1, text: "On Delivery", bg_color: "#9cec5b" },
@@ -59,10 +53,6 @@ const WORowsDialog = ({
 
   const [read_more, setReadMore] = useState(false);
 
-  const expat_other = "Expat A, Expat B, Expat C";
-  console.log(wo);
-  const expat_other_array = expat_other.split(",");
-
   const customizedMarker = (item) => {
     const markerColor =
       item.status === wo_filtered[0]?.status?.name ? item.color : "#e5e7eb";
@@ -76,6 +66,13 @@ const WORowsDialog = ({
     );
   };
 
+  // dropdown
+  const [dropdown, setDropdown] = useState({
+    order: false,
+    applicant: false,
+    delivery: false,
+  });
+
   return (
     <Dialog
       visible={visible}
@@ -86,235 +83,263 @@ const WORowsDialog = ({
       key={id}
     >
       <div className="flex flex-col gap-1 mt-3 ">
-        <span className=" text-base font-bold">Order Details</span>
-        <table className="w-full text-xs" cellPadding={5}>
-          <tr>
-            <td className=" text-gray-400 w-2">Company</td>
-            <td className="" style={{ width: "100px" }}>
-              :
-            </td>
-            <td className=" text-start w-full">{wo_filtered[0].company}</td>
-          </tr>
-          <tr>
-            <td className=" text-gray-400">Service</td>
-            <td>:</td>
-            <td className=" text-start w-fit">{wo_filtered[0].service}</td>
-          </tr>
-          <tr>
-            <td className=" text-gray-400">Reference Number</td>
-            <td>:</td>
-            <td className=" text-start ">
-              <div className=" w-fit ">{wo_filtered[0].ref_num}</div>
-            </td>
-          </tr>
-          <tr>
-            <td className=" text-gray-400">City / Country</td>
-            <td>:</td>
-
-            <td className=" text-start">{wo_filtered[0].city}</td>
-          </tr>
-          <tr>
-            <td className=" text-gray-400">Priority</td>
-            <td>:</td>
-
-            <td className=" text-start">{wo_filtered[0].priority}</td>
-          </tr>
-          <tr>
-            <td className=" text-gray-400">Ratings</td>
-            <td>:</td>
-            {wo.length > 0 && (
-              <td className=" flex justify-start items-center">
-                <Rating
-                  cancel={false}
-                  value={wo_filtered[0]?.rating}
-                  className=" scale-90"
-                  readOnly
-                  pt={{
-                    onIcon: {
-                      className: "",
-                      style: { color: "#9A1C20" },
-                    },
-                  }}
-                />
+        <motion.div
+          whileHover={{ backgroundColor: "#efefef" }}
+          style={{ backgroundColor: "#ffffff" }}
+          onClick={() =>
+            setDropdown((prev) => ({ ...prev, order: !dropdown.order }))
+          }
+          className="w-full flex border-b rounded-lg p-1 justify-start gap-3 items-center cursor-pointer"
+        >
+          <span className=" text-base font-bold ">Order Details</span>
+          <motion.i
+            animate={dropdown.order ? { rotate: 0 } : { rotate: 90 }}
+            className="pi pi-angle-right"
+          ></motion.i>
+        </motion.div>
+        <motion.div
+          animate={dropdown.order ? { height: 0 } : { height: "auto" }}
+          className="  overflow-y-clip"
+        >
+          <table className="w-full text-xs" cellPadding={5}>
+            <tr>
+              <td className=" text-gray-400 w-2">Company</td>
+              <td className="" style={{ width: "100px" }}>
+                :
               </td>
-            )}
-          </tr>
-        </table>
-        <div className="flex w-full">
-          <Timeline
-            marker={customizedMarker}
-            value={events}
-            className="w-full md:w-20rem text-xs"
-            layout="horizontal"
-            content={(item) => {
-              const markerColor =
-                item.status === wo_filtered[0]?.status?.name
-                  ? item.color
-                  : "#e5e7eb";
-              return (
-                <p style={{ color: markerColor }} className=" text-start">
-                  {item.status}
-                </p>
+              <td className=" text-start w-full">{wo_filtered[0].company}</td>
+            </tr>
+            <tr>
+              <td className=" text-gray-400">Service</td>
+              <td>:</td>
+              <td className=" text-start w-fit">{wo_filtered[0].service}</td>
+            </tr>
+            <tr>
+              <td className=" text-gray-400">Reference Number</td>
+              <td>:</td>
+              <td className=" text-start ">
+                <div className=" w-fit ">{wo_filtered[0].ref_num}</div>
+              </td>
+            </tr>
+            <tr>
+              <td className=" text-gray-400">City / Country</td>
+              <td>:</td>
+
+              <td className=" text-start">{wo_filtered[0].city}</td>
+            </tr>
+            <tr>
+              <td className=" text-gray-400">Priority</td>
+              <td>:</td>
+
+              <td className=" text-start">{wo_filtered[0].priority}</td>
+            </tr>
+            <tr>
+              <td className=" text-gray-400">Ratings</td>
+              <td>:</td>
+              {wo.length > 0 && (
+                <td className=" flex justify-start items-center">
+                  <Rating
+                    cancel={false}
+                    value={wo_filtered[0]?.rating}
+                    className=" scale-90"
+                    readOnly
+                    pt={{
+                      onIcon: {
+                        className: "",
+                        style: { color: "#9A1C20" },
+                      },
+                    }}
+                  />
+                </td>
+              )}
+            </tr>
+          </table>{" "}
+          <div className="flex w-full">
+            <Timeline
+              marker={customizedMarker}
+              value={events}
+              className="w-full md:w-20rem text-xs"
+              layout="horizontal"
+              content={(item) => {
+                const markerColor =
+                  item.status === wo_filtered[0]?.status?.name
+                    ? item.color
+                    : "#e5e7eb";
+                return (
+                  <p style={{ color: markerColor }} className=" text-start">
+                    {item.status}
+                  </p>
+                );
+              }}
+            />
+          </div>
+        </motion.div>
+      </div>
+      <div className="flex flex-col gap-1 mt-3 ">
+        <motion.div
+          onClick={() =>
+            setDropdown((prev) => ({ ...prev, applicant: !dropdown.applicant }))
+          }
+          whileHover={{ backgroundColor: "#efefef" }}
+          style={{ backgroundColor: "#ffffff" }}
+          className="w-full flex border-b justify-start rounded-lg p-1  gap-3 items-center cursor-pointer"
+        >
+          <span className=" text-base font-bold ">Applicant Info</span>
+
+          <motion.i
+            animate={dropdown.applicant ? { rotate: 0 } : { rotate: 90 }}
+            className="pi pi-angle-right"
+          ></motion.i>
+        </motion.div>
+        <motion.div
+          animate={dropdown.applicant ? { height: 0 } : { height: "auto" }}
+          className="  overflow-y-clip"
+        >
+          <table className="w-full text-xs  " cellPadding={5}>
+            <tr>
+              <td className="w-2">Name </td>
+              <td style={{ width: "1px" }}>:</td>
+              <td className="text-start font-bold">
+                {wo_filtered[0]?.applicant}
+              </td>
+            </tr>
+            <tr>
+              <td className="w-2">Nationality</td>
+              <td style={{ width: "1px" }}>:</td>
+              <td className=" font-bold">{wo_filtered[0]?.nationality}</td>
+            </tr>
+            <tr>
+              <td className="w-2">Job Title</td>
+              <td style={{ width: "1px" }}>:</td>
+              <td>{wo_filtered[0]?.job_title}</td>
+            </tr>{" "}
+            <tr>
+              <td className="text-xs pl-1  align-top">Other Applicants</td>
+              <td className="align-top">:</td>
+              <td className=" align-top">
+                {wo_filtered[0].other_expat_list && (
+                  <React.Fragment>
+                    {parser(wo_filtered[0].other_expat_list)}
+                  </React.Fragment>
+                )}
+              </td>
+            </tr>
+          </table>
+        </motion.div>
+      </div>
+      {filteredCourier.length > 0 && (
+        <div className="flex flex-col gap-1 mt-3 ">
+          <motion.div
+            onClick={() =>
+              setDropdown((prev) => ({
+                ...prev,
+                delivery: !dropdown.delivery,
+              }))
+            }
+            whileHover={{ backgroundColor: "#efefef" }}
+            style={{ backgroundColor: "#ffffff" }}
+            className="w-full flex border-b justify-start rounded-lg p-2 gap-3 items-center cursor-pointer"
+          >
+            <span className=" text-base font-bold ">Delivery Info</span>
+            <motion.i
+              animate={dropdown.delivery ? { rotate: 0 } : { rotate: 90 }}
+              className="pi pi-angle-right"
+            ></motion.i>
+          </motion.div>
+          <motion.div
+            animate={dropdown.delivery ? { height: 0 } : { height: "auto" }}
+            className=" overflow-y-clip"
+          >
+            {filteredCourier.map((item) => {
+              const filtered_status = delivery_status.filter(
+                (x) => x.text === item[1547]
               );
-            }}
-          />
-        </div>
-      </div>
-      <div className="flex flex-col gap-1 mt-3 ">
-        <span className=" text-base font-bold">Applicant Info</span>
-        <table className="w-full text-xs border-t mt-1" cellPadding={5}>
-          <tr>
-            <td className="w-2">Name </td>
-            <td style={{ width: "1px" }}>:</td>
-            <td className="text-start font-bold">
-              {wo_filtered[0]?.applicant}
-            </td>
-          </tr>
-          <tr>
-            <td className="w-2">Nationality</td>
-            <td style={{ width: "1px" }}>:</td>
-            <td className=" font-bold">{wo_filtered[0]?.nationality}</td>
-          </tr>
-          <tr>
-            <td className="w-2">Job Title</td>
-            <td style={{ width: "1px" }}>:</td>
-            <td>{wo_filtered[0]?.job_title}</td>
-          </tr>{" "}
-          <tr>
-            <td className="text-xs pl-1  align-top">Other Applicants</td>
-            <td className="align-top">:</td>
-            {wo_filtered[0].other_expat_list && (
-              <td className="text-xs">
-                <ul>
-                  {wo_filtered[0].other_expat_list
-                    ?.split(", ")
-                    .slice(0, 5)
-                    .map((item, index) => {
-                      return (
-                        <li className="">
-                          {index + 1}. {item}
-                        </li>
-                      );
-                    })}
-                  {wo_filtered[0].other_expat_list?.split(", ").length > 5 && (
-                    <>
-                      {read_more && (
-                        <>
-                          <ul>
-                            {wo_filtered[0].other_expat_list
-                              ?.split(", ")
-                              .slice(
-                                5,
-                                wo_filtered[0].other_expat_list.split(", ")
-                                  .length
-                              )
-                              .map((item, index) => {
-                                return (
-                                  <li className="">
-                                    {index + 6}. {item}
-                                  </li>
-                                );
-                              })}
-                          </ul>
-                        </>
+              return (
+                <table
+                  key={item.id}
+                  className="w-full text-xs  mt-1"
+                  cellPadding={5}
+                >
+                  <tr>
+                    <td className="w-2">Courier </td>
+                    <td className="">:</td>
+                    <td>
+                      {item[248] === "Internal" ? item[247] : item[249]} /{" "}
+                      {item[1569]}
+                    </td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td className="w-2">Tracking Number</td>
+                    <td className="">:</td>{" "}
+                    <td className=" font-bold">
+                      {item[248] === "Internal" ? item[1569] : item[2773]}
+                      {item[248] === "External" && (
+                        <CopyButton text={item[2773]} />
                       )}
-                      <span
-                        className="text-blue-500 hover:underline cursor-pointer"
-                        onClick={() => setReadMore(!read_more)}
-                      >
-                        {!read_more && <>Read more</>}
-                        {read_more && <>Read less</>}
-                      </span>
-                    </>
-                  )}
-                </ul>
-              </td>
-            )}
-          </tr>
-        </table>
-      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="w-2">Address</td>
+                    <td className="">:</td>
+                    <td>{item[1548]}</td>
+                  </tr>
+                  <tr>
+                    <td className="w-2">Status</td>
+                    <td>:</td>
+                    <td className=" flex gap-3">
+                      <StatusBadge
+                        title="Open"
+                        bg_color={
+                          item[1547] === "Open"
+                            ? filtered_status[0].bg_color
+                            : ""
+                        }
+                        font_color={item[1547] === "Open" ? "white" : "black"}
+                      />
+                      <StatusBadge
+                        title="On Delivery"
+                        bg_color={
+                          item[1547] === "On Delivery"
+                            ? filtered_status[0].bg_color
+                            : ""
+                        }
+                        font_color={
+                          item[1547] === "On Delivery" ? "black" : "black"
+                        }
+                      />
+                      <StatusBadge
+                        title="Arrived"
+                        bg_color={
+                          item[1547] === "Closed"
+                            ? filtered_status[0].bg_color
+                            : ""
+                        }
+                        font_color={item[1547] === "Closed" ? "white" : "black"}
+                      />
+                      {item[1547] === "Canceled" && (
+                        <StatusBadge
+                          title="Canceled"
+                          bg_color={
+                            item[1547] === "Canceled"
+                              ? filtered_status[0].bg_color
+                              : ""
+                          }
+                          font_color={
+                            item[1547] === "Canceled" ? "white" : "black"
+                          }
+                        />
+                      )}
+                    </td>
+                  </tr>
+                </table>
+              );
+            })}
+          </motion.div>
+        </div>
+      )}
 
-      <div className="flex flex-col gap-1 mt-3 ">
-        <span className=" text-base font-bold">Delivery Info</span>
-        {filteredCourier.map((item) => {
-          const filtered_status = delivery_status.filter(
-            (x) => x.text === item[1547]
-          );
-          return (
-            <table
-              key={item.id}
-              className="w-full text-xs border-t mt-1"
-              cellPadding={5}
-            >
-              <tr>
-                <td className="w-2">Courier </td>
-                <td className="">:</td>
-                <td>
-                  {item[248] === "Internal" ? item[247] : item[249]} /{" "}
-                  {item[1569]}
-                </td>
-                <td></td>
-              </tr>
-              <tr>
-                <td className="w-2">Tracking Number</td>
-                <td className="">:</td>{" "}
-                <td className=" font-bold">
-                  {item[248] === "Internal" ? item[1569] : item[2773]}
-                  {item[248] === "External" && <CopyButton text={item[2773]} />}
-                </td>
-              </tr>
-              <tr>
-                <td className="w-2">Address</td>
-                <td className="">:</td>
-                <td>{item[1548]}</td>
-              </tr>
-              <tr>
-                <td className="w-2">Status</td>
-                <td>:</td>
-                <td className=" flex gap-3">
-                  <StatusBadge
-                    title="Open"
-                    bg_color={
-                      item[1547] === "Open" ? filtered_status[0].bg_color : ""
-                    }
-                    font_color={item[1547] === "Open" ? "white" : "black"}
-                  />
-                  <StatusBadge
-                    title="On Delivery"
-                    bg_color={
-                      item[1547] === "On Delivery"
-                        ? filtered_status[0].bg_color
-                        : ""
-                    }
-                    font_color={
-                      item[1547] === "On Delivery" ? "black" : "black"
-                    }
-                  />
-                  <StatusBadge
-                    title="Arrived"
-                    bg_color={
-                      item[1547] === "Closed" ? filtered_status[0].bg_color : ""
-                    }
-                    font_color={item[1547] === "Closed" ? "white" : "black"}
-                  />
-                  {item[1547] === "Canceled" && (
-                    <StatusBadge
-                      title="Canceled"
-                      bg_color={
-                        item[1547] === "Canceled"
-                          ? filtered_status[0].bg_color
-                          : ""
-                      }
-                      font_color={item[1547] === "Canceled" ? "white" : "black"}
-                    />
-                  )}
-                </td>
-              </tr>
-            </table>
-          );
-        })}
-      </div>
-      {processedData && wo_filtered[0]?.rating != 0 && (
+      {processedData.parent.length > 0 && wo_filtered[0]?.rating != 0 && (
         <>
           {processedData.parent && (
             <div className="flex flex-col gap-1 mt-3 ">

@@ -6,7 +6,7 @@ import { WoDetailProvider } from "./context/WoDetailContext";
 const WOList = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <div className="flex flex-col w-full mx-auto pt-7  sm:px-6, lg:px-0 max-w-screen-xl">
+      <div className="flex flex-col w-full mx-auto pt-7  sm:px-6 lg:px-0 max-w-screen-xl">
         <HeaderComponent
           title="Your Orders"
           breadcrumbs_array={[

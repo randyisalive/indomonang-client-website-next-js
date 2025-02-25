@@ -25,7 +25,7 @@ const WOTable = () => {
   const [searchText, setSearchText] = useState(["", "", ""]);
 
   return (
-    <div className="text-center mx-5 sm:m-0">
+    <div className="text-center sm:m-0">
       {isLoading ? (
         <div className="mt-5">
           <ProgressSpinner />
