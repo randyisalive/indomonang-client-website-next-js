@@ -44,13 +44,13 @@ const NavbarItems = ({ onClick = () => {} }) => {
       dropdown: false,
       content: [],
     },
-    {
+    /*  {
       id: 4,
       title: "Create A Tiket",
       dropdown: false,
       link: "/tickets/new",
       content: [],
-    },
+    }, */
     {
       id: 5,
       title: "Document Record",

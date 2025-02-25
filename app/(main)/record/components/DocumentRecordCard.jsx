@@ -42,10 +42,6 @@ const DocumentRecordCard = () => {
       key: "1082",
     },
     {
-      header: "Address",
-      key: "1087",
-    },
-    {
       header: "Nationality",
       key: "1084",
     },
@@ -53,29 +49,39 @@ const DocumentRecordCard = () => {
       header: "Position",
       key: "1085",
     },
+
+    {
+      header: "Address",
+      key: "1087",
+    },
   ];
   const dependent_column = [
     {
       header: "Name",
       key: "1100",
     },
+
     {
-      header: "Expat Name",
-      key: "1317",
+      header: "Nationality",
+      key: "1102",
     },
     {
       header: "Relation",
       key: "1096",
     },
     {
-      header: "Nationality",
-      key: "1102",
+      header: "Expat Name",
+      key: "1317",
     },
   ];
   const visitors_column = [
     {
       header: "Name",
       key: "1442",
+    },
+    {
+      header: "Nationality",
+      key: "1444",
     },
     {
       header: "Visa Type",
@@ -87,10 +93,6 @@ const DocumentRecordCard = () => {
       render: (row) => {
         return <>{parse(row[1463])}</>;
       },
-    },
-    {
-      header: "Nationality",
-      key: "1444",
     },
   ];
 

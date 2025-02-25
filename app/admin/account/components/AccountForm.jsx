@@ -36,13 +36,16 @@ const AccountForm = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <div className="w-fit flex-wrap text-3xl ps-5 lg:ps-0 mt-5 flex gap-7">
-        <img
-          style={{ height: "150px", width: "150px" }}
-          src={`${accounts.profile_picture?.content}`}
-          className="rounded-full border-2 shadow-md"
-        />
-        <div className="flex flex-col justify-evenly">
+      <div className="w-fit flex-wrap text-3xl ps-5 lg:ps-0 mt-5 flex flex-col gap-5">
+        <div className="mx-10">
+          <img
+            style={{ height: "150px", width: "150px" }}
+            src={`${accounts.profile_picture?.content}`}
+            className=" rounded-lg border-2 shadow-md"
+          />
+        </div>
+
+        <div className="flex px-10 flex-col justify-evenly">
           <div className="flex relative">
             <WebButton title="Change Picture" />
             <input

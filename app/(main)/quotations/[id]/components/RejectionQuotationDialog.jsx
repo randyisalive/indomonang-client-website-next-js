@@ -15,8 +15,7 @@ const RejectionQuotationDialog = ({
   handleVisible = () => {},
 }) => {
   const { id } = useParams();
-  const { decKey } = useDecryptionContext();
-  const real_id = decryptMessage(decodeURIComponent(id), decKey);
+  const slice_id = id.slice(20, -20);
   const { reject_quotation } = useQuotationContext();
 
   // message warning
@@ -89,7 +88,7 @@ const RejectionQuotationDialog = ({
                     "Are you sure about this? (this action cannot be undone)"
                   );
                   if (confirmWindow) {
-                    await reject_quotation(real_id, form);
+                    await reject_quotation(slice_id, form);
                   } else {
                     return;
                   }

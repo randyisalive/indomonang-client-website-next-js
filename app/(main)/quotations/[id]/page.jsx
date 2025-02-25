@@ -11,18 +11,15 @@ import WebButton from "@/app/components/ui/WebButton";
 import QuotationDialog from "./components/QuotationDialog";
 import RejectionQuotationDialog from "./components/RejectionQuotationDialog";
 import { Message } from "primereact/message";
-import { useDecryptionContext } from "@/app/Context/DecryptionContext";
-import { decryptMessage } from "@/app/function/decryptor";
 
 const QuotationDetailPage = () => {
   const { download_client_approval, pdf, quotations } = useQuotationContext();
   const { id } = useParams();
-  const { decKey } = useDecryptionContext();
-  const real_id = decryptMessage(decodeURIComponent(id), decKey);
+  const slice_id = id.slice(20, -20);
 
   useEffect(() => {
-    download_client_approval(real_id);
-  }, [real_id]);
+    download_client_approval(slice_id);
+  }, [slice_id]);
 
   // dialog state
   const [visible, setVisible] = useState({

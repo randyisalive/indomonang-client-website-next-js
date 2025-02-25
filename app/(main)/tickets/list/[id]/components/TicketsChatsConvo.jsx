@@ -6,6 +6,7 @@ import { truncateString } from "@/app/function/TruncateString";
 import TextAreaTicket from "./TextAreaTicket";
 import ReplyComponents from "./ReplyComponents";
 import StatusBadge from "@/app/components/ui/tableComponent/StatusBadge";
+import parser from "html-react-parser";
 import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 
 const TicketsChatsConvo = ({
@@ -60,7 +61,7 @@ const TicketsChatsConvo = ({
                 exit={{ opacity: 0 }}
                 className=" text-base font-bold text-gray-500 uppercase"
               >
-                {ticket.ticket_data[2470]}
+                {parser(ticket.ticket_data[2470])}
               </motion.span>
               {ticket.ticket_status?.length > 0 ? (
                 <span>
@@ -72,7 +73,9 @@ const TicketsChatsConvo = ({
                 </span>
               ) : null}
             </div>
-            <p className="mt-2 text-lg font-bold">{ticket.ticket_data[2465]}</p>{" "}
+            <p className="my-2 text-lg font-bold">
+              {parser(ticket.ticket_data[2465])}
+            </p>
           </div>
           <div>
             <span className=" text-xs text-gray-400">

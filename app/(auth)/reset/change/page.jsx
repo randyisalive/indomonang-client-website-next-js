@@ -15,14 +15,6 @@ const ResetChildPage = () => {
             Please enter your desired new password below.
           </span>
           <FormChangePassword />
-          <div className="mt-5 border-t p-3  text-center">
-            <span className=" text-sm text-gray-700">
-              Not a member yet?{" "}
-              <Link href={`/signup`} className=" text-blue-500">
-                Create a New Account
-              </Link>
-            </span>
-          </div>
         </div>
       </div>
     </Suspense>

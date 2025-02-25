@@ -61,7 +61,6 @@ const useTicketNewData = () => {
     pic: wo.filter((item) => item.ref_num === search),
   });
   const ticket_priority = [
-    { id: 0, text: "Urgent", bg_color: "#ff0000", value: "633" },
     { id: 3, text: "High", bg_color: "#FFEB3B", value: "634" },
     { id: 1, text: "Medium", bg_color: "#FF9800", value: "635" },
     { id: 2, text: "Low", bg_color: "#007BFF", value: "636" },

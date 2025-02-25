@@ -69,9 +69,7 @@ const QuotationTable = () => {
           <>
             <div className="flex gap-3">
               <Link
-                href={`quotations/${encodeURIComponent(
-                  encryptMessage(row.id, decKey)
-                )}`}
+                href={`quotations/${row[3238]}`}
                 className=" text-blue-500 text-sm cursor-pointer hover:underline"
               >
                 View

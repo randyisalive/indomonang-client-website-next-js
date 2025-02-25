@@ -1416,7 +1416,7 @@ const api = () => {
           field_2470: category,
           field_2465: ticket_detail,
           field_2646: user_id,
-          field_2498: pic,
+          field_2498: pic, //"25,28"
           field_2769: priority,
         },
       };
@@ -1666,7 +1666,7 @@ const api = () => {
         password: "rendi",
         action: "select",
         entity_id: 46,
-        select_fields: "441,434,436,614,587,624,3199,439,3198",
+        select_fields: "441,434,436,614,587,624,3199,439,3198, 3238",
         filters: { 3198: company_id, 441: 476 },
       };
       try {

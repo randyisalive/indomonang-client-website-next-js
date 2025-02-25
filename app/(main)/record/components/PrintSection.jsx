@@ -19,8 +19,7 @@ const PrintSection = () => {
         title={
           <>
             <div className="flex items-center gap-3 text-base">
-              <i className="pi pi-print"></i>
-              <span>Export Records</span>
+              <span>View Records</span>
             </div>
           </>
         }

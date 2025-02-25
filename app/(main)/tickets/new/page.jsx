@@ -101,13 +101,15 @@ const TicketPageNew = () => {
                 id=""
                 className="border text-sm focus:outline-blue-600 w-full p-3"
               >
-                {tickets_category_data.map((item) => {
-                  return (
-                    <option key={item.id} value={item.id}>
-                      {item.category}
-                    </option>
-                  );
-                })}
+                {tickets_category_data
+                  .sort((a, b) => b.id - a.id)
+                  .map((item) => {
+                    return (
+                      <option key={item.id} value={item.id}>
+                        {item.category}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
             <div className="relative flex w-full flex-col p-1 gap-2">

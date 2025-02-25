@@ -13,13 +13,12 @@ import { decryptMessage } from "@/app/function/decryptor";
 
 const QuotationDialog = ({ visible = false, handleVisible = () => {} }) => {
   const { id } = useParams();
-  const { decKey } = useDecryptionContext();
-  const real_id = decryptMessage(decodeURIComponent(id), decKey);
   const { terms } = useTermsOfService();
   const { quotations, upload_client_signature, approve_quotation } =
     useQuotationContext();
+  const slice_id = id.slice(20, -20);
 
-  const quotation_filtered = quotations?.filter((q) => q.id == real_id);
+  const quotation_filtered = quotations?.filter((q) => q.id == slice_id);
 
   const filtered_terms = terms?.filter(
     (i) => i[662] === quotation_filtered?.[0]?.[439]
@@ -76,7 +75,7 @@ const QuotationDialog = ({ visible = false, handleVisible = () => {} }) => {
   return (
     <Dialog
       visible={visible}
-      header=" Quotation Agreement Notice"
+      header="Terms of Service"
       onHide={() => handleVisible("approveDialog", false)}
       style={{ minWidth: "50rem", maxWidth: "50rem", height: "30rem" }}
     >
