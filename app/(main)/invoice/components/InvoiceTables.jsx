@@ -7,6 +7,7 @@ const InvoiceTables = () => {
   const { invoice } = useInvoiceContext();
   const th_array = [
     "No",
+    "Status",
     "No. Invoice",
     "Transaction ID",
     "Date of Payment",

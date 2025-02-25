@@ -13,7 +13,7 @@ const StatusBadge = ({
       className={
         !className
           ? `px-3 py-1 font-bold select-none rounded-xl w-fit shadow-md`
-          : `px-3 py-1 font-bold select-none rounded-xl shadow-md ${className}`
+          : `px-3 py-1 select-none rounded-xl shadow-md ${className}`
       }
       style={{ backgroundColor: bg_color, color: font_color }}
     >

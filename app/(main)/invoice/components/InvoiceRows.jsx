@@ -38,6 +38,17 @@ const InvoiceRows = ({
         </Link>
       </td>
       <td className="border px-4 py-2 text-center ">
+        {console.log(item)}
+        {item.status === "Closed" && (
+          <StatusBadge
+            title="Paid"
+            bg_color="#BFC9CA"
+            font_color="white"
+            className="w-full"
+          />
+        )}
+      </td>
+      <td className="border px-4 py-2 text-center ">
         <ul>
           {transaction_array?.map((item, index) => {
             return <li key={index}>{item}</li>;

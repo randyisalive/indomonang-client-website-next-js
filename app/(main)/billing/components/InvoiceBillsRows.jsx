@@ -27,9 +27,10 @@ const InvoiceBillsRows = ({
       <td className="border px-4 py-2 ">
         <div className="w-full flex justify-center">
           <StatusBadge
-            title={"Unpaid"}
+            title={"Waiting for Payment"}
             bg_color={"#EAD94C"}
-            font_color="white"
+            className="font-normal"
+            font_color={`#000000`}
           />
         </div>
       </td>

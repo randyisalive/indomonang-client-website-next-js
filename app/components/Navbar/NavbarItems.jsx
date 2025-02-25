@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { BTOA } from "@/app/function/decryptor";
 
 const NavbarItems = ({ onClick = () => {} }) => {
   const navbar_data = [
@@ -16,77 +15,47 @@ const NavbarItems = ({ onClick = () => {} }) => {
     },
     {
       id: 1,
-      title: "Finances",
+      title: "My Orders",
       dropdown: false,
+      link: "/your-orders",
       content: [
-        { id: 0, text: "Your Orders", link: "/your-orders" },
+        /*  { id: 0, text: "Your Orders", link: "/your-orders" },
         { id: 2, text: "Billings List", link: "/billing" },
         { id: 2, text: "Payment History", link: "/invoice" },
 
-        { id: 3, text: "", link: "", line: true },
+        { id: 3, text: "", link: "", line: true }, */
       ],
     },
     {
-      id: 3,
-      title: "Upload Document",
-      link: "/upload",
-      dropdown: false,
-      content: [],
-    },
-    {
-      id: 5,
-      title: "Document Record",
-      link: "/record",
+      id: 2,
+      title: "My Document",
       dropdown: false,
       content: [
-        /*  {
-          id: 0,
-          text: "Company",
-          link: `/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Documents`,
-        },
-        {
-          id: 1,
-          text: "Expatriate",
-          link: "/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Expatriate",
-        },
-        {
-          id: 2,
-          text: "Dependent",
-          link: "/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Dependent",
-        },
-        {
-          id: 3,
-          text: "Visitor",
-          link: "/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Visitors",
-        }, */
+        { id: 0, text: "Upload", link: "/upload" },
+        { id: 1, text: "Records", link: "/record" },
       ],
     },
+
     {
       id: 6,
-      title: "Quotations",
-      link: "/quotations",
+      title: "My Finance",
       dropdown: false,
       content: [
-        /*  {
+        {
+          id: 2,
+          text: "Quotations",
+          link: "/quotations",
+        },
+        {
           id: 0,
-          text: "Company",
-          link: `/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Documents`,
+          text: "Billing List",
+          link: `/billing`,
         },
         {
           id: 1,
-          text: "Expatriate",
-          link: "/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Expatriate",
+          text: "Payment History",
+          link: "/invoice",
         },
-        {
-          id: 2,
-          text: "Dependent",
-          link: "/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Dependent",
-        },
-        {
-          id: 3,
-          text: "Visitor",
-          link: "/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Visitors",
-        }, */
       ],
     },
   ];
