@@ -339,7 +339,7 @@ const WORowsDialog = ({ visible = false, onHide = () => {}, id = 0 }) => {
         </div>
       )}
 
-      {processedData.parent.length > 0 && wo_filtered[0]?.rating != 0 && (
+      {processedData?.parent?.length > 0 && wo_filtered[0]?.rating != 0 && (
         <>
           {processedData.parent && (
             <div className="flex flex-col gap-1 mt-3 ">
