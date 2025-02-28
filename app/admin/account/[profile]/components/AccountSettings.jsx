@@ -151,18 +151,7 @@ const AccountSettings = () => {
                 <td className="border px-4 py-2 font-bold">Company</td>
                 <td className="border px-4 py-2 ">
                   {!form.company_name?.status ? (
-                    <>
-                      {customer[228]}
-
-                      <EditButton
-                        onClickFunction={() => {
-                          setForm((prev) => ({
-                            ...prev,
-                            company_name: { val: customer[228], status: true },
-                          }));
-                        }}
-                      />
-                    </>
+                    <>{customer[228]}</>
                   ) : (
                     <>
                       <div className="flex items-center gap-2">
