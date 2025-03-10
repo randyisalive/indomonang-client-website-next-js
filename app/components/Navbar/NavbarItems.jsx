@@ -58,6 +58,13 @@ const NavbarItems = ({ onClick = () => {} }) => {
         },
       ],
     },
+    {
+      id: 7,
+      title: "Redesign",
+      dropdown: false,
+      link: "/redesign",
+      content: [],
+    },
   ];
 
   const [items, setItems] = useState(navbar_data);
