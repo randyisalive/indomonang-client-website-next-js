@@ -125,6 +125,7 @@ const BillingDetail = () => {
                         className="text-white"
                         style={{ backgroundColor: "#9c1c23" }}
                       >
+                        {console.log(item)}
                         <tr>
                           <th
                             className="text-start ps-6 border text-base"
@@ -143,18 +144,7 @@ const BillingDetail = () => {
                             {item.transactions_number}
                           </td>
                         </tr>
-                        <tr>
-                          <td className="border px-4 py-2 font-bold">Status</td>
-                          <td className="border px-4 text-center py-2">
-                            <div className=" flex justify-center">
-                              <StatusBadge
-                                title={item.status_name?.text}
-                                bg_color={item.status_name?.bg_color}
-                                font_color="white"
-                              />
-                            </div>
-                          </td>
-                        </tr>
+
                         <tr>
                           <td className="border px-4 py-2 font-bold ">
                             Amount of Payment

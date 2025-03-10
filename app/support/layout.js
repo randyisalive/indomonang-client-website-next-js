@@ -1,6 +1,5 @@
 import React from "react";
 import SupportNavbar from "./components/SupportNavbar";
-import SupportFooter from "./components/SupportFooter";
 
 const SupportLayout = ({ children }) => {
   return (
