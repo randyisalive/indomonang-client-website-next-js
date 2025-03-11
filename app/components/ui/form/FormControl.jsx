@@ -24,10 +24,21 @@ const FormControl = ({ children, title = "", className = {} }) => {
   } = useLoginData();
 
   return (
-    <div className={`border h-fit ${className}`}>
-      <section>
-        <header className="text-5xl mt-5 text-center p-3  font-bold">
-          {title}
+    <div
+      className={`border h-fit ${className}`}
+      style={{ width: "644px", padding: "32px" }}
+    >
+      <section className="w-full flex-col" style={{ width: "580px" }}>
+        <header className="flex flex-col" style={{ gap: "16px" }}>
+          <img src="logo" alt="logo.png" width={"229"} height={40} />
+          <div style={{ width: "580px" }} className="flex flex-col">
+            <span style={{ fontSize: "32px" }} className="font-bold">
+              Welcome back!
+            </span>
+            <span style={{ color: "#919CA7" }}>
+              Start managing your work faster and better
+            </span>
+          </div>
         </header>
       </section>
       <section className="flex flex-col p-3 gap-3">

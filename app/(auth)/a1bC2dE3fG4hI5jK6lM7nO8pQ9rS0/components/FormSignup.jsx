@@ -59,33 +59,23 @@ const FormSignup = () => {
             placeholder="newmail@email.com"
             onChange={(e) => handleForm(e)}
           />
-          <Dropdown
-            value={form.company}
-            onChange={(e) => handleForm(e)}
-            options={company}
-            name="company"
-            optionLabel="228"
-            filter
-            filterPlaceholder="Search"
-            className="w-full lg:w-1/2 flex mt-4 p-1 h-fit rounded-none border "
-          />
+          <div className="lg:w-1/2 flex flex-col gap-2 w-full">
+            <span className="text-sm text-gray-600">Company</span>
+            <select
+              name="company"
+              id=""
+              onChange={(e) => handleForm(e)}
+              className="border w-full p-3"
+            >
+              {company.map((i) => {
+                return <option>{i["228"]}</option>;
+              })}
+            </select>
+          </div>
         </div>
       </div>
+
       <div className="flex mt-5 flex-col gap-3">
-        <h3 className=" text-xl">Account Role</h3>
-        <div className="flex gap-3">
-          <SelectForm
-            title="Role *"
-            className={`w-full`}
-            name="role"
-            value={form.role}
-            onChange={(e) => handleForm(e)}
-          >
-            <option value="" selected></option>
-            <option value="618">Admin</option>
-            <option value="619">Client</option>
-          </SelectForm>
-        </div>
         <div className="w-full text-center flex-col flex gap-3">
           <AnimatePresence>
             {signupLoading === 2 && (

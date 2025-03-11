@@ -3,7 +3,7 @@ import React from "react";
 const RecentOrderCardOne = () => {
   return (
     <div
-      className="flex flex-col"
+      className="flex flex-col text-sm"
       style={{ padding: "16px 12px", gap: "10px", border: "1px solid #EAEAEA" }}
     >
       <div className="flex justify-between">

@@ -20,12 +20,13 @@ const useSignupData = () => {
     email: "",
     company: "",
     role: "",
+    company_name: "",
   });
   const [signupLoading, setSignupLoading] = useState(0);
   const [message, setMessage] = useState("");
   const handleForm = (e) => {
     if (e.target.name === "company") {
-      setForm((prev) => ({ ...prev, company: e.target.value.id }));
+      setForm((prev) => ({ ...prev, company: e.target.value }));
       return;
     }
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -36,7 +37,6 @@ const useSignupData = () => {
       form.company === "" ||
       form.email === "" ||
       form.password === "" ||
-      form.role === "" ||
       form.username === ""
     ) {
       setSignupLoading(2);
@@ -64,7 +64,7 @@ const useSignupData = () => {
         hashed_password,
         form.email,
         form.company,
-        form.role
+        619
       );
       if (insert_account) {
         handleVisible(true);
