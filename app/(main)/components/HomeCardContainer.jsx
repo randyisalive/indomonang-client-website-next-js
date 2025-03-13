@@ -32,7 +32,7 @@ const HomeCardContainer = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="w-full  justify-center  flex gap-3 flex-wrap sm:justify-evenly "
+            className="w-full  justify-center  flex gap-3  "
           >
             {cardData.map((item) => {
               return <HomeCard key={`${item.id}`} item={item} role={role} />;

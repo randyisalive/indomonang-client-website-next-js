@@ -1,9 +1,9 @@
 import React from "react";
 import RecentOrderCardOne from "./components/RecentCardOrder/RecentOrderCardOne";
-import RecentOrderCardTwo from "./components/RecentCardOrder/RecentOrderCardTwo";
 import Status from "./components/Status";
 import PriorityBadge from "./components/PriorityBadge";
 import DeliveryBadge from "./components/DeliveryBadge";
+import OrderDetailsCard from "./components/OrderDetailsCard";
 
 const RedesignPage = () => {
   return (
@@ -70,6 +70,14 @@ const RedesignPage = () => {
               title="Open"
               font_color="#007BFF"
             />
+          </li>
+        </ul>
+      </div>
+      <div className="flex w-1/2 flex-col my-3">
+        <span className=" text-xl font-bold"> Order Details Card</span>
+        <ul className="flex flex-col  gap-3 mt-3">
+          <li className=" flex gap-3">
+            <OrderDetailsCard />
           </li>
         </ul>
       </div>

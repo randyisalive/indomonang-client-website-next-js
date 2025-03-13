@@ -63,25 +63,34 @@ const useHomeCardContainerData = () => {
             count: finished_order,
             sub: "Finish Orders",
             link: "/your-orders",
+            font_color: "#008000",
+            color: "#E3FFE3",
+            icon: "pi pi-check",
           },
           {
             id: 1,
             count: unpaid_invoices,
             sub: "Unpaid Invoices",
+            font_color: "#BF0603",
             link: "/billing",
+            color: "#FCF4F4",
+            icon: "pi pi-receipt",
           },
           {
             id: 2,
             count: onGoingOrder,
             sub: "On-going Orders",
+            font_color: "#FEC53D",
+            color: "#FFFAEF",
             link: "/your-orders",
+            icon: "pi pi-shopping-cart ",
           },
-          {
+          /* {
             id: 3,
             count: tickets_filtered,
             sub: "View Tickets",
             link: "/tickets/list",
-          },
+          }, */
         ];
         setCardData(card_data);
         setIsLoading(1);

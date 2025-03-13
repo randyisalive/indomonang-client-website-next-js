@@ -102,12 +102,8 @@ const NavbarItems = ({ onClick = () => {} }) => {
       {items.map((item) => (
         <motion.div
           key={item.id}
-          style={
-            item.dropdown
-              ? { borderBottom: "3px solid #1062fe" }
-              : { borderBottom: "3px solid #ffffff" }
-          }
-          className="flex items-center  bg-white p-3 pb-2 pt-0 relative gap-2"
+          className="flex items-center  bg-white  relative "
+          style={{ gap: "8px" }}
         >
           <motion.span
             style={item.dropdown ? { color: "#1062FE" } : { color: "#000" }}

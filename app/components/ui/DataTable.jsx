@@ -12,32 +12,37 @@ const DataTable = ({ datas = [], text = "", children, type = "order" }) => {
       <div className="flex flex-col h-full text-sm w-full border-gray-300 border rounded-t-lg">
         <div
           onClick={() => setIsOpen(!isOpen)}
-          className="bg-gray-100 border-b cursor-pointer flex p-2 py-3 items-center rounded-t-lg justify-between"
+          className="border-b cursor-pointer flex  items-center rounded-t-lg justify-between"
+          style={{ padding: "24px 12px" }}
         >
-          <span className="font-bold text-lg">{text}</span>
+          <div className="flex items-center " style={{ gap: "10px" }}>
+            <i
+              className="pi pi-receipt"
+              style={{ fontSize: "23px", color: "#F3AB00" }}
+            ></i>
+            <span className="font-semibold " style={{ fontSize: "20px" }}>
+              {text}
+            </span>
+          </div>
+
           <div className="flex items-center gap-2">
             {type === "order" && (
               <Link
                 href={"/your-orders"}
                 onClick={(e) => e.stopPropagation()}
-                className=" hover:underline text-blue-500 text-xs"
+                className=" hover:underline font-semibold"
+                style={{ color: "#4E80EE" }}
               >
                 View All
               </Link>
             )}
-
-            <motion.i
-              initial={{ rotate: 0 }}
-              animate={isOpen ? { rotate: 90 } : { rotate: 0 }}
-              className={`pi pi-angle-right text-xs text-blue-500`}
-            ></motion.i>
           </div>
         </div>
         <motion.div
           initial={{ height: 0 }}
           animate={isOpen ? { height: "auto" } : { height: 0 }}
           exit={{ height: 0 }}
-          className="flex flex-col gap-2 overflow-y-hidden"
+          className="flex flex-col  overflow-y-hidden"
         >
           {children}
         </motion.div>

@@ -56,15 +56,29 @@ const ProfileDropdown = () => {
   ];
 
   return (
-    <div className=" relative w-full justify-end flex">
-      <div
-        className="flex gap-1 items-center   w-full justify-end text-blue-500 "
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <div className="flex gap-1 items-center cursor-pointer ">
-          <p className="hover:underline">{accounts.username}</p>
+    <div className=" relative   ">
+      <div className="flex  items-center    " style={{ gap: "12px" }}>
+        <div
+          className="flex  items-center cursor-pointer"
+          onClick={() => setIsOpen(!isOpen)}
+          style={{ gap: "10px" }}
+        >
+          <img
+            src="/Avatar.png"
+            alt=""
+            className=" max-w-none"
+            style={{
+              borderRadius: "200px",
+              width: "32px!important",
+              height: "32px!important",
+            }}
+          />
+          <p className=" font-bold whitespace-nowrap">{accounts.username}</p>
+        </div>
+        <div className="flex items-center" style={{ gap: "10px" }}>
           <motion.i
             className={`pi pi-angle-right`}
+            style={{ color: "#919CA7" }}
             initial={{ rotate: 0 }}
             animate={isOpen ? { rotate: 90 } : { rotate: 0 }}
           ></motion.i>

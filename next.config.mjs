@@ -36,9 +36,9 @@ const nextConfig = {
 
     return config;
   },
-  experimental: {
+  /*   experimental: {
     esmExternals: "loose", // Required for canvas to work
-  },
+  }, */
 };
 
 export default nextConfig;

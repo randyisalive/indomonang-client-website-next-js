@@ -2,12 +2,12 @@ import React from "react";
 
 const EnquityStatusData = () => {
   const enquiry_data = [
-    { id: 559, name: "Open", bg_color: "#00C49A" },
-    { id: 560, name: "Drafting", bg_color: "#3F612D" },
-    { id: 561, name: "Checking", bg_color: "#8D80AD" },
-    { id: 562, name: "Processing", bg_color: "#192bc2" },
-    { id: 563, name: "Finished", bg_color: "#BFC9CA" },
-    { id: 564, name: "Cancelled", bg_color: "#B6244F" },
+    { id: 0, text: "Open", bg_color: "#007BFF" },
+    { id: 1, text: "Drafting", bg_color: "#FD7E14" },
+    { id: 2, text: "Checking", bg_color: "#D39E00" },
+    { id: 3, text: "Processing", bg_color: "#17A2B8" },
+    { id: 4, text: "Finished", bg_color: "#28A745" },
+    { id: 5, text: "Cancelled", bg_color: "#DC3545" },
   ];
 
   return { enquiry_data };

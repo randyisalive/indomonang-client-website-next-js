@@ -9,30 +9,37 @@ import ProfileDropdown from "./Navbar/ProfileDropdown";
 const Navbar = () => {
   return (
     <>
-      <div id="navbar_section">
-        <AdminMessage />
-        <div className="flex flex-col gap-3 p-3 pb-0 border-b-2">
-          <div className="flex flex-col w-full mx-auto  sm:px-6, lg:px-0 max-w-screen-xl">
-            <div className="flex my-5 mb-10 justify-between w-full items-center ">
-              <Link href={`/`}>
-                <img
-                  src="https://indomonangjadi.com/wp-content/uploads/2023/11/Logo-Default.png"
-                  alt="sadas.jpg"
-                  width={200}
-                />
-              </Link>
-              <div className="flex gap-3 items-center ">
-                <SmallNavbar />
-              </div>
-            </div>
-            <div className="hidden  sm:flex gap-3 items-center justify-between">
-              <div className="w-full  flex">
-                <NavbarItems />
-              </div>
-              <div className="text-end w-3">
-                <ProfileDropdown />
-              </div>
-            </div>
+      <div
+        id="navbar_section"
+        className="bg-white border-b flex flex-col"
+        style={{
+          paddingLeft: "64px",
+          paddingRight: "64px",
+          paddingTop: "32px",
+          paddingBottom: "16px",
+          gap: "16px",
+        }}
+      >
+        {/*  <AdminMessage /> */}
+        <div className="flex justify-between w-full items-center ">
+          <Link href={`/`}>
+            <img
+              src="https://indomonangjadi.com/wp-content/uploads/2023/11/Logo-Default.png"
+              alt="sadas.jpg"
+              width={229}
+              height={40}
+            />
+          </Link>
+          <div className="flex  items-center ">
+            <SmallNavbar />
+          </div>
+        </div>
+        <div className="hidden  sm:flex items-center justify-between w-full">
+          <div className="w-full  flex" style={{ gap: "24px" }}>
+            <NavbarItems />
+          </div>
+          <div className="flex items-center" style={{ gap: "12px" }}>
+            <ProfileDropdown />
           </div>
         </div>
       </div>

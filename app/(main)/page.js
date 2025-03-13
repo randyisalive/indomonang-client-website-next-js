@@ -11,26 +11,27 @@ export default function Home() {
     { id: 1, text: "Client Area ", nav: "/" },
   ];
   return (
-    <div className="flex flex-col w-full mx-auto pt-7  sm:px-6, lg:px-0 max-w-screen-xl">
-      <HeaderComponent
-        title="My Dashboard"
-        breadcrumbs="Portal Home / Client Area"
-        breadcrumbs_array={breadcrumbs_array}
-      />
-      <div className="mt-6 block sm:block  mx-5 sm:mx-0 gap-3 ">
-        <div className="w-full lg:flex gap-3">
+    <div className="flex flex-col w-full mx-auto   sm:px-6 lg:px-0 ">
+      <div
+        className="w-full flex"
+        style={{ padding: " 0px 64px", gap: "24px", marginTop: "30px" }}
+      >
+        <HomeCardContainer />
+      </div>
+      <div className=" block sm:block   mt-5 ">
+        {/*  <div className="w-full lg:flex gap-3">
           <div className="lg:w-1/3 ">
             <ProfileCard />
           </div>
-          <div className="lg:w-2/3 mt-3 lg:mt-0">
-            <HomeCardContainer />
-          </div>
-        </div>
-        <div className="w-full lg:flex mt-5 gap-3">
-          <div className="lg:w-1/3 overflow-y-auto">
+        </div> */}
+        <div
+          className="w-full lg:flex "
+          style={{ padding: "0px 64px", gap: "24px" }}
+        >
+          <div className="overflow-y-auto w-1/3">
             <NotificationBox />
           </div>
-          <div className="lg:w-2/3 flex flex-col gap-5 mt-5 lg:mt-0 ">
+          <div className="lg:w-2/3 flex flex-col gap-5  w-2/3">
             <ActiveProducts text="Recent Orders" type="order" />
             <ActiveProducts text="Recent News" type="news" />
           </div>

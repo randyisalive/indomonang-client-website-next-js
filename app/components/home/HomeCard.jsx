@@ -9,34 +9,47 @@ const HomeCard = ({ item = {} }) => {
   const nav = useRouter();
   const [count, setCount] = useState(Math.random() * 100);
 
-  const { role, accounts } = useAccountDataContext();
-
   useEffect(() => {
     setCount(item.count);
   }, [item.count]);
 
   return (
-    <motion.div
-      whileHover={{ boxShadow: "0px 0px 10px 1px #9ca3af " }}
-      key={`homeCard-${item.id}`}
-      style={{ boxShadow: "0px 0px 10px 0px #ffffff" }}
-      className="border  flex gap-3 flex-col w-44 h-44 rounded-lg cursor-pointer"
-      onClick={() => nav.push(`${item.link}`)}
+    <div
+      className="border flex w-1/3 justify-between shadow"
+      style={{
+        padding: "24px 32px",
+        gap: "12px",
+        borderRadius: "12px",
+        background: `linear-gradient(to bottom,#FFFFFF 50%,${item.color} 100%)`,
+      }}
     >
-      <span className="w-full text-end mt-3 p-2">
-        <i className={`${item.icon}`}></i>
-      </span>
-      <div className="h-full gap-2 flex-col flex  items-center w-full text-end">
-        <p
-          className={`text-6xl ${
-            role === "Admin" ? " text-red-500" : "text-blue-800"
-          } `}
-        >
-          <NumberFlow value={count} format={{ notation: "compact" }} />
-        </p>
-        <p>{item.sub}</p>
+      <div className="flex flex-col" style={{ gap: "12px" }}>
+        <span className=" font-semibold" style={{ color: "#919CA7" }}>
+          {item.sub}
+        </span>
+        <span className=" font-bold" style={{ fontSize: "28px" }}>
+          <NumberFlow value={item.count} />
+        </span>
       </div>
-    </motion.div>
+      <div className=" flex items-center">
+        <div
+          className="flex items-center justify-center "
+          style={{
+            width: "60px",
+            height: "60px",
+            gap: "10px",
+            padding: "10px 10px",
+            backgroundColor: `${item.color}`,
+            borderRadius: "16px",
+          }}
+        >
+          <i
+            className={`${item.icon} font-bold`}
+            style={{ fontSize: "30px", color: `${item.font_color}` }}
+          ></i>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -9,10 +9,16 @@ const Status = ({ title = "", bg_color = "", fit_content = false }) => {
               width: "100px",
               height: "25px",
               borderRadius: "16px",
+              backgroundColor: bg_color,
             }
-          : { borderRadius: "16px", height: "25px", width: "fit-content" }
+          : {
+              borderRadius: "16px",
+              height: "25px",
+              width: "fit-content",
+              backgroundColor: bg_color,
+            }
       }
-      className={`flex font-sans items-center justify-center ${bg_color}  text-sm text-white`}
+      className={`flex font-sans items-center justify-center  text-sm text-white`}
     >
       {title}
     </div>

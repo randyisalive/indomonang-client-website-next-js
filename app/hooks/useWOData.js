@@ -1,15 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 import api from "../api/api";
-import EnquityStatusData from "../function/EnquityStatusData";
 import { useAccountDataContext } from "../admin/context/AccountDataContext";
+import { enquiry_data } from "../function/static_data";
 
 const useWOData = () => {
   // api
   const { WOApi, CustomerAccountApi } = api();
   const { getCompanyById } = CustomerAccountApi();
   const { getWoByUserId, getWoAll, updateWORating } = WOApi();
-  const { enquiry_data } = EnquityStatusData();
 
   // decrypt_key
   const { accounts, role } = useAccountDataContext();
@@ -40,7 +39,7 @@ const useWOData = () => {
             const datas = await Promise.all(
               wo_data.map(async (item) => {
                 const status_name = enquiry_data.filter(
-                  (x) => x.name === item[2138]
+                  (x) => x.text === item[2138]
                 );
                 return {
                   id: item.id,
@@ -50,7 +49,7 @@ const useWOData = () => {
                   priority: item[321],
                   service: item[674],
                   //estimated_done: item[791],
-                  status_name: status_name[0]?.name,
+                  status_name: status_name[0]?.text,
                   dialog_status: false,
                   dialog_status_rating: false,
                   company: item[314],

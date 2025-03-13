@@ -31,6 +31,7 @@ export default function RootLayout({ children }) {
       />
       <body
         className={`${geistSans.className} flex flex-col antialiased min-h-screen `}
+        style={{ backgroundColor: "rgba(155, 29, 36, 1%)" }}
       >
         <AccountDataProvider>
           <AccountSettingProvider>{children}</AccountSettingProvider>

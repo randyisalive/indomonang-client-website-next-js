@@ -23,21 +23,25 @@ const NotificationBox = () => {
   return (
     <div className="rounded-lg text-sm flex flex-col gap-3 relative">
       <div className=" font-bold  sticky z-10">
-        <div className=" absolute border rounded-tl-lg rounded-tr-lg p-3 flex items-center gap-1 border-b w-full bg-white shadow-sm">
-          <i className="pi pi-bell"></i>
-          <span>Expired Documents</span>
-          <Badge value={all_count_notis} severity="warning rounded-full" />
+        <div
+          className=" absolute border rounded-tl-xl rounded-tr-xl  flex items-center  w-full bg-white "
+          style={{ gap: "10px", padding: "24px 12px" }}
+        >
+          <i className="pi pi-bell text-xl" style={{ color: "#F6565F" }}></i>
+          <span className=" font-semibold" style={{ fontSize: "20px" }}>
+            Expired Documents
+          </span>
         </div>
       </div>
       <div
-        className=" relative pt-14 overflow-y-auto border rounded-lg w-full "
+        className=" relative pt-14 bg-white overflow-y-auto border rounded-lg w-full "
         style={{ height: "760px" }}
       >
         {all_notis_data.map((item) => {
           if (item.count > 0) {
             return (
               <div
-                className=" text-md mt-3 flex  items-start  p-3 w-full"
+                className=" text-md mt-3 flex border-b  items-start  p-3 w-full"
                 key={item.id}
               >
                 <div className="pe-2">
@@ -45,19 +49,27 @@ const NotificationBox = () => {
                 </div>
                 <div className="w-full relative flex">
                   <div className="flex flex-col">
-                    <div className=" flex items-center">
+                    <div className=" flex items-center" style={{ gap: "8px" }}>
                       <div className="flex">
                         <Link
-                          className="text-blue-500 hover:underline cursor-pointer"
+                          style={{ color: "#4E80EE" }}
+                          className=" hover:underline cursor-pointer font-semibold"
                           href={`/admin/account/Vm0wd2QyVkhVWGhUV0docFVtMW9WRll3Wkc5V01WbDNXa1JTVjFKdGVEQmFWVll3VmpGYWMySkVUbHBXVmxwUVZqQmFTMlJIVmtWUmJVWlhWakZLU1ZkV1kzaFRNVWw0V2toT2FGSnRVbGhaYkdSdlpWWmFjMVp0UmxkTlZuQlhWRlpXVjJGSFZuRlJWR3M5/Expatriate/${item.id}`}
                         >
                           {item.name}
                         </Link>
                       </div>
                       <div className=" flex items-center text-xs opacity-50 pt-1">
-                        <span className="px-1">•</span>
-                        <p className="">Expatriate</p>
-                      </div>
+                        <span
+                          className=" rounded-full"
+                          style={{
+                            width: "6px",
+                            height: "6px",
+                            backgroundColor: "#EAEAEA",
+                          }}
+                        ></span>
+                      </div>{" "}
+                      <p className="">Expatriate</p>
                     </div>
 
                     <span className=" text-xs text-gray-500 opacity-50">
