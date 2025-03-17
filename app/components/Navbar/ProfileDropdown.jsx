@@ -64,13 +64,12 @@ const ProfileDropdown = () => {
           style={{ gap: "10px" }}
         >
           <img
-            src="/Avatar.png"
-            alt=""
-            className=" max-w-none"
+            src={`${accounts.profile_picture?.content}`}
+            alt="profile_picture.jpg"
             style={{
-              borderRadius: "200px",
-              width: "32px!important",
-              height: "32px!important",
+              borderRadius: "50%",
+              height: "32px",
+              width: "32px",
             }}
           />
           <p className=" font-bold whitespace-nowrap">{accounts.username}</p>
