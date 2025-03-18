@@ -90,7 +90,7 @@ const ProfileDropdown = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="card flex flex-col min-w-full h-fit z-10 md:items-center shadow-md rounded-xl overflow-y-auto top-full right-0 absolute text-sm bg-white"
+            className="card flex flex-col min-w-full h-fit z-50 md:items-center shadow-md rounded-xl overflow-y-auto top-full right-0 absolute text-sm bg-white"
           >
             <div className="font-bold flex w-full justify-between p-3 border-b">
               Actions

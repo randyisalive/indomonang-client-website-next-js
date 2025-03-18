@@ -17,13 +17,10 @@ const WOList = () => {
     <Suspense fallback={<div>Loading...</div>}>
       <div
         className="flex flex-col w-full mx-auto    "
-        style={{ padding: "20px 64px" }}
+        style={{ padding: "20px 64px", gap: "24px" }}
       >
         <HeaderComponent title="Orders" />
-        <div
-          className="flex flex-wrap"
-          style={{ padding: "0px 64px", gap: "24px" }}
-        >
+        <div className="flex flex-wrap  " style={{ gap: "24px!important" }}>
           {wo_card_datas.map((i) => {
             return (
               <div
@@ -65,6 +62,12 @@ const WOList = () => {
               </div>
             );
           })}
+        </div>
+        <div
+          className="w-full bg-white border"
+          style={{ padding: "24px 64px" }}
+        >
+          asd
         </div>
         <div className="my-3">
           <WoDetailProvider>
