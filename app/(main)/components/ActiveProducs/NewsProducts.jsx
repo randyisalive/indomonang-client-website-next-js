@@ -10,7 +10,7 @@ const NewsProducts = () => {
 
   return (
     <>
-      {news.map((item) => (
+      {news?.map((item) => (
         <div key={item.id} className="w-full items-center flex p-2 border-b">
           <div className="w-1/2 flex flex-col">
             <span className=" font-bold text-blue-500 hover:underline cursor-pointer">

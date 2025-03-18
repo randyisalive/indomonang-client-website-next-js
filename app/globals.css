@@ -17,7 +17,18 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+<<<<<<< Updated upstream
 
 img {
   max-width: none;
 }
+=======
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7SUc.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+>>>>>>> Stashed changes
