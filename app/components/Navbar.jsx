@@ -20,7 +20,6 @@ const Navbar = () => {
           gap: "16px",
         }}
       >
-        {/*  <AdminMessage /> */}
         <div className="flex justify-between w-full items-center ">
           <Link href={`/`} className=" flex items-center gap-3">
             <img
