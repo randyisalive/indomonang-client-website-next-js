@@ -22,13 +22,14 @@ const Navbar = () => {
       >
         {/*  <AdminMessage /> */}
         <div className="flex justify-between w-full items-center ">
-          <Link href={`/`}>
+          <Link href={`/`} className=" flex items-center gap-3">
             <img
-              src="https://indomonangjadi.com/wp-content/uploads/2023/11/Logo-Default.png"
-              alt="sadas.jpg"
-              width={229}
+              src="/Property 1=JadiCRM.png"
+              alt="logo.jpg"
+              width={40}
               height={40}
             />
+            <span className=" text-[20px] font-bold">JadiCRM</span>
           </Link>
           <div className="flex  items-center ">
             <SmallNavbar />
