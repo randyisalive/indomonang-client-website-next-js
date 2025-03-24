@@ -88,8 +88,13 @@ const TableFiltersComponent = ({
               }}
               placeholder={form_placeholders.dropdown}
             /> */}
+            <CalendarFilterComponent
+              settings="all"
+              filterForm={filterForm}
+              updateFilterForm={updateFilterForm}
+            />
             <div className="w-full flex  relative items-center gap-2">
-              <select
+              {/* <select
                 name="main_ids"
                 className="border rounded-lg w-full text-gray-600 h-full"
                 value={filterForm.main_ids}
@@ -102,9 +107,9 @@ const TableFiltersComponent = ({
                 {main_data.map((item) => {
                   return <option>{item.main_ids}</option>;
                 })}
-              </select>
+              </select> */}
 
-              {TableType === "wo" && (
+              {/*  {TableType === "wo" && (
                 <>
                   <select
                     name="status"
@@ -130,15 +135,8 @@ const TableFiltersComponent = ({
                     )}
                   </select>
                 </>
-              )}
+              )} */}
             </div>
-
-            <CalendarFilterComponent
-              settings="all"
-              filterForm={filterForm}
-              updateFilterForm={updateFilterForm}
-            />
-
             <div className="flex">
               <WebButton
                 title={

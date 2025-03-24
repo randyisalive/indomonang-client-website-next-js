@@ -8,19 +8,18 @@ const CalendarFilterComponent = ({
 }) => {
   const handleDateChange = (e, field, formatOptions) => {
     const date = e.value;
-    console.log(date);
     const formattedDate = date.toLocaleString("default", formatOptions);
     updateFilterForm(field, formattedDate);
   };
 
   return (
-    <div className="flex justify-center w-full relative gap-3">
+    <div className="flex justify-center  relative gap-3">
       {settings.includes("month") && (
         <Calendar
           inputId="date"
           value={filterForm?.full_date}
           onChange={(e) => handleDateChange(e, "month", { month: "long" })}
-          className="border text-gray-700 p-2 rounded-md w-full"
+          className="border border-[#FFFFFF] text-white  rounded-[1px] w-[200px]"
           view="month"
           name="month"
           placeholder="Month"
@@ -33,7 +32,7 @@ const CalendarFilterComponent = ({
           inputId="date"
           value={filterForm?.full_date}
           onChange={(e) => handleDateChange(e, "year", { year: "numeric" })}
-          className="border text-gray-700 p-2 rounded-md w-full"
+          className="border border-[#FFFFFF] text-white  rounded-[1px] w-[200px]"
           view="year"
           name="year"
           placeholder="Year"

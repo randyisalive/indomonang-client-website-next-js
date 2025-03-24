@@ -11,14 +11,16 @@ const WOTable = () => {
   const { role } = useAccountDataContext();
   const th_array = [
     "No",
-    role === "Admin" ? "Company" : null,
+    "Order Date",
     "Reference Number",
-    "Status",
+    role === "Admin" ? "Company" : null,
     "Service",
-    "Applicant Name",
     "Priority",
+    "Applicant",
     "City / Country",
-    "Date Ordered",
+
+    "Status",
+
     "Rate Order",
   ].filter(Boolean);
 

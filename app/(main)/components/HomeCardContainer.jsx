@@ -1,7 +1,6 @@
 "use client";
 import HomeCard from "@/app/components/home/HomeCard";
 import React from "react";
-import useHomeCardContainerData from "../hooks/useHomeCardContainerData";
 import { Skeleton } from "primereact/skeleton";
 import { AnimatePresence, motion } from "framer-motion";
 import { useHomeCardContainerContext } from "@/app/Context/HomeCardContainerContext";

@@ -8,6 +8,8 @@ import Link from "next/link";
 import { Rating } from "primereact/rating";
 import WORowsRatingDialog from "./WORows/WORowsRatingDialog/WORowsRatingDialog";
 import { priority_data } from "@/app/function/static_data";
+import Status from "@/app/redesign/components/Status";
+import PriorityBadge from "@/app/redesign/components/PriorityBadge";
 
 const WORows = ({
   item = {},
@@ -41,48 +43,49 @@ const WORows = ({
 
   return (
     <>
-      <tr key={item.id}>
-        <td className="border px-4 py-2 text-center">
+      <tr
+        key={item.id}
+        className="odd:bg-[#F5F5F5] pt-[12px] pb-[12px] even:bg-white"
+      >
+        <td className=" pr-[12px] pl-[12px] text-left w-[80px] h-[64px]">
           {num + 1 + (currentPage - 1) * rowsPerPage}
         </td>
-        {role === "Admin" ? (
-          <td className="border px-4 py-2">{item.company}</td>
-        ) : null}
-        <td className="border px-4 py-2 text-center">
+        <td className=" pr-[12px] pl-[12px]  text-left">{item.date_added}</td>
+        <td className="  text-center pr-[12px] pl-[12px] w-[50px]">
           <span
             onClick={() => handleClick(item.id)}
-            className=" text-blue-500 hover:underline cursor-pointer"
+            className=" text-blue-500 hover:underline cursor-pointer "
           >
             {item.ref_num}
           </span>
         </td>
-        <td className="border px-4 py-2 text-center">
-          <StatusBadge
-            title={item.status?.name}
-            bg_color={item.status?.bg_color}
-            font_color="white"
+        {role === "Admin" ? (
+          <td className=" text-left  pr-[12px] pl-[12px]">{item.company}</td>
+        ) : null}
+        <td className="  text-left  pr-[12px] pl-[12px] w-[300px] text-[14px]">
+          {item.service}
+        </td>
+        <td className=" text-center pr-[12px] pl-[12px]">
+          <PriorityBadge
+            title={item.priority?.text}
+            bg_color={item.priority?.bg_color}
+            font_color={item.priority?.font_color}
           />
         </td>
-        <td className="border px-4 py-2 text-start">{item.service}</td>
-        <td className="border px-4 py-2 text-center">{item.applicant}</td>
-        <td className="border px-4 py-2 text-center">
-          {priority_data
-            .filter((i) => i.text === item.priority)
-            .map((x, index) => {
-              return (
-                <StatusBadge
-                  key={`${x.text}-${index}`}
-                  title={x.text}
-                  bg_color={x.bg_color}
-                />
-              );
-            })}
+
+        <td className="  text-left pr-[12px] pl-[12px]">{item.applicant}</td>
+        <td className=" text-left pr-[12px] pl-[12px]">{item.city}</td>
+        <td className="pr-[12px] pl-[12px] text-left">
+          <Status
+            title={item.status?.text}
+            bg_color={item.status?.bg_color}
+            font_color={item.status?.font_color}
+          />
         </td>
-        <td className="border px-4 py-2 text-center">{item.city}</td>
-        <td className="border px-4 py-2 text-center">{item.date_added}</td>
-        <td className="border px-4 py-2 text-center">
+        <td className="  text-center pr-[12px] pl-[12px]">
           {rating != 0 ? (
             <Rating
+              className=" flex justify-center items-center"
               cancel={false}
               value={rating}
               readOnly

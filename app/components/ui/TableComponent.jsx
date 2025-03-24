@@ -127,19 +127,18 @@ const TableComponent = ({
         {currentRows && (
           <>
             <table className="min-w-full mt-3  rounded-lg text-sm">
-              <thead
-                className=" text-gray-800"
-                style={{ backgroundColor: "#f3f4f6" }}
-              >
+              <thead className=" text-[#202224] bg-white border ">
                 <tr>
                   {th_array.map((th, index) => (
-                    <th key={index} className="py-3 px-4 text-center border">
-                      {th}
+                    <th key={index} className="pt-[8px] pb-[8px] h-[48px]">
+                      <div className="pr-[12px] pl-[12px] text-left text-base">
+                        {th}
+                      </div>
                     </th>
                   ))}
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="border">
                 {currentRows.map((item, index) => (
                   <React.Fragment key={index}>
                     {TableType === "billing" && (

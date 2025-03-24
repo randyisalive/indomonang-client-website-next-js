@@ -1,7 +1,5 @@
 import Footer from "../components/Footer";
 import NotificationBox from "../components/home/NotificationBox";
-import ProfileCard from "../components/home/ProfileCard";
-import HeaderComponent from "../components/ui/HeaderComponent";
 import ActiveProducts from "./components/ActiveProducts";
 import HomeCardContainer from "./components/HomeCardContainer";
 

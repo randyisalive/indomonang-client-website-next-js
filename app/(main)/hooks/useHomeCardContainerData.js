@@ -23,7 +23,7 @@ const useHomeCardContainerData = () => {
     try {
       if (accounts.id) {
         const finished_order = wo.filter(
-          (item) => item.status?.name === "Finished"
+          (item) => item.status?.text === "Finished"
         ).length;
 
         const wo_array = wo.map((item) => {
@@ -31,7 +31,7 @@ const useHomeCardContainerData = () => {
         });
         const onGoingOrder = wo.filter((item) =>
           ["Open", "Drafting", "Checking", "Processing"].includes(
-            item.status?.name
+            item.status?.text
           )
         ).length;
         let unpaid_invoices = 0;
@@ -65,7 +65,7 @@ const useHomeCardContainerData = () => {
             link: "/your-orders",
             font_color: "#008000",
             color: "#E3FFE3",
-            icon: "pi pi-check",
+            icon: "/checkmark.png",
           },
           {
             id: 1,
@@ -74,7 +74,7 @@ const useHomeCardContainerData = () => {
             font_color: "#BF0603",
             link: "/billing",
             color: "#FCF4F4",
-            icon: "pi pi-receipt",
+            icon: "/unpaid_invoices.png",
           },
           {
             id: 2,
@@ -83,7 +83,7 @@ const useHomeCardContainerData = () => {
             font_color: "#FEC53D",
             color: "#FFFAEF",
             link: "/your-orders",
-            icon: "pi pi-shopping-cart ",
+            icon: "/orders.png",
           },
           /* {
             id: 3,

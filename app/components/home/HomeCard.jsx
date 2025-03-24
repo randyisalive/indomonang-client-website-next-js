@@ -32,22 +32,7 @@ const HomeCard = ({ item = {} }) => {
         </span>
       </div>
       <div className=" flex items-center">
-        <div
-          className="flex items-center justify-center "
-          style={{
-            width: "60px",
-            height: "60px",
-            gap: "10px",
-            padding: "10px 10px",
-            backgroundColor: `${item.color}`,
-            borderRadius: "16px",
-          }}
-        >
-          <i
-            className={`${item.icon} font-bold`}
-            style={{ fontSize: "30px", color: `${item.font_color}` }}
-          ></i>
-        </div>
+        <img src={`${item.icon}`} width={60} height={60} alt="" />
       </div>
     </div>
   );

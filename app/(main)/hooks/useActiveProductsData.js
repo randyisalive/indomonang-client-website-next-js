@@ -7,9 +7,6 @@ import { useWoContext } from "../your-orders/context/WoContext";
 
 const useActiveProductsData = () => {
   // api
-  const { CustomerAccountApi, WOApi, InvoiceApi } = api();
-  const { getAccountById } = CustomerAccountApi();
-  const { getWoByUserId, getWoAll } = WOApi();
 
   // dec key
   const { accounts, role } = useAccountDataContext();

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import api from "../api/api";
 import { useAccountDataContext } from "../admin/context/AccountDataContext";
-import { enquiry_data } from "../function/static_data";
+import { enquiry_data, priority_data } from "../function/static_data";
 
 const useWOData = () => {
   // api
@@ -41,14 +41,18 @@ const useWOData = () => {
                 const status_name = enquiry_data.filter(
                   (x) => x.text === item[2138]
                 );
+                // Find the matching priority for the current item
+                const priorities = priority_data.filter(
+                  (x) => x.text === item[321]
+                );
+
                 return {
                   id: item.id,
                   ref_num: item[2134],
                   main_ids: item[2134],
                   status: status_name[0],
-                  priority: item[321],
+                  priority: priorities[0],
                   service: item[674],
-                  //estimated_done: item[791],
                   status_name: status_name[0]?.text,
                   dialog_status: false,
                   dialog_status_rating: false,

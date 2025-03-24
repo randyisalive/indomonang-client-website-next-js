@@ -8,9 +8,9 @@ export const enquiry_data = [
 ];
 
 export const priority_data = [
-  { id: 0, text: "Normal", bg_color: "#C3E6CB" },
-  { id: 1, text: "Urgent", bg_color: "#FFEEBA" },
-  { id: 2, text: "Super Urgent", bg_color: "#F8D7DA" },
+  { id: 0, text: "Normal", bg_color: "#E6FEF6", font_color: "#28A745" },
+  { id: 1, text: "Urgent", bg_color: "#FFF6EF", font_color: "#FF8400" },
+  { id: 2, text: "Super Urgent", bg_color: "#FFEBEB", font_color: "#D33030" },
 ];
 
 export const invoice_data = [
