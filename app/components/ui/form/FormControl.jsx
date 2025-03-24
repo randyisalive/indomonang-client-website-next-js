@@ -10,7 +10,7 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { AnimatePresence, motion } from "framer-motion";
 import api from "@/app/api/api";
 
-const FormControl = ({ children, title = "", className = {} }) => {
+const FormControl = ({ children, title = "", className = {}, logo = "" }) => {
   // form api
 
   const {
@@ -25,12 +25,14 @@ const FormControl = ({ children, title = "", className = {} }) => {
 
   return (
     <div
-      className={`border h-fit ${className}`}
-      style={{ width: "644px", padding: "32px" }}
+      className={` h-fit ${className} p-[32px] w-[644px] gap-[48px] flex flex-col`}
     >
       <section className="w-full flex-col" style={{ width: "580px" }}>
         <header className="flex flex-col" style={{ gap: "16px" }}>
-          <img src="logo" alt="logo.png" width={"229"} height={40} />
+          <div className=" flex gap-5 mb-5 items-center">
+            <img src={logo} alt="logo.png" width={100} height={100} />
+            <span className=" font-bold text-3xl">JadiCRM</span>
+          </div>
           <div style={{ width: "580px" }} className="flex flex-col">
             <span style={{ fontSize: "32px" }} className="font-bold">
               Welcome back!
@@ -41,7 +43,7 @@ const FormControl = ({ children, title = "", className = {} }) => {
           </div>
         </header>
       </section>
-      <section className="flex flex-col p-3 gap-3">
+      <section className="flex flex-col gap-[16px]">
         <Form
           title="Email Address"
           name="email"
@@ -54,7 +56,7 @@ const FormControl = ({ children, title = "", className = {} }) => {
           title="Password"
           placeholder="Password"
           type="password"
-          subtitle="Forgot?"
+          subtitle="Forgot Password?"
           subLink="/reset"
           onChange={handleForm}
           name="password"
@@ -76,24 +78,27 @@ const FormControl = ({ children, title = "", className = {} }) => {
             </>
           ) : null}
         </AnimatePresence>
-
+      </section>
+      <div className=" flex flex-col gap-[24px] w-full">
         <WebButton
-          styles={{ backgroundColor: "#1E56A0" }}
           title={
             isLoading === 1 ? (
               <i className="pi pi-spin pi-spinner"></i>
             ) : (
-              `Login`
+              <label className=" font-[600] text-[20px] hover:cursor-pointer">
+                Login
+              </label>
             )
           }
-          className={`p-3 text-white font-bold rounded-sm`}
+          bg_color="#9B1D24"
+          className={`p-[24px] rounded-[8px]  font-[600] text-[20px]  border-[#E9EAEB] border text-[#D5D7DA]`}
           def={true}
           disabled={isLoading === 1 ? true : false}
           onClickFunction={() => {
             handleLogin();
           }}
         />
-      </section>
+      </div>
       {/*    <section id="footer" className="m-1  py-4  border-t text-sm text-center">
         <span className="text-gray-600">
           Not a member yet?

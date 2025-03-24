@@ -7,8 +7,8 @@ const HeaderComponent = ({
   breadcrumbs_array = [],
 }) => {
   return (
-    <header className="text-5xl font-bold mx-5 sm:mx-0">
-      <span className=" text-4xl lg:text-5xl"> {title}</span>
+    <header className="text-5xl font-bold mx-5 sm:mx-0 mt-[20px]">
+      <span className=" text-4xl lg:text-5xl "> {title}</span>
 
       <div className="text-xs text-gray-600 mt-3">
         <ul className="flex gap-1">

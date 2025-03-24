@@ -6,7 +6,7 @@ import { useActiveProductContext } from "@/app/Context/ActiveProductContext";
 import OrderProducts from "./ActiveProducs/OrderProducts";
 import NewsProducts from "./ActiveProducs/NewsProducts";
 
-const ActiveProducts = ({ text = "", type = "" }) => {
+const ActiveProducts = ({ text = "", type = "", icon = "" }) => {
   const { isLoading } = useActiveProductContext();
   return (
     <div>
@@ -15,7 +15,7 @@ const ActiveProducts = ({ text = "", type = "" }) => {
           <Skeleton height="300px" className=" rounded-lg" />
         </div>
       ) : (
-        <DataTable text={text} type={type}>
+        <DataTable text={text} type={type} icon={icon}>
           {type === "order" && <OrderProducts />}
           {type === "news" && <NewsProducts />}
         </DataTable>

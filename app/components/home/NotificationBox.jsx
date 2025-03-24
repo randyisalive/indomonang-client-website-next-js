@@ -24,13 +24,24 @@ const NotificationBox = () => {
     <div className="rounded-lg text-sm flex flex-col gap-3 relative">
       <div className=" font-bold  sticky z-10">
         <div
-          className=" absolute border rounded-tl-xl rounded-tr-xl  flex items-center  w-full bg-white "
+          className=" absolute border border-[#EAEAEA] rounded-tl-xl rounded-tr-xl  flex items-center  w-full bg-white "
           style={{ gap: "10px", padding: "24px 12px" }}
         >
-          <i className="pi pi-bell text-xl" style={{ color: "#F6565F" }}></i>
+          <img
+            src="/iconamoon_notification-duotone.png"
+            alt="notification-icon"
+            width={32}
+            height={32}
+          />
           <span className=" font-semibold" style={{ fontSize: "20px" }}>
             Expired Documents
           </span>
+        </div>{" "}
+        <div className="bg-[#FFF1F1] h-[32px] w-[32px] rounded-[100px] flex justify-center items-center">
+          <label
+            htmlFor=""
+            className=" text-[14px] font-[500] text-[#DC3545]"
+          ></label>
         </div>
       </div>
       <div
@@ -45,7 +56,14 @@ const NotificationBox = () => {
                 key={item.id}
               >
                 <div className="pe-2">
-                  <Badge value={item.count} severity="danger" />
+                  <div className="bg-[#FFF1F1] h-[32px] w-[32px] rounded-[100px] flex justify-center items-center">
+                    <label
+                      htmlFor=""
+                      className=" text-[14px] font-[500] text-[#DC3545]"
+                    >
+                      {item.count}
+                    </label>
+                  </div>
                 </div>
                 <div className="w-full relative flex">
                   <div className="flex flex-col">

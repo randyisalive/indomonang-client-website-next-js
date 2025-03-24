@@ -4,7 +4,13 @@ import { motion } from "framer-motion";
 import StatusBadge from "./tableComponent/StatusBadge";
 import Link from "next/link";
 
-const DataTable = ({ datas = [], text = "", children, type = "order" }) => {
+const DataTable = ({
+  datas = [],
+  text = "",
+  children,
+  type = "order",
+  icon = "",
+}) => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
@@ -16,10 +22,7 @@ const DataTable = ({ datas = [], text = "", children, type = "order" }) => {
           style={{ padding: "24px 12px" }}
         >
           <div className="flex items-center " style={{ gap: "10px" }}>
-            <i
-              className="pi pi-receipt"
-              style={{ fontSize: "23px", color: "#F3AB00" }}
-            ></i>
+            <img src={icon} alt="icon.png" width={32} height={32} />
             <span className="font-semibold " style={{ fontSize: "20px" }}>
               {text}
             </span>

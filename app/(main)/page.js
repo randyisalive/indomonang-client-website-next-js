@@ -32,8 +32,16 @@ export default function Home() {
             <NotificationBox />
           </div>
           <div className="lg:w-2/3 flex flex-col gap-5  w-2/3">
-            <ActiveProducts text="Recent Orders" type="order" />
-            <ActiveProducts text="Recent News" type="news" />
+            <ActiveProducts
+              text="Recent Orders"
+              type="order"
+              icon="/duo-icons_box.png"
+            />
+            <ActiveProducts
+              text="Recent News"
+              type="news"
+              icon="/ph_newspaper-duotone.png"
+            />
           </div>
         </div>
       </div>
