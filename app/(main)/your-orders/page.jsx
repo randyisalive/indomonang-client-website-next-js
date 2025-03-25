@@ -17,11 +17,11 @@ const WOList = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div
-        className="flex flex-col w-full mx-auto    "
-        style={{ padding: "20px 64px", gap: "24px" }}
+        className="flex flex-col w-full mx-auto  gap-[24px] "
+        style={{ padding: "20px 64px" }}
       >
         <HeaderComponent title="Orders" />
-        <div className="flex flex-wrap justify-between gap-[24px]">
+        <div className="flex flex-wrap lg:justify-start justify-center gap-[24px]">
           {wo_card_datas.map((i) => {
             return (
               <div
@@ -64,43 +64,7 @@ const WOList = () => {
             );
           })}
         </div>
-        <div className="w-full  pt-[24px] pr-[64px] pb-[24px]  gap-[24px] flex ">
-          <div className="pt-[8px] pr-[12px] pb-[8px] pl-[12px] gap-[8px] border-b border-b-[#9B1D24] w-fit">
-            <label htmlFor="" className=" text-[#9B1D24] font-[600]">
-              Semua Order
-            </label>
-          </div>
-          <div className="pt-[8px] pr-[12px] pb-[8px] pl-[12px] gap-[8px] border-b border-b-[#9B1D24] w-fit">
-            <label htmlFor="" className=" text-[#9B1D24] font-[600]">
-              Semua Order
-            </label>
-          </div>
-          <div className="pt-[8px] pr-[12px] pb-[8px] pl-[12px] gap-[8px] border-b border-b-[#9B1D24] w-fit">
-            <label htmlFor="" className=" text-[#9B1D24] font-[600]">
-              Semua Order
-            </label>
-          </div>
-          <div className="pt-[8px] pr-[12px] pb-[8px] pl-[12px] gap-[8px] border-b border-b-[#9B1D24] w-fit">
-            <label htmlFor="" className=" text-[#9B1D24] font-[600]">
-              Semua Order
-            </label>
-          </div>
-          <div className="pt-[8px] pr-[12px] pb-[8px] pl-[12px] gap-[8px] border-b border-b-[#9B1D24] w-fit">
-            <label htmlFor="" className=" text-[#9B1D24] font-[600]">
-              Semua Order
-            </label>
-          </div>
-          <div className="pt-[8px] pr-[12px] pb-[8px] pl-[12px] gap-[8px] border-b border-b-[#9B1D24] w-fit">
-            <label htmlFor="" className=" text-[#9B1D24] font-[600]">
-              Semua Order
-            </label>
-          </div>
-          <div className="pt-[8px] pr-[12px] pb-[8px] pl-[12px] gap-[8px] border-b border-b-[#9B1D24] w-fit">
-            <label htmlFor="" className=" text-[#9B1D24] font-[600]">
-              Semua Order
-            </label>
-          </div>
-        </div>
+
         <div className="my-3">
           <WoDetailProvider>
             <WOTable />

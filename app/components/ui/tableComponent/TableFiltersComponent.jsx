@@ -3,6 +3,8 @@ import CalendarFilterComponent from "../form/CalendarFilterComponent";
 import WebButton from "../WebButton";
 import { motion, AnimatePresence } from "framer-motion";
 import { enquiry_data } from "@/app/function/static_data";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 const TableFiltersComponent = ({
   main_data = [],
@@ -34,48 +36,57 @@ const TableFiltersComponent = ({
     setFilterForm((prev) => ({ ...prev, [name]: "" }));
   };
 
-  // template
-  const customValue = (option, props) => {
-    if (option && props.placeholder === form_placeholders.dropdown) {
-      return (
-        <div className="flex items-center justify-between">
-          <div>{option.main_ids}</div>
-          <i
-            className="pi pi-times z-10"
-            onClick={(e) => {
-              e.stopPropagation();
-              clearSelectedForm(e, props.name);
-            }}
-          ></i>
-        </div>
-      );
-    }
-    return (
-      <div className="flex align-items-center justify-between">
-        <div>{props.placeholder}</div>
-      </div>
-    );
-  };
+  // params wo
+  const params = useSearchParams();
+  const wo_status = params.get("s");
 
   return (
-    <div className="flex flex-col lg:flex-row lg:w-full  pb-3 items-center gap-3  mx-5 lg:mx-0 ">
-      <WebButton
-        title={<i className="pi pi-filter"></i>}
-        onClickFunction={() => {
-          setFilter(!filter);
-        }}
-        className={`w-full lg:w-fit`}
-      />
+    <div className="flex flex-col lg:w-full  pb-3 items-center gap-3  mx-5 lg:mx-0 ">
+      {TableType === "wo" && (
+        <div className="w-full  pt-[24px] pr-[64px] pb-[24px]  gap-[24px] flex ">
+          {console.log(main_data)}
+          {enquiry_data.map((i) => {
+            return (
+              <Link href={`?s=${i.text}`} scroll={false}>
+                <div
+                  className={`pt-[8px] pr-[12px] pb-[8px] pl-[12px] gap-[8px]  ${
+                    wo_status === i.text && "border-b"
+                  } border-b-[#9B1D24] w-fit`}
+                >
+                  <motion.label
+                    whileHover={{ color: "#9B1D24" }}
+                    style={wo_status === i.text && { color: "#9B1D24" }}
+                    htmlFor=""
+                    className={`${
+                      wo_status === i.text ? "text-[#9B1D24]" : ""
+                    }  font-[600] cursor-pointer`}
+                  >
+                    {i.text}
+                  </motion.label>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      )}
 
-      <AnimatePresence>
-        {filter && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="flex gap-2 w-full flex-col lg:flex-row"
-          >
-            {/*  <Dropdown
+      <div className="flex flex-col lg:flex-row lg:w-full  pb-3 items-center gap-3  mx-5 lg:mx-0">
+        <WebButton
+          title={<i className="pi pi-filter"></i>}
+          onClickFunction={() => {
+            setFilter(!filter);
+          }}
+          className={`w-full lg:w-fit`}
+        />
+        <AnimatePresence>
+          {filter && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="flex gap-2 w-full flex-col lg:flex-row"
+            >
+              {/*  <Dropdown
               className="border w-full"
               value={filterForm.main_ids}
               optionLabel="main_ids"
@@ -88,13 +99,13 @@ const TableFiltersComponent = ({
               }}
               placeholder={form_placeholders.dropdown}
             /> */}
-            <CalendarFilterComponent
-              settings="all"
-              filterForm={filterForm}
-              updateFilterForm={updateFilterForm}
-            />
-            <div className="w-full flex  relative items-center gap-2">
-              {/* <select
+              <CalendarFilterComponent
+                settings="all"
+                filterForm={filterForm}
+                updateFilterForm={updateFilterForm}
+              />
+              <div className="w-full flex  relative items-center gap-2">
+                {/* <select
                 name="main_ids"
                 className="border rounded-lg w-full text-gray-600 h-full"
                 value={filterForm.main_ids}
@@ -109,7 +120,7 @@ const TableFiltersComponent = ({
                 })}
               </select> */}
 
-              {/*  {TableType === "wo" && (
+                {/*  {TableType === "wo" && (
                 <>
                   <select
                     name="status"
@@ -136,24 +147,25 @@ const TableFiltersComponent = ({
                   </select>
                 </>
               )} */}
-            </div>
-            <div className="flex">
-              <WebButton
-                title={
-                  <>
-                    <i className="pi pi-sync"></i>
-                  </>
-                }
-                onClickFunction={() => {
-                  setFilterForm({});
-                  setSearch("");
-                }}
-                className={`w-full lg:w-fit`}
-              />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              </div>
+              <div className="flex">
+                <WebButton
+                  title={
+                    <>
+                      <i className="pi pi-sync"></i>
+                    </>
+                  }
+                  onClickFunction={() => {
+                    setFilterForm({});
+                    setSearch("");
+                  }}
+                  className={`w-full lg:w-fit`}
+                />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 };

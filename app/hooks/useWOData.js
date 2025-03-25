@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import api from "../api/api";
 import { useAccountDataContext } from "../admin/context/AccountDataContext";
 import { enquiry_data, priority_data } from "../function/static_data";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const useWOData = () => {
   // api
@@ -24,6 +25,7 @@ const useWOData = () => {
 
   useEffect(() => {
     const getData = async () => {
+      setIsLoading(true);
       try {
         if (accounts.id) {
           const company_id = await getCompanyById(accounts.id);

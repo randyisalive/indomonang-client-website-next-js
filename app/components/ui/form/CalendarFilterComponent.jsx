@@ -1,3 +1,4 @@
+import { useRouter, useSearchParams } from "next/navigation";
 import { Calendar } from "primereact/calendar";
 import React, { useState } from "react";
 
@@ -6,10 +7,18 @@ const CalendarFilterComponent = ({
   filterForm = {},
   updateFilterForm = () => {},
 }) => {
+  // params
+  const params = useSearchParams();
+  const month_params = params.get("m");
+  const year_params = params.get("y");
+  // router
+  const router = useRouter();
   const handleDateChange = (e, field, formatOptions) => {
     const date = e.value;
     const formattedDate = date.toLocaleString("default", formatOptions);
     updateFilterForm(field, formattedDate);
+    router.push(`?y=${date}`);
+    console.log(params.getAll());
   };
 
   return (

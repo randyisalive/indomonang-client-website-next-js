@@ -16,6 +16,7 @@ import BillingFilter from "./tableComponent/Billing/BillingFilter";
 import PaymentHistorySection from "./tableComponent/Invoice (payment history)/PaymentHistorySection";
 import InvoiceFilter from "./tableComponent/Invoice (payment history)/InvoiceFilter";
 import TableFiltersComponent from "./tableComponent/TableFiltersComponent";
+import { useSearchParams } from "next/navigation";
 
 const TableComponent = ({
   th_array = [],
@@ -60,9 +61,17 @@ const TableComponent = ({
     setCurrentPage(number);
   };
 
+  // params
+  const params = useSearchParams();
+  const param_filter = params.get("s");
+
   useEffect(() => {
-    setSearch(search_text);
-  }, [search_text]);
+    if (param_filter !== "Semua Order") {
+      setSearch(search_text + params.get("s"));
+    } else {
+      setSearch("");
+    }
+  }, [search_text, params]);
 
   // filters state
   const [filterForm, setFilterForm] = useState({
