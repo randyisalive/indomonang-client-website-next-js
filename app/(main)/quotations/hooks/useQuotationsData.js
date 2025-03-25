@@ -13,21 +13,24 @@ const useQuotationsData = () => {
     ApproveQuotations,
     RejectQuotations,
     InputRejectionNote,
+    getEncryptionAll,
   } = QuotationApi();
 
   // context
   const { accounts, role } = useAccountDataContext();
 
   // data state
-  const [quotations, setQuotations] = useState(0);
+  const [quotations, setQuotations] = useState([]);
   const getData = async () => {
     try {
       if (accounts) {
         let quotation_data = 0;
         if (role === "Admin") {
           quotation_data = await getQuotationAll();
-        } else {
+        } else if (role === "Client") {
           quotation_data = await getQuotationByCompany(accounts.company_id);
+        } else {
+          quotation_data = await getEncryptionAll();
         }
         setQuotations(quotation_data);
       }
@@ -41,7 +44,7 @@ const useQuotationsData = () => {
   }, [accounts.company]);
 
   // pdf data
-  const [pdf, setPdf] = useState([]);
+  const [pdf, setPdf] = useState(0);
 
   const download_client_approval = async (id = 136) => {
     try {
@@ -119,6 +122,8 @@ const useQuotationsData = () => {
     upload_client_signature,
     approve_quotation,
     reject_quotation,
+    setPdf,
+    downloadClientApproval,
   };
 };
 

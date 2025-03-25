@@ -1699,6 +1699,30 @@ const api = () => {
         console.error(e);
       }
     };
+    const getEncryptionAll = async () => {
+      const json_data = {
+        username: "rendi",
+        password: "rendi",
+        action: "select",
+        entity_id: 46,
+        select_fields: "3238,434",
+        filters: {
+          3238: {
+            condition: "not_empty_value",
+          },
+        },
+      };
+      try {
+        const response = await fetch(base_url, {
+          method: "POST",
+          body: JSON.stringify(json_data),
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (e) {
+        console.error(e);
+      }
+    };
 
     const downloadClientApproval = async (id) => {
       const json_data = {
@@ -1825,6 +1849,7 @@ const api = () => {
       ApproveQuotations,
       RejectQuotations,
       InputRejectionNote,
+      getEncryptionAll,
     };
   };
   const TermsOfServiceApi = () => {
