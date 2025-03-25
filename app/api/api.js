@@ -1700,6 +1700,8 @@ const api = () => {
       }
     };
     const getEncryptionAll = async () => {
+      const today = new Date();
+      const formattedDate = today.toISOString().split("T")[0];
       const json_data = {
         username: "rendi",
         password: "rendi",

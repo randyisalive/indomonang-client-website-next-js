@@ -40,8 +40,6 @@ const ViewQuotationPage = () => {
         setIsLoading(1);
         try {
           const data_pdf = await downloadClientApproval(filtered_quotation.id);
-          console.log("Data PDF", data_pdf);
-
           if (data_pdf && data_pdf.content) {
             console.log("Data PDF:", data_pdf);
             setPdf(data_pdf); // Set the PDF content
@@ -61,8 +59,11 @@ const ViewQuotationPage = () => {
       <div className="w-full h-full overflow-y-auto overflow-x-auto m-0">
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
           <div className="">
-            {JSON.stringify(isLoading)}
-            {isLoading === 0 && <ProgressSpinner />}
+            {isLoading === 0 && (
+              <div className="w-screen h-screen flex justify-center items-center">
+                <ProgressSpinner />
+              </div>
+            )}
             {isLoading === 2 && <Message text="Error" />}
             {isLoading === 1 && (
               <>
