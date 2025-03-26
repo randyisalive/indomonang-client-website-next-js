@@ -61,18 +61,6 @@ const TableComponent = ({
     setCurrentPage(number);
   };
 
-  // params
-  const params = useSearchParams();
-  const param_filter = params.get("s");
-
-  useEffect(() => {
-    if (param_filter !== "Semua Order") {
-      setSearch(search_text + params.get("s"));
-    } else {
-      setSearch("");
-    }
-  }, [search_text, params]);
-
   // filters state
   const [filterForm, setFilterForm] = useState({
     date: "",
@@ -115,6 +103,7 @@ const TableComponent = ({
               search={search}
               setSearch={setSearch}
               width="w-full"
+              search_text={search_text}
             />
             <select
               className="border-2 text-center w-2"

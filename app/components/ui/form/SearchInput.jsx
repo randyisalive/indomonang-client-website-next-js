@@ -1,6 +1,7 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useSearchParams } from "next/navigation";
 
 const SearchInput = ({
   name = "",
@@ -9,7 +10,18 @@ const SearchInput = ({
   className = {},
   placeholder = "Search",
   width = "w-1/4",
+  search_text = "",
 }) => {
+  // params
+  const params = useSearchParams();
+  const param_filter = params.get("s");
+  useEffect(() => {
+    if (param_filter !== null) {
+      setSearch(search_text + params.get("s"));
+    } else {
+      setSearch("");
+    }
+  }, [search_text, params]);
   const clearSearch = () => {
     setSearch("");
   };

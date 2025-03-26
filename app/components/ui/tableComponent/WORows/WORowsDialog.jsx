@@ -10,8 +10,12 @@ import { useWoDetailContext } from "@/app/(main)/your-orders/context/WoDetailCon
 import { Message } from "primereact/message";
 import parser from "html-react-parser";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSearchParams } from "next/navigation";
 
-const WORowsDialog = ({ visible = false, onHide = () => {}, id = 0 }) => {
+const WORowsDialog = ({ visible = false, onHide = () => {} }) => {
+  // params
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
   const { wo } = useWoContext();
   const { download_attachments, processedData, filteredCourier } =
     useWoDetailContext();

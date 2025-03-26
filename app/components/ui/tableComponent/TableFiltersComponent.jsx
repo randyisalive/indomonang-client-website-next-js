@@ -3,7 +3,7 @@ import CalendarFilterComponent from "../form/CalendarFilterComponent";
 import WebButton from "../WebButton";
 import { motion, AnimatePresence } from "framer-motion";
 import { enquiry_data } from "@/app/function/static_data";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 
 const TableFiltersComponent = ({
@@ -24,47 +24,57 @@ const TableFiltersComponent = ({
     }));
   };
 
-  // update search data
+  /*   // update search data
   useEffect(() => {
     const array_search = [Object.values(filterForm)];
     console.log(array_search);
     setSearch(array_search.filter(Boolean).join(","));
   }, [filterForm]);
-
+ */
   // clear filter form
   const clearSelectedForm = (e, name) => {
     setFilterForm((prev) => ({ ...prev, [name]: "" }));
   };
 
   // params wo
-  const params = useSearchParams();
-  const wo_status = params.get("s");
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+  const wo_status = searchParams.get("s");
+
+  const handleFilter = (text) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("s", text);
+    if (text === "Semua Order") {
+      router.push(pathname);
+      return;
+    }
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  };
 
   return (
     <div className="flex flex-col lg:w-full  pb-3 items-center gap-3  mx-5 lg:mx-0 ">
       {TableType === "wo" && (
         <div className="w-full  pt-[24px] pr-[64px] pb-[24px]  gap-[24px] flex ">
-          {console.log(main_data)}
           {enquiry_data.map((i) => {
             return (
-              <Link href={`?s=${i.text}`} scroll={false}>
-                <div
-                  className={`pt-[8px] pr-[12px] pb-[8px] pl-[12px] gap-[8px]  ${
-                    wo_status === i.text && "border-b"
-                  } border-b-[#9B1D24] w-fit`}
+              <div
+                onClick={() => handleFilter(i.text)}
+                className={`pt-[8px] pr-[12px] pb-[8px] pl-[12px] gap-[8px]  ${
+                  wo_status === i.text && "border-b"
+                } border-b-[#9B1D24] w-fit`}
+              >
+                <motion.label
+                  whileHover={{ color: "#9B1D24" }}
+                  style={wo_status === i.text && { color: "#9B1D24" }}
+                  htmlFor=""
+                  className={`${
+                    wo_status === i.text ? "text-[#9B1D24]" : ""
+                  }  font-[600] cursor-pointer`}
                 >
-                  <motion.label
-                    whileHover={{ color: "#9B1D24" }}
-                    style={wo_status === i.text && { color: "#9B1D24" }}
-                    htmlFor=""
-                    className={`${
-                      wo_status === i.text ? "text-[#9B1D24]" : ""
-                    }  font-[600] cursor-pointer`}
-                  >
-                    {i.text}
-                  </motion.label>
-                </div>
-              </Link>
+                  {i.text}
+                </motion.label>
+              </div>
             );
           })}
         </div>
@@ -158,6 +168,7 @@ const TableFiltersComponent = ({
                   onClickFunction={() => {
                     setFilterForm({});
                     setSearch("");
+                    router.push(`${pathname}`, { scroll: false });
                   }}
                   className={`w-full lg:w-fit`}
                 />
