@@ -2,6 +2,7 @@ import { Dialog } from "primereact/dialog";
 import { Rating } from "primereact/rating";
 import React, { useState } from "react";
 import WebButton from "../../../WebButton";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const WORowsRatingDialog = ({
   dialogStatusRating = false,
@@ -11,10 +12,19 @@ const WORowsRatingDialog = ({
   handleRating = () => {},
 }) => {
   const [ratingVal, setRatingVal] = useState(rating);
+  const searchParams = useSearchParams();
+  const router = useRouter();
   return (
     <Dialog
       visible={dialogStatusRating}
-      onHide={() => setDialogStatusRating(false)}
+      onHide={() => {
+        //setDialogStatusRating(false);
+        const params = new URLSearchParams(searchParams);
+        params.delete("id");
+        router.replace(`${window.location.pathname}?${params.toString()}`, {
+          scroll: false,
+        });
+      }}
       header="Rate Orders"
     >
       {rating == 0 ? (

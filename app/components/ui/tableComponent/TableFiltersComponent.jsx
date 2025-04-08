@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import CalendarFilterComponent from "../form/CalendarFilterComponent";
 import WebButton from "../WebButton";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, color } from "framer-motion";
 import { enquiry_data } from "@/app/function/static_data";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import SearchInput from "../form/SearchInput";
 
 const TableFiltersComponent = ({
   main_data = [],
@@ -13,6 +14,7 @@ const TableFiltersComponent = ({
   form_placeholders = { dropdown: "" },
   extra_filters = [],
   setSearch = () => {},
+
   TableType = "",
 }) => {
   const [filter, setFilter] = useState(false);
@@ -24,13 +26,6 @@ const TableFiltersComponent = ({
     }));
   };
 
-  /*   // update search data
-  useEffect(() => {
-    const array_search = [Object.values(filterForm)];
-    console.log(array_search);
-    setSearch(array_search.filter(Boolean).join(","));
-  }, [filterForm]);
- */
   // clear filter form
   const clearSelectedForm = (e, name) => {
     setFilterForm((prev) => ({ ...prev, [name]: "" }));
@@ -46,7 +41,7 @@ const TableFiltersComponent = ({
     const params = new URLSearchParams(searchParams);
     params.set("s", text);
     if (text === "Semua Order") {
-      router.push(pathname);
+      router.push(pathname, { scroll: false });
       return;
     }
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
@@ -56,6 +51,26 @@ const TableFiltersComponent = ({
     <div className="flex flex-col lg:w-full  pb-3 items-center gap-3  mx-5 lg:mx-0 ">
       {TableType === "wo" && (
         <div className="w-full  pt-[24px] pr-[64px] pb-[24px]  gap-[24px] flex ">
+          <div
+            onClick={() => router.push(pathname, { scroll: false })}
+            className={`pt-[8px] pr-[12px] pb-[8px] pl-[12px] gap-[8px]  ${
+              wo_status === null && "border-b"
+            } border-b-[#9B1D24] w-fit`}
+          >
+            <motion.label
+              whileHover={{ color: "#9B1D24" }}
+              style={
+                wo_status === null ? { color: "#9B1D24" } : { color: "black" }
+              }
+              htmlFor=""
+              className={`${
+                wo_status === null ? "text-[#9B1D24]" : ""
+              }  font-[600] cursor-pointer`}
+            >
+              Semua Order
+            </motion.label>
+          </div>
+
           {enquiry_data.map((i) => {
             return (
               <div
@@ -81,15 +96,8 @@ const TableFiltersComponent = ({
       )}
 
       <div className="flex flex-col lg:flex-row lg:w-full  pb-3 items-center gap-3  mx-5 lg:mx-0">
-        <WebButton
-          title={<i className="pi pi-filter"></i>}
-          onClickFunction={() => {
-            setFilter(!filter);
-          }}
-          className={`w-full lg:w-fit`}
-        />
         <AnimatePresence>
-          {filter && (
+          {!filter && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -158,6 +166,12 @@ const TableFiltersComponent = ({
                 </>
               )} */}
               </div>
+              <SearchInput
+                name="search"
+                search={search}
+                setSearch={setSearch}
+                width="w-[320px]"
+              />
               <div className="flex">
                 <WebButton
                   title={

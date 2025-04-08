@@ -9,7 +9,7 @@ import { useWoContext } from "@/app/(main)/your-orders/context/WoContext";
 import { useWoDetailContext } from "@/app/(main)/your-orders/context/WoDetailContext";
 import { Message } from "primereact/message";
 import parser from "html-react-parser";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 
 const WORowsDialog = ({ visible = false, onHide = () => {} }) => {
@@ -26,7 +26,7 @@ const WORowsDialog = ({ visible = false, onHide = () => {} }) => {
     { id: 3, text: "Canceled", bg_color: "#B6244F" },
   ];
 
-  const wo_filtered = wo.filter((item) => item.id === id);
+  const wo_filtered = wo.filter((item) => item.id == id);
   const events = [
     {
       status: "Open",
@@ -54,8 +54,6 @@ const WORowsDialog = ({ visible = false, onHide = () => {} }) => {
       color: "#223FFF",
     },
   ];
-
-  const [read_more, setReadMore] = useState(false);
 
   const customizedMarker = (item) => {
     const markerColor =
@@ -111,31 +109,31 @@ const WORowsDialog = ({ visible = false, onHide = () => {} }) => {
               <td className="" style={{ width: "100px" }}>
                 :
               </td>
-              <td className=" text-start w-full">{wo_filtered[0].company}</td>
+              <td className=" text-start w-full">{wo_filtered[0]?.company}</td>
             </tr>
             <tr>
               <td className=" text-gray-400">Service</td>
               <td>:</td>
-              <td className=" text-start w-fit">{wo_filtered[0].service}</td>
+              <td className=" text-start w-fit">{wo_filtered[0]?.service}</td>
             </tr>
             <tr>
               <td className=" text-gray-400">Reference Number</td>
               <td>:</td>
               <td className=" text-start ">
-                <div className=" w-fit ">{wo_filtered[0].ref_num}</div>
+                <div className=" w-fit ">{wo_filtered[0]?.ref_num}</div>
               </td>
             </tr>
             <tr>
               <td className=" text-gray-400">City / Country</td>
               <td>:</td>
 
-              <td className=" text-start">{wo_filtered[0].city}</td>
+              <td className=" text-start">{wo_filtered[0]?.city}</td>
             </tr>
             <tr>
               <td className=" text-gray-400">Priority</td>
               <td>:</td>
 
-              <td className=" text-start">{wo_filtered[0].priority}</td>
+              <td className=" text-start">{wo_filtered[0]?.priority}</td>
             </tr>
             <tr>
               <td className=" text-gray-400">Ratings</td>
@@ -221,9 +219,9 @@ const WORowsDialog = ({ visible = false, onHide = () => {} }) => {
               <td className="text-xs pl-1  align-top">Other Applicants</td>
               <td className="align-top">:</td>
               <td className=" align-top">
-                {wo_filtered[0].other_expat_list && (
+                {wo_filtered[0]?.other_expat_list && (
                   <React.Fragment>
-                    {parser(wo_filtered[0].other_expat_list)}
+                    {parser(wo_filtered[0]?.other_expat_list)}
                   </React.Fragment>
                 )}
               </td>
@@ -391,7 +389,7 @@ const WORowsDialog = ({ visible = false, onHide = () => {} }) => {
           )}
         </>
       )}
-      {wo_filtered[0].rating == 0 && (
+      {wo_filtered[0]?.rating == 0 && (
         <div className="mt-10 mb-10">
           <Message text="Rate order first" severity="info" />
         </div>

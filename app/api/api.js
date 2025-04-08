@@ -2,20 +2,13 @@ import { formatDate } from "../function/formatDate";
 import { base_url } from "./base_url";
 
 const api = () => {
+  const api_url = process.env.NEXT_PUBLIC_API_URL;
+
   const DecryptionKeyApi = () => {
     const getDecryptionKey = async () => {
-      const json_data = {
-        username: "rendi",
-        password: "rendi",
-        action: "select",
-        entity_id: 156,
-        select_fields: "2644",
       };
       try {
-        const response = await fetch(base_url, {
-          method: "POST",
-          body: JSON.stringify(json_data),
-        });
+        const response = await fetch(`${api_url}/decryption_key`);
         const data = await response.json();
         return data.data;
       } catch (e) {
@@ -26,18 +19,10 @@ const api = () => {
   };
   const CustomerAccountApi = () => {
     const getUserByEmail = async (email) => {
-      const json_data = {
-        username: "rendi",
-        password: "rendi",
-        action: "select",
-        entity_id: 154,
-        filters: { 2616: email },
-      };
       try {
-        const response = await fetch(base_url, {
-          method: "POST",
-          body: JSON.stringify(json_data),
-        });
+        const response = await fetch(
+          `${api_url}/decryption_key/get_user_by_email`
+        );
         const data = await response.json();
         return data.data;
       } catch (e) {

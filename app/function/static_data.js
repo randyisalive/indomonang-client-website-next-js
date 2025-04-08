@@ -1,5 +1,4 @@
 export const enquiry_data = [
-  { id: 6, text: "Semua Order", bg_color: "" },
   { id: 0, text: "Open", bg_color: "#007BFF" },
   { id: 1, text: "Drafting", bg_color: "#FD7E14" },
   { id: 2, text: "Checking", bg_color: "#D39E00" },

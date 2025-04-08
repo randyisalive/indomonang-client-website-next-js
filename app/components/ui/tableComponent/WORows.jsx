@@ -1,13 +1,10 @@
 "use client";
 import React, { Suspense, useState } from "react";
-import StatusBadge from "./StatusBadge";
 import { motion } from "framer-motion";
 import WORowsDialog from "./WORows/WORowsDialog";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
 import { Rating } from "primereact/rating";
 import WORowsRatingDialog from "./WORows/WORowsRatingDialog/WORowsRatingDialog";
-import { priority_data } from "@/app/function/static_data";
 import Status from "@/app/redesign/components/Status";
 import PriorityBadge from "@/app/redesign/components/PriorityBadge";
 
@@ -39,8 +36,6 @@ const WORows = ({
   const router = useRouter();
 
   const handleClick = (wo_id) => {
-    //handleWODialog();
-    // router.push(`?id=${wo_id}`);
     const params = new URLSearchParams(searchParams);
     params.set("id", wo_id);
     console.log(pathname, params.toString());
@@ -127,16 +122,13 @@ const WORows = ({
             dialogStatusRating={dialogStatusRating}
             setDialogStatusRating={setDialogStatusRating}
             rating={item.rating}
-            id={item.id}
+            //id={item.id}
+            id={searchParams.get("id")}
             handleRating={handleRating}
           />
         </td>
       </tr>
-      {dialogStatus && (
-        <Suspense fallback={<div>Loading...</div>}>
-          <WORowsDialog visible={dialogStatus} onHide={handleWODialog} />
-        </Suspense>
-      )}
+      <WORowsDialog visible={true} onHide={handleWODialog} />
     </>
   );
 };

@@ -4,12 +4,6 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "agenda.erpimj.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
         hostname: "indomonangjadi.com",
         port: "",
         pathname: "/**",
@@ -36,7 +30,7 @@ const nextConfig = {
 
     return config;
   },
-  /*   experimental: {
+  /*  experimental: {
     esmExternals: "loose", // Required for canvas to work
   }, */
 };
