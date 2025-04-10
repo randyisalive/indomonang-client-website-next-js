@@ -1,14 +1,10 @@
-import api from "@/app/api/api";
-import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
 import { useEffect, useState } from "react";
-import { getLocalStorage } from "@/app/function/getLocalStorage";
 import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 import { useWoContext } from "../your-orders/context/WoContext";
 
 const useActiveProductsData = () => {
   // api
 
-  // dec key
   const { accounts, role } = useAccountDataContext();
   const { wo } = useWoContext();
 
@@ -33,12 +29,6 @@ const useActiveProductsData = () => {
   useEffect(() => {
     getData();
   }, [accounts.id, role, wo]);
-
-  useEffect(() => {
-    if (getLocalStorage("app-debug") === "true") {
-      console.log(activeProduct);
-    }
-  }, [activeProduct]);
 
   return { activeProduct, isLoading, role };
 };

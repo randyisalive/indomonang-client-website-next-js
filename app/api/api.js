@@ -464,18 +464,8 @@ const api = () => {
       }
     };
     const getWoAll = async (filters_object = {}) => {
-      const json_data = {
-        username: "rendi",
-        password: "rendi",
-        action: "select",
-        entity_id: 36,
-        //  filters: filters_object,
-      };
       try {
-        const response = await fetch(base_url, {
-          method: "POST",
-          body: JSON.stringify(json_data),
-        });
+        const response = await fetch(`${api_url}/wo`);
         const data = await response.json();
         return data.data;
       } catch (e) {

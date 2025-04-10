@@ -1,27 +1,19 @@
 "use client";
-import Link from "next/link";
-import React, { useEffect } from "react";
+import React from "react";
 import Form from "./Form";
-import RadioButton from "./RadioButton";
 import WebButton from "../WebButton";
 import useLoginData from "@/app/hooks/useLoginData";
 import { Message } from "primereact/message";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { AnimatePresence, motion } from "framer-motion";
-import api from "@/app/api/api";
+import { useSession, signOut } from "next-auth/react";
 
 const FormControl = ({ children, title = "", className = {}, logo = "" }) => {
   // form api
+  const sessionData = useSession();
 
-  const {
-    handleForm,
-    form,
-    handleLogin,
-    users,
-    isLoading,
-    handleKeyPress,
-    message,
-  } = useLoginData();
+  const { handleForm, form, handleLogin, isLoading, message, handleSubmit } =
+    useLoginData();
 
   return (
     <div
@@ -95,10 +87,12 @@ const FormControl = ({ children, title = "", className = {}, logo = "" }) => {
           def={true}
           disabled={isLoading === 1 ? true : false}
           onClickFunction={() => {
-            handleLogin();
+            //handleLogin();
+            handleSubmit();
           }}
         />
       </div>
+      {JSON.stringify(sessionData)}
       {/*    <section id="footer" className="m-1  py-4  border-t text-sm text-center">
         <span className="text-gray-600">
           Not a member yet?

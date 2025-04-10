@@ -5,9 +5,7 @@ import React from "react";
 
 const OrderProducts = () => {
   const { activeProduct } = useActiveProductContext();
-  {
-    console.log(activeProduct);
-  }
+
   return (
     <>
       {activeProduct.map((item) => (

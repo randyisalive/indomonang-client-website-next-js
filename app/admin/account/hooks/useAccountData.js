@@ -1,7 +1,10 @@
 "use client";
 import api from "@/app/api/api";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getLocalStorage } from "@/app/function/getLocalStorage";
 import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
+import { getServerSession } from "next-auth";
+import { getSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 function useAccountsData() {
@@ -11,8 +14,6 @@ function useAccountsData() {
   const { getAccountById, getProfilePictureById, updateAccountData } =
     CustomerAccountApi();
 
-  // user id
-  const { user_id, role } = useDecryptionKeyData();
   // get accounts
   const [accounts, setAccounts] = useState({});
   const [refresh, setRefresh] = useState(false);
@@ -20,9 +21,14 @@ function useAccountsData() {
   useEffect(() => {
     const getData = async () => {
       try {
+        // session
+        const sessions = await getSession();
+        const user_id = sessions.user.id;
+        const role = sessions.user.role;
+
         if (user_id) {
           const accounts = await getAccountById(user_id);
-          const last_login = await getLastLoginAllByParentId(accounts.id);
+          const last_login = await getLastLoginAllByParentId(user_id);
           const profile_picture = await getProfilePictureById(user_id);
 
           if (accounts.length === 0) {
@@ -55,7 +61,7 @@ function useAccountsData() {
               email: item[2616],
               username: item[2614],
               user_status: status_color.filter((x) => x.text === item[2617])[0],
-              role: item[2628],
+              role: role,
               company: item[2630],
               company_id: item["2630_db_value"],
               lastLogin: userLastLogin.length > 0 ? userLastLogin : [],
@@ -75,7 +81,7 @@ function useAccountsData() {
       }
     };
     getData();
-  }, [refresh, user_id, role]);
+  }, [refresh]);
 
   // handle dialog
   const handleDialog = (item_id, status) => {
@@ -162,7 +168,6 @@ function useAccountsData() {
     handleUploadPhoto,
     UpdateAccountBtn,
     isLoading,
-    role,
   };
 }
 

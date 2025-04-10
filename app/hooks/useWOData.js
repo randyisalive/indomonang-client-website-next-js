@@ -12,7 +12,7 @@ const useWOData = () => {
   const { getWoByUserId, getWoAll, updateWORating } = WOApi();
 
   // decrypt_key
-  const { accounts, role } = useAccountDataContext();
+  const { accounts } = useAccountDataContext();
   // user id
   // get wo
   const [wo, setWO] = useState([]);
@@ -31,9 +31,9 @@ const useWOData = () => {
           const company_id = await getCompanyById(accounts.id);
           if (company_id.length > 0) {
             let wo_data;
-            if (role === "Client") {
+            if (accounts.role === "Client") {
               wo_data = await getWoByUserId(company_id[0]["2630_db_value"]);
-            } else if (role === "Admin") {
+            } else if (accounts.role === "Admin") {
               wo_data = await getWoAll(filters_array);
             } else {
               return;
@@ -79,7 +79,7 @@ const useWOData = () => {
       }
     };
     getData();
-  }, [accounts.id, role, filters_array]);
+  }, [accounts, filters_array]);
 
   const handleWODialog = (id = 0, dialogStatus = false) => {
     setWO((prev) =>

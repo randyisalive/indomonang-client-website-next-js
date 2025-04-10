@@ -4,8 +4,12 @@ import api from "../api/api";
 import { checkPassword, encryptMessage } from "../function/decryptor";
 import { useRouter } from "next/navigation";
 import { getLocalStorage } from "../function/getLocalStorage";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const useLoginData = () => {
+  // session data
+  const sessionData = useSession();
+
   const { CustomerAccountApi, DecryptionKeyApi } = api();
   const {
     getUserByEmail,
@@ -34,7 +38,7 @@ const useLoginData = () => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const getData = async () => {
+  /*  const getData = async () => {
     try {
       setIsLoading(1);
       if (form.email) {
@@ -103,7 +107,7 @@ const useLoginData = () => {
     } catch (e) {
       console.error(e);
     }
-  };
+  }; */
 
   useEffect(() => {
     const handleKeyPress = async (event) => {
@@ -125,7 +129,29 @@ const useLoginData = () => {
     }
   }, [form, users]);
 
-  return { handleForm, form, handleLogin: getData, users, isLoading, message };
+  const handleSubmit = async (e) => {
+    const result = await signIn("credentials", {
+      redirect: false,
+      email: form.email,
+      password: form.password,
+    });
+    console.log(result);
+    if (result.status === 401) {
+      alert("Login failed: " + result.error);
+    } else {
+      window.location.href = "/"; // Redirect after successful login
+    }
+  };
+
+  return {
+    handleForm,
+    form,
+    /*  handleLogin: getData, */
+    handleSubmit,
+    users,
+    isLoading,
+    message,
+  };
 };
 
 export default useLoginData;

@@ -14,7 +14,6 @@ export const AccountDataProvider = ({ children }) => {
     handleUploadPhoto,
     UpdateAccountBtn,
     isLoading,
-    role,
   } = useAccountsData();
 
   return (
@@ -25,7 +24,6 @@ export const AccountDataProvider = ({ children }) => {
         handleUploadPhoto,
         UpdateAccountBtn,
         isLoading,
-        role,
       }}
     >
       {children}

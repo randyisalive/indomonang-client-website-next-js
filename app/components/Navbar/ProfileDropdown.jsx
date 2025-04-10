@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import WebButton from "../ui/WebButton";
 import DebugButton from "./DebugButton";
+import { signOut } from "next-auth/react";
 
 const ProfileDropdown = () => {
   const cm = useRef(null);
@@ -26,9 +27,7 @@ const ProfileDropdown = () => {
 
   const { accounts, role } = useAccountDataContext();
   const Logout = () => {
-    localStorage.clear();
-    //router.push("/login");
-    window.location.href = "/login";
+    signOut({ redirect: true });
   };
   const user_list = [
     {
