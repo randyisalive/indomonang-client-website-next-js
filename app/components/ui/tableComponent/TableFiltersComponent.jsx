@@ -8,13 +8,9 @@ import Link from "next/link";
 import SearchInput from "../form/SearchInput";
 
 const TableFiltersComponent = ({
-  main_data = [],
   filter_data = { date: "", main_ids: "", month: "", year: "", full_date: "" },
   search = "",
-  form_placeholders = { dropdown: "" },
-  extra_filters = [],
   setSearch = () => {},
-
   TableType = "",
 }) => {
   const [filter, setFilter] = useState(false);
@@ -24,11 +20,6 @@ const TableFiltersComponent = ({
       ...prev,
       [field]: value,
     }));
-  };
-
-  // clear filter form
-  const clearSelectedForm = (e, name) => {
-    setFilterForm((prev) => ({ ...prev, [name]: "" }));
   };
 
   // params wo
@@ -74,17 +65,17 @@ const TableFiltersComponent = ({
           {enquiry_data.map((i) => {
             return (
               <div
-                onClick={() => handleFilter(i.text)}
+                onClick={() => handleFilter(i.value)}
                 className={`pt-[8px] pr-[12px] pb-[8px] pl-[12px] gap-[8px]  ${
-                  wo_status === i.text && "border-b"
+                  wo_status == i.value && "border-b"
                 } border-b-[#9B1D24] w-fit`}
               >
                 <motion.label
                   whileHover={{ color: "#9B1D24" }}
-                  style={wo_status === i.text && { color: "#9B1D24" }}
+                  style={wo_status == i.value && { color: "#9B1D24" }}
                   htmlFor=""
                   className={`${
-                    wo_status === i.text ? "text-[#9B1D24]" : ""
+                    wo_status == i.value ? "text-[#9B1D24]" : ""
                   }  font-[600] cursor-pointer`}
                 >
                   {i.text}

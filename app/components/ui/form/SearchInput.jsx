@@ -14,14 +14,9 @@ const SearchInput = ({
 }) => {
   // params
   const params = useSearchParams();
-  const param_filter = params.get("s");
   useEffect(() => {
-    if (param_filter !== null) {
-      setSearch(search_text + params.get("s"));
-    } else {
-      setSearch("");
-    }
-  }, [search_text, params]);
+    setSearch("");
+  }, [search_text]);
   const clearSearch = () => {
     setSearch("");
   };

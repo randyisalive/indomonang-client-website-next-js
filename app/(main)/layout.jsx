@@ -1,6 +1,5 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import WithAuth from "./WithAuth";
 import { ProfileCardProvider } from "../Context/ProfileCardContext";
 import { HomeCardContainerProvider } from "../Context/HomeCardContainerContext";
 import { ActiveProductProvider } from "../Context/ActiveProductContext";
@@ -19,32 +18,30 @@ const layout = ({ children }) => {
   return (
     <>
       <DecryptionProvider>
-        <WithAuth>
-          <WoProvider>
-            <ProfileCardProvider>
-              <HomeCardContainerProvider>
-                <ActiveProductProvider>
-                  <RecentNewsProvider>
-                    <BillingProvider>
-                      <InvoiceProvider>
-                        <ExpatriateListProvider>
-                          <DependentListProvider>
-                            <VisitorsListProvider>
-                              <section className="md:px-6 lg:p-0 ">
-                                <Navbar />
-                                <main className=" min-h-full ">{children}</main>
-                              </section>
-                            </VisitorsListProvider>
-                          </DependentListProvider>
-                        </ExpatriateListProvider>
-                      </InvoiceProvider>
-                    </BillingProvider>
-                  </RecentNewsProvider>
-                </ActiveProductProvider>
-              </HomeCardContainerProvider>
-            </ProfileCardProvider>
-          </WoProvider>
-        </WithAuth>
+        <WoProvider>
+          <ProfileCardProvider>
+            <HomeCardContainerProvider>
+              <ActiveProductProvider>
+                <RecentNewsProvider>
+                  <BillingProvider>
+                    <InvoiceProvider>
+                      <ExpatriateListProvider>
+                        <DependentListProvider>
+                          <VisitorsListProvider>
+                            <section className="md:px-6 lg:p-0 ">
+                              <Navbar />
+                              <main className=" min-h-full ">{children}</main>
+                            </section>
+                          </VisitorsListProvider>
+                        </DependentListProvider>
+                      </ExpatriateListProvider>
+                    </InvoiceProvider>
+                  </BillingProvider>
+                </RecentNewsProvider>
+              </ActiveProductProvider>
+            </HomeCardContainerProvider>
+          </ProfileCardProvider>
+        </WoProvider>
       </DecryptionProvider>
     </>
   );

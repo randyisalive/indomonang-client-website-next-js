@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import api from "../api/api";
 import { useAccountDataContext } from "../admin/context/AccountDataContext";
 import { enquiry_data, priority_data } from "../function/static_data";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 const useWOData = () => {
   // api
@@ -11,17 +11,17 @@ const useWOData = () => {
   const { getCompanyById } = CustomerAccountApi();
   const { getWoByUserId, getWoAll, updateWORating } = WOApi();
 
-  // decrypt_key
+  // filters params
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  const query = params.get("s");
+
+  // session data
   const { accounts } = useAccountDataContext();
-  // user id
+
   // get wo
   const [wo, setWO] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  // filters data
-  const [filters_array, setFiltersArray] = useState({
-    date_added: "",
-  });
 
   useEffect(() => {
     const getData = async () => {
@@ -34,9 +34,7 @@ const useWOData = () => {
             if (accounts.role === "Client") {
               wo_data = await getWoByUserId(company_id[0]["2630_db_value"]);
             } else if (accounts.role === "Admin") {
-              wo_data = await getWoAll(filters_array);
-            } else {
-              return;
+              wo_data = await getWoAll(query);
             }
             const datas = await Promise.all(
               wo_data.map(async (item) => {
@@ -79,7 +77,7 @@ const useWOData = () => {
       }
     };
     getData();
-  }, [accounts, filters_array]);
+  }, [accounts, query]);
 
   const handleWODialog = (id = 0, dialogStatus = false) => {
     setWO((prev) =>

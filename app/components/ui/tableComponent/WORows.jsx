@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense, useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import WORowsDialog from "./WORows/WORowsDialog";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -128,7 +128,7 @@ const WORows = ({
           />
         </td>
       </tr>
-      <WORowsDialog visible={true} onHide={handleWODialog} />
+      <WORowsDialog visible={dialogStatus} onHide={handleWODialog} />
     </>
   );
 };

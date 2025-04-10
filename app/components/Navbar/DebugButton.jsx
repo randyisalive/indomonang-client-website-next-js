@@ -13,14 +13,6 @@ const DebugButton = () => {
     setDebug(storeDebug);
   }, []);
 
-  const handleDebug = () => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("app-debug", !debug ? "true" : "false");
-      setDebug(!debug);
-      router.push(window.location.pathname);
-    }
-  };
-
   useEffect(() => {
     console.log("debug: ", debug);
   }, [debug]);
@@ -30,7 +22,6 @@ const DebugButton = () => {
       <WebButton
         title={`Debug: ${debug}`}
         styles={debug ? { color: "red" } : { color: "blue" }}
-        onClickFunction={handleDebug}
       />
     </div>
   );

@@ -28,23 +28,16 @@ const WOTable = () => {
 
   return (
     <div className="text-center sm:m-0">
-      {isLoading ? (
-        <div className="mt-5">
-          <ProgressSpinner />
-        </div>
-      ) : (
-        <>
-          <TableComponent
-            th_array={th_array}
-            datas={wo}
-            TableType="wo"
-            role={role}
-            search_text={searchText.filter(Boolean).join(",")}
-            dialogOnChange={handleWODialog}
-            handleRating={handleRating}
-          />
-        </>
-      )}
+      <TableComponent
+        th_array={th_array}
+        datas={wo}
+        TableType="wo"
+        role={role}
+        search_text={searchText.filter(Boolean).join(",")}
+        dialogOnChange={handleWODialog}
+        handleRating={handleRating}
+        isLoading={isLoading}
+      />
     </div>
   );
 };

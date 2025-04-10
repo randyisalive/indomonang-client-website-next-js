@@ -4,34 +4,26 @@ import { NextResponse } from "next/server";
 
 export async function middleware(request) {
   const token = await getToken({ req: request });
-
   const { pathname } = request.nextUrl;
 
-  // Public routes
-  const publicPaths = ["/login", "/register"];
+  // Public routes that don't require authentication
+  const publicPaths = ["/login", "/register", "/"];
 
-  // If token exists and trying to access auth pages
-  if (token && publicPaths.includes(pathname)) {
+  // 1. If user is logged in (has token) and tries to access auth pages
+  if (token && (pathname === "/login" || pathname === "/register")) {
+    console.log("Pathname: ", pathname);
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  // If no token and trying to access protected page
+  // 2. If user is not logged in and tries to access protected page
   if (!token && !publicPaths.includes(pathname)) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
+  // 3. Allow the request to proceed
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
-    "/((?!api|_next/static|_next/image|favicon.ico).*)",
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };

@@ -2,7 +2,6 @@ import { checkPassword } from "@/app/function/decryptor";
 import { serialize } from "cookie";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { signOut } from "next-auth/react";
 
 export const authOptions = {
   providers: [
@@ -96,6 +95,7 @@ export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 
   pages: {
+    signIn: "/",
     error: "/auth/error", // Redirect here for errors
     signOut: "/login",
   },

@@ -1,5 +1,9 @@
 // app/api/wo/route.js
 export async function GET(request) {
+  // filters query
+  const { searchParams } = new URL(request.url);
+  const query = searchParams.get("q");
+  console.log("query: ", query);
   // Set CORS headers
   const headers = new Headers();
   headers.set("Access-Control-Allow-Origin", "*");
@@ -8,6 +12,7 @@ export async function GET(request) {
   const json_data = {
     action: "select",
     entity_id: 36,
+    ...(query !== null ? { filters: { 311: query } } : {}),
   };
   try {
     const response = await fetch(api, {

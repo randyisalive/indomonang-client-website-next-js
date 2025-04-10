@@ -12,11 +12,10 @@ import InvoiceRows from "@/app/(main)/invoice/components/InvoiceRows";
 import InvoiceBillsRows from "@/app/(main)/billing/components/InvoiceBillsRows";
 import BillingSection from "@/app/(main)/billing/components/BillingSection";
 
-import BillingFilter from "./tableComponent/Billing/BillingFilter";
 import PaymentHistorySection from "./tableComponent/Invoice (payment history)/PaymentHistorySection";
-import InvoiceFilter from "./tableComponent/Invoice (payment history)/InvoiceFilter";
 import TableFiltersComponent from "./tableComponent/TableFiltersComponent";
 import { useSearchParams } from "next/navigation";
+import { ProgressSpinner } from "primereact/progressspinner";
 
 const TableComponent = ({
   th_array = [],
@@ -27,6 +26,7 @@ const TableComponent = ({
   footer = "",
   search_text = "",
   role = "Client",
+  isLoading = "",
   handleRating = () => {},
 }) => {
   const [search, setSearch] = useState("");
@@ -95,131 +95,107 @@ const TableComponent = ({
         setSearch={setSearch}
         form_placeholders={{ dropdown: TableType }}
       />
-      <div className="flex flex-col">
-        {!filter.filter && (
-          <div className="w-full flex gap-3 px-5 lg:px-0">
-            {/* <SearchInput
-              name="search"
-              search={search}
-              setSearch={setSearch}
-              width="w-full"
-              search_text={search_text}
-            /> */}
-            {/* <select
-              className="border-2 text-center w-2"
-              onChange={(e) => setRowsPerPage(Number(e.target.value))}
-              ref={selectRef}
-              value={rowsPerPage}
-            >
-              {page_selection.map((item) => (
-                <option value={item.value} key={item.id}>
-                  {item.value}
-                </option>
-              ))}
-            </select> */}
-          </div>
-        )}
-      </div>
-
-      <div className="overflow-x-auto     mx-5 lg:mx-0">
-        {currentRows && (
-          <>
-            <table className="min-w-full mt-3  rounded-lg text-sm">
-              <thead className=" text-[#202224] bg-white border ">
-                <tr>
-                  {th_array.map((th, index) => (
-                    <th key={index} className="pt-[8px] pb-[8px] h-[48px]">
-                      <div className="pr-[12px] pl-[12px] text-left text-base">
-                        {th}
-                      </div>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="border">
-                {currentRows.map((item, index) => (
-                  <React.Fragment key={index}>
+      <div className="min-h-[500px] ">
+        {isLoading === false ? (
+          <div className="overflow-x-auto     mx-5 lg:mx-0">
+            {currentRows && (
+              <>
+                <table className="min-w-full mt-3  rounded-lg text-sm">
+                  <thead className=" text-[#202224] bg-white border ">
+                    <tr>
+                      {th_array.map((th, index) => (
+                        <th key={index} className="pt-[8px] pb-[8px] h-[48px]">
+                          <div className="pr-[12px] pl-[12px] text-left text-base">
+                            {th}
+                          </div>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="border">
+                    {currentRows.map((item, index) => (
+                      <React.Fragment key={index}>
+                        {TableType === "billing" && (
+                          <BillingRows
+                            index={index}
+                            item={item}
+                            currentPage={currentPage}
+                            rowsPerPage={rowsPerPage}
+                          />
+                        )}
+                        {TableType === "wo" && (
+                          <WORows
+                            item={item}
+                            num={index}
+                            currentPage={currentPage}
+                            rowsPerPage={rowsPerPage}
+                            handleWODialog={dialogOnChange}
+                            role={role}
+                            handleRating={handleRating}
+                          />
+                        )}
+                        {TableType === "invoice" && (
+                          <InvoiceRows
+                            item={item}
+                            num={index}
+                            currentPage={currentPage}
+                            rowsPerPage={rowsPerPage}
+                            handleWODialog={dialogOnChange}
+                            role={role}
+                          />
+                        )}
+                        {TableType === "invoice_bills" && (
+                          <InvoiceBillsRows
+                            item={item}
+                            num={index}
+                            currentPage={currentPage}
+                            rowsPerPage={rowsPerPage}
+                            handleWODialog={dialogOnChange}
+                            role={role}
+                          />
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </tbody>
+                  <tfoot>
                     {TableType === "billing" && (
-                      <BillingRows
-                        index={index}
-                        item={item}
-                        currentPage={currentPage}
-                        rowsPerPage={rowsPerPage}
-                      />
+                      <BillingFooter currentRows={currentRows} />
                     )}
                     {TableType === "wo" && (
-                      <>
-                        <WORows
-                          item={item}
-                          num={index}
-                          currentPage={currentPage}
-                          rowsPerPage={rowsPerPage}
-                          handleWODialog={dialogOnChange}
-                          role={role}
-                          handleRating={handleRating}
-                        />
-                      </>
+                      <WOFooter currentRows={currentRows} all_data={datas} />
                     )}
-                    {TableType === "invoice" && (
-                      <>
-                        <InvoiceRows
-                          item={item}
-                          num={index}
-                          currentPage={currentPage}
-                          rowsPerPage={rowsPerPage}
-                          handleWODialog={dialogOnChange}
-                          role={role}
-                        />
-                      </>
+                  </tfoot>
+                </table>
+                <nav className="mt-4 p-3">
+                  <ul className="flex justify-center space-x-2">
+                    {Array.from(
+                      { length: Math.ceil(dataToDisplay.length / rowsPerPage) },
+                      (_, index) => (
+                        <li key={index}>
+                          <a
+                            href="#!"
+                            className={`px-3 py-1 border rounded-md ${
+                              index + 1 === currentPage
+                                ? "bg-blue-500 text-white"
+                                : "bg-white text-blue-500"
+                            }`}
+                            onClick={(e) => handleClick(e, index + 1)}
+                          >
+                            {index + 1}
+                          </a>
+                        </li>
+                      )
                     )}
-                    {TableType === "invoice_bills" && (
-                      <>
-                        <InvoiceBillsRows
-                          item={item}
-                          num={index}
-                          currentPage={currentPage}
-                          rowsPerPage={rowsPerPage}
-                          handleWODialog={dialogOnChange}
-                          role={role}
-                        />
-                      </>
-                    )}
-                  </React.Fragment>
-                ))}
-              </tbody>
-              <tfoot>
-                {TableType === "billing" && (
-                  <BillingFooter currentRows={currentRows} />
-                )}
-                {TableType === "wo" && (
-                  <WOFooter currentRows={currentRows} all_data={datas} />
-                )}
-              </tfoot>
-            </table>
-            <nav className="mt-4 p-3">
-              <ul className="flex justify-center space-x-2">
-                {Array.from(
-                  { length: Math.ceil(dataToDisplay.length / rowsPerPage) },
-                  (_, index) => (
-                    <li key={index}>
-                      <a
-                        href="#!"
-                        className={`px-3 py-1 border rounded-md ${
-                          index + 1 === currentPage
-                            ? "bg-blue-500 text-white"
-                            : "bg-white text-blue-500"
-                        }`}
-                        onClick={(e) => handleClick(e, index + 1)}
-                      >
-                        {index + 1}
-                      </a>
-                    </li>
-                  )
-                )}
-              </ul>
-            </nav>
-          </>
-        )}
+                  </ul>
+                </nav>
+              </>
+            )}
+          </div>
+        ) : (
+          <div className="k flex min-h-[500px] justify-center items-center">
+            <ProgressSpinner />
+          </div>
+        )}{" "}
       </div>
     </motion.div>
   );

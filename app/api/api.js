@@ -463,9 +463,11 @@ const api = () => {
         console.error(e);
       }
     };
-    const getWoAll = async (filters_object = {}) => {
+    const getWoAll = async (query = "") => {
       try {
-        const response = await fetch(`${api_url}/wo`);
+        const response = await fetch(
+          query ? `${api_url}/wo?q=${query}` : `${api_url}/wo`
+        );
         const data = await response.json();
         return data.data;
       } catch (e) {
