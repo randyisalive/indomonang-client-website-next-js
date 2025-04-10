@@ -6,7 +6,6 @@ const api = () => {
 
   const DecryptionKeyApi = () => {
     const getDecryptionKey = async () => {
-      };
       try {
         const response = await fetch(`${api_url}/decryption_key`);
         const data = await response.json();
