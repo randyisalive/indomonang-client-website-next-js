@@ -20,10 +20,14 @@ const CalendarFilterComponent = ({
 
     // add filter
     const params = new URLSearchParams(searchParams);
-    const month_params = params.get("m");
-    const year_params = params.get("y");
-    params.set("y", date);
-    router.push(`${pathname}?${params.toString()}`);
+
+    if (field === "year") {
+      params.set("y", formattedDate);
+    } else if (field === "month") {
+      params.set("m", formattedDate);
+    }
+
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
   return (

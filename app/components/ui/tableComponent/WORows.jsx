@@ -42,6 +42,7 @@ const WORows = ({
 
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
+  console.log(item);
 
   return (
     <>

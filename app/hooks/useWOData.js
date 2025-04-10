@@ -15,6 +15,7 @@ const useWOData = () => {
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
   const query = params.get("s");
+  const month = params.get("m");
 
   // session data
   const { accounts } = useAccountDataContext();
@@ -59,6 +60,7 @@ const useWOData = () => {
                   company: item[314],
                   rating: item[2631],
                   date_added: item.date_added,
+                  month: item.date_added.split(" ")[1],
                   applicant: item[316],
                   nationality: item[699],
                   job_title: item[700],
@@ -78,6 +80,18 @@ const useWOData = () => {
     };
     getData();
   }, [accounts, query]);
+
+  /* // filter in wo state
+  useEffect(() => {
+    if (month) {
+      const wo_month_filtered = wo.filter((i) => i.month === month);
+      setWO(wo_month_filtered);
+    } else {
+      params.set("q", "");
+    }
+
+    console.log("month filter: ", month);
+  }, [month]); */
 
   const handleWODialog = (id = 0, dialogStatus = false) => {
     setWO((prev) =>
