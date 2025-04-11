@@ -1,4 +1,3 @@
-// middleware.js
 import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 
@@ -6,24 +5,26 @@ export async function middleware(request) {
   const token = await getToken({ req: request });
   const { pathname } = request.nextUrl;
 
-  // Public routes that don't require authentication
-  const publicPaths = ["/login", "/register", "/"];
+  // Public routes
+  const publicPaths = ["/login", "/register"];
 
-  // 1. If user is logged in (has token) and tries to access auth pages
-  if (token && (pathname === "/login" || pathname === "/register")) {
-    console.log("Pathname: ", pathname);
+  console.log("Middleware Debug - Token:", token);
+  console.log("Middleware Debug - Pathname:", pathname);
+
+  if (token && publicPaths.includes(pathname)) {
+    console.log("User authenticated, redirecting to home...");
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  // 2. If user is not logged in and tries to access protected page
   if (!token && !publicPaths.includes(pathname)) {
+    console.log("User unauthenticated, redirecting to login...");
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // 3. Allow the request to proceed
+  console.log("Request proceeding...");
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/((?!api|_next/static|favicon.ico).*)"],
 };

@@ -7,6 +7,7 @@ import Link from "next/link";
 import WebButton from "../ui/WebButton";
 import DebugButton from "./DebugButton";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
 
 const ProfileDropdown = () => {
   const cm = useRef(null);

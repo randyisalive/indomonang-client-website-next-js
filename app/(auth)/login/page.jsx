@@ -8,10 +8,7 @@ const LoginPage = () => {
     <SessionProvider>
       <div className="flex h-screen justify-center items-center">
         <div className="  justify-center items-center flex w-1/2  ">
-          <FormControl
-            title="Secure Client Login"
-            logo="/Property 1=JadiCRM.png"
-          />
+          <FormControl title="Secure Client Login" logo="/jadicrm2.png" />
         </div>
         <div
           className="w-1/2 h-full text-white text-3xl hidden lg:block"

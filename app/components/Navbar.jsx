@@ -2,9 +2,9 @@ import React from "react";
 import NavbarItems from "./Navbar/NavbarItems";
 import Link from "next/link";
 import SmallNavbar from "./Navbar/SmallNavbar";
-import AdminMessage from "./Admin/AdminMessage";
-import Notification from "./Navbar/Notification";
+import logo from "../../public/jadicrm.png";
 import ProfileDropdown from "./Navbar/ProfileDropdown";
+import Image from "next/image";
 
 const Navbar = () => {
   return (
@@ -22,12 +22,8 @@ const Navbar = () => {
       >
         <div className="flex justify-between w-full items-center ">
           <Link href={`/`} className=" flex items-center gap-3">
-            <img
-              src="/Property 1=JadiCRM.png"
-              alt="logo.jpg"
-              width={40}
-              height={40}
-            />
+            <Image src={logo} alt="logo.jpg" width={40} height={40} />
+
             <span className=" text-[20px] font-bold">JadiCRM</span>
           </Link>
           <div className="flex  items-center ">

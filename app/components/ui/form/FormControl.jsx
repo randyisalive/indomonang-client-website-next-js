@@ -7,6 +7,8 @@ import { Message } from "primereact/message";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSession, signOut } from "next-auth/react";
+import Image from "next/image";
+import jadicrm from "../../../../public/jadicrm2.png";
 
 const FormControl = ({ children, title = "", className = {}, logo = "" }) => {
   // form api
@@ -22,7 +24,7 @@ const FormControl = ({ children, title = "", className = {}, logo = "" }) => {
       <section className="w-full flex-col" style={{ width: "580px" }}>
         <header className="flex flex-col" style={{ gap: "16px" }}>
           <div className=" flex gap-5 mb-5 items-center">
-            <img src={logo} alt="logo.png" width={100} height={100} />
+            <Image src={jadicrm} alt="logo.png" width={100} height={100} />
             <span className=" font-bold text-3xl">JadiCRM</span>
           </div>
           <div style={{ width: "580px" }} className="flex flex-col">
@@ -92,18 +94,6 @@ const FormControl = ({ children, title = "", className = {}, logo = "" }) => {
           }}
         />
       </div>
-      {JSON.stringify(sessionData)}
-      {/*    <section id="footer" className="m-1  py-4  border-t text-sm text-center">
-        <span className="text-gray-600">
-          Not a member yet?
-          <Link
-            className="text-blue-500 px-1  hover:underline"
-            href={`/signup`}
-          >
-            Create a New Account
-          </Link>
-        </span>
-      </section> */}
     </div>
   );
 };
