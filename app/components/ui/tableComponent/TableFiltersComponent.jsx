@@ -104,19 +104,6 @@ const TableFiltersComponent = ({
               exit={{ opacity: 0 }}
               className="flex gap-2 w-full flex-col lg:flex-row"
             >
-              {/*  <Dropdown
-              className="border w-full"
-              value={filterForm.main_ids}
-              optionLabel="main_ids"
-              options={main_data}
-              name="main_ids"
-              valueTemplate={customValue}
-              onChange={(e) => {
-                console.log(e.value);
-                updateFilterForm(e.target.name, e.value);
-              }}
-              placeholder={form_placeholders.dropdown}
-            /> */}
               <CalendarFilterComponent
                 settings="all"
                 filterForm={filterForm}

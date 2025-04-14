@@ -17,7 +17,7 @@ const WOSection = () => {
     let total = 0;
     let wo_len = 0;
     for (const i of wo) {
-      if (parseInt(i.rating) && i.status.value === 165) {
+      if (parseInt(i.rating)) {
         total += parseInt(i.rating);
         wo_len += 1;
       } else {

@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const NavbarItems = ({ onClick = () => {} }) => {
   const navbar_data = [
@@ -90,6 +90,11 @@ const NavbarItems = ({ onClick = () => {} }) => {
     };
   }, []);
 
+  // params
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  const pathname = usePathname();
+
   return (
     <>
       {items.map((item) => (
@@ -99,13 +104,17 @@ const NavbarItems = ({ onClick = () => {} }) => {
           style={{ gap: "8px" }}
         >
           <motion.span
-            style={item.dropdown ? { color: "#1062FE" } : { color: "#000" }}
-            whileHover={{ color: "#1062FE" }}
+            style={item.dropdown ? { color: "#DC3545" } : { color: "#000" }}
+            whileHover={{ color: "#DC3545" }}
             className="cursor-pointer"
             onClick={() => handleItems(item.id)}
           >
             {item.link ? (
-              <Link href={item.link} onClick={onClick}>
+              <Link
+                href={item.link}
+                onClick={onClick}
+                className={pathname === item.link && `text-[#DC3545]`}
+              >
                 {item.title}
               </Link>
             ) : (
@@ -116,7 +125,7 @@ const NavbarItems = ({ onClick = () => {} }) => {
             <>
               <motion.i
                 style={
-                  item.dropdown ? { color: "#1062FE" } : { color: "#1f2937" }
+                  item.dropdown ? { color: "#DC3545" } : { color: "#1f2937" }
                 }
                 animate={item.dropdown ? { rotate: 90 } : {}}
                 initial={{ rotate: 0 }}
@@ -140,7 +149,7 @@ const NavbarItems = ({ onClick = () => {} }) => {
                             key={`ct-${index}`}
                             className="w-full"
                             style={{ cursor: "pointer" }}
-                            whileHover={{ color: "#1062FE", x: 10 }}
+                            whileHover={{ color: "#DC3545", x: 10 }}
                             onClick={() => {
                               handleItems(item.id);
                               router.push(content.link);

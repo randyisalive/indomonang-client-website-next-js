@@ -24,7 +24,9 @@ const Navbar = () => {
           <Link href={`/`} className=" flex items-center gap-3">
             <Image src={logo} alt="logo.jpg" width={40} height={40} />
 
-            <span className=" text-[20px] font-bold">JadiCRM</span>
+            <span className=" text-[20px] font-bold text-[#FBBF24]">
+              JadiCRM
+            </span>
           </Link>
           <div className="flex  items-center ">
             <SmallNavbar />

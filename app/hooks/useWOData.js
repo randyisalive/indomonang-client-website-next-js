@@ -72,6 +72,7 @@ const useWOData = () => {
               })
             );
             setWO(datas);
+
             setIsLoading(false);
           }
         }
@@ -80,7 +81,7 @@ const useWOData = () => {
       }
     };
     getData();
-  }, [accounts, query, month]);
+  }, [accounts, query]);
 
   /* // filter in wo state
   useEffect(() => {
