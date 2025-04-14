@@ -445,17 +445,12 @@ const api = () => {
 
   const WOApi = () => {
     const getWoByUserId = async (company_id) => {
-      const json_data = {
-        username: "rendi",
-        password: "rendi",
-        action: "select",
-        entity_id: 36,
-        filters: { 314: company_id },
-      };
       try {
-        const response = await fetch(base_url, {
-          method: "POST",
-          body: JSON.stringify(json_data),
+        const response = await fetch(`${api_url}/wo/company/${company_id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
         const data = await response.json();
         return data.data;
@@ -466,7 +461,13 @@ const api = () => {
     const getWoAll = async (query = "") => {
       try {
         const response = await fetch(
-          query ? `${api_url}/wo?q=${query}` : `${api_url}/wo`
+          query ? `${api_url}/wo?q=${query}` : `${api_url}/wo`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
         );
         const data = await response.json();
         return data.data;

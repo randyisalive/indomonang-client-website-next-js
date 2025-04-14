@@ -1,10 +1,21 @@
+import { headers } from "next/headers";
+
 // app/api/wo/route.js
 export async function GET(request, { params }) {
   const { company_id } = await params;
   // Set CORS headers
-  const headers = new Headers();
-  headers.set("Access-Control-Allow-Origin", "*");
   const api = process.env.BASE_URL || "Default value if not set";
+
+  // Input validation: Ensure `company_id` is valid
+  if (!company_id || typeof company_id !== "int") {
+    return new Response(
+      JSON.stringify({ message: "Invalid company_id provided" }),
+      {
+        headers: { "Content-Type": "application/json" },
+        status: 400, // Bad Request
+      }
+    );
+  }
 
   const json_data = {
     action: "select",
@@ -21,6 +32,7 @@ export async function GET(request, { params }) {
       JSON.stringify({
         data: data.data,
         status: "success",
+        headers: { "Content-Type": "application/json" },
       }),
       {
         headers,

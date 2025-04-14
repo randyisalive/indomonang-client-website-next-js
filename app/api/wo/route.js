@@ -1,13 +1,13 @@
+import { NextResponse } from "next/server";
+
 // app/api/wo/route.js
 export async function GET(request) {
   // filters query
   const { searchParams } = new URL(request.url);
   const query = searchParams.get("q");
-  console.log("query: ", query);
   // Set CORS headers
-  const headers = new Headers();
-  headers.set("Access-Control-Allow-Origin", "*");
   const api = process.env.BASE_URL || "Default value if not set";
+  const headers = new Headers();
 
   const json_data = {
     action: "select",
