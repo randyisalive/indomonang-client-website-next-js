@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import "./login.css";
 import FormControl from "@/app/components/ui/form/FormControl";
-import { signIn, signOut, useSession, SessionProvider } from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 const LoginPage = () => {
   return (
     <SessionProvider>

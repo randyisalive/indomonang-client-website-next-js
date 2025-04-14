@@ -6,7 +6,7 @@ export async function middleware(request) {
   const { pathname } = request.nextUrl;
 
   // Public routes
-  const publicPaths = ["/login", "/register"];
+  const publicPaths = ["/login", "/signup", "/view_quotation"];
 
   if (token && publicPaths.includes(pathname)) {
     return NextResponse.redirect(new URL("/", request.url));
