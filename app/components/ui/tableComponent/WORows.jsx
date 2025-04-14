@@ -29,13 +29,17 @@ const WORows = ({
 
   useEffect(() => {
     if (id) {
-      setDialogStatus(id);
+      setDialogStatus(true);
+    } else {
+      setDialogStatus(false);
     }
   }, [id]);
 
   const handleWODialog = () => {
+    const params = new URLSearchParams(searchParams);
+    params.delete("id");
     setDialogStatus((prev) => !prev);
-    router.push("/your-orders", { scroll: false });
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
   const handleWODialogRating = () => {
