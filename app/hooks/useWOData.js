@@ -22,6 +22,7 @@ const useWOData = () => {
 
   // get wo
   const [wo, setWO] = useState([]);
+  const [all_wo, setAllWo] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -79,7 +80,7 @@ const useWOData = () => {
       }
     };
     getData();
-  }, [accounts, query]);
+  }, [accounts, query, month]);
 
   /* // filter in wo state
   useEffect(() => {

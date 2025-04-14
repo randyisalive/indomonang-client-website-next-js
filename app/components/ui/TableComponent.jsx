@@ -29,7 +29,7 @@ const TableComponent = ({
   isLoading = "",
   handleRating = () => {},
 }) => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("asdas");
 
   const { dataToDisplay } = SearchTerms(datas, search, setSearch);
 
@@ -38,7 +38,7 @@ const TableComponent = ({
 
   // State for pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(20);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const selectRef = useRef(null);
   const page_selection = [
     { id: 1, value: 5 },
@@ -94,6 +94,7 @@ const TableComponent = ({
         TableType={TableType}
         setSearch={setSearch}
         form_placeholders={{ dropdown: TableType }}
+        currentRows={currentRows}
       />
       <div className="min-h-[500px] ">
         {isLoading === false ? (
@@ -174,10 +175,10 @@ const TableComponent = ({
                         <li key={index}>
                           <a
                             href="#!"
-                            className={`px-3 py-1 border rounded-md ${
+                            className={`  rounded-[8px] p-[12px] w-[40px] font-[500] d-block ${
                               index + 1 === currentPage
-                                ? "bg-blue-500 text-white"
-                                : "bg-white text-blue-500"
+                                ? "bg-[#FFEFEF] text-[#9B1D24]"
+                                : " text-[#919CA7]"
                             }`}
                             onClick={(e) => handleClick(e, index + 1)}
                           >

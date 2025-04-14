@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import WORowsDialog from "./WORows/WORowsDialog";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -21,8 +21,16 @@ const WORows = ({
     item.dialog_status_rating
   );
   const [rating, setRating] = useState(item.rating);
+  // params
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  const params = new URLSearchParams(searchParams);
+  const id = params.get("id");
+
+  useEffect(() => {
+    console.log(id);
+    console.log(dialogStatus);
+  }, [id]);
 
   const handleWODialog = () => {
     setDialogStatus(!dialogStatus);
@@ -38,11 +46,9 @@ const WORows = ({
   const handleClick = (wo_id) => {
     const params = new URLSearchParams(searchParams);
     params.set("id", wo_id);
-    console.log(pathname, params.toString());
-
+    setDialogStatus(true);
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
-  console.log(item);
 
   return (
     <>

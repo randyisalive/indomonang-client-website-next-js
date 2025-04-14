@@ -11,6 +11,7 @@ import { Message } from "primereact/message";
 import parser from "html-react-parser";
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 const WORowsDialog = ({ visible = false, onHide = () => {} }) => {
   // params
@@ -57,13 +58,16 @@ const WORowsDialog = ({ visible = false, onHide = () => {} }) => {
 
   const customizedMarker = (item) => {
     const markerColor =
-      item.status === wo_filtered[0]?.status?.name ? item.color : "#e5e7eb";
+      item.status === wo_filtered[0]?.status?.text ? item.color : "#e5e7eb";
     return (
       <span
-        className="flex p-1 align-items-center justify-content-center text-white border-circle  shadow-sm z-10"
+        className="flex w-[32px] h-[32px] rounded-full items-center justify-center text-white border-circle  shadow-sm z-10"
         style={{ backgroundColor: markerColor }}
       >
-        <i className={`${item.icon} text-xs`}></i>
+        <Image src={"/checkmark (2).png"} width={16} height={12} />
+        {/*  <i
+          className={`${item.icon} w-[24px] h-[24px]  flex items-center justify-center`}
+        ></i> */}
       </span>
     );
   };
@@ -77,13 +81,31 @@ const WORowsDialog = ({ visible = false, onHide = () => {} }) => {
 
   return (
     <Dialog
-      visible={visible}
+      visible={true}
       onHide={onHide}
-      style={{ width: "50rem", height: "50rem" }}
-      header="Transaction Detail"
-      className=" overflow-y-auto"
+      header={<p className=" text-[700] text-[28px]">Transaction Details</p>}
+      className=" overflow-y-auto flex flex-col  w-[795px] h-[680px] pt-[48px] pr-[32px] pb-[48px] pl-[32px]"
       key={id}
     >
+      <div className="flex w-full">
+        <Timeline
+          marker={customizedMarker}
+          value={events}
+          className="w-full md:w-20rem text-xs"
+          layout="horizontal"
+          content={(item) => {
+            const markerColor =
+              item.status === wo_filtered[0]?.status?.text
+                ? item.status
+                : "#e5e7eb";
+            return (
+              <p style={{ color: markerColor }} className=" text-start">
+                {item.status}
+              </p>
+            );
+          }}
+        />
+      </div>
       <div className="flex flex-col gap-1 mt-3 ">
         <motion.div
           whileHover={{ backgroundColor: "#efefef" }}
@@ -133,7 +155,7 @@ const WORowsDialog = ({ visible = false, onHide = () => {} }) => {
               <td className=" text-gray-400">Priority</td>
               <td>:</td>
 
-              <td className=" text-start">{wo_filtered[0]?.priority}</td>
+              <td className={`text-start`}>{wo_filtered[0]?.priority.text}</td>
             </tr>
             <tr>
               <td className=" text-gray-400">Ratings</td>
@@ -155,7 +177,7 @@ const WORowsDialog = ({ visible = false, onHide = () => {} }) => {
                 </td>
               )}
             </tr>
-          </table>{" "}
+          </table>
           <div className="flex w-full">
             <Timeline
               marker={customizedMarker}
@@ -164,8 +186,8 @@ const WORowsDialog = ({ visible = false, onHide = () => {} }) => {
               layout="horizontal"
               content={(item) => {
                 const markerColor =
-                  item.status === wo_filtered[0]?.status?.name
-                    ? item.color
+                  item.status === wo_filtered[0]?.status?.text
+                    ? item.status
                     : "#e5e7eb";
                 return (
                   <p style={{ color: markerColor }} className=" text-start">

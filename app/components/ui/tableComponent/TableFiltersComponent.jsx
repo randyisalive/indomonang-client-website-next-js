@@ -6,13 +6,17 @@ import { enquiry_data } from "@/app/function/static_data";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import SearchInput from "../form/SearchInput";
+import { useWoContext } from "@/app/(main)/your-orders/context/WoContext";
 
 const TableFiltersComponent = ({
   filter_data = { date: "", main_ids: "", month: "", year: "", full_date: "" },
   search = "",
   setSearch = () => {},
   TableType = "",
+  main_data = {},
+  currentRows = 0,
 }) => {
+  const { wo } = useWoContext();
   const [filter, setFilter] = useState(false);
   const [filterForm, setFilterForm] = useState(filter_data);
   const updateFilterForm = (field, value) => {
@@ -85,6 +89,11 @@ const TableFiltersComponent = ({
           })}
         </div>
       )}
+      {TableType === "wo" && (
+        <div className="w-full  flex ">
+          Showing {currentRows.length} from {wo.length} data
+        </div>
+      )}
 
       <div className="flex flex-col lg:flex-row lg:w-full  pb-3 items-center gap-3  mx-5 lg:mx-0">
         <AnimatePresence>
@@ -112,6 +121,7 @@ const TableFiltersComponent = ({
                 settings="all"
                 filterForm={filterForm}
                 updateFilterForm={updateFilterForm}
+                setSearch={setSearch}
               />
               <div className="w-full flex  relative items-center gap-2">
                 {/* <select
