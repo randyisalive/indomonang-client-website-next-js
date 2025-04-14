@@ -16,7 +16,7 @@ const WORows = ({
   role = "",
   handleRating = () => {},
 }) => {
-  const [dialogStatus, setDialogStatus] = useState(item.dialog_status);
+  const [dialogStatus, setDialogStatus] = useState(false);
   const [dialogStatusRating, setDialogStatusRating] = useState(
     item.dialog_status_rating
   );
@@ -28,13 +28,14 @@ const WORows = ({
   const id = params.get("id");
 
   useEffect(() => {
-    console.log(id);
-    console.log(dialogStatus);
+    if (id) {
+      setDialogStatus(id);
+    }
   }, [id]);
 
   const handleWODialog = () => {
-    setDialogStatus(!dialogStatus);
-    router.push("/your-orders");
+    setDialogStatus((prev) => !prev);
+    router.push("/your-orders", { scroll: false });
   };
 
   const handleWODialogRating = () => {
@@ -135,7 +136,13 @@ const WORows = ({
           />
         </td>
       </tr>
-      <WORowsDialog visible={dialogStatus} onHide={handleWODialog} />
+      {id === item.id && (
+        <WORowsDialog
+          key={`dialog-${item.id}`}
+          visible={dialogStatus}
+          onHide={handleWODialog}
+        />
+      )}
     </>
   );
 };

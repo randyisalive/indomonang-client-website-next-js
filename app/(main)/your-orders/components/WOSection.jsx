@@ -43,6 +43,7 @@ const WOSection = () => {
       {wo_card_datas.map((i) => {
         return (
           <motion.div
+            key={i.id}
             className="flex bg-white z-10 shadow overflow-clip justify-center items-center"
             style={{
               padding: "32px 24px",

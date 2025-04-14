@@ -64,7 +64,7 @@ const WORowsDialog = ({ visible = false, onHide = () => {} }) => {
         className="flex w-[32px] h-[32px] rounded-full items-center justify-center text-white border-circle  shadow-sm z-10"
         style={{ backgroundColor: markerColor }}
       >
-        <Image src={"/checkmark (2).png"} width={16} height={12} />
+        <Image src={"/checkmark (2).png"} width={16} height={12} alt="ada" />
         {/*  <i
           className={`${item.icon} w-[24px] h-[24px]  flex items-center justify-center`}
         ></i> */}
@@ -81,10 +81,10 @@ const WORowsDialog = ({ visible = false, onHide = () => {} }) => {
 
   return (
     <Dialog
-      visible={true}
+      visible={visible}
       onHide={onHide}
       header={<p className=" text-[700] text-[28px]">Transaction Details</p>}
-      className=" overflow-y-auto flex flex-col  w-[795px] h-[680px] pt-[48px] pr-[32px] pb-[48px] pl-[32px]"
+      className=" overflow-y-auto flex flex-col bg-white  w-[795px] h-[680px] pt-[48px] pr-[32px] pb-[48px] pl-[32px]"
       key={id}
     >
       <div className="flex w-full">
