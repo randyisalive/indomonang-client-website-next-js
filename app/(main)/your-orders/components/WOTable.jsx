@@ -8,11 +8,12 @@ import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 
 const WOTable = () => {
   const { wo, isLoading, handleWODialog, handleRating } = useWoContext();
+
   const { role } = useAccountDataContext();
   const th_array = [
     "No",
     "Order Date",
-    "Reference Number",
+    "Ref No",
     role === "Admin" ? "Company" : null,
     "Service",
     "Priority",

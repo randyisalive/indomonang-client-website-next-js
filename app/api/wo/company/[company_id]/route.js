@@ -7,7 +7,7 @@ export async function GET(request, { params }) {
   const api = process.env.BASE_URL || "Default value if not set";
 
   // Input validation: Ensure `company_id` is valid
-  if (!company_id || typeof company_id !== "int") {
+  if (!company_id) {
     return new Response(
       JSON.stringify({ message: "Invalid company_id provided" }),
       {

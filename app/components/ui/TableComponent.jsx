@@ -106,7 +106,7 @@ const TableComponent = ({
                     <tr>
                       {th_array.map((th, index) => (
                         <th key={index} className="pt-[8px] pb-[8px] h-[48px]">
-                          <div className="pr-[12px] pl-[12px] text-left text-base">
+                          <div className="pr-[12px] pl-[12px] text-center text-base">
                             {th}
                           </div>
                         </th>

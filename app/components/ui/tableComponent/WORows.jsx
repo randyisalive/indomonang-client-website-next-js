@@ -65,10 +65,10 @@ const WORows = ({
           {num + 1 + (currentPage - 1) * rowsPerPage}
         </td>
         <td className=" pr-[12px] pl-[12px]  text-left">{item.date_added}</td>
-        <td className="  text-center pr-[12px] pl-[12px] w-[50px]">
+        <td className="  text-center pr-[12px] pl-[12px] w-[100px]">
           <span
             onClick={() => handleClick(item.id)}
-            className=" text-blue-500 hover:underline cursor-pointer "
+            className=" text-blue-500 hover:underline cursor-pointer"
           >
             {item.ref_num}
           </span>

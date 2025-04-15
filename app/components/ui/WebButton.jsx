@@ -22,13 +22,13 @@ const WebButton = ({
               opacity: 1,
               backgroundColor: bg_color,
               color: "#ffffff",
-              fontWeight: "300",
+              fontWeight: "600",
             }
       }
       style={styles}
       className={
         !def
-          ? `border font-bold px-3 py-2 text-xs rounded-md ${className}`
+          ? `border px-3 py-2  rounded-md shadow text-[14px] font-[600] ${className}`
           : className
       }
       disabled={disabled}

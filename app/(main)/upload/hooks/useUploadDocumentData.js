@@ -90,7 +90,6 @@ const useUploadDocumentData = () => {
               customer[466],
               customer[229]
             );
-            console.log(update_client);
           } else {
             throw new Error("Client data error in Upload Document");
           }

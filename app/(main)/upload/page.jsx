@@ -5,15 +5,12 @@ import { UploadDocumentProvider } from "./context/UploadDocumentContext";
 
 const UploadPage = () => {
   return (
-    <div className="flex flex-col w-full mx-auto pt-7  sm:px-6, lg:px-0 max-w-screen-xl">
-      <HeaderComponent
-        title="Upload Document"
-        breadcrumbs_array={[
-          { id: 0, text: "Portal Home /", nav: "/" },
-          { id: 1, text: "Upload Document", nav: "/upload" },
-        ]}
-      />
-      <div className="mt-5">
+    <div
+      className="flex flex-col w-full mx-auto  gap-[24px] "
+      style={{ padding: "20px 64px" }}
+    >
+      <HeaderComponent title="Upload Document" />
+      <div>
         <UploadDocumentProvider>
           <UploadTableComponent />
         </UploadDocumentProvider>

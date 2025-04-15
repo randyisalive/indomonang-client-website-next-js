@@ -938,18 +938,10 @@ const api = () => {
 
   const RequiredDocumentApi = () => {
     const getRequiredDocumentDataByRefNum = async (ref_num) => {
-      const json_data = {
-        username: "rendi",
-        password: "rendi",
-        action: "select",
-        entity_id: 127,
-        filters: { 2258: ref_num },
-      };
       try {
-        const response = await fetch(base_url, {
-          method: "POST",
-          body: JSON.stringify(json_data),
-        });
+        const response = await fetch(
+          `${api_url}/required_document?ref_num=${ref_num}`
+        );
         const data = await response.json();
         return data.data;
       } catch (e) {

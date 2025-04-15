@@ -4,9 +4,9 @@ import React, { useState } from "react";
 const SearchBarUpload = ({ ref = "", handleRef = () => {} }) => {
   return (
     <>
-      <div className="relative lg:w-1/4 flex items-center">
+      <div className="relative  flex items-center">
         <div className="flex left-0 absolute ms-3">
-          <i className="pi pi-search"></i>
+          <i className="pi pi-search text-[#919CA7]"></i>
         </div>
         <input
           type="text"
@@ -14,7 +14,7 @@ const SearchBarUpload = ({ ref = "", handleRef = () => {} }) => {
           value={ref}
           onChange={(e) => handleRef(e)}
           placeholder="Reference Number"
-          className="pl-10 py-2 border-2 focus:border-blue-500 focus:outline-none w-full"
+          className="py-[10px] px-[38px] text-[#919CA7] shadow  focus:border-blue-500 focus:outline-none w-[320px] rounded-[8px] border border-[#EAEAEA]"
         />
       </div>
     </>

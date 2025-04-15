@@ -22,7 +22,6 @@ const useWOData = () => {
 
   // get wo
   const [wo, setWO] = useState([]);
-  const [all_wo, setAllWo] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -82,18 +81,6 @@ const useWOData = () => {
     };
     getData();
   }, [accounts, query]);
-
-  /* // filter in wo state
-  useEffect(() => {
-    if (month) {
-      const wo_month_filtered = wo.filter((i) => i.month === month);
-      setWO(wo_month_filtered);
-    } else {
-      params.set("q", "");
-    }
-
-    console.log("month filter: ", month);
-  }, [month]); */
 
   const handleWODialog = (id = 0, dialogStatus = false) => {
     setWO((prev) =>

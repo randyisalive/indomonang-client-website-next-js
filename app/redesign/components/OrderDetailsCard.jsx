@@ -1,7 +1,10 @@
+"use client";
 import { Rating } from "primereact/rating";
-import React from "react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 
-const OrderDetailsCard = () => {
+const OrderDetailsCard = ({ data = [], title = "" }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const dummy_data = [
     {
       id: 0,
@@ -29,37 +32,41 @@ const OrderDetailsCard = () => {
       ],
     },
   ];
+  const handleOpen = () => setIsOpen((prev) => !prev);
   return (
     <div
-      className="bg-white flex flex-col"
-      style={{
-        width: "978px",
-        padding: "24px 24px",
-        gap: "12px",
-        border: "1px solid #EAEAEA",
-        borderRadius: "12px",
-      }}
+      className="bg-white flex flex-col w-full rounded-[12px] ] p-[24px] gap-[12px]"
+      style={{ border: "1px solid #EAEAEA" }}
     >
       <div className="flex justify-between items-center ">
         <span className=" font-bold " style={{ fontSize: "28px" }}>
-          Order Details
+          {title}
         </span>
-        <i className="pi pi-angle-up" style={{ fontSize: "15px" }}></i>
+        <motion.i
+          initial={{ rotate: 0 }}
+          animate={{ rotate: isOpen ? 90 : 0 }}
+          className="pi pi-angle-up"
+          onClick={() => handleOpen()}
+          style={{ fontSize: "20px" }}
+        ></motion.i>
       </div>
-      <div
-        className="min-w-full flex flex-col"
+      <motion.div
+        initial={{ height: "auto" }}
+        animate={{ height: isOpen ? 0 : "auto" }}
+        exit={{ height: 0 }}
+        className="min-w-full flex flex-col overflow-y-clip"
         style={{
           backgroundColor: "#FBFBFB",
           borderRadius: "8px",
           border: "1px solid #EAEAEA",
         }}
       >
-        {dummy_data.map((i) => {
+        {data.map((i) => {
           return (
             <div
               key={i.id}
-              className="w-full flex flex-col text-base"
-              style={{ gap: "10px", padding: "12px 16px" }}
+              className="w-full flex flex-col text-base gap-[10px] py-[16px] px-[12px] overflow-hidden"
+              style={{ padding: "12px 16px" }}
             >
               {i.rows.map((x) => {
                 return (
@@ -82,7 +89,7 @@ const OrderDetailsCard = () => {
             </div>
           );
         })}
-      </div>
+      </motion.div>
     </div>
   );
 };
