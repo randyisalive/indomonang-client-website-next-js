@@ -258,7 +258,6 @@ const BillingDetail = () => {
                           </td>
                           <td className="border px-4 py-2 ">{`${item[316]}`}</td>
                         </tr>{" "}
-                        {console.log(item)}
                         <tr>
                           <td className="border px-4 py-2 font-bold">
                             Other Applicant

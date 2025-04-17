@@ -26,7 +26,7 @@ const useBillingDetailsData = () => {
   const getBillingData = async () => {
     try {
       //const payment_data = await getPaymentById(bills_array.join(","));
-      console.log(bills);
+
       const filtered_payment_data = bills.billing_data.filter((item) => {
         const ids = item.invoices_id.split(",");
         if (ids.includes(decode_id)) {
