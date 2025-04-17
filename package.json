@@ -25,6 +25,7 @@
     "next": "15.1.0",
     "next-auth": "^4.24.11",
     "node-gyp": "^11.1.0",
+    "null-loader": "^4.0.1",
     "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^3.4.120",
     "primeflex": "^3.3.1",
