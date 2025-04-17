@@ -1,4 +1,4 @@
-import Navbar from "@/app/components/Navbar";
+"use client";
 import React from "react";
 import FormSignup from "./components/FormSignup";
 import { SessionProvider } from "next-auth/react";
