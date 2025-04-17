@@ -1,11 +1,9 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import SearchTerms from "@/app/function/SearchTerms";
-import SearchInput from "./form/SearchInput";
 import BillingRows from "./tableComponent/Billing/BillingRows";
 import WORows from "./tableComponent/WORows";
-import JsonDisplay from "./JsonDisplay";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import BillingFooter from "./tableComponent/Billing/BillingFooter";
 import WOFooter from "./tableComponent/WORows/WOFooter";
 import InvoiceRows from "@/app/(main)/invoice/components/InvoiceRows";
@@ -14,7 +12,6 @@ import BillingSection from "@/app/(main)/billing/components/BillingSection";
 
 import PaymentHistorySection from "./tableComponent/Invoice (payment history)/PaymentHistorySection";
 import TableFiltersComponent from "./tableComponent/TableFiltersComponent";
-import { useSearchParams } from "next/navigation";
 import { ProgressSpinner } from "primereact/progressspinner";
 
 const TableComponent = ({

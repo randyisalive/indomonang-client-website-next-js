@@ -1,7 +1,6 @@
 import React from "react";
 import BillingTable from "./components/BillingTable";
 import HeaderComponent from "@/app/components/ui/HeaderComponent";
-import BillingSection from "./components/BillingSection";
 
 const invoicePage = () => {
   return (

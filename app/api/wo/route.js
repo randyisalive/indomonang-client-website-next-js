@@ -1,6 +1,4 @@
 import { getToken } from "next-auth/jwt";
-import { NextResponse } from "next/server";
-
 // app/api/wo/route.js
 export async function GET(request) {
   // filters query

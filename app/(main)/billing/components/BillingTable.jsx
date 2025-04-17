@@ -24,7 +24,6 @@ const BillingTable = () => {
 
   return (
     <div>
-      <JsonDisplay data={bills} />
       {isLoading === 1 ? (
         <TableComponent
           th_array={th_array}
