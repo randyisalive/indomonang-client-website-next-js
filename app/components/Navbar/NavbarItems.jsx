@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const NavbarItems = ({ onClick = () => {} }) => {
+  // router
   const navbar_data = [
     {
       id: 0,
@@ -112,7 +113,7 @@ const NavbarItems = ({ onClick = () => {} }) => {
             {item.link ? (
               <Link
                 href={item.link}
-                onClick={onClick}
+                onClick={() => router.push(item.link)}
                 className={pathname === item.link && `text-[#DC3545]`}
               >
                 {item.title}

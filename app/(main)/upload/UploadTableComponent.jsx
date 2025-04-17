@@ -12,6 +12,7 @@ import parse from "html-react-parser";
 import { Toast } from "primereact/toast";
 import { useUploadDocumentContext } from "./context/UploadDocumentContext";
 import Status from "@/app/redesign/components/Status";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const UploadTableComponent = () => {
   const {
@@ -40,6 +41,11 @@ const UploadTableComponent = () => {
 
   const [historyToggle, setHistoryToggle] = useState(true);
 
+  // router
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+
   return (
     <React.Fragment>
       <Toast ref={toastRef} />
@@ -47,7 +53,11 @@ const UploadTableComponent = () => {
       <div className="  flex gap-[12px]">
         <SearchBarUpload ref={refForm} handleRef={handleForm} />
         <WebButton
-          onClickFunction={() => getWoBtn()}
+          onClickFunction={() => {
+            const params = new URLSearchParams(searchParams);
+            params.set("rf", refForm);
+            router.push(`${pathname}?${params}`);
+          }}
           title="Search"
           bg_color="#9B1D24"
         />

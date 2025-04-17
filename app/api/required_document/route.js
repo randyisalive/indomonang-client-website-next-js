@@ -63,7 +63,8 @@ export async function GET(request) {
       const child_data = await response_2.json();
       return new Response(
         JSON.stringify({
-          data: child_data.data,
+          data: data.data,
+          child_data: child_data.data,
           status: "success",
         }),
         {

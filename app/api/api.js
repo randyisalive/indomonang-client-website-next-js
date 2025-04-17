@@ -950,8 +950,6 @@ const api = () => {
     };
     const getRequiredDocumentDataChild = async (parent_id) => {
       const json_data = {
-        username: "rendi",
-        password: "rendi",
         action: "select",
         entity_id: 128,
         filters: { parent_item_id: parent_id },

@@ -24,8 +24,6 @@ const ViewQuotationPage = () => {
   const params = useSearchParams();
   const encId = params.get("id");
 
-  console.log(quotations);
-
   useEffect(() => {
     getData();
   }, [quotations, selectedQuotation]);

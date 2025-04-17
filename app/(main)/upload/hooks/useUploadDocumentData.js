@@ -1,9 +1,15 @@
 "use client";
 import api from "@/app/api/api";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useWoContext } from "../../your-orders/context/WoContext";
 import useUploadDocumentHistory from "./useUploadDocumentHistory";
 import { useAccountSettingContext } from "@/app/admin/context/AccountSettingContext";
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 
 const useUploadDocumentData = () => {
   // api
@@ -48,11 +54,19 @@ const useUploadDocumentData = () => {
   };
 
   // function
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const rf = searchParams.get("rf");
+  const route = useRouter();
+
+  // fetch wo filteres
+
   const getWoBtn = async () => {
     try {
-      if (refForm != "") {
+      if (refForm !== undefined) {
         if (wo.length > 0) {
-          const wo_filtered = wo.filter((item) => item.ref_num === refForm);
+          // const wo_filtered = wo.filter((item) => item.ref_num === refForm);
+          const wo_filtered = wo.filter((item) => item.ref_num === rf);
           setWoData(wo_filtered);
           // get required document
           const req_document = await getRequiredDocumentDataByRefNum(refForm);
@@ -99,6 +113,10 @@ const useUploadDocumentData = () => {
       console.error(e);
     }
   };
+  useEffect(() => {
+    if (rf !== undefined && wo.length > 0) {
+    }
+  }, [rf, wo]);
 
   // file upload handler
   const readFileAsBase64 = (file) => {
