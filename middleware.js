@@ -28,5 +28,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|favicon.ico).*)"],
+  matcher: ["/((?!api|_next/static|jadicrm2.png).*)"], // middleware icon
 };
