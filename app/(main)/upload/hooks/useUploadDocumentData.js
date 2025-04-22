@@ -55,9 +55,7 @@ const useUploadDocumentData = () => {
 
   // function
   const searchParams = useSearchParams();
-  const pathname = usePathname();
   const rf = searchParams.get("rf");
-  const route = useRouter();
 
   // fetch wo filteres
 
@@ -68,22 +66,24 @@ const useUploadDocumentData = () => {
           // const wo_filtered = wo.filter((item) => item.ref_num === refForm);
           const wo_filtered = wo.filter((item) => item.ref_num === rf);
           setWoData(wo_filtered);
+
           // get required document
-          const req_document = await getRequiredDocumentDataByRefNum(refForm);
-          const req_document_child =
-            (await getRequiredDocumentDataChild(req_document[0]?.id)) ?? 0;
-          if (req_document.length == 0) {
-            setRequiredDocument([]);
-            return;
-          }
-          // parent bg_color
-          const parent_bgColor = [
-            { id: 0, name: "Open", bg_color: "#00C49A" },
-            { id: 1, name: "Waiting", bg_color: "#FFEB3B" },
-            { id: 2, name: "Submitted", bg_color: "#007BFF" },
-            { id: 3, name: "Request for Change", bg_color: "#FFEB3B" },
-          ];
-          setRequiredDocument({
+          const api = process.env.NEXT_PUBLIC_API_URL;
+          const req_document = await fetch(
+            `${api}/views/upload_document?rf=${refForm}`
+          );
+          const req_data = await req_document.json();
+          console.log(req_data);
+          setRequiredDocument(req_data);
+        }
+        // parent bg_color
+        const parent_bgColor = [
+          { id: 0, name: "Open", bg_color: "#00C49A" },
+          { id: 1, name: "Waiting", bg_color: "#FFEB3B" },
+          { id: 2, name: "Submitted", bg_color: "#007BFF" },
+          { id: 3, name: "Request for Change", bg_color: "#FFEB3B" },
+        ];
+        /* setRequiredDocument({
             data: req_document_child ?? [],
             isLoading: false,
             parent: {
@@ -93,20 +93,19 @@ const useUploadDocumentData = () => {
               )[0],
             },
             parent_id: req_document[0].id,
-          });
-          // update history data
-          getHistoryData(req_document[0].id);
+          }); */
+        // update history data
+        getHistoryData(req_document[0].id);
 
-          // update client data
-          if (req_document[0].id) {
-            const update_client = await UpdateClientData(
-              req_document[0].id,
-              customer[466],
-              customer[229]
-            );
-          } else {
-            throw new Error("Client data error in Upload Document");
-          }
+        // update client data
+        if (req_document[0].id) {
+          const update_client = await UpdateClientData(
+            req_document[0].id,
+            customer[466],
+            customer[229]
+          );
+        } else {
+          throw new Error("Client data error in Upload Document");
         }
       }
     } catch (e) {
@@ -114,9 +113,8 @@ const useUploadDocumentData = () => {
     }
   };
   useEffect(() => {
-    if (rf !== undefined && wo.length > 0) {
-    }
-  }, [rf, wo]);
+    getWoBtn();
+  }, []);
 
   // file upload handler
   const readFileAsBase64 = (file) => {

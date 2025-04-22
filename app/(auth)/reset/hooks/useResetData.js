@@ -8,8 +8,6 @@ const useResetData = () => {
   const { CustomerAccountApi } = api();
   const { getUserByEmail, updateAccountEmail } = CustomerAccountApi();
 
-  const { decKey } = useDecryptionKeyData();
-
   // user data
   const [user, setUser] = useState([]);
   const [form, setForm] = useState({ email: "" });
@@ -19,29 +17,33 @@ const useResetData = () => {
   const [message, setMessage] = useState({ message: "", severity: "" });
   const [isLoading, setIsLoading] = useState(0);
   const ResetPassword = async () => {
-    setIsLoading(0);
+    const api = process.env.NEXT_PUBLIC_API_URL;
+    setIsLoading(1);
     try {
-      const user_data = await getUserByEmail(form.email);
-      if (user_data.length == 0) {
-        setMessage({ message: "Account Not Found!", severity: "error" });
-        return;
-      }
-      const update_recovery = await updateAccountEmail(
-        user_data[0]?.id,
-        user_data[0]?.[2634] === "No" ? "true" : "false",
-        encryptMessage(user_data[0]?.id, decKey)
-      );
-      if (user_data.length === 1 || form.email != "") {
+      // get user data
+      // const user_data = await getUserByEmail(form.email);
+      const reset_password = await fetch(`${api}/views/reset_password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: form.email }),
+      });
+      const reset_password_data = await reset_password.json();
+
+      if (reset_password_data.status) {
         setMessage({
-          message: `Reset password link sent to ${user_data[0][2616]} email`,
+          message: `Reset password link sent to email`,
           severity: "success",
         });
         setIsLoading(2);
       } else {
-        setMessage({ message: "Form is not filled!", severity: "error" });
         setTimeout(() => {
           setIsLoading(0);
-          //setMessage({ message: "", severity: "" });
+          setMessage({
+            message: `Account not found for that particular email!`,
+            severity: "error",
+          });
         }, 2000);
       }
     } catch (e) {

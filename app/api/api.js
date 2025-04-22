@@ -1,3 +1,4 @@
+import { getSession } from "next-auth/react";
 import { formatDate } from "../function/formatDate";
 import { base_url } from "./base_url";
 
@@ -20,7 +21,14 @@ const api = () => {
     const getUserByEmail = async (email) => {
       try {
         const response = await fetch(
-          `${api_url}/decryption_key/get_user_by_email`
+          `${api_url}/decryption_key/get_user_by_email`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: email }),
+          }
         );
         const data = await response.json();
         return data.data;
@@ -330,24 +338,14 @@ const api = () => {
         console.error(e);
       }
     };
-    const changePassword = async (id, value) => {
-      const json_data = {
-        username: "rendi",
-        password: "rendi",
-        action: "update",
-        entity_id: 154,
-        data: {
-          field_2615: value,
-        },
-        update_by_field: { id: id },
-      };
+    const changePassword = async (password) => {
       try {
-        const response = await fetch(base_url, {
+        const response = await fetch(`${api}/views/reset_password/change`, {
           method: "POST",
-          body: JSON.stringify(json_data),
+          body: JSON.stringify({ password: password }),
         });
         const data = await response.json();
-        return data.data;
+        return data;
       } catch (e) {
         console.error(e);
       }

@@ -1,7 +1,7 @@
+"use client";
 import api from "@/app/api/api";
-import { decryptMessage, handleHashPassword } from "@/app/function/decryptor";
+import { handleHashPassword } from "@/app/function/decryptor";
 import { getLocalStorage } from "@/app/function/getLocalStorage";
-import useDecryptionKeyData from "@/app/hooks/useDecryptionKeyData";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -11,19 +11,32 @@ const useFormChangePasswordData = () => {
   const { changePassword } = CustomerAccountApi();
 
   // params
-  const { decKey } = useDecryptionKeyData();
   const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  const token = params.get("key");
+  const [expiredMsg, setExpiredMsg] = useState(false);
+
   const [user_id, setUserId] = useState(0);
 
+  // validation expiration
   useEffect(() => {
-    const key = decodeURIComponent(searchParams.get("key")).replace(/ /g, "+");
-    if (key) {
-      const x = decryptMessage(key, decKey);
-      if (x) {
-        setUserId(x);
+    const validate = async () => {
+      const fetch_data = await fetch(
+        `${
+          process.env.NEXT_PUBLIC_API_URL
+        }/views/reset_password/validate_link?token=${token}&validation=${true}`
+      );
+      const data = await fetch_data.json();
+      console.log(data);
+      if (!data.status) {
+        setExpiredMsg(true);
+        // window.location.href = "/reset";
       }
+    };
+    if (token) {
+      validate();
     }
-  }, [decKey]);
+  }, [token]);
 
   // form
   const [form, setForm] = useState({ new: "", confirm: "" });
@@ -51,15 +64,23 @@ const useFormChangePasswordData = () => {
   // change password
   const [message, setMessage] = useState("");
   const change_password = async () => {
+    const api = process.env.NEXT_PUBLIC_API_URL;
     try {
       if (form.confirm === form.new) {
         if (form.new.length < 8) {
           setMessage("Password at least 8 characters");
           return;
         }
-        const hashed_password = handleHashPassword(form.confirm);
-        const change = await changePassword(user_id, hashed_password);
-        if (change) {
+        //const hashed_password = handleHashPassword(form.confirm);
+        const fetch_data = await fetch(`${api}/views/reset_password/change`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ password: form.confirm }),
+        });
+        const data = await fetch_data.json();
+        if (data.status) {
           window.location.href = "/login";
         } else {
           throw new Error("Error, something gone wrong🤦‍♂️");
@@ -88,6 +109,7 @@ const useFormChangePasswordData = () => {
     handleForm,
     message,
     change_password,
+    expiredMsg,
   };
 };
 

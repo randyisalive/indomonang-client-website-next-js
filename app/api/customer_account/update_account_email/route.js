@@ -1,48 +1,23 @@
 import { getToken } from "next-auth/jwt";
 
 // app/api/wo/route.js
-export async function GET(request) {
+export async function POST(request) {
+  //
   // filters query
-  const { searchParams } = new URL(request.url);
+
   const token = await getToken({ req: request });
 
-  const query = searchParams.get("ref_num");
   // Set CORS headers
   const api = process.env.BASE_URL || "Default value if not set";
   const headers = new Headers();
 
-  // check authentication
-
-  if (!token) {
-    return new Response(
-      JSON.stringify({
-        msg: "Need Authentication",
-        status: "error",
-      }),
-      {
-        headers,
-        status: 200,
-      }
-    );
-  }
-
-  if (!query) {
-    return new Response(
-      JSON.stringify({
-        msg: "Query not avaliable",
-        status: "error",
-      }),
-      {
-        headers,
-        status: 200,
-      }
-    );
-  }
-
   const json_data = {
-    action: "select",
-    entity_id: 127,
-    ...(query !== null ? { filters: { 2258: query } } : {}),
+    action: "update",
+    entity_id: 154,
+    data: {
+      field_3437: token,
+    },
+    update_by_field: { id: id },
   };
   try {
     const response = await fetch(api, {

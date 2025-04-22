@@ -3,15 +3,18 @@ import { NextResponse } from "next/server";
 
 export async function middleware(request) {
   // headers
-  const headers = new Headers();
-  headers.set("Access-Control-Allow-Origin", "*");
-  headers.set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  headers.set("Access-Control-Allow-Headers", "Content-Type");
+
   const token = await getToken({ req: request });
   const { pathname } = request.nextUrl;
 
   // Public routes
-  const publicPaths = ["/login", "/signup", "/view_quotation"];
+  const publicPaths = [
+    "/login",
+    "/signup",
+    "/view_quotation",
+    "/reset/change",
+    "/reset",
+  ];
 
   if (token && publicPaths.includes(pathname)) {
     return NextResponse.redirect(new URL("/", request.url));

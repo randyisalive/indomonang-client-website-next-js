@@ -1,12 +1,14 @@
 // app/api/decryption_key/get_user_by_email/route.js
-export async function GET(request) {
+export async function POST(request) {
+  // token
+  const token = process.env.ENCRYPTION_KEY;
   // Set CORS headers
   const headers = new Headers();
-  headers.set("Access-Control-Allow-Origin", "*");
-  const { searchParams } = new URL(request.url);
-  const email = searchParams.get("email");
+  const header_token = headers.get("Authorization");
+  const body = await request.json();
+  const email = body.email;
 
-  if (!email) {
+  if (!email && token != header_token.startsWith("Bearer ")) {
     return Response.json(
       {
         status: "error",

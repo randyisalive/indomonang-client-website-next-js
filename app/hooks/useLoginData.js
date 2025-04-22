@@ -8,17 +8,8 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 const useLoginData = () => {
   // session data
-  const sessionData = useSession();
 
-  const { CustomerAccountApi, DecryptionKeyApi } = api();
-  const {
-    getUserByEmail,
-    insertLoginToken,
-    getLoginTokenByUser,
-    getAllLoginToken,
-    insertFailedLogin,
-  } = CustomerAccountApi();
-  const { getDecryptionKey } = DecryptionKeyApi();
+  const { DecryptionKeyApi } = api();
 
   const nav = useRouter();
   useEffect(() => {
@@ -38,82 +29,11 @@ const useLoginData = () => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  /*  const getData = async () => {
-    try {
-      setIsLoading(1);
-      if (form.email) {
-        const user_data = await getUserByEmail(form.email);
-        if (user_data.length == 0) {
-          setMessage("No Account Found!");
-          setIsLoading(2);
-          setForm({});
-          return;
-        }
-        if (user_data && user_data.length > 0) {
-          const id = user_data[0]["id"];
-          const password = user_data[0][2615];
-          const role = user_data[0][2628];
-          const login_status = await checkPassword(form.password, password);
-          if (login_status) {
-            const keyDecrypt = await getDecryptionKey();
-            if (keyDecrypt[0][2644] !== "") {
-              const insertToken = await insertLoginToken(
-                id,
-                encryptMessage(keyDecrypt[0][2644], keyDecrypt[0][2644])
-              );
-              const TokenUser = await getLoginTokenByUser(id);
-              const random_number = Math.floor(
-                Math.random() * TokenUser.length
-              );
-              localStorage.setItem("authToken", TokenUser[random_number][2734]);
-              localStorage.setItem(
-                "id",
-                encryptMessage(id, keyDecrypt[0][2644])
-              );
-              localStorage.setItem(
-                "r",
-                encryptMessage(role, keyDecrypt[0][2644])
-              );
-              const token = localStorage.getItem("authToken");
-              if (token) {
-                const all_token = await getAllLoginToken();
-                const filtersAllToken = all_token.filter(
-                  (item) => item[2734] === token
-                );
-                const login_status_success = await insertFailedLogin(id, "627");
-                console.log(login_status_success);
-                if (filtersAllToken.length > 0) {
-                  // nav.push("/");
-                  window.location.href = "/";
-                } else {
-                  console.log("No matching token found");
-                }
-              } else {
-                console.log("Token is empty");
-              }
-            }
-          } else {
-            setMessage("Wrong Credentials!");
-            const login_status_failed = await insertFailedLogin(id, "628");
-            console.log(login_status_failed);
-            setIsLoading(2);
-          }
-        }
-      } else {
-        setMessage("Form not filled!");
-        setIsLoading(2);
-        setForm({});
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  }; */
-
   useEffect(() => {
     const handleKeyPress = async (event) => {
       if (event.key === "Enter") {
         event.preventDefault(); // Prevent default form submission
-        await getData();
+        await handleSubmit(event);
       }
     };
 
@@ -130,14 +50,19 @@ const useLoginData = () => {
   }, [form, users]);
 
   const handleSubmit = async (e) => {
+    setIsLoading(1);
+
     const result = await signIn("credentials", {
       redirect: false,
       email: form.email,
       password: form.password,
     });
-    console.log(result);
     if (result.status === 401) {
-      alert("Login failed: " + result.error);
+      setIsLoading(2);
+      setMessage("Login Failed!");
+      setTimeout(() => {
+        setIsLoading(0);
+      }, 3000);
     } else {
       window.location.href = "/"; // Redirect after successful login
     }
@@ -146,7 +71,6 @@ const useLoginData = () => {
   return {
     handleForm,
     form,
-    /*  handleLogin: getData, */
     handleSubmit,
     users,
     isLoading,

@@ -16,6 +16,7 @@ const FormChangePassword = () => {
     handleForm,
     message,
     change_password,
+    expiredMsg,
   } = useFormChangePasswordData();
   const [visible, setVisible] = useState(false);
   const [copySuccess, setCopySuccess] = useState("");
@@ -44,8 +45,21 @@ const FormChangePassword = () => {
     );
   };
 
+  // expired dialog
+
   return (
-    <div className=" text-xs p-2 flex flex-col gap-2">
+    <div className="  flex flex-col gap-[16px]">
+      <Dialog visible={expiredMsg} closable={false} className="w-fit h-fit">
+        <div className="flex flex-col gap-[8px]">
+          <Message severity="error" text="Reset Password Link Has Expires" />
+          <WebButton
+            title="Return Home"
+            onClickFunction={() => {
+              window.location.href = "/reset";
+            }}
+          />
+        </div>
+      </Dialog>
       <Toast ref={toastRef} />
       <Form
         title="New Password"
@@ -58,8 +72,8 @@ const FormChangePassword = () => {
       <div>
         <WebButton
           title={
-            <div className=" flex gap-2">
-              <i className="pi pi-sync"></i>
+            <div className=" flex gap-2 text-[14px] items-center justify-center">
+              <i className="pi pi-sync text-[14px]"></i>
               <span>Generate Password</span>
             </div>
           }
@@ -71,7 +85,7 @@ const FormChangePassword = () => {
             type="password"
             name="confirm"
             value={form.confirm}
-            placeholder=""
+            placeholder="Re-input your new password"
             onChange={(e) => handleForm(e)}
           />
           {message && (
@@ -80,9 +94,9 @@ const FormChangePassword = () => {
             </div>
           )}
         </div>
-        <div className="mt-3 w-full">
+        <div className="my-5 w-full">
           <WebButton
-            title="Save Changes"
+            title="Save Password"
             className={"w-full"}
             onClickFunction={() => change_password()}
           />

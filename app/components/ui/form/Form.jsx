@@ -22,13 +22,13 @@ const Form = ({
   return (
     <div className={`flex flex-col gap-[16px]  ${className}`}>
       <div className="flex  justify-between">
-        <span className="text-sm " style={{ color: "#919CA7" }}>
+        <span className="text-[14px] font-[500] " style={{ color: "#919CA7" }}>
           {title}
         </span>
         {subtitle != "" ? (
           <Link
             href={subLink}
-            className=" text-[#9B1D24] font-[500] cursor-pointer text-sm hover:underline"
+            className=" text-[#9B1D24] font-[500] cursor-pointer text-[14px] hover:underline"
           >
             {subtitle}
           </Link>
@@ -38,7 +38,7 @@ const Form = ({
         <input
           type={!eye ? type : "text"}
           name={name}
-          className="p-3 text-sm w-full rounded-[8px] pt-[16px] pr-[14px] pb-[16px] pl-[14px] border border-[#D5D7DA] focus:outline-none focus:border-blue-600"
+          className="p-3 text-sm w-full rounded-[8px] pt-[16px] pr-[14px] pb-[16px] pl-[14px] border border-[#D5D7DA] shadow focus:outline-none focus:border-blue-600"
           placeholder={placeholder}
           onChange={onChange}
           value={value}

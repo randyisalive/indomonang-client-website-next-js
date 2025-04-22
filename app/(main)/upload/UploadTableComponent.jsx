@@ -57,6 +57,7 @@ const UploadTableComponent = () => {
             const params = new URLSearchParams(searchParams);
             params.set("rf", refForm);
             router.push(`${pathname}?${params}`);
+            getWoBtn();
           }}
           title="Search"
           bg_color="#9B1D24"

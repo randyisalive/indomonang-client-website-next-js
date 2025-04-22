@@ -3,17 +3,14 @@ import React, { useEffect } from "react";
 import "./login.css";
 import FormControl from "@/app/components/ui/form/FormControl";
 import { SessionProvider } from "next-auth/react";
+
 const LoginPage = () => {
   return (
     <SessionProvider>
       <div className="flex h-screen justify-center items-center">
-        <div className="  justify-center items-center flex w-1/2  ">
+        <div className="  justify-center items-center flex w-full  ">
           <FormControl title="Secure Client Login" logo="/jadicrm2.png" />
         </div>
-        <div
-          className="w-1/2 h-full text-white text-3xl hidden lg:block"
-          style={{ backgroundColor: "#D9D9D9" }}
-        ></div>
       </div>
     </SessionProvider>
   );
