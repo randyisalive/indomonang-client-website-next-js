@@ -12,10 +12,8 @@ const SearchBarUpload = ({ ref = "", handleRef = () => {} }) => {
           <i className="pi pi-search text-[#919CA7]"></i>
         </div>
         <input
-          data-pr-tooltip="No notifications"
+          data-pr-tooltip="Please enter your project reference number in the field"
           data-pr-position="right"
-          data-pr-at="top"
-          data-pr-my="left center-2"
           type="text"
           name={"upload"}
           value={ref}
