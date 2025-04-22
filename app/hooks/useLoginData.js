@@ -62,7 +62,7 @@ const useLoginData = () => {
       setMessage("Login Failed!");
       setTimeout(() => {
         setIsLoading(0);
-      }, 3000);
+      }, 5000);
     } else {
       window.location.href = "/"; // Redirect after successful login
     }

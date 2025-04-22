@@ -6,7 +6,7 @@ export async function POST(request) {
   // post params
   const { email } = await request.json();
   const secret = process.env.NEXTAUTH_SECRET;
-  const token = jwt.sign({ email }, secret, { expiresIn: "10s" }); // 10 mins range
+  const token = jwt.sign({ email }, secret, { expiresIn: "1m" }); // 10 mins range
 
   // Set CORS headers
   const api = process.env.BASE_URL || "Default value if not set";

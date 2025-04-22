@@ -49,7 +49,6 @@ const UploadTableComponent = () => {
   return (
     <React.Fragment>
       <Toast ref={toastRef} />
-
       <div className="  flex gap-[12px]">
         <SearchBarUpload ref={refForm} handleRef={handleForm} />
         <WebButton
@@ -63,7 +62,9 @@ const UploadTableComponent = () => {
           bg_color="#9B1D24"
         />
       </div>
-
+      <div className="text-[14px] py-2 opacity-70">
+        Please enter your project reference number in the field
+      </div>
       <AnimatePresence>
         {woData.length > 0 && (
           <>
