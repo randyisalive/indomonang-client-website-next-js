@@ -1545,20 +1545,13 @@ const api = () => {
   };
   const RecentNewsApi = () => {
     const getRecentNewsAll = async (limit = 3) => {
-      const json_data = {
-        username: "rendi",
-        password: "rendi",
-        action: "select",
-        entity_id: 169,
-        limit: limit,
-      };
       try {
-        const response = await fetch(base_url, {
+        const response = await fetch(`${api_url}/models/recent_news`, {
           method: "POST",
-          body: JSON.stringify(json_data),
+          body: JSON.stringify({ limit: limit }),
         });
         const data = await response.json();
-        return data.data;
+        return data;
       } catch (e) {
         console.error(e);
       }

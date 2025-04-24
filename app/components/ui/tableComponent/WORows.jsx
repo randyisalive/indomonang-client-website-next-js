@@ -73,9 +73,7 @@ const WORows = ({
             {item.ref_num}
           </span>
         </td>
-        {role === "Admin" ? (
-          <td className=" text-left  pr-[12px] pl-[12px]">{item.company}</td>
-        ) : null}
+
         <td className="  text-left  pr-[12px] pl-[12px] w-[300px] text-[14px]">
           {item.service}
         </td>

@@ -64,7 +64,7 @@ const ProfileDropdown = () => {
           style={{ gap: "10px" }}
         >
           <img
-            src={`${accounts.profile_picture?.content}`}
+            src={`${accounts.data?.profile_picture?.content}`}
             alt="profile_picture.jpg"
             style={{
               borderRadius: "50%",
@@ -72,7 +72,9 @@ const ProfileDropdown = () => {
               width: "32px",
             }}
           />
-          <p className=" font-bold whitespace-nowrap">{accounts.username}</p>
+          <p className=" font-bold whitespace-nowrap">
+            {accounts.data?.username}
+          </p>
         </div>
         <div className="flex items-center" style={{ gap: "10px" }}>
           <motion.i

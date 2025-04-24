@@ -9,12 +9,11 @@ import { useAccountDataContext } from "@/app/admin/context/AccountDataContext";
 const WOTable = () => {
   const { wo, isLoading, handleWODialog, handleRating } = useWoContext();
 
-  const { role } = useAccountDataContext();
+  const { accounts } = useAccountDataContext();
   const th_array = [
     "No",
     "Order Date",
     "Ref No",
-    role === "Admin" ? "Company" : null,
     "Service",
     "Priority",
     "Applicant",
@@ -31,9 +30,9 @@ const WOTable = () => {
     <div className="text-center sm:m-0">
       <TableComponent
         th_array={th_array}
-        datas={wo}
+        datas={wo.data}
         TableType="wo"
-        role={role}
+        role={accounts.data?.role}
         search_text={searchText.filter(Boolean).join(",")}
         dialogOnChange={handleWODialog}
         handleRating={handleRating}

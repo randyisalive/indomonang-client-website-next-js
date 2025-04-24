@@ -30,8 +30,8 @@ const WORowsDialog = ({ visible = false, onHide = () => {} }) => {
     { id: 3, text: "Canceled", bg_color: "#B6244F" },
   ];
 
-  const wo_filtered = wo.filter((item) => item.id == id);
-  console.log(filteredCourier);
+  const wo_filtered = wo.data?.filter((item) => item.id == id);
+
   const events = [
     {
       status: "Open",
@@ -75,13 +75,6 @@ const WORowsDialog = ({ visible = false, onHide = () => {} }) => {
       </span>
     );
   };
-
-  // dropdown
-  const [dropdown, setDropdown] = useState({
-    order: false,
-    applicant: false,
-    delivery: false,
-  });
 
   // card dialog data
   const order_details = [

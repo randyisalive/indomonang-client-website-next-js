@@ -23,7 +23,7 @@ const BillingTable = () => {
 
   return (
     <div>
-      {isLoading === 1 ? (
+      {isLoading === 0 ? (
         <TableComponent
           th_array={th_array}
           datas={unpaid_invoice}
