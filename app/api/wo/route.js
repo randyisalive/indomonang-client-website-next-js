@@ -26,6 +26,9 @@ export async function GET(request) {
   }
 
   const json_data = {
+    key: process.env.API_KEY,
+    username: process.env.API_USERNAME,
+    password: process.env.API_PASSWORD,
     action: "select",
     entity_id: 36,
     ...(query !== null ? { filters: { 311: query } } : {}),

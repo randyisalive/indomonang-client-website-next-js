@@ -77,7 +77,11 @@ const useInvoiceData = () => {
                 ].includes(item.status)
               );
 
-              setInvoice(filtered_invoice);
+              setInvoice({
+                data: filtered_invoice,
+                status: invoice_data.status,
+              });
+              console.log(invoice);
             }
           }
         }

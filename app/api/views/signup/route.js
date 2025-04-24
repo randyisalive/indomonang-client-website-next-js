@@ -1,17 +1,18 @@
 import { NextResponse } from "next/server";
 
-// app/api/customer_account/route.js
-export async function GET(request) {
-  // Set CORS headers
-
+export async function POST(request) {
+  // POST request
+  const { email } = await request.json();
+  console.log(email);
   const api = process.env.BASE_URL || "Default value if not set";
   const json_data = {
     key: process.env.API_KEY,
     username: process.env.API_USERNAME,
     password: process.env.API_PASSWORD,
     action: "select",
-    entity_id: 156,
-    select_fields: "2644",
+    entity_id: 154,
+    select_fields: "2616",
+    filters: { 2616: email },
   };
   try {
     const response = await fetch(api, {
@@ -19,6 +20,8 @@ export async function GET(request) {
       body: JSON.stringify(json_data),
     });
     const data = await response.json();
+    console.log(data);
+
     // Return both the env variable and your JSON data
     return NextResponse.json({
       data: data.data,

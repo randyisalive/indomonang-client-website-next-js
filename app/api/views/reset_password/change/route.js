@@ -15,6 +15,9 @@ export async function POST(request) {
 
   // get user by email
   const user_json = {
+    key: process.env.API_KEY,
+    username: process.env.API_USERNAME,
+    password: process.env.API_PASSWORD,
     action: "select",
     entity_id: 154,
     filters: { 3437: key },
@@ -30,6 +33,9 @@ export async function POST(request) {
     // update password
     const hashedPassword = await bcrypt.hash(password, 10);
     const update_password_json = {
+      key: process.env.API_KEY,
+      username: process.env.API_USERNAME,
+      password: process.env.API_PASSWORD,
       action: "update",
       entity_id: 154,
       data: {

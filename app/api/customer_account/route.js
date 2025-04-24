@@ -5,6 +5,9 @@ export async function GET(request) {
   headers.set("Access-Control-Allow-Origin", "*");
   const api = process.env.BASE_URL || "Default value if not set";
   const json_data = {
+    key: process.env.API_KEY,
+    username: process.env.API_USERNAME,
+    password: process.env.API_PASSWORD,
     action: "select",
     entity_id: 156,
     select_fields: "2644",

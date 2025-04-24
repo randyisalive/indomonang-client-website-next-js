@@ -28,17 +28,18 @@ const useWOData = () => {
     const getData = async () => {
       setIsLoading(true);
       try {
-        if (accounts.id) {
-          const company_id = await getCompanyById(accounts.id);
-          if (company_id.length > 0) {
+        if (accounts) {
+          const company_data = await getCompanyById(accounts?.data?.company_id);
+          console.log("Company Data: ", company_data);
+          if (company_data?.data?.length > 0) {
             let wo_data;
-            if (accounts.role === "Client") {
+            if (accounts.data.role == "Client") {
               wo_data = await getWoByUserId(company_id[0]["2630_db_value"]);
-            } else if (accounts.role === "Admin") {
-              wo_data = await getWoAll(query);
+            } else if (accounts.data.role == "Admin") {
+              wo_data = await getWoAll(accounts?.data?.role, query);
             }
             const datas = await Promise.all(
-              wo_data.map(async (item) => {
+              wo_data.data.map(async (item) => {
                 const status_name = enquiry_data.filter(
                   (x) => x.text === item[2138]
                 );
@@ -70,7 +71,7 @@ const useWOData = () => {
                 };
               })
             );
-            setWO(datas);
+            setWO({ data: datas, status: wo_data.status });
 
             setIsLoading(false);
           }
@@ -101,7 +102,7 @@ const useWOData = () => {
     }
   };
 
-  return { wo, isLoading, handleWODialog, handleRating };
+  return { wo, isLoading, handleWODialog, handleRating, accounts };
 };
 
 export default useWOData;

@@ -25,20 +25,20 @@ function useAccountsData() {
           const role = sessions.user.role;
 
           if (user_id) {
-            const accounts = await getAccountById(user_id);
-            const last_login = await getLastLoginAllByParentId(user_id);
-            const profile_picture = await getProfilePictureById(user_id);
+            const accounts_data = await getAccountById(user_id);
+            // const last_login = await getLastLoginAllByParentId(user_id);
+            console.log(accounts_data);
 
-            if (accounts.length === 0) {
+            if (accounts_data.data.length === 0) {
               throw new Error("No accounts found");
             }
 
-            if (last_login.length === 0) {
+            /*  if (last_login.data.length === 0) {
               throw new Error("No login records found");
-            }
+            } */
 
-            const data_list = accounts.map((item) => {
-              const userLastLogin = last_login
+            const data_list = accounts_data.data.map((item) => {
+              /* const userLastLogin = last_login
                 .filter((x) => x.parent_item_id === item.id)
                 .map((last) => {
                   return {
@@ -46,13 +46,16 @@ function useAccountsData() {
                     date: last[2694],
                     login_status: last[2695],
                   };
-                });
+                }); */
 
               const status_color = [
                 { id: 0, text: "Not Verified", color: "#FFEB3B" },
                 { id: 1, text: "Active", color: "#00C49A" },
                 { id: 2, text: "Inactive", color: "#BFC9CA" },
               ];
+
+              const picture = accounts_data.profile_picture_data.content;
+              const filename = accounts_data.profile_picture_data.filename;
 
               return {
                 id: item.id,
@@ -64,16 +67,18 @@ function useAccountsData() {
                 role: role,
                 company: item[2630],
                 company_id: item["2630_db_value"],
-                lastLogin: userLastLogin.length > 0 ? userLastLogin : [],
+                //lastLogin: userLastLogin.length > 0 ? userLastLogin : [],
                 status_controller: item[2618],
                 profile_picture: {
-                  content: `data:image/jpg;base64,${profile_picture?.content}`,
-                  filename: profile_picture?.filename,
-                  content_base: profile_picture?.content,
+                  content: `data:image/jpg;base64,${picture}`,
+                  filename: filename,
+                  content_base: picture,
                 },
               };
             });
-            setAccounts(data_list[0]);
+
+            setAccounts({ data: data_list[0], status: accounts_data.status });
+            console.log("Account data: ", accounts);
             setIsLoading(1);
           }
         }

@@ -14,8 +14,8 @@ const useActiveProductsData = () => {
 
   const getData = async () => {
     try {
-      if (accounts.id && wo.length > 0) {
-        const wo_sort = wo.sort((a, b) => b[306] - a[306]);
+      if (accounts?.data?.id && wo?.data?.length > 0) {
+        const wo_sort = wo.data.sort((a, b) => b[306] - a[306]);
         setActiveProducts(wo_sort.slice(0, 5));
         setIsLoading(1);
       } else {
@@ -28,7 +28,8 @@ const useActiveProductsData = () => {
 
   useEffect(() => {
     getData();
-  }, [accounts.id, role, wo]);
+    console.log(accounts);
+  }, [accounts, role, wo]);
 
   return { activeProduct, isLoading, role };
 };

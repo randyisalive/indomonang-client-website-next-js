@@ -3,10 +3,8 @@ import React from "react";
 import Form from "./Form";
 import WebButton from "../WebButton";
 import useLoginData from "@/app/hooks/useLoginData";
-import { Message } from "primereact/message";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { AnimatePresence, motion } from "framer-motion";
-import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import jadicrm from "../../../../public/jadicrm2.png";
 import exclamation from "../../../../public/icon-exclamation.png";
@@ -83,9 +81,7 @@ const FormControl = ({ children, title = "", className = {}, logo = "" }) => {
                   height={20}
                   alt="exclamation.png"
                 />{" "}
-                <span className="text-[#9B1D24]">
-                  You’ve entered wrong password for this account
-                </span>
+                <span className="text-[#9B1D24] text-[10px]">{message}</span>
               </motion.div>
             </>
           ) : null}

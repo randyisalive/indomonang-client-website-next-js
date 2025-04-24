@@ -10,45 +10,45 @@ const useHomeCardContainerData = () => {
   const { getWoByUserId, getWoAll } = WOApi();
   const { getInvoiceByWo } = InvoiceApi();
   const { getAccountById } = CustomerAccountApi();
-  const { getTicketsByUserId, getTicketsAll } = TicketsApi();
+  // const { getTicketsByUserId, getTicketsAll } = TicketsApi();
 
-  // decryption
+  // parameters
   const { accounts, role } = useAccountDataContext();
   const { wo } = useWoContext();
 
   // get data
   const [cardData, setCardData] = useState([]);
   const [isLoading, setIsLoading] = useState(0);
+
   const getData = async () => {
     try {
-      if (accounts.id) {
-        const finished_order = wo.filter(
+      if (accounts.data.id && wo.data.length > 0) {
+        const finished_order = wo.data.filter(
           (item) => item.status?.text === "Finished"
         ).length;
 
-        const wo_array = wo.map((item) => {
+        const wo_array = wo.data.map((item) => {
           return item.id;
         });
-        const onGoingOrder = wo.filter((item) =>
+        const onGoingOrder = wo.data.filter((item) =>
           ["Open", "Drafting", "Checking", "Processing"].includes(
             item.status?.text
           )
         ).length;
         let unpaid_invoices = 0;
+
         if (wo_array.length > 0) {
           const invoice_data = await getInvoiceByWo(wo_array.join(","));
+          console.log("invoice home:", invoice_data);
 
-          unpaid_invoices = invoice_data.filter((item) =>
+          unpaid_invoices = invoice_data.data.filter((item) =>
             ["Arrived to Client"].includes(item[1905])
           ).length;
-          console.log(
-            invoice_data.filter((item) =>
-              ["Arrived to Client"].includes(item[1905])
-            )
-          );
+        } else {
+          unpaid_invoices = 0;
         }
 
-        let tickets_data;
+        /* let tickets_data;
         if (role === "Admin") {
           tickets_data = await getTicketsAll();
         } else {
@@ -56,7 +56,7 @@ const useHomeCardContainerData = () => {
         }
         const tickets_filtered = tickets_data.map((item) =>
           ["Open", "On Progress"].includes(item[2467])
-        ).length;
+        ).length; */
         const card_data = [
           {
             id: 0,
@@ -96,13 +96,44 @@ const useHomeCardContainerData = () => {
         setIsLoading(1);
       }
     } catch (e) {
+      const card_data = [
+        {
+          id: 0,
+          count: 0,
+          sub: "Finish Orders",
+          link: "/your-orders",
+          font_color: "#008000",
+          color: "#E3FFE3",
+          icon: "/checkmark.png",
+        },
+        {
+          id: 1,
+          count: 0,
+          sub: "Unpaid Invoices",
+          font_color: "#BF0603",
+          link: "/billing",
+          color: "#FCF4F4",
+          icon: "/unpaid_invoices.png",
+        },
+        {
+          id: 2,
+          count: 0,
+          sub: "On-going Orders",
+          font_color: "#FEC53D",
+          color: "#FFFAEF",
+          link: "/your-orders",
+          icon: "/orders.png",
+        },
+      ];
+      setCardData(card_data);
+      setIsLoading(1);
       console.error(e);
     }
   };
 
   useEffect(() => {
     getData();
-  }, [accounts.id, wo, role]);
+  }, [accounts, wo, role]);
 
   return { cardData, isLoading, role, accounts };
 };

@@ -6,13 +6,16 @@ export async function POST(request) {
   // post params
   const { email } = await request.json();
   const secret = process.env.NEXTAUTH_SECRET;
-  const token = jwt.sign({ email }, secret, { expiresIn: "1m" }); // 10 mins range
+  const token = jwt.sign({ email }, secret, { expiresIn: "1m" }); // 1 mins expiration time for token
 
   // Set CORS headers
   const api = process.env.BASE_URL || "Default value if not set";
 
   // get user by email
   const user_json = {
+    key: process.env.API_KEY,
+    username: process.env.API_USERNAME,
+    password: process.env.API_PASSWORD,
     action: "select",
     entity_id: 154,
     filters: { 2616: email },
@@ -28,6 +31,9 @@ export async function POST(request) {
     // check authentication
 
     const json_data = {
+      key: process.env.API_KEY,
+      username: process.env.API_USERNAME,
+      password: process.env.API_PASSWORD,
       action: "update",
       entity_id: 154,
       data: {

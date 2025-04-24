@@ -19,6 +19,9 @@ export async function POST(request) {
   }
   const api = process.env.BASE_URL || "Default value if not set";
   const json_data = {
+    key: process.env.API_KEY,
+    username: process.env.API_USERNAME,
+    password: process.env.API_PASSWORD,
     action: "select",
     entity_id: 154,
     filters: { 2616: email },

@@ -19,6 +19,16 @@ const useResetData = () => {
   const ResetPassword = async () => {
     const api = process.env.NEXT_PUBLIC_API_URL;
     setIsLoading(1);
+    if (form.email == "") {
+      setIsLoading(2);
+      setMessage({ message: "Form is empty", severity: "error" });
+      setTimeout(() => {
+        setIsLoading(0);
+        setMessage({ message: "", severity: "" });
+      }, 3000);
+      return;
+    }
+
     try {
       // get user data
       // const user_data = await getUserByEmail(form.email);

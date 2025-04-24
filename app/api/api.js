@@ -115,22 +115,14 @@ const api = () => {
         console.error(e);
       }
     };
-    const getCompanyById = async (user_id) => {
-      const json_data = {
-        username: "rendi",
-        password: "rendi",
-        action: "select",
-        entity_id: 154,
-        select_fields: "2630",
-        filters: { id: user_id },
-      };
+    const getCompanyById = async (company_id) => {
       try {
-        const response = await fetch(base_url, {
+        const response = await fetch(`${api_url}/models/company/get_by_id`, {
           method: "POST",
-          body: JSON.stringify(json_data),
+          body: JSON.stringify({ company_id: company_id }),
         });
         const data = await response.json();
-        return data.data;
+        return data;
       } catch (e) {
         console.error(e);
       }
@@ -155,18 +147,11 @@ const api = () => {
       }
     };
 
-    const getAllaccountsEmail = async () => {
-      const json_data = {
-        username: "rendi",
-        password: "rendi",
-        action: "select",
-        entity_id: 154,
-        select_fields: "2616",
-      };
+    const getAllaccountsEmail = async (selected_email) => {
       try {
-        const response = await fetch(base_url, {
+        const response = await fetch(`${api_url}/views/signup`, {
           method: "POST",
-          body: JSON.stringify(json_data),
+          body: JSON.stringify({ email: selected_email }),
         });
         const data = await response.json();
         return data.data;
@@ -176,38 +161,29 @@ const api = () => {
     };
 
     const getAccountById = async (id) => {
-      const json_data = {
-        username: "rendi",
-        password: "rendi",
-        action: "select",
-        entity_id: 154,
-        filters: { id: id },
-      };
       try {
-        const response = await fetch(base_url, {
-          method: "POST",
-          body: JSON.stringify(json_data),
-        });
+        const response = await fetch(
+          `${api_url}/models/customer_accounts/get_by_id`,
+          {
+            method: "POST",
+            body: JSON.stringify({ id: id }),
+          }
+        );
         const data = await response.json();
-        return data.data;
+        return data;
       } catch (e) {
         console.error(e);
       }
     };
     const getProfilePictureById = async (id) => {
-      const json_data = {
-        username: "rendi",
-        password: "rendi",
-        action: "download_attachment",
-        entity_id: 154,
-        item_id: id,
-        field_id: 2637,
-      };
       try {
-        const response = await fetch(base_url, {
-          method: "POST",
-          body: JSON.stringify(json_data),
-        });
+        const response = await fetch(
+          `${api_url}/models/customer_accounts/get_profile_picture_by_id`,
+          {
+            method: "POST",
+            body: JSON.stringify({ id: id }),
+          }
+        );
         const data = await response.json();
         return data.data;
       } catch (e) {
@@ -270,26 +246,22 @@ const api = () => {
       company,
       role
     ) => {
-      const json_data = {
-        username: "rendi",
-        password: "rendi",
-        action: "insert",
-        entity_id: 154,
-        items: {
-          field_2614: username,
-          field_2615: password,
-          field_2616: email,
-          field_2630: company,
-          field_2628: role,
-        },
-      };
       try {
-        const response = await fetch(base_url, {
-          method: "POST",
-          body: JSON.stringify(json_data),
-        });
+        const response = await fetch(
+          `${api_url}/models/customer_accounts/insert`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              username: username,
+              password: password,
+              email: email,
+              company: company,
+              role: role,
+            }),
+          }
+        );
         const data = await response.json();
-        return data.data;
+        return data;
       } catch (e) {
         console.error(e);
       }
@@ -420,20 +392,16 @@ const api = () => {
 
   const CustomerAccountLastLoginDataApi = () => {
     const getLastLoginAllByParentId = async (parent_id) => {
-      const json_data = {
-        username: "rendi",
-        password: "rendi",
-        action: "select",
-        entity_id: 161,
-        filters: { parent_item_id: parent_id },
-      };
       try {
-        const response = await fetch(base_url, {
-          method: "POST",
-          body: JSON.stringify(json_data),
-        });
+        const response = await fetch(
+          `${api_url}/models/customer_accounts/last_login`,
+          {
+            method: "POST",
+            body: JSON.stringify({ id: parent_id }),
+          }
+        );
         const data = await response.json();
-        return data.data;
+        return data;
       } catch (e) {
         console.error(e);
       }
@@ -444,31 +412,28 @@ const api = () => {
   const WOApi = () => {
     const getWoByUserId = async (company_id) => {
       try {
-        const response = await fetch(`${api_url}/wo/company/${company_id}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await fetch(
+          `${api_url}/models/work_order/get_by_user`,
+          {
+            method: "POST",
+            body: JSON.stringify({ company_id: company_id }),
+          }
+        );
         const data = await response.json();
-        return data.data;
+        return data;
       } catch (e) {
         console.error(e);
       }
     };
-    const getWoAll = async (query = "") => {
+    const getWoAll = async (role, status) => {
       try {
-        const response = await fetch(
-          query ? `${api_url}/wo?q=${query}` : `${api_url}/wo`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await fetch(`${api_url}/models/work_order`, {
+          method: "POST",
+
+          body: JSON.stringify({ status: status, role: role }),
+        });
         const data = await response.json();
-        return data.data;
+        return data;
       } catch (e) {
         console.error(e);
       }
@@ -629,20 +594,14 @@ const api = () => {
 
   const CustomerDatabasApi = () => {
     const getCustomerDataById = async (id) => {
-      const json_data = {
-        username: "rendi",
-        password: "rendi",
-        action: "select",
-        entity_id: 25,
-        filters: { id: id },
-      };
       try {
-        const response = await fetch(base_url, {
+        const response = await fetch(`${api_url}/models/company/get_by_id`, {
           method: "POST",
-          body: JSON.stringify(json_data),
+          body: JSON.stringify({ id: id }),
         });
         const data = await response.json();
-        return data.data;
+
+        return data;
       } catch (e) {
         console.error(e);
       }
@@ -1215,20 +1174,13 @@ const api = () => {
 
   const InvoiceApi = () => {
     const getInvoiceByWo = async (wo) => {
-      const json_data = {
-        username: "rendi",
-        password: "rendi",
-        action: "select",
-        entity_id: 108,
-        filters: { 1916: wo },
-      };
       try {
-        const response = await fetch(base_url, {
+        const response = await fetch(`${api_url}/models/invoices/get_by_wo`, {
           method: "POST",
-          body: JSON.stringify(json_data),
+          body: JSON.stringify({ wo: wo }),
         });
         const data = await response.json();
-        return data.data;
+        return data;
       } catch (e) {
         console.error(e);
       }
@@ -1457,20 +1409,10 @@ const api = () => {
 
   const CompanyDatabaseApi = () => {
     const getAllCompany = async () => {
-      const json_data = {
-        username: "rendi",
-        password: "rendi",
-        action: "select",
-        entity_id: 25,
-        select_fields: "228",
-      };
       try {
-        const response = await fetch(base_url, {
-          method: "POST",
-          body: JSON.stringify(json_data),
-        });
+        const response = await fetch(`${api_url}/models/company`);
         const data = await response.json();
-        return data.data;
+        return data;
       } catch (e) {
         console.error(e);
       }

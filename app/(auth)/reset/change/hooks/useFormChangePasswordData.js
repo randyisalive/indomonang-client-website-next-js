@@ -27,7 +27,7 @@ const useFormChangePasswordData = () => {
         }/views/reset_password/validate_link?token=${token}&validation=${true}`
       );
       const data = await fetch_data.json();
-      console.log(data);
+
       if (!data.status) {
         setExpiredMsg(true);
         // window.location.href = "/reset";

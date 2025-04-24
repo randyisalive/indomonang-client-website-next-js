@@ -17,9 +17,8 @@ const useAccountSettingsData = () => {
     try {
       if (accounts.id) {
         const company_data = await getCustomerDataById(accounts.company_id);
-        setCustomer(company_data[0]);
+        setCustomer(company_data.data[0]);
         setIsLoading(1);
-      } else {
       }
     } catch (e) {
       console.error(e);

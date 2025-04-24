@@ -12,6 +12,9 @@ export async function POST(request) {
   const headers = new Headers();
 
   const json_data = {
+    key: process.env.API_KEY,
+    username: process.env.API_USERNAME,
+    password: process.env.API_PASSWORD,
     action: "update",
     entity_id: 154,
     data: {
@@ -27,6 +30,9 @@ export async function POST(request) {
     const data = await response.json();
     if (data) {
       const child_json_data = {
+        key: process.env.API_KEY,
+        username: process.env.API_USERNAME,
+        password: process.env.API_PASSWORD,
         action: "select",
         entity_id: 128,
         filters: { id: data.data[0]?.id },

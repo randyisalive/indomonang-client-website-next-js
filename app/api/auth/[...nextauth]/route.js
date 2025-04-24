@@ -2,6 +2,8 @@ import { checkPassword } from "@/app/function/decryptor";
 import { serialize } from "cookie";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcrypt";
+import { NextResponse } from "next/server";
 
 export const authOptions = {
   providers: [
@@ -15,6 +17,9 @@ export const authOptions = {
         const api = process.env.BASE_URL || null;
 
         const json_data = {
+          key: process.env.API_KEY,
+          username: process.env.API_USERNAME,
+          password: process.env.API_PASSWORD,
           action: "select",
           entity_id: 154,
           filters: { 2616: credentials.email },
@@ -45,12 +50,15 @@ export const authOptions = {
               password_form,
               password
             );
+
             if (booleanPassword) {
+              const role = data.data[0][2628];
               const user_data = {
                 id: data.data[0].id,
                 email: data.data[0][2616],
                 username: data.data[0][2614],
-                role: data.data[0][2628],
+                role: role,
+                admin_token: role === "Admin" && process.env.ADMIN_TOKEN,
               };
               return user_data; // Successful login returns the user object
             } else {

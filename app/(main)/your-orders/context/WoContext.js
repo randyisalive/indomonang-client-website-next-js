@@ -7,7 +7,8 @@ const WoContext = createContext();
 
 // Define a provider component
 export const WoProvider = ({ children }) => {
-  const { wo, isLoading, handleWODialog, handleRating } = useWOData();
+  const { wo, isLoading, handleWODialog, handleRating, accounts } = useWOData();
+  console.log(wo, accounts);
 
   return (
     <WoContext.Provider value={{ wo, isLoading, handleWODialog, handleRating }}>

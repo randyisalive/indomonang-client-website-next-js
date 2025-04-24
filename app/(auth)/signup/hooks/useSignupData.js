@@ -19,8 +19,9 @@ const useSignupData = () => {
     password: "",
     email: "",
     company: "",
-    role: "",
-    company_name: "",
+    role: "619",
+    code: "",
+    submit_code: "",
   });
   const [signupLoading, setSignupLoading] = useState(0);
   const [message, setMessage] = useState("");
@@ -47,31 +48,33 @@ const useSignupData = () => {
       return;
     }
     try {
-      const emails = await getAllaccountsEmail();
-      for (const item of emails) {
-        if (item[2616] === form.email) {
-          setSignupLoading(2); // email same
-          setMessage("Email already used!");
-          setTimeout(() => {
-            setSignupLoading(0);
-          }, 3000);
-          return;
-        }
+      const emails = await getAllaccountsEmail(form.email); // get selected email
+
+      if (emails.length != 0) {
+        setSignupLoading(2); // email same
+        setMessage("Email already used!");
+        setTimeout(() => {
+          setSignupLoading(0);
+        }, 3000);
+        return;
       }
-      const hashed_password = handleHashPassword(form.password);
+
       const insert_account = await insertCustomerAccount(
         form.username,
-        hashed_password,
+        form.password,
         form.email,
         form.company,
-        619
+        form.role
       );
-      if (insert_account) {
+      console.log(insert_account);
+      if (insert_account.status === "success") {
+        setForm((prev) => ({
+          ...prev,
+          code: insert_account.code_verification,
+        }));
+        const code_ver = insert_account.code_verification;
         handleVisible(true);
-        const code_ver = await getCodeVerification();
-        if (code_ver) {
-          setDialogForm((prev) => ({ ...prev, code: code_ver[0][2619] }));
-        }
+        setDialogForm((prev) => ({ ...prev, code: code_ver }));
       }
     } catch (e) {
       console.error(e);
@@ -84,11 +87,7 @@ const useSignupData = () => {
     const getData = async () => {
       try {
         const company_data = await getAllCompany();
-        const sorted = company_data.sort((a, b) =>
-          a[228].localeCompare(b[228])
-        );
-
-        setCompany(sorted);
+        setCompany(company_data.data);
       } catch (e) {
         console.error(e);
       }
@@ -134,34 +133,24 @@ const useSignupData = () => {
     }
   }, [dialogForm]);
 
-  const getCodeVerification = async () => {
-    const email_verification = await getVerificationByEmail(form.email);
-    if (email_verification) {
-      setDialogForm((prev) => ({
-        ...prev,
-        user_id: email_verification[0]["id"],
-        code: email_verification[0][2619],
-      }));
-    }
-  };
-
   const submitVerification = async () => {
     if (dialogForm.code === dialogForm.code_submit) {
-      const update_status = await updateAccountStatus(dialogForm.user_id, 1);
-      if (update_status) {
+      const update_status = await fetch(`/api/views/signup/submit_code`, {
+        method: "POST",
+        body: JSON.stringify({
+          display_code: form.code,
+          code: dialogForm.code_submit,
+          email: form.email,
+        }),
+      });
+      const data = await update_status.json();
+
+      if (data.status === "success") {
         handleVisible(false);
         window.location.href = "/login";
       }
     }
   };
-
-  // debug
-  useEffect(() => {
-    if (getLocalStorage("app-debug") === "true") {
-      const data = { form: form, company: company, dialogForm: dialogForm };
-      console.log(data);
-    }
-  }, [company, form, dialogForm]);
 
   return {
     form,

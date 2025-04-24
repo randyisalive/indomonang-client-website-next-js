@@ -1,15 +1,13 @@
 "use client";
 import Form from "@/app/components/ui/form/Form";
 import React from "react";
-import SelectForm from "@/app/components/ui/form/SelectForm";
 import WebButton from "@/app/components/ui/WebButton";
-import Link from "next/link";
 import SignupDialog from "./SignupDialog";
 import { Message } from "primereact/message";
 import { AnimatePresence, motion } from "framer-motion";
 import useSignupData from "../hooks/useSignupData";
-
-import { Dropdown } from "primereact/dropdown";
+import exclamation from "../../../../public/icon-exclamation.png";
+import Image from "next/image";
 
 const FormSignup = () => {
   const {
@@ -27,21 +25,48 @@ const FormSignup = () => {
   } = useSignupData();
   return (
     <>
-      <div className="flex mt-5 flex-col gap-3">
-        <h3 className=" text-xl">Personal Information</h3>
-        <div className="block lg:flex gap-3">
+      <div className="flex  flex-col gap-[16px]">
+        <div className="block lg:flex gap-[16px] ">
           <Form
-            className={`w-full lg:w-1/2`}
+            className={`w-full `}
             type="text"
             name="username"
             title="Username *"
-            placeholder=""
+            placeholder="Input your email here"
             value={form.username}
             onChange={(e) => handleForm(e)}
           />
           <Form
-            className={`w-full lg:w-1/2`}
-            placeholder=""
+            type="email"
+            name="email"
+            className={`w-full `}
+            title="Email Address*"
+            value={form.email}
+            placeholder="Input your email here"
+            onChange={(e) => handleForm(e)}
+          />
+        </div>
+        <div className="lg:w-1/2 flex flex-col gap-2 w-full">
+          <span className="text-[14px] font-medium text-[#919CA7]">
+            Company Name*
+          </span>
+          <select
+            name="company"
+            onChange={(e) => handleForm(e)}
+            className="border w-full p-[14px] rounded-[8px] shadow text-black text-sm"
+          >
+            <option value=""></option>
+            {company.map((i) => {
+              return (
+                <option key={i.id} value={i.id}>
+                  {i["228"]}
+                </option>
+              );
+            })}
+          </select>
+          <Form
+            className={`w-full `}
+            placeholder="Input your password here"
             type="password"
             title="Password *"
             name="password"
@@ -49,48 +74,28 @@ const FormSignup = () => {
             value={form.password}
           />
         </div>
-        <div className="block lg:flex gap-3 items-center">
-          <Form
-            type="email"
-            name="email"
-            className={`w-full lg:w-1/2`}
-            title="Email *"
-            value={form.email}
-            placeholder="newmail@email.com"
-            onChange={(e) => handleForm(e)}
-          />
-          <div className="lg:w-1/2 flex flex-col gap-2 w-full">
-            <span className="text-sm text-gray-600">Company</span>
-            <select
-              name="company"
-              id=""
-              onChange={(e) => handleForm(e)}
-              className="border w-full p-3"
+        <AnimatePresence>
+          {signupLoading === 2 && message && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="w-fit gap-[6px] flex font-[500] text-[12px]"
             >
-              {company.map((i) => {
-                return <option>{i["228"]}</option>;
-              })}
-            </select>
-          </div>
-        </div>
+              <Image
+                src={exclamation}
+                width={18}
+                height={20}
+                alt="exclamation"
+              />
+              <span className="text-[#9B1D24] text-[12px]">{message}</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
-      <div className="flex mt-5 flex-col gap-3">
-        <div className="w-full text-center flex-col flex gap-3">
-          <AnimatePresence>
-            {signupLoading === 2 && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                whileTap={{ scale: 0.889 }}
-                className="w-full select-none"
-              >
-                <Message className="w-full" severity="error" text={message} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-
+      <div className="flex flex-col">
+        <div className="w-full text-center flex-col flex ">
           <WebButton
             title={
               signupLoading === 1 ? (
@@ -99,25 +104,11 @@ const FormSignup = () => {
                 "Create Account"
               )
             }
+            bg_color="#9B1D24"
             onClickFunction={() => SignupButton()}
           />
         </div>
-        <footer className="mt-3 border-t text-center text-sm text-gray-700 p-3">
-          Already registered with us?
-          <Link
-            className=" text-tertiaryBlue hover:underline cursor-pointer mx-1"
-            href={`/login`}
-          >
-            Sign In
-          </Link>
-          Or
-          <Link
-            href={`/reset`}
-            className=" text-tertiaryBlue hover:underline mx-1"
-          >
-            Reset Password
-          </Link>
-        </footer>
+
         <SignupDialog
           visible={visible}
           handleVisible={handleVisible}

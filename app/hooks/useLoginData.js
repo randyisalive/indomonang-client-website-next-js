@@ -9,8 +9,6 @@ import { signIn, signOut, useSession } from "next-auth/react";
 const useLoginData = () => {
   // session data
 
-  const { DecryptionKeyApi } = api();
-
   const nav = useRouter();
   useEffect(() => {
     const authToken = getLocalStorage("authToken");
@@ -51,6 +49,15 @@ const useLoginData = () => {
 
   const handleSubmit = async (e) => {
     setIsLoading(1);
+    if (!form.email || !form.password) {
+      console.log("Form Empty!");
+      setTimeout(() => {
+        setIsLoading(0);
+      }, 3000);
+      setMessage("Form must be filled!");
+
+      return;
+    }
 
     const result = await signIn("credentials", {
       redirect: false,
@@ -58,11 +65,10 @@ const useLoginData = () => {
       password: form.password,
     });
     if (result.status === 401) {
-      setIsLoading(2);
-      setMessage("Login Failed!");
+      setMessage("You’ve entered wrong password or email for this account");
       setTimeout(() => {
         setIsLoading(0);
-      }, 5000);
+      }, 3000);
     } else {
       window.location.href = "/"; // Redirect after successful login
     }

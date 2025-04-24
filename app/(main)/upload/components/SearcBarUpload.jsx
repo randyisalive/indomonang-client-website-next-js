@@ -6,7 +6,7 @@ const SearchBarUpload = ({ ref = "", handleRef = () => {} }) => {
   return (
     <>
       <div className="relative  flex items-center">
-        <Tooltip target=".custom-target-icon" />
+        <Tooltip target=".custom-target-icon" className="" />
 
         <div className="flex left-0 absolute ms-3">
           <i className="pi pi-search text-[#919CA7]"></i>
