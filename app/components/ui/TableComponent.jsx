@@ -94,7 +94,7 @@ const TableComponent = ({
         currentRows={currentRows}
       />
       <div className="min-h-[500px] ">
-        {isLoading === false ? (
+        {isLoading === false || isLoading === 1 ? (
           <div className="overflow-x-auto     mx-5 lg:mx-0">
             {currentRows && (
               <>

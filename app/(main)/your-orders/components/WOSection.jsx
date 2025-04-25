@@ -2,6 +2,8 @@
 import React from "react";
 import { useWoContext } from "../context/WoContext";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import star from "../../../../public/solar_star-bold-duotone.png";
 
 const WOSection = () => {
   const { wo, isLoading, handleWODialog, handleRating } = useWoContext();
@@ -52,25 +54,15 @@ const WOSection = () => {
                 className="flex bg-white z-10 flex-col relative "
                 style={{ gap: "12px", width: "166.86px" }}
               >
-                <div
-                  className=" absolute   left-1/3 flex justify-center items-center rounded-full"
-                  style={{
-                    width: "128px",
-                    height: "128px",
-                    backgroundColor: "#FFF8F8",
-                  }}
-                >
-                  <i
-                    className="pi pi-star-fill"
-                    style={{ fontSize: "128px", color: "#FFDCDE" }}
-                  ></i>
-                </div>
                 <span className=" font-bold z-20" style={{ color: "#919CA7" }}>
                   {i.title}
                 </span>
-                <span className=" font-bold" style={{ fontSize: "28px" }}>
+                <span className=" font-bold z-20" style={{ fontSize: "28px" }}>
                   {i.num}
                 </span>
+                <div className=" absolute right-0 flex justify-center items-center">
+                  <Image src={star} width={128} height={128} />
+                </div>
               </div>
             </motion.div>
           );

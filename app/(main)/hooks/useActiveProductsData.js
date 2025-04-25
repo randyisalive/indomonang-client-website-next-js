@@ -28,7 +28,6 @@ const useActiveProductsData = () => {
 
   useEffect(() => {
     getData();
-    console.log(accounts);
   }, [accounts, role, wo]);
 
   return { activeProduct, isLoading, role };

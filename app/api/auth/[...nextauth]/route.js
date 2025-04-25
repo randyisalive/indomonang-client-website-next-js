@@ -85,7 +85,7 @@ export const authOptions = {
         // Save token in a cookie
         const serializedCookie = serialize("session-token", token.user.id, {
           httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
+          secure: process.env.NODE_ENV === "local",
           sameSite: "strict",
           path: "/",
           maxAge: 30 * 24 * 60 * 60, // 30 days

@@ -6,7 +6,7 @@ import useLoginData from "@/app/hooks/useLoginData";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import jadicrm from "../../../../public/jadicrm2.png";
+import jadicrm from "../../../../public/jadicrm_icon.png";
 import exclamation from "../../../../public/icon-exclamation.png";
 
 const FormControl = ({ children, title = "", className = {}, logo = "" }) => {

@@ -21,7 +21,7 @@ const WOTable = () => {
 
     "Status",
 
-    "Rate Order",
+    /*   "Rate Order", */
   ].filter(Boolean);
 
   const [searchText, setSearchText] = useState(["", "", ""]);

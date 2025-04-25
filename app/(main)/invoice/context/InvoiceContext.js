@@ -7,10 +7,12 @@ const InvoiceContext = createContext();
 
 // Define a provider component
 export const InvoiceProvider = ({ children }) => {
-  const { invoice, handleDownloadInvoice } = useInvoiceData();
+  const { invoice, handleDownloadInvoice, isLoadingInvoice } = useInvoiceData();
 
   return (
-    <InvoiceContext.Provider value={{ invoice, handleDownloadInvoice }}>
+    <InvoiceContext.Provider
+      value={{ invoice, handleDownloadInvoice, isLoadingInvoice }}
+    >
       {children}
     </InvoiceContext.Provider>
   );

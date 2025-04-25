@@ -9,24 +9,28 @@ const useInvoiceData = () => {
   const { getWoByUserId, getWoAll } = WOApi();
   const { getInvoiceByWo, DownloadInvoices } = InvoiceApi();
   // dec_key
-  const { accounts, role } = useAccountDataContext();
+  const { accounts } = useAccountDataContext();
 
   // data
   const [invoice, setInvoice] = useState([]);
+  const [isLoadingInvoice, seIsLoadingInvoice] = useState(0); // 0 = loading, 1 = done
+
   const getData = async () => {
+    seIsLoadingInvoice(0);
     try {
-      if (accounts.id) {
-        const company_id = accounts.company_id;
+      if (accounts?.data?.id) {
+        const role = accounts?.data?.role;
+        const company_id = accounts?.data?.company_id;
         if (role === "Admin") {
           const wo_data = await getWoAll();
 
           let wo_array = [];
-          for (const i of wo_data) {
+          for (const i of wo_data?.data) {
             wo_array.push(i["id"]);
           }
           if (wo_array.length > 0) {
             const invoice_data = await getInvoiceByWo(wo_array.join(", "));
-            const array_data = invoice_data.map((item) => {
+            const array_data = invoice_data?.data.map((item) => {
               return {
                 id: item.id,
                 main_ids: item[1907], // for filter
@@ -34,14 +38,16 @@ const useInvoiceData = () => {
                 status: item[1905],
                 due_date: item[1914],
                 payment_terms: item[1913],
-                amount: item[2051],
+                amount: item[3368],
                 transactions: item[2838],
                 payment_dates: item[2837],
                 wo_ids: item[1916],
                 wo_ids_val: item["1916_db_value"],
               };
             });
-            setInvoice(array_data);
+
+            setInvoice({ data: array_data, status: invoice_data.status });
+            seIsLoadingInvoice(1);
           }
         } else {
           if (company_id) {
@@ -53,7 +59,9 @@ const useInvoiceData = () => {
             }
             if (wo_array.length > 0) {
               const invoice_data = await getInvoiceByWo(wo_array.join(", "));
-              const array_data = invoice_data.map((item) => {
+              console.log("WO DATA INVOICE HOOK: ", invoice_data);
+
+              const array_data = invoice_data?.data.map((item) => {
                 return {
                   id: item.id,
                   main_ids: item[1907], // for filter
@@ -81,7 +89,7 @@ const useInvoiceData = () => {
                 data: filtered_invoice,
                 status: invoice_data.status,
               });
-              console.log(invoice);
+              seIsLoadingInvoice(1);
             }
           }
         }
@@ -111,8 +119,8 @@ const useInvoiceData = () => {
   };
   useEffect(() => {
     getData();
-  }, [accounts.id]);
-  return { invoice, handleDownloadInvoice };
+  }, [accounts]);
+  return { invoice, handleDownloadInvoice, isLoadingInvoice };
 };
 
 export default useInvoiceData;

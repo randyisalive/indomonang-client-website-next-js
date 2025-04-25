@@ -427,13 +427,18 @@ const api = () => {
     };
     const getWoAll = async (role, status) => {
       try {
-        const response = await fetch(`${api_url}/models/work_order`, {
-          method: "POST",
-
-          body: JSON.stringify({ status: status, role: role }),
-        });
-        const data = await response.json();
-        return data;
+        if (status) {
+          const response = await fetch(`${api_url}/models/work_order`, {
+            method: "POST",
+            body: JSON.stringify({ status: status }),
+          });
+          const data = await response.json();
+          return data;
+        } else {
+          const response = await fetch(`${api_url}/models/work_order`);
+          const data = await response.json();
+          return data;
+        }
       } catch (e) {
         console.error(e);
       }
@@ -1132,19 +1137,10 @@ const api = () => {
       }
     };
     const getPaymentAll = async (invoice) => {
-      const json_data = {
-        username: "rendi",
-        password: "rendi",
-        action: "select",
-        entity_id: 110,
-      };
       try {
-        const response = await fetch(base_url, {
-          method: "POST",
-          body: JSON.stringify(json_data),
-        });
+        const response = await fetch(`${api_url}/models/payment`);
         const data = await response.json();
-        return data.data;
+        return data;
       } catch (e) {
         console.error(e);
       }
@@ -1206,21 +1202,13 @@ const api = () => {
       }
     };
     const DownloadInvoices = async (id) => {
-      const json_data = {
-        username: "rendi",
-        password: "rendi",
-        action: "download_attachment",
-        entity_id: 108,
-        item_id: id,
-        field_id: "1968",
-      };
       try {
-        const response = await fetch(base_url, {
+        const response = await fetch(`${api_url}/models/invoices/download`, {
           method: "POST",
-          body: JSON.stringify(json_data),
+          body: JSON.stringify({ id: id }),
         });
         const data = await response.json();
-        return data.data;
+        return data;
       } catch (e) {
         console.error(e);
       }

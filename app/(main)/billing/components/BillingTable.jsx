@@ -7,28 +7,31 @@ import { useBillingContext } from "../context/BillingContext";
 import { useInvoiceContext } from "../../invoice/context/InvoiceContext";
 
 const BillingTable = () => {
-  const { bills, isLoading } = useBillingContext();
-  const { invoice } = useInvoiceContext();
+  const { invoice, isLoadingInvoice } = useInvoiceContext();
   const th_array = [
     "No",
     "No. Invoice",
-    "Status",
     "Due Date",
     "Payment Terms",
     "Amount",
+    "Status",
   ];
-  const unpaid_invoice = invoice.filter((item) =>
+  const unpaid_invoice = invoice.data?.filter((item) =>
     ["Delivered", "Arrived to Client"].includes(item.status)
   );
 
   return (
     <div>
-      {isLoading === 0 ? (
-        <TableComponent
-          th_array={th_array}
-          datas={unpaid_invoice}
-          TableType="invoice_bills"
-        />
+      {JSON.stringify(invoice)}
+      {isLoadingInvoice === 1 ? (
+        <div className="flex flex-col px-[64px]">
+          <TableComponent
+            th_array={th_array}
+            datas={unpaid_invoice}
+            TableType="invoice_bills"
+            isLoading={isLoadingInvoice}
+          />
+        </div>
       ) : (
         <motion.div
           initial={{ opacity: 0 }}

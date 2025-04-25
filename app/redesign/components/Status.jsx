@@ -1,6 +1,11 @@
 import React from "react";
 
-const Status = ({ title = "", bg_color = "", fit_content = false }) => {
+const Status = ({
+  title = "",
+  bg_color = "",
+  fit_content = false,
+  className = "",
+}) => {
   return (
     <div
       style={
@@ -18,7 +23,7 @@ const Status = ({ title = "", bg_color = "", fit_content = false }) => {
               backgroundColor: bg_color,
             }
       }
-      className={`flex font-sans items-center justify-center  text-sm text-white`}
+      className={`flex font-sans items-center justify-center  text-sm text-white ${className}`}
     >
       {title}
     </div>

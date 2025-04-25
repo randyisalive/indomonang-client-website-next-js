@@ -94,7 +94,7 @@ const WORows = ({
             font_color={item.status?.font_color}
           />
         </td>
-        <td className="  text-center pr-[12px] pl-[12px]">
+        {/*  <td className="  text-center pr-[12px] pl-[12px]">
           {rating != 0 ? (
             <Rating
               className=" flex justify-center items-center"
@@ -136,7 +136,7 @@ const WORows = ({
             id={searchParams.get("id")}
             handleRating={handleRating}
           />
-        </td>
+        </td> */}
       </tr>
       {id === item.id && (
         <WORowsDialog

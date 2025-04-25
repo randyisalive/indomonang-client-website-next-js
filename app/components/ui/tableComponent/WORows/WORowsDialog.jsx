@@ -93,14 +93,14 @@ const WORowsDialog = ({ visible = false, onHide = () => {} }) => {
           title: "Priority",
           content: wo_filtered[0]?.priority.text,
         },
-        {
+        /*  {
           title: "Ratings",
           content: (
             <>
               <Rating disabled cancel={false} value={wo_filtered[0]?.rating} />
             </>
           ),
-        },
+        }, */
       ],
     },
   ];
@@ -212,12 +212,13 @@ const WORowsDialog = ({ visible = false, onHide = () => {} }) => {
       <div className="flex flex-col gap-[24px]">
         <OrderDetailsCard title="Order Details" data={order_details} />
         <OrderDetailsCard title="Applicant Info" data={applicant_info} />
-        <OrderDetailsCard title="Delivery Info" data={delivery_info} />
-        <OrderDetailsCard title="Processed Documents" />
-        <OrderDetailsCard title="Courier" />
+        {/*         <OrderDetailsCard title="Delivery Info" data={delivery_info} />
+         */}{" "}
+        {/* <OrderDetailsCard title="Processed Documents" />
+        <OrderDetailsCard title="Courier" /> */}
       </div>
 
-      {processedData?.parent?.length > 0 && wo_filtered[0]?.rating != 0 && (
+      {/*  {processedData?.parent?.length > 0 && wo_filtered[0]?.rating != 0 && (
         <>
           {processedData.parent && (
             <div className="flex flex-col gap-1 mt-3 ">
@@ -269,7 +270,7 @@ const WORowsDialog = ({ visible = false, onHide = () => {} }) => {
         <div className="mt-10 mb-10">
           <Message text="Rate order first" severity="info" />
         </div>
-      )}
+      )} */}
 
       {/*      <div className="flex flex-col gap-1 mt-3 ">
         <span className=" text-base font-bold">Payment Details</span>

@@ -4,7 +4,7 @@ import WebButton from "../WebButton";
 import { motion, AnimatePresence, color } from "framer-motion";
 import { enquiry_data } from "@/app/function/static_data";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import Link from "next/link";
+
 import SearchInput from "../form/SearchInput";
 import { useWoContext } from "@/app/(main)/your-orders/context/WoContext";
 
@@ -91,7 +91,12 @@ const TableFiltersComponent = ({
       )}
       {TableType === "wo" && (
         <div className="w-full  flex ">
-          Showing {currentRows.length} from {wo.length} data
+          Showing {currentRows.length} from {wo.data?.length} data
+        </div>
+      )}
+      {TableType === "invoice_bills" && (
+        <div className="w-full  flex ">
+          Showing {currentRows.length} from {wo.data?.length} data
         </div>
       )}
 
