@@ -2,7 +2,7 @@
 import React from "react";
 import FormSignup from "./components/FormSignup";
 import Image from "next/image";
-import jadicrm2 from "../../../public/jadicrm2.png";
+import jadicrm2 from "../../../public/icon_jadicrm.png";
 
 const SignupPage = () => {
   return (

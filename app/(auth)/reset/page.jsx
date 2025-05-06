@@ -3,7 +3,7 @@ import React, { Suspense } from "react";
 import FormReset from "./components/FormReset";
 import Link from "next/link";
 import Image from "next/image";
-import jadicrm2 from "../../../public/jadicrm2.png";
+import jadicrm2 from "../../../public/icon_jadicrm.png";
 import LoadingScreen from "@/app/components/ui/LoadingScreen";
 
 const ResetPasswordPage = () => {

@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import FormChangePassword from "./components/FormChangePassword";
 import Image from "next/image";
-import jadicrm2 from "../../../../public/jadicrm2.png";
+import jadicrm2 from "../../../../public/icon_jadicrm.png";
 import LoadingScreen from "@/app/components/ui/LoadingScreen";
 
 const ResetChildPage = () => {
