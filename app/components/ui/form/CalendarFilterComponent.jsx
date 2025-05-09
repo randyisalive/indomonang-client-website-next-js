@@ -1,3 +1,4 @@
+" use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Calendar } from "primereact/calendar";
 import React, { useEffect, useState } from "react";

@@ -1,7 +1,8 @@
 import HeaderComponent from "@/app/components/ui/HeaderComponent";
-import React from "react";
+import React, { Suspense } from "react";
 import UploadTableComponent from "./UploadTableComponent";
 import { UploadDocumentProvider } from "./context/UploadDocumentContext";
+import LoadingScreen from "@/app/components/ui/LoadingScreen";
 
 const UploadPage = () => {
   return (

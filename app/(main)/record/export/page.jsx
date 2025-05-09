@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import DependentExport from "./components/DependentExport";
 import ExpatriatesExport from "./components/ExpatriatesExport";
 import VisitorExport from "./components/VisitorExport";
@@ -7,6 +7,7 @@ import { docuemnts_data } from "@/app/function/static_data";
 import { motion } from "framer-motion";
 import WebButton from "@/app/components/ui/WebButton";
 import { useAccountSettingContext } from "@/app/admin/context/AccountSettingContext";
+import LoadingScreen from "@/app/components/ui/LoadingScreen";
 
 const ExportPage = () => {
   const { customer } = useAccountSettingContext();
